@@ -7,17 +7,19 @@ import java.util.Date;
  */
 interface Stock {
 
+  float getCostPrice();
+
   /**
    * This method gets the value of the stock at a given date.
    * @param date
    * @return
    */
-  float getValue(Date date);
+  float getValue(String date);
 
   /**
-   * This method gets the cost of this stock.
-   * @return
+   * This method gets the date of purchase of this stock.
+   * @return date as a String
    */
-  float getCostPrice();
+  String getDate();
 
 }
