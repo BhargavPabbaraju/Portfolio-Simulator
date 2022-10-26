@@ -12,7 +12,7 @@ interface Portfolio {
    * @throws IllegalArgumentException if the stock symbol is invalid or if numberOfShares
    *                                  is invalid.
    */
-  void addStock(String symbol, float numberOfShares) throws IllegalArgumentException;
+  void createStock(String symbol, float numberOfShares) throws IllegalArgumentException;
 
   /**
    * This method gives the total Value of this portfolio on a given date.

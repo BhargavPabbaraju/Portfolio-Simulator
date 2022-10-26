@@ -7,8 +7,6 @@ import java.util.Date;
  */
 interface Stock {
 
-  float getCostPrice();
-
   /**
    * This method gets the value of the stock at a given date.
    * @param date

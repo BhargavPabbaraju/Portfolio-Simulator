@@ -25,14 +25,14 @@ class PortfolioImpl implements Portfolio {
   }
 
   @Override
-  public void addStock(String symbol, float numberOfShares) throws IllegalArgumentException {
+  public void createStock(String symbol, float numberOfShares) throws IllegalArgumentException {
     Stock stock = new StockImpl(symbol,numberOfShares);
-    float price = stock.getCostPrice();
+    //float price = stock.getCostPrice();
+    float price = 100.0F;
     if(user.getBalance() >= price){
       user.deductFromBalance(price);
       stockList.put(symbol,stock);
     }
-
   }
 
   @Override

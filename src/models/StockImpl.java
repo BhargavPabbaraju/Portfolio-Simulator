@@ -10,8 +10,7 @@ class StockImpl implements Stock {
   final String symbol;
 
   final ApiCall api = new ApiCallImpl();
-
-  final float costPrice; // Price of Single share
+  // Price of Single share
 
   /**
    * @param symbol         The symbol represents the company.
@@ -23,25 +22,19 @@ class StockImpl implements Stock {
     this.symbol = symbol;
     this.numberOfShares = numberOfShares;
     this.date = "2022-10-25";
-    this.costPrice=100.0F;
   }
 
-  StockImpl(String symbol, float numberOfShares, String date, float costPrice) throws IllegalArgumentException {
+  StockImpl(String symbol, float numberOfShares, String date) throws IllegalArgumentException {
     //Throw Exception if symbol is invalid
     this.symbol = symbol;
     this.numberOfShares = numberOfShares;
     this.date = date;
-    this.costPrice = 100.00F;
   }
 
   public String getDate() {
     return this.date;
   }
 
-  @Override
-  public float getCostPrice() {
-    return this.costPrice;
-  }
   @Override
   public float getValue(String date) {
     return this.numberOfShares * getValueOfSingleShare(date);

@@ -75,7 +75,7 @@ public class UserImpl implements User {
     if(numberOfShares<0){
       throw new IllegalArgumentException("Number of Shares cannot be negative");
     }
-    this.activePortfolio.addStock(symbol,numberOfShares);
+    this.activePortfolio.createStock(symbol,numberOfShares);
   }
 
   @Override
