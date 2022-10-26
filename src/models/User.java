@@ -1,7 +1,7 @@
 package models;
 
-/**This interface represents a user.
- *
+/**
+ * This interface represents a user.
  */
 public interface User {
 
@@ -14,5 +14,7 @@ public interface User {
   void deductFromBalance(float amount);
 
   void addToBalance(float amount);
+
+  public void addStockToPortfolio(String symbol, float numberOfShares);
 
 }
