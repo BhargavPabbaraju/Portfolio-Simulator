@@ -1,0 +1,32 @@
+{
+  "name": "goog",
+  "balance": 5,
+  "portfolios": [
+    {
+      "name": "college",
+      "stocks": [
+        {
+          "symbol": "GOOG",
+          "shares": 200
+        },
+        {
+          "symbol": "BSE",
+          "shares": 50
+        }
+      ]
+    },
+    {
+      "name": "retir",
+      "stocks": [
+        {
+          "symbol": "TSLA",
+          "shares": 20
+        },
+        {
+          "symbol": "APP",
+          "shares": 10
+        }
+      ]
+    }
+  ]
+}
