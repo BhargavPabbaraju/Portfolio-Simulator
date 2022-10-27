@@ -1,6 +1,8 @@
 package models;
 
+import java.io.IOException;
 import java.time.LocalDate;
+import java.util.HashMap;
 
 /**
  * This interface represents a user.
@@ -17,8 +19,14 @@ public interface User {
 
   void addToBalance(float amount);
 
-  public void addStockToPortfolio(String symbol, float numberOfShares);
+  void addStockToPortfolio(String symbol, float numberOfShares);
 
-  public void addStockToPortfolio(String symbol, float numberOfShares, LocalDate date);
+  void addStockToPortfolio(String symbol, float numberOfShares, LocalDate date);
+
+  void save() throws IOException;
+
+  String getName();
+
+  HashMap<String,Portfolio> getPortfolios();
 
 }

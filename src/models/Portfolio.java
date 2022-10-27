@@ -1,6 +1,7 @@
 package models;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 
 
 /**
@@ -42,4 +43,5 @@ interface Portfolio {
   void addStock(String symbol, float numberOfShares, LocalDate dateBought);
 
 
+  HashMap<String, Stock> getStocks();
 }

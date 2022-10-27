@@ -19,10 +19,13 @@ public class UserImplTest {
     //UserImpl user1 =  new UserImpl("goog");
     User user = Loader.loadFile("goog");
 
+    user.createPortfolio("other2");
+    user.addStockToPortfolio("IBM",10);
     System.out.println(user);
+    user.save();
 
-    System.out.println(user.loadPortfolio("college"));
-    System.out.println(user.getBalance());
+
+
 
   }
 }

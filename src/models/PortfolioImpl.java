@@ -30,10 +30,10 @@ class PortfolioImpl implements Portfolio {
     Stock stock = new StockImpl(symbol,numberOfShares);
     //float price = stock.getCostPrice();
     float price = 100.0F;
-    if(user.getBalance() >= price){
-      user.deductFromBalance(price);
+//    if(user.getBalance() >= price){
+//      user.deductFromBalance(price);
       stockList.put(symbol,stock);
-    }
+    //}
   }
 
   @Override
@@ -61,6 +61,11 @@ class PortfolioImpl implements Portfolio {
   public void addStock(String symbol, float numberOfShares, LocalDate dateBought) {
     Stock stock = new StockImpl(symbol,numberOfShares,dateBought);
     stockList.put(symbol,stock);
+  }
+
+  @Override
+  public HashMap<String, Stock> getStocks() {
+    return stockList;
   }
 
   @Override

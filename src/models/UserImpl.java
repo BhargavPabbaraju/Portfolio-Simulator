@@ -96,6 +96,22 @@ public class UserImpl implements User {
   }
 
   @Override
+  public void save() throws IOException {
+    Loader.save(this);
+  }
+
+  @Override
+  public String getName() {
+    return this.userName;
+  }
+
+  @Override
+  public HashMap<String, Portfolio> getPortfolios() {
+    return this.portfolioList;
+  }
+
+
+  @Override
   public void createPortfolio(String portfolioName) throws IllegalArgumentException {
     if (portfolioList.containsKey(portfolioName)) {
       throw new IllegalArgumentException("Portfolio already exists");

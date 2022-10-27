@@ -40,6 +40,11 @@ class StockImpl implements Stock {
   }
 
   @Override
+  public float getShares() {
+    return this.numberOfShares;
+  }
+
+  @Override
   public float getValue(String date) {
     return this.numberOfShares * getValueOfSingleShare(date);
   }

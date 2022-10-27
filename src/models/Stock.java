@@ -22,4 +22,5 @@ interface Stock {
    */
   LocalDate getDate();
 
+  float getShares();
 }

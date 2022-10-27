@@ -1,1 +1,32 @@
-{"name":"user1","balance":10000,"portfolios":[{"name":"retirement","stocks":[{"symbol":"IBM","shares":20},{"symbol":"BSE","shares":10}]},{"name":"college","stocks":[{"symbol":"TSLA","shares":20},{"symbol":"AAPL","shares":10}]}]}
+{
+  "name": "user1",
+  "balance": 10000,
+  "portfolios": [
+    {
+      "name": "retirement",
+      "stocks": [
+        {
+          "symbol": "IBM",
+          "shares": 20
+        },
+        {
+          "symbol": "BSE",
+          "shares": 10
+        }
+      ]
+    },
+    {
+      "name": "college",
+      "stocks": [
+        {
+          "symbol": "TSLA",
+          "shares": 20
+        },
+        {
+          "symbol": "AAPL",
+          "shares": 10
+        }
+      ]
+    }
+  ]
+}
