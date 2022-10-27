@@ -1,10 +1,15 @@
 package models;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.HashMap;
+
+import models.jsonparser.JsonObject;
+import models.jsonparser.JsonParser;
 
 /**
  * This class represents a single user.
@@ -13,7 +18,7 @@ public class UserImpl implements User {
   final String userName;
   float balance;
 
-  final static float DEFAULTBALANCE = 10000.00F;
+  final static float DEFAULTBALANCE = 0F;
 
   Portfolio activePortfolio;
 
@@ -31,8 +36,11 @@ public class UserImpl implements User {
     if (!userNameExits(userName)) {
       throw new IllegalArgumentException("User doesn't exists");
     }
+
+
     this.userName = userName;
     balance = DEFAULTBALANCE;
+    this.portfolioList = new HashMap<>();
 
   }
 
@@ -56,6 +64,7 @@ public class UserImpl implements User {
     createFile(userName);
     this.userName = userName;
     this.balance = balance;
+    this.portfolioList = new HashMap<>();
 
   }
 
@@ -70,12 +79,20 @@ public class UserImpl implements User {
     f.getParentFile().mkdirs();
     f.createNewFile();
   }
+
+
+
   @Override
   public void addStockToPortfolio(String symbol, float numberOfShares) throws IllegalArgumentException{
     if(numberOfShares<0){
       throw new IllegalArgumentException("Number of Shares cannot be negative");
     }
     this.activePortfolio.createStock(symbol,numberOfShares);
+  }
+
+  @Override
+  public void addStockToPortfolio(String symbol, float numberOfShares, LocalDate date) {
+    this.activePortfolio.createStock(symbol,numberOfShares,date);
   }
 
   @Override
@@ -91,7 +108,11 @@ public class UserImpl implements User {
 
   @Override
   public Portfolio loadPortfolio(String portfolioName) {
-    return null;
+    if(!this.portfolioList.containsKey(portfolioName)){
+      throw new IllegalArgumentException("Portfolio doesn't exist");
+    }
+    this.activePortfolio = this.portfolioList.get(portfolioName);
+    return this.activePortfolio;
   }
 
   @Override
@@ -109,5 +130,10 @@ public class UserImpl implements User {
   @Override
   public void addToBalance(float amount) {
     this.balance += amount;
+  }
+
+  @Override
+  public String toString(){
+    return this.portfolioList.toString();
   }
 }

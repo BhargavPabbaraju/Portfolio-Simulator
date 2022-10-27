@@ -33,6 +33,11 @@ class JsonList implements JsonObject {
   }
 
   @Override
+  public int length() {
+    return this.list.size();
+  }
+
+  @Override
   public String toString() {
     return this.list.toString();
   }

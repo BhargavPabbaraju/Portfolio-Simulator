@@ -1,6 +1,7 @@
 package models;
 
-import java.util.Date;
+
+import java.time.LocalDate;
 
 /**
  * This interface represents the operations that can be performed on a single stock.
@@ -16,8 +17,9 @@ interface Stock {
 
   /**
    * This method gets the date of purchase of this stock.
+   *
    * @return date as a String
    */
-  String getDate();
+  LocalDate getDate();
 
 }
