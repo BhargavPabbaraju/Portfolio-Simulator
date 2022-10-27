@@ -1,19 +1,29 @@
 {
   "name": "goog",
-  "balance": 5,
+  "balance": 5.0,
   "portfolios": [
     {
       "name": "college",
       "stocks": [
         {
           "symbol": "GOOG",
-          "date": "2022-12-01",
-          "shares": 200
+          "shares": 200.0,
+          "date": "2022-12-01"
         },
         {
           "symbol": "BSE",
-          "date": "2022-12-01",
-          "shares": 50
+          "shares": 50.0,
+          "date": "2022-12-01"
+        }
+      ]
+    },
+    {
+      "name": "other",
+      "stocks": [
+        {
+          "symbol": "IBM",
+          "shares": 10.0,
+          "date": "2022-10-27"
         }
       ]
     },
@@ -21,14 +31,24 @@
       "name": "retir",
       "stocks": [
         {
-          "symbol": "TSLA",
-          "date": "2022-05-11",
-          "shares": 20
+          "symbol": "APP",
+          "shares": 10.0,
+          "date": "2022-10-01"
         },
         {
-          "symbol": "APP",
-          "date": "2022-10-01",
-          "shares": 10
+          "symbol": "TSLA",
+          "shares": 20.0,
+          "date": "2022-05-11"
+        }
+      ]
+    },
+    {
+      "name": "other2",
+      "stocks": [
+        {
+          "symbol": "IBM",
+          "shares": 10.0,
+          "date": "2022-10-27"
         }
       ]
     }
