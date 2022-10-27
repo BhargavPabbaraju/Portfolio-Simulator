@@ -33,6 +33,11 @@ class JsonString implements JsonObject {
   }
 
   @Override
+  public int length() {
+    return this.value.length();
+  }
+
+  @Override
   public String toString() {
     return this.value.toString();
   }

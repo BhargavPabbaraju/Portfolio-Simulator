@@ -1,5 +1,7 @@
 package models;
 
+import java.time.LocalDate;
+
 /**
  * This interface represents a user.
  */
@@ -16,5 +18,7 @@ public interface User {
   void addToBalance(float amount);
 
   public void addStockToPortfolio(String symbol, float numberOfShares);
+
+  public void addStockToPortfolio(String symbol, float numberOfShares, LocalDate date);
 
 }

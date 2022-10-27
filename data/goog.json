@@ -7,10 +7,12 @@
       "stocks": [
         {
           "symbol": "GOOG",
+          "date": "2022-12-01",
           "shares": 200
         },
         {
           "symbol": "BSE",
+          "date": "2022-12-01",
           "shares": 50
         }
       ]
@@ -20,10 +22,12 @@
       "stocks": [
         {
           "symbol": "TSLA",
+          "date": "2022-05-11",
           "shares": 20
         },
         {
           "symbol": "APP",
+          "date": "2022-10-01",
           "shares": 10
         }
       ]

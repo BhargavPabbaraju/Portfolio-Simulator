@@ -36,6 +36,11 @@ class JsonDict implements JsonObject {
   }
 
   @Override
+  public int length() {
+    return this.dict.size();
+  }
+
+  @Override
   public String toString() {
     return this.dict.toString();
   }

@@ -28,4 +28,10 @@ public interface JsonObject{
    */
 
   public void addElement(String key,JsonObject obj);
+
+  /**
+   * The length of this json object.
+   * @return
+   */
+  public int length();
 }

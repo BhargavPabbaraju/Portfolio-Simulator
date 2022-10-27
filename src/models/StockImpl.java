@@ -1,12 +1,16 @@
 package models;
 
+
+import java.time.LocalDate;
+
+
 /**
  * This class represents a stock. Each stock contains the symbol(company) , number of shares held in
  * that company and the price at which each share of this stock was bought.
  */
 class StockImpl implements Stock {
   final float numberOfShares;
-  final String date;
+  final LocalDate date;
   final String symbol;
 
   final ApiCall api = new ApiCallImpl();
@@ -21,17 +25,17 @@ class StockImpl implements Stock {
     //Throw Exception if symbol is invalid
     this.symbol = symbol;
     this.numberOfShares = numberOfShares;
-    this.date = "2022-10-25";
+    this.date = LocalDate.now();
   }
 
-  StockImpl(String symbol, float numberOfShares, String date) throws IllegalArgumentException {
+  StockImpl(String symbol, float numberOfShares, LocalDate date) throws IllegalArgumentException {
     //Throw Exception if symbol is invalid
     this.symbol = symbol;
     this.numberOfShares = numberOfShares;
     this.date = date;
   }
 
-  public String getDate() {
+  public LocalDate getDate() {
     return this.date;
   }
 
@@ -43,5 +47,9 @@ class StockImpl implements Stock {
   private float getValueOfSingleShare(String date) {
     //Call api and return the value of a single share on that date.
     return 0;
+  }
+
+  public String toString(){
+    return this.symbol +" "+this.numberOfShares+" "+this.date;
   }
 }

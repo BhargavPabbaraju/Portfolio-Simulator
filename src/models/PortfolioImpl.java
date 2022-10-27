@@ -1,6 +1,6 @@
 package models;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.HashMap;
 
 /**
@@ -21,6 +21,7 @@ class PortfolioImpl implements Portfolio {
     //throw exception if portfolio already exists for this user.
     this.portfolioName = portfolioName;
     this.user = user;
+    this.stockList = new HashMap<>();
     //Create portfolio file.
   }
 
@@ -36,6 +37,12 @@ class PortfolioImpl implements Portfolio {
   }
 
   @Override
+  public void createStock(String symbol, float numberOfShares, LocalDate date) {
+    Stock stock = new StockImpl(symbol,numberOfShares,date);
+    stockList.put(symbol,stock);
+  }
+
+  @Override
   public float getTotalValue(String date) {
     float value = 0;
     for(Stock stock : stockList.values()){
@@ -47,5 +54,17 @@ class PortfolioImpl implements Portfolio {
   @Override
   public String getComposition() {
     return null;
+  }
+
+
+  @Override
+  public void addStock(String symbol, float numberOfShares, LocalDate dateBought) {
+    Stock stock = new StockImpl(symbol,numberOfShares,dateBought);
+    stockList.put(symbol,stock);
+  }
+
+  @Override
+  public String toString(){
+    return this.stockList.toString();
   }
 }

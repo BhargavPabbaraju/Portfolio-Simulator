@@ -1,5 +1,8 @@
 package models;
 
+import java.time.LocalDate;
+
+
 /**
  * This interface represents the operations on a single portfolio.
  */
@@ -14,6 +17,8 @@ interface Portfolio {
    */
   void createStock(String symbol, float numberOfShares) throws IllegalArgumentException;
 
+  void createStock(String symbol, float numberOfShares,LocalDate date);
+
   /**
    * This method gives the total Value of this portfolio on a given date.
    *
@@ -27,6 +32,14 @@ interface Portfolio {
    * @return
    */
   String getComposition();
+
+  /**
+   * This method is used to add a stock to a loaded portfolio.
+   * @param symbol
+   * @param numberOfShares
+   * @param dateBought
+   */
+  void addStock(String symbol, float numberOfShares, LocalDate dateBought);
 
 
 }
