@@ -9,6 +9,8 @@ import java.time.LocalDate;
  */
 interface Stock {
 
+  float getShares();
+
   /**
    * This method gets the value of the stock at a given date.
    * @param date

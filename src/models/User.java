@@ -19,7 +19,7 @@ public interface User {
 
   void addToBalance(float amount);
 
-  void addStockToPortfolio(String symbol, float numberOfShares);
+  void addStockToPortfolio(String symbol, float numberOfShares) throws IOException;
 
   void addStockToPortfolio(String symbol, float numberOfShares, LocalDate date);
 
