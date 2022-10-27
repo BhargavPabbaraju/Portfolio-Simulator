@@ -1,5 +1,6 @@
 package models;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.HashMap;
 
@@ -16,16 +17,16 @@ interface Portfolio {
    * @throws IllegalArgumentException if the stock symbol is invalid or if numberOfShares
    *                                  is invalid.
    */
-  void createStock(String symbol, float numberOfShares) throws IllegalArgumentException;
+  void createStock(String symbol, float numberOfShares) throws IllegalArgumentException, IOException;
 
-  void createStock(String symbol, float numberOfShares,LocalDate date);
+  void createStock(String symbol, float numberOfShares, LocalDate date);
 
   /**
    * This method gives the total Value of this portfolio on a given date.
    *
    * @return
    */
-  float getTotalValue(String date);
+  float getTotalValue(String date) throws IOException;
 
   /**
    * This method gives the composition of this portfolio.
@@ -36,6 +37,7 @@ interface Portfolio {
 
   /**
    * This method is used to add a stock to a loaded portfolio.
+   *
    * @param symbol
    * @param numberOfShares
    * @param dateBought

@@ -29,4 +29,6 @@ public interface User {
 
   HashMap<String,Portfolio> getPortfolios();
 
+  public float getTotalValue(String date) throws IOException;
+
 }

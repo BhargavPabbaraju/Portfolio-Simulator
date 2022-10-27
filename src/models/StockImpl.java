@@ -1,7 +1,11 @@
 package models;
 
 
+import java.io.IOException;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.temporal.ChronoField;
 
 
 /**
@@ -25,13 +29,17 @@ class StockImpl implements Stock {
     //Throw Exception if symbol is invalid
     this.symbol = symbol;
     this.numberOfShares = numberOfShares;
-    this.date = LocalDate.now();
+    this.date = this.dateHandling();
+
   }
 
   StockImpl(String symbol, float numberOfShares, LocalDate date) throws IllegalArgumentException {
     //Throw Exception if symbol is invalid
     this.symbol = symbol;
     this.numberOfShares = numberOfShares;
+    if (this.weekendValidation(date)) {
+      throw new IllegalArgumentException("Market is closed on weekend, date passed is " + date);
+    }
     this.date = date;
   }
 
@@ -45,16 +53,48 @@ class StockImpl implements Stock {
   }
 
   @Override
-  public float getValue(String date) {
+  public float getValue(LocalDate date) throws IOException {
     return this.numberOfShares * getValueOfSingleShare(date);
   }
-
-  private float getValueOfSingleShare(String date) {
-    //Call api and return the value of a single share on that date.
-    return 0;
+  @Override
+  public float getValue() throws IOException {
+    return this.numberOfShares * getValueOfSingleShare(this.date);
   }
 
-  public String toString(){
-    return this.symbol +" "+this.numberOfShares+" "+this.date;
+  private LocalDate dateHandling() {
+    LocalDate dateNow = LocalDate.now();
+    LocalTime timenow = LocalTime.now();
+    LocalTime timepm = LocalTime.of(16, 2, 50, 0);
+    if (timenow.compareTo(timepm) > 0) {
+    } else {
+      dateNow = dateNow.minusDays(1);
+    }
+    return shiftingDate(dateNow);
+  }
+
+  private LocalDate shiftingDate(LocalDate dateNow) {
+    if (!this.weekendValidation(dateNow)) {
+      return dateNow;
+    } else {
+      LocalDate dateprev = dateNow.minusDays(1);
+      if (this.weekendValidation(dateprev)) {
+        dateprev = dateprev.minusDays(1);
+      }
+      return dateprev;
+    }
+  }
+
+  private float getValueOfSingleShare(LocalDate date) throws IOException {
+    //Call api and return the value of a single share on that date.
+    return api.getData(this.symbol, date);
+  }
+
+  public String toString() {
+    return this.symbol + " " + this.numberOfShares + " " + this.date;
+  }
+
+  public boolean weekendValidation(LocalDate date) {
+    DayOfWeek day = DayOfWeek.of(date.get(ChronoField.DAY_OF_WEEK));
+    return day == DayOfWeek.SUNDAY || day == DayOfWeek.SATURDAY;
   }
 }

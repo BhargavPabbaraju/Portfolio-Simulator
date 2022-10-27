@@ -18,7 +18,7 @@ public class UserImpl implements User {
   final String userName;
   float balance;
 
-  final static float DEFAULTBALANCE = 0F;
+  final static float DEFAULTBALANCE = 10000F;
 
   Portfolio activePortfolio;
 
@@ -83,7 +83,7 @@ public class UserImpl implements User {
 
 
   @Override
-  public void addStockToPortfolio(String symbol, float numberOfShares) throws IllegalArgumentException{
+  public void addStockToPortfolio(String symbol, float numberOfShares) throws IllegalArgumentException, IOException {
     if(numberOfShares<0){
       throw new IllegalArgumentException("Number of Shares cannot be negative");
     }
@@ -93,6 +93,11 @@ public class UserImpl implements User {
   @Override
   public void addStockToPortfolio(String symbol, float numberOfShares, LocalDate date) {
     this.activePortfolio.createStock(symbol,numberOfShares,date);
+  }
+
+  @Override
+  public float getTotalValue(String date) throws IOException {
+    return this.activePortfolio.getTotalValue(date);
   }
 
   @Override

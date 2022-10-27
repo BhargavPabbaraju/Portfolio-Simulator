@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.text.ParseException;
 
 import static org.junit.Assert.assertEquals;
@@ -12,6 +13,12 @@ public class UserImplTest {
   @Test
   public void testUserCreation() throws IOException {
     User user1 = new UserImpl("user3");
+    user1.createPortfolio("college");
+    user1.addStockToPortfolio("AAPL",2);
+    user1.addStockToPortfolio("IBM",3);
+    System.out.println(user1.getTotalValue("2022-10-27"));
+    System.out.println(user1.toString());
+
   }
 
   @Test
@@ -28,4 +35,6 @@ public class UserImplTest {
 
 
   }
+
+
 }

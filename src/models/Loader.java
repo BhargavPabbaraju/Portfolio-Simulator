@@ -19,40 +19,37 @@ class Loader {
     float balance = Float.parseFloat(json.get("balance").toString());
     User user = new UserImpl(userName);
     user.addToBalance(balance);
-    loadPortfolioList(json,user);
+    loadPortfolioList(json, user);
     return user;
 
   }
-  private static void loadPortfolioList(JsonObject json,User user) throws ParseException {
+
+  private static void loadPortfolioList(JsonObject json, User user) throws ParseException {
     JsonObject portfolios = json.get("portfolios");
     JsonObject portfolio;
     int length = portfolios.length();
 
-    for(int i=length-1;i>=0;i--){
-      portfolio = portfolios.get(i+"");
+    for (int i = length - 1; i >= 0; i--) {
+      portfolio = portfolios.get(i + "");
       user.createPortfolio(portfolio.get("name").toString());
-      loadStocksList(portfolio.get("stocks"),user);
+      loadStocksList(portfolio.get("stocks"), user);
 
     }
 
   }
-  private static void loadStocksList(JsonObject json,User user) throws ParseException {
+
+  private static void loadStocksList(JsonObject json, User user) throws ParseException {
     int length = json.length();
     JsonObject stock;
-    for(int i=length-1;i>=0;i--) {
-      stock = json.get(i+"");
+    for (int i = length - 1; i >= 0; i--) {
+      stock = json.get(i + "");
       LocalDate date = LocalDate.parse(stock.get("date").toString(),
               DateTimeFormatter.ISO_LOCAL_DATE);
-      
+
       user.addStockToPortfolio(stock.get("symbol").toString(),
-              Float.parseFloat(stock.get("shares").toString()),date);
-
-
-
+              Float.parseFloat(stock.get("shares").toString()), date);
 
     }
-
-
   }
 
   private static boolean dontPutQuotes(String key, String value){
@@ -154,8 +151,4 @@ class Loader {
     writer.close();
 
   }
-
-
-
-
 }

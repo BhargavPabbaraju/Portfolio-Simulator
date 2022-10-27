@@ -1,5 +1,9 @@
 package models;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.time.LocalDate;
+
 /**
  * This interface represents the Api calls.
  */
@@ -12,5 +16,6 @@ public interface ApiCall {
    * @param date   the date in string format to get the share value
    * @return returns a float which is the share value of that company on a particular date.
    */
-  float getData(String symbol, String date);
+  float getData(String symbol, LocalDate date) throws IOException;
+
 }
