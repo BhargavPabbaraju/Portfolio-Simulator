@@ -37,21 +37,6 @@ public class ApiCallImpl {
   }
 
   public static float getData(String stockSymbol, LocalDate date) throws IllegalArgumentException, IOException {
-    JsonObject data = dataChecking(stockSymbol);
-    String dateString = date.toString();
-    float value;
-    try{
-       value = getSharevalue(data, dateString);
-    }catch (IllegalArgumentException e){
-      cache.remove(stockSymbol);
-      data = dataChecking(stockSymbol);
-       value = getSharevalue(data,dateString);
-    }
-
-    return value;
-  }
-
-  private static JsonObject dataChecking(String stockSymbol) throws IOException {
     JsonObject data = cache.getTimeData(stockSymbol);
     if (data != null) {
       System.out.println("cache");
@@ -61,8 +46,8 @@ public class ApiCallImpl {
       data = parseJson(stockSymbol);
       cache.addStockToCache(stockSymbol, data);
     }
-    return data;
-
+    String dateString = date.toString();
+    return getSharevalue(data, dateString);
   }
 
   private static float getSharevalue(JsonObject timeseries, String date) {

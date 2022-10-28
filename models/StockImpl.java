@@ -83,18 +83,8 @@ class StockImpl implements Stock {
     }
   }
 
-  private float getValueOfSingleShare(LocalDate date) throws IOException,IllegalArgumentException{
+  private float getValueOfSingleShare(LocalDate date) throws IOException {
     //Call api and return the value of a single share on that date.
-    if(this.weekendValidation(date)){
-      throw new IllegalArgumentException("Market is closed on weekend, date passed is " + date);
-    }
-    LocalDate dateNow = LocalDate.now();
-    if(dateNow.compareTo(date)<0){
-      throw new IllegalArgumentException("Date should less than today's date");
-    }
-    else if(dateNow.compareTo(date)==0){
-      date = dateHandling();
-    }
     float result = ApiCallImpl.getData(this.symbol, date);
     System.out.println(result);
     return result;

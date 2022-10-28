@@ -10,7 +10,8 @@ public interface Cache {
 
   public JsonObject getTimeData(String symbol);
 
-  public void remove(String symbol);
+
+
 
 
 }

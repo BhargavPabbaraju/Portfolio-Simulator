@@ -11,13 +11,14 @@ import static org.junit.Assert.assertEquals;
 
 public class UserImplTest {
   @Test
-  public void testUserCreation() throws IOException {
+  public void testUserCreation() throws IOException, InterruptedException {
     User user1 = new UserImpl("user3");
     user1.createPortfolio("college");
     user1.addStockToPortfolio("AAPL",2);
-    user1.addStockToPortfolio("IBM",3);
-    System.out.println(user1.getTotalValue("2022-10-27"));
-    System.out.println(user1.toString());
+    user1.addStockToPortfolio("TSLA",3);
+    System.out.println(user1.getTotalValue("2022-10-17"));
+//    System.out.println(user1.toString());
+    ApiCallImpl api = new ApiCallImpl();
 
   }
 
@@ -30,9 +31,6 @@ public class UserImplTest {
     user.addStockToPortfolio("IBM",10);
     System.out.println(user);
     user.save();
-
-
-
 
   }
 

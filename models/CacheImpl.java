@@ -48,11 +48,6 @@ public class CacheImpl implements Cache {
     }
   }
 
-  @Override
-  public void remove(String symbol) {
-    cacheList.remove(symbol);
-  }
-
   private void LoadDate() throws FileNotFoundException, InterruptedException {
     File directoryPath = new File(cacheDir);
     String contents[] = directoryPath.list();
