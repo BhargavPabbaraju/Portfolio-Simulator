@@ -22,12 +22,15 @@ public class ApiCallImpl {
 
   private static Cache cache;
 
+  private static String errorString = "\"Note\": \"Thank you for using Alpha Vantage! Our " +
+          "standard API call frequency is 5 calls per minute and 500 calls per day. Please visit " +
+          "https://www.alphavantage.co/premium/ if you would like to target a higher API call " +
+          "frequency.\"";
+
   static {
     try {
       cache = new CacheImpl();
-    } catch (FileNotFoundException e) {
-      throw new RuntimeException(e);
-    } catch (InterruptedException e) {
+    } catch (FileNotFoundException | InterruptedException e) {
       throw new RuntimeException(e);
     }
   }
@@ -36,29 +39,49 @@ public class ApiCallImpl {
 
   }
 
-  public static float getData(String stockSymbol, LocalDate date) throws IllegalArgumentException, IOException {
-    JsonObject data = dataChecking(stockSymbol);
+  public static float getData(String stockSymbol, LocalDate date) throws IllegalArgumentException {
     String dateString = date.toString();
-    float value;
-    try{
-       value = getSharevalue(data, dateString);
-    }catch (IllegalArgumentException e){
-      cache.remove(stockSymbol);
-      data = dataChecking(stockSymbol);
-       value = getSharevalue(data,dateString);
-    }
-
-    return value;
+    return dataChecking(stockSymbol, dateString);
   }
 
-  private static JsonObject dataChecking(String stockSymbol) throws IOException {
+  public static boolean validSymbol(String symbol) {
+    return cache.validSymbol(symbol);
+  }
+
+  public static float getSymbolData(String symbol) {
+    return cache.getSymbolData(symbol);
+
+  }
+
+  private static float dataChecking(String stockSymbol, String dateString) {
     JsonObject data = cache.getTimeData(stockSymbol);
     if (data != null) {
       System.out.println("cache");
+      try {
+        return getSharevalue(data, dateString);
+      } catch (IllegalArgumentException e) {
+        cache.remove(stockSymbol);
+        return stockValue(stockSymbol, dateString);
+      }
     } else {
-      getJsonFormat(stockSymbol);
-      removeMetaDataInFile(stockSymbol);
-      data = parseJson(stockSymbol);
+      return stockValue(stockSymbol, dateString);
+    }
+  }
+
+  private static float stockValue(String stockSymbol, String dateString) {
+    JsonObject data = ApiInteration(stockSymbol);
+    if (data == null) {
+      return cache.getSymbolData(stockSymbol);
+    } else {
+      return getSharevalue(data, dateString);
+    }
+  }
+
+  private static JsonObject ApiInteration(String stockSymbol) {
+    getJsonFormat(stockSymbol);
+    removeMetaDataInFile(stockSymbol);
+    JsonObject data = parseJson(stockSymbol);
+    if (data != null) {
       cache.addStockToCache(stockSymbol, data);
     }
     return data;
@@ -69,10 +92,13 @@ public class ApiCallImpl {
     return Float.parseFloat(timeseries.get(date).get("2.high").toString());
   }
 
-  private static JsonObject parseJson(String symbol) throws FileNotFoundException {
-    JsonObject json = JsonParser.parse("data" + File.separator + "cacheData" + File.separator + symbol + ".json");
+  private static JsonObject parseJson(String symbol) {
+    JsonObject json = null;
+    try {
+      json = JsonParser.parse("data" + File.separator + "cacheData" + File.separator + symbol + ".json");
+    } catch (FileNotFoundException e) {
+    }
     return json;
-
   }
 
   private static void getJsonFormat(String stockSymbol) {
@@ -88,29 +114,37 @@ public class ApiCallImpl {
         fos.write(b);
       }
       fos.close();
-    } catch (IOException e) {
-      throw new IllegalArgumentException("No price data found for " + stockSymbol);
+    } catch (Exception e) {
+
+
     }
   }
 
-  private static void removeMetaDataInFile(String symbol) throws IOException {
+
+  public static void removeMetaDataInFile(String symbol) {
     File inputFile = new File("data" + File.separator + "cacheData" + File.separator + symbol + ".json");
     File tempFile = new File("data" + File.separator + "cacheData" + File.separator + symbol + "1" + ".json");
+    try {
+      BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+      BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+      String lineToRemove = "\"1. Information\": \"Daily Prices (open, high, low, close) and Volumes\",";
+      String currentLine;
+      while ((currentLine = reader.readLine()) != null) {
+        String trimmedLine = currentLine.trim();
+        if (trimmedLine.equals(lineToRemove)) continue;
+        writer.write(currentLine + System.getProperty("line.separator"));
+        if (trimmedLine.equals(errorString)) {
+          tempFile.delete();
+          inputFile.delete();
+          return;
+        }
+      }
+      writer.close();
+      reader.close();
+      tempFile.renameTo(inputFile);
+    } catch (IOException e) {
 
-    BufferedReader reader = new BufferedReader(new FileReader(inputFile));
-    BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
-
-    String lineToRemove = "\"1. Information\": \"Daily Prices (open, high, low, close) and Volumes\",";
-    String currentLine;
-
-    while ((currentLine = reader.readLine()) != null) {
-      String trimmedLine = currentLine.trim();
-      if (trimmedLine.equals(lineToRemove)) continue;
-      writer.write(currentLine + System.getProperty("line.separator"));
     }
-    writer.close();
-    reader.close();
-    tempFile.renameTo(inputFile);
 
   }
 

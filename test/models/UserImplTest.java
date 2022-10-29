@@ -15,11 +15,22 @@ public class UserImplTest {
     User user1 = new UserImpl("user3");
     user1.createPortfolio("college");
     user1.addStockToPortfolio("AAPL",2);
-    user1.addStockToPortfolio("TSLA",3);
+    user1.addStockToPortfolio("AAPL",3);
+    user1.addStockToPortfolio("AAPL",2);
+    user1.addStockToPortfolio("AAPL",3);
+    user1.addStockToPortfolio("MSFT",3);
+    user1.addStockToPortfolio("MSFT",2);
+    user1.addStockToPortfolio("MSFT",3);
+    user1.addStockToPortfolio("MSFT",3);
     System.out.println(user1.getTotalValue("2022-10-17"));
-//    System.out.println(user1.toString());
+    System.out.println(user1.toString());
     ApiCallImpl api = new ApiCallImpl();
 
+  }
+
+  @Test
+  public void remove() throws IOException {
+    ApiCallImpl.removeMetaDataInFile("IBM");
   }
 
   @Test

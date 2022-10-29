@@ -6,11 +6,17 @@ import java.io.IOException;
 import models.jsonparser.JsonObject;
 
 public interface Cache {
-  public void addStockToCache(String symbol, JsonObject timeSeriesData);
+   void addStockToCache(String symbol, JsonObject timeSeriesData);
 
-  public JsonObject getTimeData(String symbol);
+   JsonObject getTimeData(String symbol);
 
-  public void remove(String symbol);
+   void remove(String symbol);
+
+   boolean validSymbol(String symbol);
+
+   float getSymbolData(String symbol);
+
+
 
 
 }

@@ -27,4 +27,6 @@ interface Stock {
 
   float getValue() throws IOException;
 
+  void addToShares(float number);
+
 }

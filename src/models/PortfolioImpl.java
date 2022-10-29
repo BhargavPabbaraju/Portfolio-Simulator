@@ -34,7 +34,13 @@ class PortfolioImpl implements Portfolio {
 
   @Override
   public void createStock(String symbol, float numberOfShares) throws IllegalArgumentException {
-    Stock stock = new StockImpl(symbol, numberOfShares);
+    Stock stock;
+    if(stockList.containsKey(symbol)){
+      stock = stockList.get(symbol);
+      stock.addToShares(numberOfShares);
+    }else{
+      stock = new StockImpl(symbol, numberOfShares);
+    }
     //float price = stock.getValue();
     float price =0;
     if (user.getBalance() >= price) {
@@ -47,7 +53,13 @@ class PortfolioImpl implements Portfolio {
 
   @Override
   public void createStock(String symbol, float numberOfShares, LocalDate date) {
-    Stock stock = new StockImpl(symbol, numberOfShares, date);
+    Stock stock;
+    if(stockList.containsKey(symbol)){
+      stock = stockList.get(symbol);
+      stock.addToShares(numberOfShares);
+    }else{
+      stock = new StockImpl(symbol, numberOfShares, date);
+    }
     stockList.put(symbol, stock);
   }
 
