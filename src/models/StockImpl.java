@@ -52,12 +52,15 @@ class StockImpl implements Stock {
   }
 
   @Override
-  public float getValue(LocalDate date) throws IOException {
-    return this.numberOfShares * getValueOfSingleShare(date);
+  public float getValue(LocalDate date) {
+    //return this.numberOfShares * getValueOfSingleShare(date);
+    return 100;
+
   }
   @Override
   public float getValue() throws IOException {
     return this.numberOfShares * getValueOfSingleShare(this.date);
+
   }
 
   private LocalDate dateHandling() {

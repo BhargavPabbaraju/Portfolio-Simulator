@@ -1,15 +1,13 @@
 package models;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.HashMap;
 
-import models.jsonparser.JsonObject;
-import models.jsonparser.JsonParser;
+
 
 /**
  * This class represents a single user.
@@ -26,7 +24,7 @@ public class UserImpl implements User {
 
   /**
    * This constructor creates a user with a given username.
-   *
+   * Note: Username must not contain the following characters: {}[],:"\
    * @param userName
    * @throws IllegalArgumentException if a userName is already taken.
    */
@@ -56,6 +54,8 @@ public class UserImpl implements User {
     //Throw exception if balance is negative
     if (userNameExits(userName)) {
       throw new IllegalArgumentException("User Already exists");
+    }if(Loader.isInvalidName(userName)){
+      throw new IllegalArgumentException("Username must not contain any of \\\"{}[],: characters.");
     }
     if (balance < 0) {
       throw new IllegalArgumentException("Balance cannot be negative");
@@ -67,6 +67,8 @@ public class UserImpl implements User {
     this.portfolioList = new HashMap<>();
 
   }
+
+
 
   private boolean userNameExits(String userName) {
     return Files.exists(Path.of("data" + File.separator + userName + ".json"));
@@ -83,7 +85,7 @@ public class UserImpl implements User {
 
 
   @Override
-  public void addStockToPortfolio(String symbol, float numberOfShares) throws IllegalArgumentException, IOException {
+  public void addStockToPortfolio(String symbol, float numberOfShares) throws IllegalArgumentException {
     if(numberOfShares<0){
       throw new IllegalArgumentException("Number of Shares cannot be negative");
     }
@@ -96,8 +98,13 @@ public class UserImpl implements User {
   }
 
   @Override
-  public float getTotalValue(String date) throws IOException {
+  public float getTotalValue(String date) {
     return this.activePortfolio.getTotalValue(date);
+  }
+
+  @Override
+  public StringBuilder getComposition() {
+    return this.activePortfolio.getComposition();
   }
 
   @Override

@@ -16,7 +16,7 @@ interface Stock {
    * @param date
    * @return
    */
-  float getValue(LocalDate date) throws IOException;
+  float getValue(LocalDate date);
 
   /**
    * This method gets the date of purchase of this stock.
@@ -26,4 +26,5 @@ interface Stock {
   LocalDate getDate();
 
   float getValue() throws IOException;
+
 }

@@ -7,11 +7,13 @@
       "stocks": [
         {
           "symbol": "IBM",
-          "shares": 20
+          "shares": 20,
+          "date": "2022-10-28"
         },
         {
           "symbol": "BSE",
-          "shares": 10
+          "shares": 10,
+          "date": "2022-10-28"
         }
       ]
     },
@@ -20,11 +22,13 @@
       "stocks": [
         {
           "symbol": "TSLA",
-          "shares": 20
+          "shares": 20,
+          "date": "2022-10-28"
         },
         {
           "symbol": "AAPL",
-          "shares": 10
+          "shares": 10,
+          "date": "2022-10-28"
         }
       ]
     }

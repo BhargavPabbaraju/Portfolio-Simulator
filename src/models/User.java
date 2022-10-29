@@ -19,7 +19,7 @@ public interface User {
 
   void addToBalance(float amount);
 
-  void addStockToPortfolio(String symbol, float numberOfShares) throws IOException;
+  void addStockToPortfolio(String symbol, float numberOfShares);
 
   void addStockToPortfolio(String symbol, float numberOfShares, LocalDate date);
 
@@ -29,6 +29,7 @@ public interface User {
 
   HashMap<String,Portfolio> getPortfolios();
 
-  public float getTotalValue(String date) throws IOException;
+  public float getTotalValue(String date);
 
+  StringBuilder getComposition();
 }

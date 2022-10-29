@@ -1,0 +1,16 @@
+{
+  "name": "user5",
+  "balance": 10000.0,
+  "portfolios": [
+    {
+      "name": "retirement",
+      "stocks": [
+        {
+          "symbol": "APPL",
+          "shares": 10.0,
+          "date": "2022-10-28"
+        }
+      ]
+    }
+  ]
+}

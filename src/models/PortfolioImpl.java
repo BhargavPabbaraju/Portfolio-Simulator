@@ -1,6 +1,5 @@
 package models;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -16,22 +15,28 @@ class PortfolioImpl implements Portfolio {
 
   /**
    * This constructor creates a portfolio for this user.
-   *
+   * Note: Portfolio name must not contain the following characters: {}[],:"\
    * @param portfolioName
    * @throws IllegalArgumentException if a user has already created a portfolio with this name.
    */
   PortfolioImpl(String portfolioName, User user) throws IllegalArgumentException {
     //throw exception if portfolio already exists for this user.
+
+    if(Loader.isInvalidName(portfolioName)){
+      throw new IllegalArgumentException(
+              "Portfolio name must not contain any of \\\"{}[],: characters.");
+    }
     this.portfolioName = portfolioName;
     this.user = user;
     this.stockList = new HashMap<>();
-    //Create portfolio file.
+
   }
 
   @Override
-  public void createStock(String symbol, float numberOfShares) throws IllegalArgumentException, IOException {
+  public void createStock(String symbol, float numberOfShares) throws IllegalArgumentException {
     Stock stock = new StockImpl(symbol, numberOfShares);
-    float price = stock.getValue();
+    //float price = stock.getValue();
+    float price =0;
     if (user.getBalance() >= price) {
       user.deductFromBalance(price);
       stockList.put(symbol, stock);
@@ -47,7 +52,7 @@ class PortfolioImpl implements Portfolio {
   }
 
   @Override
-  public float getTotalValue(String date) throws IOException {
+  public float getTotalValue(String date){
     LocalDate dateString = LocalDate.parse(date,
             DateTimeFormatter.ISO_LOCAL_DATE);
     float value = 0;
@@ -58,8 +63,12 @@ class PortfolioImpl implements Portfolio {
   }
 
   @Override
-  public String getComposition() {
-    return null;
+  public StringBuilder getComposition() {
+    StringBuilder composition = new StringBuilder();
+    for(String key:stockList.keySet()){
+      composition.append(key+"\t"+stockList.get(key).getShares()+"\n");
+    }
+    return composition;
   }
 
 
