@@ -56,7 +56,6 @@ public class ApiCallImpl {
   private static float dataChecking(String stockSymbol, String dateString) {
     JsonObject data = cache.getTimeData(stockSymbol);
     if (data != null) {
-      System.out.println("cache");
       try {
         return getSharevalue(data, dateString);
       } catch (IllegalArgumentException e) {

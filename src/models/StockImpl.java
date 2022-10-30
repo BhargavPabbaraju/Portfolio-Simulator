@@ -29,7 +29,7 @@ class StockImpl implements Stock {
     if (this.symbolvalidation(symbol)) {
       this.symbol = symbol;
     } else {
-      throw new IllegalArgumentException("Symbol not found");
+      throw new IllegalArgumentException(symbol+" Symbol not found");
     }
     this.numberOfShares = numberOfShares;
     this.date = this.dateHandling();
@@ -40,7 +40,7 @@ class StockImpl implements Stock {
     if (this.symbolvalidation(symbol)) {
       this.symbol = symbol;
     } else {
-      throw new IllegalArgumentException("Symbol not found");
+      throw new IllegalArgumentException(symbol+" Symbol not found");
     }
     this.numberOfShares = numberOfShares;
     if (this.weekendValidation(date)) {
@@ -115,7 +115,7 @@ class StockImpl implements Stock {
     }
     LocalDate dateNow = LocalDate.now();
     if (dateNow.compareTo(date) < 0) {
-      throw new IllegalArgumentException("Date should less than today's date");
+      throw new IllegalArgumentException("Date should be less than today's date");
     } else if (dateNow.compareTo(date) == 0) {
       date = dateHandling();
     }

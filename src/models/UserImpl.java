@@ -57,6 +57,9 @@ public class UserImpl implements User {
     }if(Loader.isInvalidName(userName)){
       throw new IllegalArgumentException("Username must not contain any of \\\"{}[],: characters.");
     }
+    if(userName == null || userName.equals("")){
+      throw new IllegalArgumentException("Username cannot  be empty");
+    }
     if (balance < 0) {
       throw new IllegalArgumentException("Balance cannot be negative");
 
@@ -76,7 +79,6 @@ public class UserImpl implements User {
 
   private void createFile(String userName) throws IOException {
     String path = "data" + File.separator + userName + ".json";
-    System.out.println(path);
     File f = new File(path);
     f.getParentFile().mkdirs();
     f.createNewFile();

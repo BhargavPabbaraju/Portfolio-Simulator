@@ -47,7 +47,7 @@ public class ViewImpl implements View{
 
   @Override
   public void askForDate() {
-    out.println("Enter date");
+    out.println("Enter date(yyyy-mm-dd)");
   }
 
   @Override

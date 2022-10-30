@@ -27,9 +27,15 @@ public class ControllerImpl implements Controller {
   private void createUser(String userName) {
     try {
       view.askForBalance();
-      float balance = in.nextFloat();
-      model.createUser(userName, balance);
-      view.displayMessage("User successfully created");
+      if(in.hasNextFloat()){
+        float balance = in.nextFloat();
+        model.createUser(userName, balance);
+        view.displayMessage("User successfully created");
+      }else{
+        in.nextLine();
+        in.nextLine();
+        throw new IllegalArgumentException("Balance must be a valid floating point number");
+      }
 
     } catch (Exception e) {
       view.displayMessage(e.getMessage());
@@ -43,23 +49,41 @@ public class ControllerImpl implements Controller {
       view.displayMessage("User successfully loaded");
     } catch (Exception e) {
       view.displayMessage(e.getMessage());
+      initialMenu();
     }
 
   }
 
   private void initialMenu() {
-    view.displayInitialMenu();
-    option = in.nextInt();
-    view.askForUsername();
-    String userName = in.next();
-    switch (option) {
-      case 1:
-        createUser(userName);
-        break;
-      case 2:
-        loadUser(userName);
-        break;
-    }
+      view.displayInitialMenu();
+      if(in.hasNextInt()){
+
+        option = in.nextInt();
+        if(option<1 || option>2){
+          in.nextLine();
+          view.displayMessage("Option must be one of the following numbers");
+          initialMenu();
+        }
+        view.askForUsername();
+        String userName = in.next();
+        switch (option) {
+          case 1:
+            createUser(userName);
+            break;
+          case 2:
+            loadUser(userName);
+            break;
+        }
+      }
+
+      else{
+        in.nextLine();
+        view.displayMessage("Option must be one of the following numbers");
+        initialMenu();
+      }
+
+
+
 
   }
 
@@ -131,9 +155,14 @@ public class ControllerImpl implements Controller {
 
   private void getTotalValue() {
     view.askForDate();
-    String date = in.next();
-    float value = model.getTotalValue(date);
-    view.displayValue(value, date);
+    try{
+      String date = in.next();
+      float value = model.getTotalValue(date);
+      view.displayValue(value, date);
+    }catch(Exception e){
+      view.displayMessage(e.getMessage());
+    }
+
   }
 
   private void getComposition() {
