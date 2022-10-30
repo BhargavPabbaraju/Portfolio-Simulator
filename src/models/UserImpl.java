@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.text.ParseException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 
 
@@ -64,7 +66,7 @@ public class UserImpl implements User {
       throw new IllegalArgumentException("Balance cannot be negative");
 
     }
-    createFile(userName);
+    //createFile(userName);
     this.userName = userName;
     this.balance = balance;
     this.portfolioList = new HashMap<>();
@@ -101,17 +103,36 @@ public class UserImpl implements User {
 
   @Override
   public float getTotalValue(String date) {
-    return this.activePortfolio.getTotalValue(date);
+    if(this.activePortfolio==null){
+      throw new IllegalStateException("No portfolio created yet");
+    }
+    try{
+      LocalDate dateString = LocalDate.parse(date,
+              DateTimeFormatter.ISO_LOCAL_DATE);
+      return this.activePortfolio.getTotalValue(dateString);
+    }catch(Exception e){
+      throw new IllegalArgumentException("Date must be a valid date in yyyy-mm-dd format");
+    }
+
   }
 
   @Override
   public StringBuilder getComposition() {
+    if(this.activePortfolio==null){
+      throw new IllegalStateException("No portfolio created yet");
+    }
     return this.activePortfolio.getComposition();
   }
 
   @Override
   public void save() throws IOException {
-    Loader.save(this);
+    if(this.portfolioList.size()>0){
+      Loader.save(this);
+    }
+
+    else{
+      throw new IllegalStateException("Should have at least one portfolio to save");
+    }
   }
 
   @Override

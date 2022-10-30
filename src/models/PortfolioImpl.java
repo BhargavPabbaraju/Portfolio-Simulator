@@ -1,7 +1,6 @@
 package models;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 
 /**
@@ -64,12 +63,10 @@ class PortfolioImpl implements Portfolio {
   }
 
   @Override
-  public float getTotalValue(String date){
-    LocalDate dateString = LocalDate.parse(date,
-            DateTimeFormatter.ISO_LOCAL_DATE);
+  public float getTotalValue(LocalDate date){
     float value = 0;
     for (Stock stock : stockList.values()) {
-      value += stock.getValue(dateString);
+      value += stock.getValue(date);
     }
     return value;
   }
@@ -77,8 +74,11 @@ class PortfolioImpl implements Portfolio {
   @Override
   public StringBuilder getComposition() {
     StringBuilder composition = new StringBuilder();
+    String format = "%-40s%.2f%n";
+    composition.append(String.format("%-20s%s%n","",portfolioName));
     for(String key:stockList.keySet()){
-      composition.append(key+"\t"+stockList.get(key).getShares()+"\n");
+      composition.append(String.format(format,key,stockList.get(key).getShares()));
+
     }
     return composition;
   }

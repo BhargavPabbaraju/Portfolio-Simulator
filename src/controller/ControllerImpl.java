@@ -54,14 +54,11 @@ public class ControllerImpl implements Controller {
 
   }
 
+
+
   private void initialMenu() {
       view.displayInitialMenu();
-      if(in.hasNextInt()){
-
-        option = in.nextInt();
-        if(option<1 || option>2){
-          in.nextLine();
-          view.displayMessage("Option must be one of the following numbers");
+        if(!validateOption(2)){
           initialMenu();
         }
         view.askForUsername();
@@ -76,16 +73,29 @@ public class ControllerImpl implements Controller {
         }
       }
 
-      else{
-        in.nextLine();
-        view.displayMessage("Option must be one of the following numbers");
-        initialMenu();
+
+  private boolean validateOption(int numberOfOptions){
+    boolean valid = true;
+    if(in.hasNextInt()){
+      option = in.nextInt();
+
+      if(option<1 || option>numberOfOptions) {
+        valid=false;
       }
+    }else{
+      valid = false;
+    }
 
+    if(!valid){
+      in.nextLine();
+      in.nextLine();
+      view.displayMessage("Option must be one of the following numbers");
 
-
-
+    }
+    return valid;
   }
+
+
 
   public void go() {
     initialMenu();
@@ -96,9 +106,11 @@ public class ControllerImpl implements Controller {
 
   private void mainMenu() {
     view.displayMainMenu();
-    option = in.nextInt();
 
     String portfolioName = "";
+    if(!validateOption(6)){
+      mainMenu();
+    }
     if (option < 3) {
       view.askForPortfolioName();
       try {
@@ -111,6 +123,7 @@ public class ControllerImpl implements Controller {
 
     }
     switch (option) {
+
       case 1:
         createPortfolio(portfolioName);
         break;
@@ -161,12 +174,19 @@ public class ControllerImpl implements Controller {
       view.displayValue(value, date);
     }catch(Exception e){
       view.displayMessage(e.getMessage());
+      getTotalValue();
     }
 
   }
 
   private void getComposition() {
-    view.displayComposition(model.getComposition());
+    try{
+      view.displayComposition(model.getComposition());
+    }catch(Exception e){
+      view.displayMessage(e.getMessage());
+      mainMenu();
+    }
+
   }
 
   private void createPortfolio(String portfolioName) {
@@ -175,6 +195,7 @@ public class ControllerImpl implements Controller {
       addNewStock();
     }catch(Exception e){
       view.displayMessage(e.getMessage());
+      mainMenu();
     }
 
   }
@@ -183,11 +204,22 @@ public class ControllerImpl implements Controller {
     view.askForStockSymbol();
     String symbol = in.next();
     view.askForShares();
-    int shares = in.nextInt();
+    int shares=0;
+    if(in.hasNextInt()){
+      shares = in.nextInt();
+    }else{
+      in.nextLine();
+      in.nextLine();
+      view.displayMessage("Shares must be a valid positive integer");
+      addNewStock();
+    }
+
     try {
       model.addStockToPortfolio(symbol, shares);
       view.displayAddNewStockMenu();
-      option = in.nextInt();
+      if(!validateOption(2)){
+        mainMenu();
+      }
       switch (option) {
         case 1:
           addNewStock();

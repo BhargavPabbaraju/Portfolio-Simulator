@@ -25,7 +25,7 @@ interface Portfolio {
    *
    * @return
    */
-  float getTotalValue(String date);
+  float getTotalValue(LocalDate date);
 
   /**
    * This method gives the composition of this portfolio.
