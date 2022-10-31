@@ -211,7 +211,6 @@ public class ControllerImpl implements Controller {
     if(in.hasNextInt()) {
       int shares = in.nextInt();
       model.addStockToPortfolio(symbol, shares);
-      view.displayAddNewStockMenu();
       addNewStock();
     }else {
       in.next();
