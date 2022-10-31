@@ -8,9 +8,9 @@ import models.Model;
 import view.View;
 
 public class ControllerImpl implements Controller {
-  private Model model;
-  private View view;
-  private Scanner in;
+  private final Model model;
+  private final View view;
+  private final Scanner in;
 
   private int option;
   private boolean quit;
@@ -59,7 +59,7 @@ public class ControllerImpl implements Controller {
   private void initialMenu() {
       view.displayInitialMenu();
 
-        if(!validateOption(2)){
+        if(isOptionInvalid(2)){
 
           initialMenu();
         }
@@ -76,24 +76,24 @@ public class ControllerImpl implements Controller {
       }
 
 
-  private boolean validateOption(int numberOfOptions){
-    boolean valid = true;
+  private boolean isOptionInvalid(int numberOfOptions){
+    boolean invalid = false;
     if(in.hasNextInt()){
       option = in.nextInt();
       if(option<1 || option>numberOfOptions) {
-        valid=false;
+        invalid = true;
       }
 
     }else{
-      valid = false;
+      invalid = true;
     }
 
-    if(!valid){
+    if(invalid){
       in.next();
       view.displayMessage("Option must be one of the following numbers");
 
     }
-    return valid;
+    return invalid;
   }
 
 
@@ -109,7 +109,7 @@ public class ControllerImpl implements Controller {
     view.displayMainMenu();
 
     String portfolioName = "";
-    if(!validateOption(6)){
+    if(isOptionInvalid(6)){
       mainMenu();
     }
     if (option < 3) {
@@ -193,7 +193,7 @@ public class ControllerImpl implements Controller {
   private void createPortfolio(String portfolioName) {
     try{
       model.createPortfolio(portfolioName);
-      addNewStock();
+      addAStock();
     }catch(Exception e){
       view.displayMessage(e.getMessage());
       mainMenu();
@@ -201,39 +201,41 @@ public class ControllerImpl implements Controller {
 
   }
 
-  private void addNewStock() {
+  private void addAStock(){
     view.askForStockSymbol();
     String symbol = in.next();
     view.askForShares();
-    int shares=0;
-    if(in.hasNextInt()){
-      shares = in.nextInt();
-    }else{
-      in.next();
-      view.displayMessage("Shares must be a valid positive integer");
-      addNewStock();
-    }
-
-    try {
+    if(in.hasNextInt()) {
+      int shares = in.nextInt();
       model.addStockToPortfolio(symbol, shares);
       view.displayAddNewStockMenu();
-      if(!validateOption(2)){
-        mainMenu();
-      }
-      switch (option) {
-        case 1:
-          addNewStock();
-          break;
-        case 2:
-          mainMenu();
-          break;
-      }
-    } catch (Exception e) {
-      view.displayMessage(e.getMessage());
+      addNewStock();
+    }else {
+      in.next();
+      view.displayMessage("Shares must be a valid positive integer");
+      addAStock();
+    }
+  }
+
+  private void addNewStock() {
+    view.displayAddNewStockMenu();
+    if(isOptionInvalid(2)){
       addNewStock();
     }
+        switch (option) {
+          case 1:
+            addAStock();
+            break;
+          case 2:
+            mainMenu();
+            break;
+        }
+      }
+
+
+
 
   }
 
 
-}
+
