@@ -209,9 +209,15 @@ public class ControllerImpl implements Controller {
     String symbol = in.next();
     view.askForShares();
     if(in.hasNextInt()) {
-      int shares = in.nextInt();
-      model.addStockToPortfolio(symbol, shares);
-      addNewStock();
+      try{
+        int shares = in.nextInt();
+        model.addStockToPortfolio(symbol, shares);
+        addNewStock();
+      }catch(Exception e){
+        view.displayMessage(e.getMessage());
+        addAStock();
+      }
+
     }else {
       in.next();
       view.displayMessage("Shares must be a valid positive integer");
