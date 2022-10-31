@@ -664,7 +664,7 @@ public class ControllerImplTest {
             "Enter portfolio name\n" +
             "Enter Stock Symbol\n" +
             "Enter number of shares\n" +
-            "Number of Shares cannot be negative\n" +
+            "Shares must be a valid positive integer\n" +
             "Enter Stock Symbol\n" +
             "Enter number of shares\n" +
             "1.Add new stock\n" +
