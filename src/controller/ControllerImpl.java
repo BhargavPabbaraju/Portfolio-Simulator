@@ -32,11 +32,9 @@ public class ControllerImpl implements Controller {
         model.createUser(userName, balance);
         view.displayMessage("User successfully created");
       }else{
-        while(in.hasNextLine()){
-          in.nextLine();
-          in.nextLine();
-        }
+        in.next();
         throw new IllegalArgumentException("Balance must be a valid floating point number");
+
       }
 
     } catch (Exception e) {
@@ -60,7 +58,9 @@ public class ControllerImpl implements Controller {
 
   private void initialMenu() {
       view.displayInitialMenu();
+
         if(!validateOption(2)){
+
           initialMenu();
         }
         view.askForUsername();
@@ -89,9 +89,7 @@ public class ControllerImpl implements Controller {
     }
 
     if(!valid){
-      while(in.hasNextLine()){
-        in.nextLine();
-      }
+      in.next();
       view.displayMessage("Option must be one of the following numbers");
 
     }

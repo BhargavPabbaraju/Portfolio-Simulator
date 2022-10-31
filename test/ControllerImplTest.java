@@ -88,5 +88,77 @@ public class ControllerImplTest {
     assertEquals(expectedOutput,bytes.toString());
   }
 
+  @Test
+  public void testCreateUserBalanceNegative() {
+    Model model = new ModelImpl();
+
+    ByteArrayInputStream in;
+
+    String input = "1 user2 -1900 2 user1 6";
+    in = new ByteArrayInputStream(input.getBytes());
+    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+    PrintStream out = new PrintStream(bytes);
+
+    View view = new ViewImpl(out);
+
+    ControllerImpl controller = new ControllerImpl(model, view, in);
+    controller.go();
+
+    String expectedOutput = "To select a particular option,enter the number next to it\n" +
+            "1.Create User\n" +
+            "2.Load User\n" +
+            "Enter username\n" +
+            "Enter initial balance\n" +
+            "Balance cannot be negative\n" +
+            "To select a particular option,enter the number next to it\n" +
+            "1.Create User\n" +
+            "2.Load User\n" +
+            "Enter username\n" +
+            "User successfully loaded\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Get Composition\n" +
+            "4.Get Total Value on certain date\n" +
+            "5.Save\n" +
+            "6.Exit\n";
+    assertEquals(expectedOutput, bytes.toString());
+  }
+
+  @Test
+  public void testCreateUserBalanceNAN() {
+    Model model = new ModelImpl();
+
+    ByteArrayInputStream in;
+
+    String input = "1 user2 18sadahdaeb 2 user1 6";
+    in = new ByteArrayInputStream(input.getBytes());
+    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+    PrintStream out = new PrintStream(bytes);
+
+    View view = new ViewImpl(out);
+
+    ControllerImpl controller = new ControllerImpl(model, view, in);
+    controller.go();
+
+    String expectedOutput = "To select a particular option,enter the number next to it\n" +
+            "1.Create User\n" +
+            "2.Load User\n" +
+            "Enter username\n" +
+            "Enter initial balance\n" +
+            "Balance must be a valid floating point number\n" +
+            "To select a particular option,enter the number next to it\n" +
+            "1.Create User\n" +
+            "2.Load User\n" +
+            "Enter username\n" +
+            "User successfully loaded\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Get Composition\n" +
+            "4.Get Total Value on certain date\n" +
+            "5.Save\n" +
+            "6.Exit\n";
+    assertEquals(expectedOutput, bytes.toString());
+  }
+
 
 }
