@@ -173,7 +173,10 @@ public class ControllerImpl implements Controller {
       String date = in.next();
       float value = model.getTotalValue(date);
       view.displayValue(value, date);
-    }catch(Exception e){
+    }catch(IllegalStateException e){
+      view.displayMessage(e.getMessage());
+      mainMenu();
+    } catch(Exception e){
       view.displayMessage(e.getMessage());
       getTotalValue();
     }
