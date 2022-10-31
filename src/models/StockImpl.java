@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoField;
 
 
@@ -68,7 +69,7 @@ class StockImpl implements Stock {
   }
 
   @Override
-  public float getValue(LocalDate date) {
+  public float getValue(String date) {
     return this.numberOfShares * getValueOfSingleShare(date);
     //return 100;
 
@@ -76,7 +77,7 @@ class StockImpl implements Stock {
 
   @Override
   public float getValue() throws IOException {
-    return this.numberOfShares * getValueOfSingleShare(this.date);
+    return this.numberOfShares * getValueOfSingleShare(this.date.toString());
 
   }
 
@@ -108,18 +109,25 @@ class StockImpl implements Stock {
     }
   }
 
-  private float getValueOfSingleShare(LocalDate date) throws IllegalArgumentException {
+  private float getValueOfSingleShare(String date) throws IllegalArgumentException {
     //Call api and return the value of a single share on that date.
-    if (this.weekendValidation(date)) {
+    LocalDate dateString;
+    try {
+      dateString = LocalDate.parse(date,
+              DateTimeFormatter.ISO_LOCAL_DATE);
+    }catch (IllegalStateException e){
+      throw new IllegalArgumentException("Date Should be in yyyy-mm-dd format");
+    }
+    if (this.weekendValidation(dateString)) {
       throw new IllegalArgumentException("Market is closed on weekend, date passed is " + date);
     }
     LocalDate dateNow = LocalDate.now();
-    if (dateNow.compareTo(date) < 0) {
+    if (dateNow.compareTo(dateString) < 0) {
       throw new IllegalArgumentException("Date should be less than today's date");
-    } else if (dateNow.compareTo(date) == 0) {
-      date = dateHandling();
+    } else if (dateNow.compareTo(dateString) == 0) {
+      dateString = dateHandling();
     }
-    return ApiCallImpl.getData(this.symbol, date);
+    return ApiCallImpl.getData(this.symbol, dateString);
   }
 
   public String toString() {

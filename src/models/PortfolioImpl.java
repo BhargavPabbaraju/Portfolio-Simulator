@@ -63,7 +63,7 @@ class PortfolioImpl implements Portfolio {
   }
 
   @Override
-  public float getTotalValue(LocalDate date){
+  public float getTotalValue(String date){
     float value = 0;
     for (Stock stock : stockList.values()) {
       value += stock.getValue(date);

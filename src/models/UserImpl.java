@@ -106,13 +106,9 @@ public class UserImpl implements User {
     if(this.activePortfolio==null){
       throw new IllegalStateException("No portfolio created yet");
     }
-    try{
-      LocalDate dateString = LocalDate.parse(date,
-              DateTimeFormatter.ISO_LOCAL_DATE);
-      return this.activePortfolio.getTotalValue(dateString);
-    }catch(Exception e){
-      throw new IllegalArgumentException("Date must be a valid date in yyyy-mm-dd format");
-    }
+
+    return this.activePortfolio.getTotalValue(date);
+
 
   }
 

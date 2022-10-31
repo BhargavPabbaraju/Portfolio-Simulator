@@ -16,7 +16,7 @@ interface Stock {
    * @param date
    * @return
    */
-  float getValue(LocalDate date);
+  float getValue(String date);
 
   /**
    * This method gets the date of purchase of this stock.
