@@ -32,8 +32,10 @@ public class ControllerImpl implements Controller {
         model.createUser(userName, balance);
         view.displayMessage("User successfully created");
       }else{
-        in.nextLine();
-        in.nextLine();
+        while(in.hasNextLine()){
+          in.nextLine();
+          in.nextLine();
+        }
         throw new IllegalArgumentException("Balance must be a valid floating point number");
       }
 
@@ -78,17 +80,18 @@ public class ControllerImpl implements Controller {
     boolean valid = true;
     if(in.hasNextInt()){
       option = in.nextInt();
-
       if(option<1 || option>numberOfOptions) {
         valid=false;
       }
+
     }else{
       valid = false;
     }
 
     if(!valid){
-      in.nextLine();
-      in.nextLine();
+      while(in.hasNextLine()){
+        in.nextLine();
+      }
       view.displayMessage("Option must be one of the following numbers");
 
     }
