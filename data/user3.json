@@ -1,0 +1,21 @@
+{
+  "name": "user3",
+  "balance": 1990.787,
+  "portfolios": [
+    {
+      "name": "retirement",
+      "stocks": [
+        {
+          "symbol": "GOOG",
+          "shares": 10.0,
+          "date": "2022-10-28"
+        },
+        {
+          "symbol": "ORCL",
+          "shares": 5.0,
+          "date": "2022-10-28"
+        }
+      ]
+    }
+  ]
+}

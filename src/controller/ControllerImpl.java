@@ -209,8 +209,7 @@ public class ControllerImpl implements Controller {
     if(in.hasNextInt()){
       shares = in.nextInt();
     }else{
-      in.nextLine();
-      in.nextLine();
+      in.next();
       view.displayMessage("Shares must be a valid positive integer");
       addNewStock();
     }

@@ -226,7 +226,7 @@ public class ControllerImplTest {
   }
 
   @Test
-  public void testLoadUserNameInvalid() {
+  public void testLoadUserInvalid() {
     Model model = new ModelImpl();
 
     ByteArrayInputStream in;
@@ -371,6 +371,218 @@ public class ControllerImplTest {
             "Enter number of shares\n" +
             "1.Add new stock\n" +
             "2.Back to main menu\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Get Composition\n" +
+            "4.Get Total Value on certain date\n" +
+            "5.Save\n" +
+            "6.Exit\n";
+    assertEquals(expectedOutput, bytes.toString());
+  }
+
+  @Test
+  public void testLoadUserValid() {
+    Model model = new ModelImpl();
+
+    ByteArrayInputStream in;
+
+    String input = "2 user1 6";
+    in = new ByteArrayInputStream(input.getBytes());
+    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+    PrintStream out = new PrintStream(bytes);
+
+    View view = new ViewImpl(out);
+
+    ControllerImpl controller = new ControllerImpl(model, view, in);
+    controller.go();
+
+    String expectedOutput = "To select a particular option,enter the number next to it\n" +
+            "1.Create User\n" +
+            "2.Load User\n" +
+            "Enter username\n" +
+            "User successfully loaded\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Get Composition\n" +
+            "4.Get Total Value on certain date\n" +
+            "5.Save\n" +
+            "6.Exit\n";
+    assertEquals(expectedOutput, bytes.toString());
+  }
+
+  @Test
+  public void testLoadPortfolioInvalid() {
+    Model model = new ModelImpl();
+
+    ByteArrayInputStream in;
+
+    String input = "2 user1 2 shares 6";
+    in = new ByteArrayInputStream(input.getBytes());
+    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+    PrintStream out = new PrintStream(bytes);
+
+    View view = new ViewImpl(out);
+
+    ControllerImpl controller = new ControllerImpl(model, view, in);
+    controller.go();
+
+    String expectedOutput = "To select a particular option,enter the number next to it\n" +
+            "1.Create User\n" +
+            "2.Load User\n" +
+            "Enter username\n" +
+            "User successfully loaded\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Get Composition\n" +
+            "4.Get Total Value on certain date\n" +
+            "5.Save\n" +
+            "6.Exit\n" +
+            "Enter portfolio name\n" +
+            "Portfolio doesn't exist\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Get Composition\n" +
+            "4.Get Total Value on certain date\n" +
+            "5.Save\n" +
+            "6.Exit\n";
+    assertEquals(expectedOutput, bytes.toString());
+  }
+
+  @Test
+  public void testLoadPortfolioValid() {
+    Model model = new ModelImpl();
+
+    ByteArrayInputStream in;
+
+    String input = "2 user1 2 college 6";
+    in = new ByteArrayInputStream(input.getBytes());
+    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+    PrintStream out = new PrintStream(bytes);
+
+    View view = new ViewImpl(out);
+
+    ControllerImpl controller = new ControllerImpl(model, view, in);
+    controller.go();
+
+    String expectedOutput = "To select a particular option,enter the number next to it\n" +
+            "1.Create User\n" +
+            "2.Load User\n" +
+            "Enter username\n" +
+            "User successfully loaded\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Get Composition\n" +
+            "4.Get Total Value on certain date\n" +
+            "5.Save\n" +
+            "6.Exit\n" +
+            "Enter portfolio name\n" +
+            "Loaded college\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Get Composition\n" +
+            "4.Get Total Value on certain date\n" +
+            "5.Save\n" +
+            "6.Exit\n";
+    assertEquals(expectedOutput, bytes.toString());
+  }
+
+  @Test
+  public void testGetComposition() {
+    Model model = new ModelImpl();
+
+    ByteArrayInputStream in;
+
+    String input = "2 user1 2 retirement 3 6";
+    in = new ByteArrayInputStream(input.getBytes());
+    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+    PrintStream out = new PrintStream(bytes);
+
+    View view = new ViewImpl(out);
+
+    ControllerImpl controller = new ControllerImpl(model, view, in);
+    controller.go();
+
+    String expectedOutput = "To select a particular option,enter the number next to it\n" +
+            "1.Create User\n" +
+            "2.Load User\n" +
+            "Enter username\n" +
+            "User successfully loaded\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Get Composition\n" +
+            "4.Get Total Value on certain date\n" +
+            "5.Save\n" +
+            "6.Exit\n" +
+            "Enter portfolio name\n" +
+            "Loaded retirement\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Get Composition\n" +
+            "4.Get Total Value on certain date\n" +
+            "5.Save\n" +
+            "6.Exit\n" +
+            "                    retirement\n" +
+            "MSFT                                    30.00\n" +
+            "META                                    30.00\n" +
+            "GOOGL                                   30.00\n" +
+            "IBM                                     20.00\n" +
+            "ORCL                                    40.00\n" +
+            "MRNA                                    30.00\n" +
+            "AMZN                                    30.00\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Get Composition\n" +
+            "4.Get Total Value on certain date\n" +
+            "5.Save\n" +
+            "6.Exit\n";
+    assertEquals(expectedOutput, bytes.toString());
+  }
+
+  @Test
+  public void testSave() {
+    Model model = new ModelImpl();
+
+    ByteArrayInputStream in;
+
+    String input = "1 user3 1990.787 1 retirement GOOG 10 1 ORCL 5 2 5 6";
+    in = new ByteArrayInputStream(input.getBytes());
+    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+    PrintStream out = new PrintStream(bytes);
+
+    View view = new ViewImpl(out);
+
+    ControllerImpl controller = new ControllerImpl(model, view, in);
+    controller.go();
+
+    String expectedOutput = "To select a particular option,enter the number next to it\n" +
+            "1.Create User\n" +
+            "2.Load User\n" +
+            "Enter username\n" +
+            "Enter initial balance\n" +
+            "User successfully created\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Get Composition\n" +
+            "4.Get Total Value on certain date\n" +
+            "5.Save\n" +
+            "6.Exit\n" +
+            "Enter portfolio name\n" +
+            "Enter Stock Symbol\n" +
+            "Enter number of shares\n" +
+            "1.Add new stock\n" +
+            "2.Back to main menu\n" +
+            "Enter Stock Symbol\n" +
+            "Enter number of shares\n" +
+            "1.Add new stock\n" +
+            "2.Back to main menu\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Get Composition\n" +
+            "4.Get Total Value on certain date\n" +
+            "5.Save\n" +
+            "6.Exit\n" +
+            "Successfully saved.\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
