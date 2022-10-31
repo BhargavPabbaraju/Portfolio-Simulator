@@ -17,16 +17,13 @@ public class ModelImpl implements Model {
     try {
       this.user = Loader.loadFile(userName);
     } catch (Exception e) {
-      if (e.getMessage() == null){
-        throw new IllegalStateException("Load file is not in valid format.");
-      }else{
-        throw e;
+      throw new IllegalStateException("Load file is not in valid format.");
       }
 
     }
 
 
-  }
+
 
 
   @Override

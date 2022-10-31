@@ -2,14 +2,14 @@
   "name": "user5",
   "balance": 20001.0,
   "portfolios": [
-    {
-      "name": "retirement",
-      "stocks": [
+
+      "name" "retirement"
+      "stocks" [
         {
           "symbol": "GOOG",
           "shares": 10.0,
           "date": "2022-10-30"
-        }
+
       ]
     }
   ]
