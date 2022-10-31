@@ -22,6 +22,7 @@ class Loader {
     loadPortfolioList(json, user);
     return user;
 
+
   }
 
   private static void loadPortfolioList(JsonObject json, User user) throws ParseException {
@@ -162,9 +163,9 @@ class Loader {
   }
 
   public static boolean isInvalidName(String name) {
-    String[] invalidCharacters = {"[","]","{","}",":",","};
-    for(String s: invalidCharacters){
-      if(name.contains(s)){
+    String[] invalidCharacters = {"[", "]", "{", "}", ":", ","};
+    for (String s : invalidCharacters) {
+      if (name.contains(s)) {
         return true;
       }
     }

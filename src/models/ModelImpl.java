@@ -4,20 +4,29 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.time.LocalDate;
 
-public class ModelImpl implements Model{
+public class ModelImpl implements Model {
   private User user;
+
   @Override
   public void createUser(String userName, float balance) throws IOException {
-    this.user = new UserImpl(userName,balance);
+    this.user = new UserImpl(userName, balance);
   }
 
   @Override
   public void loadUser(String userName) throws IOException, ParseException {
+    try {
+      this.user = Loader.loadFile(userName);
+    } catch (Exception e) {
+      if (e.getMessage() == null){
+        throw new IllegalStateException("Load file is not in valid format.");
+      }else{
+        throw e;
+      }
 
-    this.user = Loader.loadFile(userName);
+    }
+
 
   }
-
 
 
   @Override
@@ -37,8 +46,8 @@ public class ModelImpl implements Model{
   }
 
   @Override
-  public void addStockToPortfolio( String symbol, int shares){
-    this.user.addStockToPortfolio(symbol,shares);
+  public void addStockToPortfolio(String symbol, int shares) {
+    this.user.addStockToPortfolio(symbol, shares);
   }
 
   @Override
