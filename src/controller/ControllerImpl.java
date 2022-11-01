@@ -7,6 +7,11 @@ import java.util.Scanner;
 import models.Model;
 import view.View;
 
+/**
+ * This class represents a controller implementation. It process user inputs and delegates methods
+ * to model and view.
+ */
+
 public class ControllerImpl implements Controller {
   private final Model model;
   private final View view;

@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 
 /**
- * This class represents a Json jsonparser.Parser. It takes a json file and represents it as a
+ * This class represents a Json Parser. It takes a json file and represents it as a
  * Json Object.
  */
 public class JsonParser{
@@ -19,9 +19,7 @@ public class JsonParser{
   JsonObject result;
 
 
-  /**
-   * This method prints the contents of the input stack and resultstack.
-   */
+
   private void printContents() {
     System.out.println("Contents of result stack");
     while (!resultStack.isEmpty()) {
@@ -33,13 +31,7 @@ public class JsonParser{
     }
   }
 
-  /**
-   * This function reads a json file and returns the formatted file.
-   *
-   * @param filepath the path of the file to process and format.
-   * @return
-   * @throws FileNotFoundException
-   */
+
   private static String readFile(String filepath) throws FileNotFoundException {
     Scanner file = new Scanner(new File(filepath));
     //Input Processing
@@ -128,6 +120,13 @@ public class JsonParser{
     }
   }
 
+  /**
+   * This method takes a filepath as an input and parses it and returns a json object representing
+   * key value pairs present in the file, provided the file is correctly formatted.
+   * @param filepath
+   * @return
+   * @throws FileNotFoundException if the provided filepath doesn't exist.
+   */
   public static JsonObject parse(String filepath) throws FileNotFoundException {
     String file = readFile(filepath);
     String[] formattedFile = formatInput(file);

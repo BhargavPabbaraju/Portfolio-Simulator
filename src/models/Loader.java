@@ -7,13 +7,24 @@ import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
-import java.util.Set;
 
 
 import models.jsonparser.JsonObject;
 import models.jsonparser.JsonParser;
 
+/**
+ * This class represents a Json loader that loads a well formatted json file creates a user from
+ * that file.
+ */
 class Loader {
+  /**
+   * This method creates a user from a well formatted json file with the same name as the username
+   * provided.
+   * @param userName
+   * @return
+   * @throws IOException if a file with this username doesn't exist.
+   * @throws ParseException if the file is of invalid format.
+   */
   public static User loadFile(String userName) throws IOException, ParseException {
     User user = new UserImpl(userName);
     JsonObject json = JsonParser.parse("data//" + userName + ".json");
