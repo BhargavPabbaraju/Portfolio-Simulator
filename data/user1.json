@@ -1,63 +1,58 @@
 {
   "name": "user1",
-  "balance": 10000,
+  "balance": 40000.0,
   "portfolios": [
     {
-      "name": "retirement",
+      "name": "college",
       "stocks": [
         {
-          "symbol": "IBM",
-          "shares": 20,
+          "symbol": "AAPL",
+          "shares": 10.0,
           "date": "2022-10-28"
         },
         {
-          "symbol": "ORCL",
-          "shares": 10,
-          "date": "2022-10-28"
-        },
-        {
-          "symbol": "ORCL",
-          "shares": 30,
-          "date": "2022-10-28"
-        },
-        {
-          "symbol": "MSFT",
-          "shares": 30,
-          "date": "2022-10-28"
-        },
-        {
-          "symbol": "META",
-          "shares": 30,
-          "date": "2022-10-28"
-        },
-        {
-          "symbol": "GOOGL",
-          "shares": 30,
-          "date": "2022-10-28"
-        },
-        {
-          "symbol": "MRNA",
-          "shares": 30,
-          "date": "2022-10-28"
-        },
-        {
-          "symbol": "AMZN",
-          "shares": 30,
+          "symbol": "TSLA",
+          "shares": 20.0,
           "date": "2022-10-28"
         }
       ]
     },
     {
-      "name": "college",
+      "name": "retirement",
       "stocks": [
         {
-          "symbol": "TSLA",
-          "shares": 20,
+          "symbol": "MSFT",
+          "shares": 30.0,
           "date": "2022-10-28"
         },
         {
-          "symbol": "AAPL",
-          "shares": 10,
+          "symbol": "META",
+          "shares": 30.0,
+          "date": "2022-10-28"
+        },
+        {
+          "symbol": "GOOGL",
+          "shares": 30.0,
+          "date": "2022-10-28"
+        },
+        {
+          "symbol": "IBM",
+          "shares": 20.0,
+          "date": "2022-10-28"
+        },
+        {
+          "symbol": "ORCL",
+          "shares": 40.0,
+          "date": "2022-10-28"
+        },
+        {
+          "symbol": "MRNA",
+          "shares": 30.0,
+          "date": "2022-10-28"
+        },
+        {
+          "symbol": "AMZN",
+          "shares": 30.0,
           "date": "2022-10-28"
         }
       ]

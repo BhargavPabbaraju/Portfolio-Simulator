@@ -1,7 +1,7 @@
-package models;
-
 import java.io.IOException;
 import java.text.ParseException;
+
+import models.Model;
 
 public class MockModel implements Model {
   private StringBuilder inputLog;
