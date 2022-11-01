@@ -118,11 +118,34 @@ public class ModelImplTest {
 
   }
 
-  @Test
-  public void loadPortfolio() {
+  @Test(expected = IllegalArgumentException.class)
+  public void loadNonExistingPortfolio() throws IOException {
+    model.createUser("user101",1900);
+    model.loadPortfolio("retirement");
+    fail("Exception is expected for loading non existing portfolio.");
+
   }
 
   @Test
-  public void save() {
+  public void loadPortfolio() throws IOException, ParseException {
+    model.loadUser("user1");
+    model.loadPortfolio("college");
+    String expected =
+    "                    college\n"+
+     "AAPL                                    10.00\n"+
+     "TSLA                                    20.00\n";
+
+    assertEquals(expected,model.getComposition().toString());
+  }
+
+  @Test
+  public void save() throws IOException, ParseException {
+    model.createUser("user4",1900);
+    model.createPortfolio("college");
+    model.addStockToPortfolio("IBM",10);
+    model.save();
+    model.loadUser("user4");
+    assertEquals("{college={IBM=IBM 10.0 2022-10-31}}",model.toString());
+
   }
 }
