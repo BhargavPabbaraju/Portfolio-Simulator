@@ -28,7 +28,6 @@ public class ModelImpl implements Model {
 
   @Override
   public void createPortfolio(String portfolioName) {
-
     this.user.createPortfolio(portfolioName);
   }
 
@@ -55,6 +54,11 @@ public class ModelImpl implements Model {
   @Override
   public void save() throws IOException {
     this.user.save();
+  }
+
+  @Override
+  public String toString(){
+    return this.user.toString();
   }
 
 }
