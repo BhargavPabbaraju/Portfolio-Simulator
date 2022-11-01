@@ -10,7 +10,7 @@ public class ViewImpl implements View{
   }
   @Override
   public void displayInitialMenu() {
-    out.println("To select a particular option,enter the number next to it");
+    out.println("To select a particular option,enter the number next to it\n");
     out.println("1.Create User");
     out.println("2.Load User");
   }
@@ -27,12 +27,12 @@ public class ViewImpl implements View{
 
   @Override
   public void displayMessage(String message) {
-    out.println(message);
+    out.println("\n"+message);
   }
 
   @Override
   public void displayMainMenu() {
-    out.println("1.Create Portfolio");
+    out.println("\n1.Create Portfolio");
     out.println("2.Load Portfolio");
     out.println("3.Get Composition");
     out.println("4.Get Total Value on certain date");
@@ -52,7 +52,7 @@ public class ViewImpl implements View{
 
   @Override
   public void displayValue(float totalValue, String date) {
-    out.println("Total Value on "+date+" is "+totalValue);
+    out.println("\nTotal Value on "+date+" is "+totalValue+"\n");
   }
 
   @Override

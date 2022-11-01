@@ -32,16 +32,21 @@ public class ControllerImplTest {
     controller.go();
 
     String expectedOutput = "To select a particular option,enter the number next to it\n" +
+            "\n" +
             "1.Create User\n" +
             "2.Load User\n" +
             "Enter username\n" +
             "Enter initial balance\n" +
+            "\n" +
             "User Already exists\n" +
             "To select a particular option,enter the number next to it\n" +
+            "\n" +
             "1.Create User\n" +
             "2.Load User\n" +
             "Enter username\n" +
+            "\n" +
             "User successfully loaded\n" +
+            "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
@@ -68,16 +73,21 @@ public class ControllerImplTest {
     controller.go();
 
     String expectedOutput = "To select a particular option,enter the number next to it\n" +
+            "\n" +
             "1.Create User\n" +
             "2.Load User\n" +
             "Enter username\n" +
             "Enter initial balance\n" +
+            "\n" +
             "Username must not contain any of \\\"{}[],: characters.\n" +
             "To select a particular option,enter the number next to it\n" +
+            "\n" +
             "1.Create User\n" +
             "2.Load User\n" +
             "Enter username\n" +
+            "\n" +
             "User successfully loaded\n" +
+            "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
@@ -104,16 +114,21 @@ public class ControllerImplTest {
     controller.go();
 
     String expectedOutput = "To select a particular option,enter the number next to it\n" +
+            "\n" +
             "1.Create User\n" +
             "2.Load User\n" +
             "Enter username\n" +
             "Enter initial balance\n" +
+            "\n" +
             "Balance cannot be negative\n" +
             "To select a particular option,enter the number next to it\n" +
+            "\n" +
             "1.Create User\n" +
             "2.Load User\n" +
             "Enter username\n" +
+            "\n" +
             "User successfully loaded\n" +
+            "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
@@ -140,16 +155,21 @@ public class ControllerImplTest {
     controller.go();
 
     String expectedOutput = "To select a particular option,enter the number next to it\n" +
+            "\n" +
             "1.Create User\n" +
             "2.Load User\n" +
             "Enter username\n" +
             "Enter initial balance\n" +
+            "\n" +
             "Balance must be a valid floating point number\n" +
             "To select a particular option,enter the number next to it\n" +
+            "\n" +
             "1.Create User\n" +
             "2.Load User\n" +
             "Enter username\n" +
+            "\n" +
             "User successfully loaded\n" +
+            "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
@@ -176,11 +196,14 @@ public class ControllerImplTest {
     controller.go();
 
     String expectedOutput = "To select a particular option,enter the number next to it\n" +
+            "\n" +
             "1.Create User\n" +
             "2.Load User\n" +
             "Enter username\n" +
             "Enter initial balance\n" +
+            "\n" +
             "User successfully created\n" +
+            "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
@@ -207,15 +230,20 @@ public class ControllerImplTest {
     controller.go();
 
     String expectedOutput = "To select a particular option,enter the number next to it\n" +
+            "\n" +
             "1.Create User\n" +
             "2.Load User\n" +
             "Enter username\n" +
+            "\n" +
             "User doesn't exists\n" +
             "To select a particular option,enter the number next to it\n" +
+            "\n" +
             "1.Create User\n" +
             "2.Load User\n" +
             "Enter username\n" +
+            "\n" +
             "User successfully loaded\n" +
+            "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
@@ -242,15 +270,20 @@ public class ControllerImplTest {
     controller.go();
 
     String expectedOutput = "To select a particular option,enter the number next to it\n" +
+            "\n" +
             "1.Create User\n" +
             "2.Load User\n" +
             "Enter username\n" +
+            "\n" +
             "Load file is not in valid format.\n" +
             "To select a particular option,enter the number next to it\n" +
+            "\n" +
             "1.Create User\n" +
             "2.Load User\n" +
             "Enter username\n" +
+            "\n" +
             "User successfully loaded\n" +
+            "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
@@ -276,11 +309,14 @@ public class ControllerImplTest {
     ControllerImpl controller = new ControllerImpl(model, view, in);
     controller.go();
     String expectedOutput = "To select a particular option,enter the number next to it\n" +
+            "\n" +
             "1.Create User\n" +
             "2.Load User\n" +
             "Enter username\n" +
             "Enter initial balance\n" +
+            "\n" +
             "User successfully created\n" +
+            "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
@@ -288,7 +324,9 @@ public class ControllerImplTest {
             "5.Save\n" +
             "6.Exit\n" +
             "Enter portfolio name\n" +
+            "\n" +
             "Portfolio name must not contain any of \\\"{}[],: characters.\n" +
+            "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
@@ -315,10 +353,13 @@ public class ControllerImplTest {
     ControllerImpl controller = new ControllerImpl(model, view, in);
     controller.go();
     String expectedOutput = "To select a particular option,enter the number next to it\n" +
+            "\n" +
             "1.Create User\n" +
             "2.Load User\n" +
             "Enter username\n" +
+            "\n" +
             "User successfully loaded\n" +
+            "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
@@ -326,7 +367,9 @@ public class ControllerImplTest {
             "5.Save\n" +
             "6.Exit\n" +
             "Enter portfolio name\n" +
+            "\n" +
             "Portfolio already exists\n" +
+            "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
@@ -352,10 +395,13 @@ public class ControllerImplTest {
     ControllerImpl controller = new ControllerImpl(model, view, in);
     controller.go();
     String expectedOutput = "To select a particular option,enter the number next to it\n" +
+            "\n" +
             "1.Create User\n" +
             "2.Load User\n" +
             "Enter username\n" +
+            "\n" +
             "User successfully loaded\n" +
+            "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
@@ -371,6 +417,7 @@ public class ControllerImplTest {
             "Enter number of shares\n" +
             "1.Add new stock\n" +
             "2.Back to main menu\n" +
+            "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
@@ -397,10 +444,13 @@ public class ControllerImplTest {
     controller.go();
 
     String expectedOutput = "To select a particular option,enter the number next to it\n" +
+            "\n" +
             "1.Create User\n" +
             "2.Load User\n" +
             "Enter username\n" +
+            "\n" +
             "User successfully loaded\n" +
+            "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
@@ -427,10 +477,13 @@ public class ControllerImplTest {
     controller.go();
 
     String expectedOutput = "To select a particular option,enter the number next to it\n" +
+            "\n" +
             "1.Create User\n" +
             "2.Load User\n" +
             "Enter username\n" +
+            "\n" +
             "User successfully loaded\n" +
+            "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
@@ -438,7 +491,9 @@ public class ControllerImplTest {
             "5.Save\n" +
             "6.Exit\n" +
             "Enter portfolio name\n" +
+            "\n" +
             "Portfolio doesn't exist\n" +
+            "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
@@ -465,10 +520,13 @@ public class ControllerImplTest {
     controller.go();
 
     String expectedOutput = "To select a particular option,enter the number next to it\n" +
+            "\n" +
             "1.Create User\n" +
             "2.Load User\n" +
             "Enter username\n" +
+            "\n" +
             "User successfully loaded\n" +
+            "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
@@ -476,7 +534,9 @@ public class ControllerImplTest {
             "5.Save\n" +
             "6.Exit\n" +
             "Enter portfolio name\n" +
+            "\n" +
             "Loaded college\n" +
+            "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
@@ -503,10 +563,13 @@ public class ControllerImplTest {
     controller.go();
 
     String expectedOutput = "To select a particular option,enter the number next to it\n" +
+            "\n" +
             "1.Create User\n" +
             "2.Load User\n" +
             "Enter username\n" +
+            "\n" +
             "User successfully loaded\n" +
+            "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
@@ -514,7 +577,9 @@ public class ControllerImplTest {
             "5.Save\n" +
             "6.Exit\n" +
             "Enter portfolio name\n" +
+            "\n" +
             "Loaded retirement\n" +
+            "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
@@ -529,6 +594,7 @@ public class ControllerImplTest {
             "ORCL                                    40.00\n" +
             "MRNA                                    30.00\n" +
             "AMZN                                    30.00\n" +
+            "\n" +
             "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
@@ -556,11 +622,14 @@ public class ControllerImplTest {
     controller.go();
 
     String expectedOutput = "To select a particular option,enter the number next to it\n" +
+            "\n" +
             "1.Create User\n" +
             "2.Load User\n" +
             "Enter username\n" +
             "Enter initial balance\n" +
+            "\n" +
             "User successfully created\n" +
+            "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
@@ -576,13 +645,16 @@ public class ControllerImplTest {
             "Enter number of shares\n" +
             "1.Add new stock\n" +
             "2.Back to main menu\n" +
+            "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
             "4.Get Total Value on certain date\n" +
             "5.Save\n" +
             "6.Exit\n" +
+            "\n" +
             "Successfully saved.\n" +
+            "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
@@ -608,10 +680,13 @@ public class ControllerImplTest {
     ControllerImpl controller = new ControllerImpl(model, view, in);
     controller.go();
     String expectedOutput = "To select a particular option,enter the number next to it\n" +
+            "\n" +
             "1.Create User\n" +
             "2.Load User\n" +
             "Enter username\n" +
+            "\n" +
             "User successfully loaded\n" +
+            "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
@@ -621,11 +696,13 @@ public class ControllerImplTest {
             "Enter portfolio name\n" +
             "Enter Stock Symbol\n" +
             "Enter number of shares\n" +
+            "\n" +
             "ABCD Symbol not found\n" +
             "Enter Stock Symbol\n" +
             "Enter number of shares\n" +
             "1.Add new stock\n" +
             "2.Back to main menu\n" +
+            "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
@@ -651,10 +728,13 @@ public class ControllerImplTest {
     ControllerImpl controller = new ControllerImpl(model, view, in);
     controller.go();
     String expectedOutput = "To select a particular option,enter the number next to it\n" +
+            "\n" +
             "1.Create User\n" +
             "2.Load User\n" +
             "Enter username\n" +
+            "\n" +
             "User successfully loaded\n" +
+            "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
@@ -664,11 +744,13 @@ public class ControllerImplTest {
             "Enter portfolio name\n" +
             "Enter Stock Symbol\n" +
             "Enter number of shares\n" +
+            "\n" +
             "Shares must be a valid positive integer\n" +
             "Enter Stock Symbol\n" +
             "Enter number of shares\n" +
             "1.Add new stock\n" +
             "2.Back to main menu\n" +
+            "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
@@ -694,10 +776,13 @@ public class ControllerImplTest {
     ControllerImpl controller = new ControllerImpl(model, view, in);
     controller.go();
     String expectedOutput = "To select a particular option,enter the number next to it\n" +
+            "\n" +
             "1.Create User\n" +
             "2.Load User\n" +
             "Enter username\n" +
+            "\n" +
             "User successfully loaded\n" +
+            "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
@@ -707,11 +792,13 @@ public class ControllerImplTest {
             "Enter portfolio name\n" +
             "Enter Stock Symbol\n" +
             "Enter number of shares\n" +
+            "\n" +
             "Shares must be a valid positive integer\n" +
             "Enter Stock Symbol\n" +
             "Enter number of shares\n" +
             "1.Add new stock\n" +
             "2.Back to main menu\n" +
+            "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
@@ -737,10 +824,13 @@ public class ControllerImplTest {
     ControllerImpl controller = new ControllerImpl(model, view, in);
     controller.go();
     String expectedOutput = "To select a particular option,enter the number next to it\n" +
+            "\n" +
             "1.Create User\n" +
             "2.Load User\n" +
             "Enter username\n" +
+            "\n" +
             "User successfully loaded\n" +
+            "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
@@ -748,7 +838,10 @@ public class ControllerImplTest {
             "5.Save\n" +
             "6.Exit\n" +
             "Enter date(yyyy-mm-dd)\n" +
-            "Total Value on 2022-10-31 is 6152.2\n" +
+            "\n" +
+            "Total Value on 2022-10-31 is 6139.4\n" +
+            "\n" +
+            "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
@@ -774,10 +867,13 @@ public class ControllerImplTest {
     ControllerImpl controller = new ControllerImpl(model, view, in);
     controller.go();
     String expectedOutput = "To select a particular option,enter the number next to it\n" +
+            "\n" +
             "1.Create User\n" +
             "2.Load User\n" +
             "Enter username\n" +
+            "\n" +
             "User successfully loaded\n" +
+            "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
@@ -785,9 +881,13 @@ public class ControllerImplTest {
             "5.Save\n" +
             "6.Exit\n" +
             "Enter date(yyyy-mm-dd)\n" +
+            "\n" +
             "Market is closed on weekend, date passed is 2022-10-30\n" +
             "Enter date(yyyy-mm-dd)\n" +
-            "Total Value on 2022-10-31 is 6152.2\n" +
+            "\n" +
+            "Total Value on 2022-10-31 is 6139.4\n" +
+            "\n" +
+            "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
@@ -812,10 +912,13 @@ public class ControllerImplTest {
     ControllerImpl controller = new ControllerImpl(model, view, in);
     controller.go();
     String expectedOutput = "To select a particular option,enter the number next to it\n" +
+            "\n" +
             "1.Create User\n" +
             "2.Load User\n" +
             "Enter username\n" +
+            "\n" +
             "User successfully loaded\n" +
+            "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
@@ -823,9 +926,19 @@ public class ControllerImplTest {
             "5.Save\n" +
             "6.Exit\n" +
             "Enter date(yyyy-mm-dd)\n" +
-            "Date should be less than today's date\n" +
-            "Enter date(yyyy-mm-dd)\n" +
-            "Total Value on 2022-10-31 is 6152.2\n" +
+            "\n" +
+            "Total Value on 2022-11-01 is 6139.4\n" +
+            "\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Get Composition\n" +
+            "4.Get Total Value on certain date\n" +
+            "5.Save\n" +
+            "6.Exit\n" +
+            "\n" +
+            "Option must be one of the following numbers\n" +
+            "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
@@ -850,11 +963,14 @@ public class ControllerImplTest {
     ControllerImpl controller = new ControllerImpl(model, view, in);
     controller.go();
     String expectedOutput = "To select a particular option,enter the number next to it\n" +
+            "\n" +
             "1.Create User\n" +
             "2.Load User\n" +
             "Enter username\n" +
             "Enter initial balance\n" +
+            "\n" +
             "User successfully created\n" +
+            "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
@@ -862,7 +978,9 @@ public class ControllerImplTest {
             "5.Save\n" +
             "6.Exit\n" +
             "Enter date(yyyy-mm-dd)\n" +
+            "\n" +
             "No portfolio created yet\n" +
+            "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
@@ -887,10 +1005,13 @@ public class ControllerImplTest {
     ControllerImpl controller = new ControllerImpl(model, view, in);
     controller.go();
     String expectedOutput = "To select a particular option,enter the number next to it\n" +
+            "\n" +
             "1.Create User\n" +
             "2.Load User\n" +
             "Enter username\n" +
+            "\n" +
             "User successfully loaded\n" +
+            "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
@@ -898,9 +1019,13 @@ public class ControllerImplTest {
             "5.Save\n" +
             "6.Exit\n" +
             "Enter date(yyyy-mm-dd)\n" +
+            "\n" +
             "Text 'jkegrhbs' could not be parsed at index 0\n" +
             "Enter date(yyyy-mm-dd)\n" +
-            "Total Value on 2022-10-31 is 6152.2\n" +
+            "\n" +
+            "Total Value on 2022-10-31 is 6139.4\n" +
+            "\n" +
+            "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
@@ -925,11 +1050,14 @@ public class ControllerImplTest {
     ControllerImpl controller = new ControllerImpl(model, view, in);
     controller.go();
     String expectedOutput = "To select a particular option,enter the number next to it\n" +
+            "\n" +
             "1.Create User\n" +
             "2.Load User\n" +
             "Enter username\n" +
             "Enter initial balance\n" +
+            "\n" +
             "User successfully created\n" +
+            "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
@@ -939,11 +1067,13 @@ public class ControllerImplTest {
             "Enter portfolio name\n" +
             "Enter Stock Symbol\n" +
             "Enter number of shares\n" +
+            "\n" +
             "Shares must be a valid positive integer\n" +
             "Enter Stock Symbol\n" +
             "Enter number of shares\n" +
             "1.Add new stock\n" +
             "2.Back to main menu\n" +
+            "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
@@ -968,11 +1098,14 @@ public class ControllerImplTest {
     ControllerImpl controller = new ControllerImpl(model, view, in);
     controller.go();
     String expectedOutput = "To select a particular option,enter the number next to it\n" +
+            "\n" +
             "1.Create User\n" +
             "2.Load User\n" +
             "Enter username\n" +
             "Enter initial balance\n" +
+            "\n" +
             "User successfully created\n" +
+            "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
@@ -992,6 +1125,7 @@ public class ControllerImplTest {
             "Enter number of shares\n" +
             "1.Add new stock\n" +
             "2.Back to main menu\n" +
+            "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
@@ -1001,6 +1135,7 @@ public class ControllerImplTest {
             "                    personal\n" +
             "AAPL                                    10.00\n" +
             "ORCL                                    40.00\n" +
+            "\n" +
             "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
