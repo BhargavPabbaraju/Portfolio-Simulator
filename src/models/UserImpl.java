@@ -10,7 +10,7 @@ import java.util.HashMap;
 
 /**
  * This class represents a single user. User has a unique name and can have portfolios.
- * Creating a user is required to perform all the operations
+ * Creating a user is required to perform all the operations.
  */
 public class UserImpl implements User {
   final String userName;
@@ -45,8 +45,8 @@ public class UserImpl implements User {
    * This constructor creates a user with given username and initial balance.
    * This constructor is called which creating a user from the program.
    *
-   * @param userName String username which is unique for a user
-   * @param balance  float balance which is entered by the user
+   * @param userName String username which is unique for a user.
+   * @param balance  float balance which is entered by the user.
    * @throws IllegalArgumentException if username is already taken or if the balance is invalid.
    */
   public UserImpl(String userName, float balance) throws IllegalArgumentException {

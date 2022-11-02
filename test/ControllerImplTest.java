@@ -810,6 +810,53 @@ public class ControllerImplTest {
             "6.Exit\n";
     assertEquals(expectedOutput, bytes.toString());
   }
+  @Test
+  public void testCreatePortfolioFloatShares() {
+    Model model = new ModelImpl();
+
+    ByteArrayInputStream in;
+
+    String input = "2 user1 1 personal AAPL 192.34 AAPL 10 2 6";
+    in = new ByteArrayInputStream(input.getBytes());
+    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+    PrintStream out = new PrintStream(bytes);
+
+    View view = new ViewImpl(out);
+
+    ControllerImpl controller = new ControllerImpl(model, view, in);
+    controller.go();
+    String expectedOutput = "To select a particular option,enter the number next to it\n" +
+            "\n" +
+            "1.Create User\n" +
+            "2.Load User\n" +
+            "Enter username\n" +
+            "\n" +
+            "User successfully loaded\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Get Composition\n" +
+            "4.Get Total Value on certain date\n" +
+            "5.Save\n" +
+            "6.Exit\n" +
+            "Enter portfolio name\n" +
+            "Enter Stock Symbol\n" +
+            "Enter number of shares\n" +
+            "\n" +
+            "Shares must be a valid positive integer\n" +
+            "Enter Stock Symbol\n" +
+            "Enter number of shares\n" +
+            "1.Add new stock\n" +
+            "2.Back to main menu\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Get Composition\n" +
+            "4.Get Total Value on certain date\n" +
+            "5.Save\n" +
+            "6.Exit\n";
+    assertEquals(expectedOutput, bytes.toString());
+  }
 
   @Test
   public void testGetValueNormal() {
