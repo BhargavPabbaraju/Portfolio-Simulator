@@ -21,8 +21,8 @@ public interface Model {
    * It loads all the data from that file into the program.
    *
    * @param userName String username which is unique for a user
-   * @throws IOException
-   * @throws ParseException
+   * @throws IOException    throws an IO exception  which is handled by controller
+   * @throws ParseException throws an ParseException which is handled by controller
    */
   void loadUser(String userName) throws IOException, ParseException;
 
@@ -67,7 +67,6 @@ public interface Model {
    * certain date.
    *
    * @param portfolioName String which is unique for a user.
-   * @return a portfolio object which can used for future operations.
    */
   void loadPortfolio(String portfolioName);
 
@@ -75,7 +74,7 @@ public interface Model {
    * This method is used to save this user in a file. Save option is given to the user in the menu.
    * It stores all the data into local file system.
    *
-   * @throws IOException
+   * @throws IOException throws an IO exception is save is failed which is handled by controller
    */
   void save() throws IOException;
 }

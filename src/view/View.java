@@ -24,7 +24,8 @@ public interface View {
 
   /**
    * This method prints the given message to the output stream.
-   * @param message
+   *
+   * @param message String to display.
    */
   void displayMessage(String message);
 
@@ -45,14 +46,16 @@ public interface View {
 
   /**
    * This method displays the total value on a given date.
-   * @param totalValue
-   * @param date
+   *
+   * @param totalValue total value send from controller
+   * @param date       date sent from controller
    */
   void displayValue(float totalValue, String date);
 
   /**
    * This method displays the given composition of a portfolio.
-   * @param composition
+   *
+   * @param composition composition sent from controller
    */
   void displayComposition(StringBuilder composition);
 

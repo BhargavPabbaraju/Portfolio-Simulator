@@ -16,7 +16,9 @@ import java.util.Map;
 import models.jsonparser.JsonObject;
 import models.jsonparser.JsonParser;
 
-
+/**
+ * This class handles the caching of the data after the API call.
+ */
 public class CacheImpl implements Cache {
   Map<String, JsonObject> cacheList;
 
@@ -30,6 +32,10 @@ public class CacheImpl implements Cache {
    * contains time-series data for each company to improve performance. This file is not hardcoded
    * it is generated on the go automatically from the API call and saved in file system.
    * This improves the performance of the app.
+   *
+   * @throws InterruptedException  throws a InterruptedException when loading fails
+   * @throws FileNotFoundException throws a FileNotFoundException if the file is not found in the
+   *                               directory
    */
   public CacheImpl() throws FileNotFoundException, InterruptedException {
     this.cacheList = new HashMap<>();

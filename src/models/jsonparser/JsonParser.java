@@ -123,8 +123,8 @@ public class JsonParser{
   /**
    * This method takes a filepath as an input and parses it and returns a json object representing
    * key value pairs present in the file, provided the file is correctly formatted.
-   * @param filepath
-   * @return
+   * @param filepath path of the file
+   * @return returns a JsonObject
    * @throws FileNotFoundException if the provided filepath doesn't exist.
    */
   public static JsonObject parse(String filepath) throws FileNotFoundException {

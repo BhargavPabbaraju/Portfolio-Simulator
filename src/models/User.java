@@ -59,7 +59,7 @@ public interface User {
    * A portfolio contains a hashmap which stores all these stocks. To add a stock to the portfolio
    * user needs to enter Stock Symbol and number of shares he wants.
    *
-   * @param symbol String which should be a valid.
+   * @param symbol         String which should be a valid.
    * @param numberOfShares float which is the number of shares the user wants of that company.
    */
 
@@ -69,7 +69,7 @@ public interface User {
    * This method is used to load a stock from a file and add it to this user's active portfolio.
    * This method is called while loading a file from the local file system.
    *
-   * @param symbol String which should be a valid.
+   * @param symbol         String which should be a valid.
    * @param numberOfShares float which is the number of shares the user wants of that company.
    * @param date           on which this stock was bought taken from the file.
    */
@@ -80,7 +80,7 @@ public interface User {
    * This method is used to save this user in a file. Save option is given to the user in the menu.
    * It stores all the data into local file system.
    *
-   * @throws IOException
+   * @throws IOException throws an IOException if saving fails.
    */
   void save() throws IOException;
 

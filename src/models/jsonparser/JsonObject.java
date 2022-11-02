@@ -17,7 +17,7 @@ public interface JsonObject{
   /**
    * This method is used to get the type of this json object. It can be one of
    * Dictionary , List or String.
-   * @return
+   * @return returns a JsonType Object
    */
   public JsonType getType();
 
