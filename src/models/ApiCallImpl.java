@@ -69,7 +69,7 @@ public class ApiCallImpl {
     JsonObject data = cache.getTimeData(stockSymbol);
     if (data != null) {
       try {
-        return getSharevalue(data, dateString);
+        return getShareValue(data, dateString);
       } catch (IllegalArgumentException e) {
         cache.remove(stockSymbol);
         return stockValue(stockSymbol, dateString);
@@ -80,15 +80,15 @@ public class ApiCallImpl {
   }
 
   private static float stockValue(String stockSymbol, String dateString) {
-    JsonObject data = ApiInteration(stockSymbol);
+    JsonObject data = apiInteration(stockSymbol);
     if (data == null) {
       return cache.getSymbolData(stockSymbol);
     } else {
-      return getSharevalue(data, dateString);
+      return getShareValue(data, dateString);
     }
   }
 
-  private static JsonObject ApiInteration(String stockSymbol) {
+  private static JsonObject apiInteration(String stockSymbol) {
     String output = getJsonFormat(stockSymbol);
     removeMetaDataInFile(stockSymbol, output);
     JsonObject data = parseJson(stockSymbol);
@@ -99,7 +99,7 @@ public class ApiCallImpl {
 
   }
 
-  private static float getSharevalue(JsonObject timeseries, String date) {
+  private static float getShareValue(JsonObject timeseries, String date) {
     return Float.parseFloat(timeseries.get(date).get("2.high").toString());
   }
 
@@ -109,6 +109,7 @@ public class ApiCallImpl {
       json = JsonParser.parse("data" + File.separator + "cacheData" + File.separator
               + symbol + ".json");
     } catch (FileNotFoundException e) {
+      //If file is not found in the directory.
     }
     return json;
   }
@@ -131,7 +132,7 @@ public class ApiCallImpl {
     return output.toString();
   }
 
-  public static void removeMetaDataInFile(String symbol, String output) {
+  private static void removeMetaDataInFile(String symbol, String output) {
     if (output.length() < 300) {
       return;
     }
@@ -160,7 +161,7 @@ public class ApiCallImpl {
         inputFile.delete();
       }
     } catch (IOException e) {
-
+      //If file is not found in the directory.
     }
 
   }

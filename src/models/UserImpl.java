@@ -84,7 +84,8 @@ public class UserImpl implements User {
 
 
   @Override
-  public void addStockToPortfolio(String symbol, float numberOfShares) throws IllegalArgumentException {
+  public void addStockToPortfolio(String symbol, float numberOfShares) throws
+          IllegalArgumentException {
     if (numberOfShares <= 0) {
       throw new IllegalArgumentException("Shares must be a valid positive integer");
     }

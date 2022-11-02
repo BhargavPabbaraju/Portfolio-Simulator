@@ -21,14 +21,15 @@ class Loader {
   /**
    * This method creates a user from a well formatted json file with the same name as the username
    * provided and loads all the portfolios present in it.
+   *
    * @param userName String which is unique for a user.
    * @return a user object which consists of all the data loaded from the file.
-   * @throws IOException if a file with this username doesn't exist.
+   * @throws IOException    if a file with this username doesn't exist.
    * @throws ParseException if the file is of invalid format.
    */
   public static User loadFile(String userName) throws IOException, ParseException {
     User user = new UserImpl(userName);
-    JsonObject json = JsonParser.parse("data"+ File.separator + userName + ".json");
+    JsonObject json = JsonParser.parse("data" + File.separator + userName + ".json");
     float balance = Float.parseFloat(json.get("balance").toString());
     user.addToBalance(balance);
     loadPortfolioList(json, user);
@@ -118,7 +119,8 @@ class Loader {
     return tabs;
   }
 
-  private static int writeStocks(Portfolio portfolio, BufferedWriter writer, int tabs) throws IOException {
+  private static int writeStocks(Portfolio portfolio, BufferedWriter writer, int tabs)
+          throws IOException {
     HashMap<String, Stock> stocksList = portfolio.getStocks();
     tabs = writeKeyValue("stocks", "[", tabs, writer, false, 2);
 
@@ -141,7 +143,8 @@ class Loader {
     return tabs;
   }
 
-  private static int writePortfolios(User user, BufferedWriter writer, int tabs) throws IOException {
+  private static int writePortfolios(User user, BufferedWriter writer, int tabs)
+          throws IOException {
     HashMap<String, Portfolio> portfolioList = user.getPortfolios();
     int size = portfolioList.size();
     int i = 0;
@@ -164,7 +167,8 @@ class Loader {
   public static void save(User user) throws IOException {
     int tabs = 0;
     String userName = user.getName();
-    BufferedWriter writer = new BufferedWriter(new FileWriter("data//" + userName + ".json"));
+    BufferedWriter writer = new BufferedWriter(new FileWriter("data//" + userName
+            + ".json"));
     tabs = writeUser(user, writer, tabs);
     tabs = writePortfolios(user, writer, tabs);
     tabs = writeKeyValue("]", "", tabs, writer, false, -2);

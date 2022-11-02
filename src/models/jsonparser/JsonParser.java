@@ -12,12 +12,11 @@ import java.util.Scanner;
  * This class represents a Json Parser. It takes a json file and represents it as a
  * Json Object.
  */
-public class JsonParser{
+public class JsonParser {
   static LinkedList<String> inputStack;
   static LinkedList<JsonObject> resultStack;
 
   JsonObject result;
-
 
 
   private void printContents() {
@@ -100,7 +99,7 @@ public class JsonParser{
 
   }
 
-  private static void processKeyValuePairs(String key,String input){
+  private static void processKeyValuePairs(String key, String input) {
     if (!isEscapeCharacter(key)) {
       JsonObject dic = resultStack.pop();
       dic.addElement(key, new JsonString(input));
@@ -111,10 +110,10 @@ public class JsonParser{
     }
   }
 
-  private static void processStrings(String input){
+  private static void processStrings(String input) {
     if (!inputStack.isEmpty()) {
       String key = inputStack.pop();
-      processKeyValuePairs(key,input);
+      processKeyValuePairs(key, input);
     } else {
       inputStack.push(input);
     }
@@ -123,6 +122,7 @@ public class JsonParser{
   /**
    * This method takes a filepath as an input and parses it and returns a json object representing
    * key value pairs present in the file, provided the file is correctly formatted.
+   *
    * @param filepath path of the file
    * @return returns a JsonObject
    * @throws FileNotFoundException if the provided filepath doesn't exist.

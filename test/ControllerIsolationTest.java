@@ -9,7 +9,7 @@ import models.Model;
 import view.View;
 import view.ViewImpl;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * This class tests the Controller in isolation with a mock model.
@@ -27,7 +27,7 @@ public class ControllerIsolationTest {
     String input = "1 user 10000 6";
     in = new ByteArrayInputStream(input.getBytes());
     ControllerImpl controller = new ControllerImpl(model, view, in);
-    controller.go();
+    controller.goController();
     assertEquals("user 10000.0 ", log.toString());
     assertEquals("createUser ", olog.toString());
   }
@@ -44,7 +44,7 @@ public class ControllerIsolationTest {
     String input = "2 user 6";
     in = new ByteArrayInputStream(input.getBytes());
     ControllerImpl controller = new ControllerImpl(model, view, in);
-    controller.go();
+    controller.goController();
     assertEquals("user ", log.toString());
     assertEquals("loadUser ", olog.toString());
   }
@@ -61,7 +61,7 @@ public class ControllerIsolationTest {
     String input = "1 user 10000 1 personal AAPL 10 2 6";
     in = new ByteArrayInputStream(input.getBytes());
     ControllerImpl controller = new ControllerImpl(model, view, in);
-    controller.go();
+    controller.goController();
     assertEquals("user 10000.0 personal AAPL 10 ", log.toString());
     assertEquals("createUser createPortfolio addStockToPortfolio ", olog.toString());
   }
@@ -78,7 +78,7 @@ public class ControllerIsolationTest {
     String input = "1 user 10000 1 personal GOOGL 20 2 6";
     in = new ByteArrayInputStream(input.getBytes());
     ControllerImpl controller = new ControllerImpl(model, view, in);
-    controller.go();
+    controller.goController();
     assertEquals("user 10000.0 personal GOOGL 20 ", log.toString());
     assertEquals("createUser createPortfolio addStockToPortfolio ", olog.toString());
   }
@@ -95,7 +95,7 @@ public class ControllerIsolationTest {
     String input = "1 user 10000 2 personal 6";
     in = new ByteArrayInputStream(input.getBytes());
     ControllerImpl controller = new ControllerImpl(model, view, in);
-    controller.go();
+    controller.goController();
     assertEquals("user 10000.0 personal ", log.toString());
     assertEquals("createUser loadPortfolio ", olog.toString());
   }
@@ -112,7 +112,7 @@ public class ControllerIsolationTest {
     String input = "2 user 5 6";
     in = new ByteArrayInputStream(input.getBytes());
     ControllerImpl controller = new ControllerImpl(model, view, in);
-    controller.go();
+    controller.goController();
     assertEquals("user ", log.toString());
     assertEquals("loadUser save ", olog.toString());
   }
@@ -129,7 +129,7 @@ public class ControllerIsolationTest {
     String input = "2 user 4 2022-10-30 6";
     in = new ByteArrayInputStream(input.getBytes());
     ControllerImpl controller = new ControllerImpl(model, view, in);
-    controller.go();
+    controller.goController();
     assertEquals("user 2022-10-30 ", log.toString());
     assertEquals("loadUser getTotalValue ", olog.toString());
   }
@@ -146,7 +146,7 @@ public class ControllerIsolationTest {
     String input = "2 user 3 6";
     in = new ByteArrayInputStream(input.getBytes());
     ControllerImpl controller = new ControllerImpl(model, view, in);
-    controller.go();
+    controller.goController();
     assertEquals("user ", log.toString());
     assertEquals("loadUser getComposition ", olog.toString());
   }

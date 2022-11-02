@@ -32,7 +32,7 @@ public class ControllerImplTest {
     View view = new ViewImpl(out);
 
     ControllerImpl controller = new ControllerImpl(model, view, in);
-    controller.go();
+    controller.goController();
 
     String expectedOutput = "To select a particular option,enter the number next to it\n" +
             "\n" +
@@ -73,7 +73,7 @@ public class ControllerImplTest {
     View view = new ViewImpl(out);
 
     ControllerImpl controller = new ControllerImpl(model, view, in);
-    controller.go();
+    controller.goController();
 
     String expectedOutput = "To select a particular option,enter the number next to it\n" +
             "\n" +
@@ -114,7 +114,7 @@ public class ControllerImplTest {
     View view = new ViewImpl(out);
 
     ControllerImpl controller = new ControllerImpl(model, view, in);
-    controller.go();
+    controller.goController();
 
     String expectedOutput = "To select a particular option,enter the number next to it\n" +
             "\n" +
@@ -155,7 +155,7 @@ public class ControllerImplTest {
     View view = new ViewImpl(out);
 
     ControllerImpl controller = new ControllerImpl(model, view, in);
-    controller.go();
+    controller.goController();
 
     String expectedOutput = "To select a particular option,enter the number next to it\n" +
             "\n" +
@@ -196,7 +196,7 @@ public class ControllerImplTest {
     View view = new ViewImpl(out);
 
     ControllerImpl controller = new ControllerImpl(model, view, in);
-    controller.go();
+    controller.goController();
 
     String expectedOutput = "To select a particular option,enter the number next to it\n" +
             "\n" +
@@ -230,7 +230,7 @@ public class ControllerImplTest {
     View view = new ViewImpl(out);
 
     ControllerImpl controller = new ControllerImpl(model, view, in);
-    controller.go();
+    controller.goController();
 
     String expectedOutput = "To select a particular option,enter the number next to it\n" +
             "\n" +
@@ -270,7 +270,7 @@ public class ControllerImplTest {
     View view = new ViewImpl(out);
 
     ControllerImpl controller = new ControllerImpl(model, view, in);
-    controller.go();
+    controller.goController();
 
     String expectedOutput = "To select a particular option,enter the number next to it\n" +
             "\n" +
@@ -310,7 +310,7 @@ public class ControllerImplTest {
     View view = new ViewImpl(out);
 
     ControllerImpl controller = new ControllerImpl(model, view, in);
-    controller.go();
+    controller.goController();
     String expectedOutput = "To select a particular option,enter the number next to it\n" +
             "\n" +
             "1.Create User\n" +
@@ -354,7 +354,7 @@ public class ControllerImplTest {
     View view = new ViewImpl(out);
 
     ControllerImpl controller = new ControllerImpl(model, view, in);
-    controller.go();
+    controller.goController();
     String expectedOutput = "To select a particular option,enter the number next to it\n" +
             "\n" +
             "1.Create User\n" +
@@ -396,7 +396,7 @@ public class ControllerImplTest {
     View view = new ViewImpl(out);
 
     ControllerImpl controller = new ControllerImpl(model, view, in);
-    controller.go();
+    controller.goController();
     String expectedOutput = "To select a particular option,enter the number next to it\n" +
             "\n" +
             "1.Create User\n" +
@@ -444,7 +444,7 @@ public class ControllerImplTest {
     View view = new ViewImpl(out);
 
     ControllerImpl controller = new ControllerImpl(model, view, in);
-    controller.go();
+    controller.goController();
 
     String expectedOutput = "To select a particular option,enter the number next to it\n" +
             "\n" +
@@ -477,7 +477,7 @@ public class ControllerImplTest {
     View view = new ViewImpl(out);
 
     ControllerImpl controller = new ControllerImpl(model, view, in);
-    controller.go();
+    controller.goController();
 
     String expectedOutput = "To select a particular option,enter the number next to it\n" +
             "\n" +
@@ -520,7 +520,7 @@ public class ControllerImplTest {
     View view = new ViewImpl(out);
 
     ControllerImpl controller = new ControllerImpl(model, view, in);
-    controller.go();
+    controller.goController();
 
     String expectedOutput = "To select a particular option,enter the number next to it\n" +
             "\n" +
@@ -563,7 +563,7 @@ public class ControllerImplTest {
     View view = new ViewImpl(out);
 
     ControllerImpl controller = new ControllerImpl(model, view, in);
-    controller.go();
+    controller.goController();
 
     String expectedOutput = "To select a particular option,enter the number next to it\n" +
             "\n" +
@@ -622,7 +622,7 @@ public class ControllerImplTest {
     View view = new ViewImpl(out);
 
     ControllerImpl controller = new ControllerImpl(model, view, in);
-    controller.go();
+    controller.goController();
 
     String expectedOutput = "To select a particular option,enter the number next to it\n" +
             "\n" +
@@ -681,7 +681,7 @@ public class ControllerImplTest {
     View view = new ViewImpl(out);
 
     ControllerImpl controller = new ControllerImpl(model, view, in);
-    controller.go();
+    controller.goController();
     String expectedOutput = "To select a particular option,enter the number next to it\n" +
             "\n" +
             "1.Create User\n" +
@@ -729,7 +729,7 @@ public class ControllerImplTest {
     View view = new ViewImpl(out);
 
     ControllerImpl controller = new ControllerImpl(model, view, in);
-    controller.go();
+    controller.goController();
     String expectedOutput = "To select a particular option,enter the number next to it\n" +
             "\n" +
             "1.Create User\n" +
@@ -777,7 +777,7 @@ public class ControllerImplTest {
     View view = new ViewImpl(out);
 
     ControllerImpl controller = new ControllerImpl(model, view, in);
-    controller.go();
+    controller.goController();
     String expectedOutput = "To select a particular option,enter the number next to it\n" +
             "\n" +
             "1.Create User\n" +
@@ -810,6 +810,7 @@ public class ControllerImplTest {
             "6.Exit\n";
     assertEquals(expectedOutput, bytes.toString());
   }
+
   @Test
   public void testCreatePortfolioFloatShares() {
     Model model = new ModelImpl();
@@ -824,7 +825,7 @@ public class ControllerImplTest {
     View view = new ViewImpl(out);
 
     ControllerImpl controller = new ControllerImpl(model, view, in);
-    controller.go();
+    controller.goController();
     String expectedOutput = "To select a particular option,enter the number next to it\n" +
             "\n" +
             "1.Create User\n" +
@@ -872,7 +873,7 @@ public class ControllerImplTest {
     View view = new ViewImpl(out);
 
     ControllerImpl controller = new ControllerImpl(model, view, in);
-    controller.go();
+    controller.goController();
     String expectedOutput = "To select a particular option,enter the number next to it\n" +
             "\n" +
             "1.Create User\n" +
@@ -915,7 +916,7 @@ public class ControllerImplTest {
     View view = new ViewImpl(out);
 
     ControllerImpl controller = new ControllerImpl(model, view, in);
-    controller.go();
+    controller.goController();
     String expectedOutput = "To select a particular option,enter the number next to it\n" +
             "\n" +
             "1.Create User\n" +
@@ -961,7 +962,7 @@ public class ControllerImplTest {
     View view = new ViewImpl(out);
 
     ControllerImpl controller = new ControllerImpl(model, view, in);
-    controller.go();
+    controller.goController();
     String expectedOutput = "To select a particular option,enter the number next to it\n" +
             "\n" +
             "1.Create User\n" +
@@ -1013,7 +1014,7 @@ public class ControllerImplTest {
     View view = new ViewImpl(out);
 
     ControllerImpl controller = new ControllerImpl(model, view, in);
-    controller.go();
+    controller.goController();
     String expectedOutput = "To select a particular option,enter the number next to it\n" +
             "\n" +
             "1.Create User\n" +
@@ -1056,7 +1057,7 @@ public class ControllerImplTest {
     View view = new ViewImpl(out);
 
     ControllerImpl controller = new ControllerImpl(model, view, in);
-    controller.go();
+    controller.goController();
     String expectedOutput = "To select a particular option,enter the number next to it\n" +
             "\n" +
             "1.Create User\n" +
@@ -1102,7 +1103,7 @@ public class ControllerImplTest {
     View view = new ViewImpl(out);
 
     ControllerImpl controller = new ControllerImpl(model, view, in);
-    controller.go();
+    controller.goController();
     String expectedOutput = "To select a particular option,enter the number next to it\n" +
             "\n" +
             "1.Create User\n" +
@@ -1151,7 +1152,7 @@ public class ControllerImplTest {
     View view = new ViewImpl(out);
 
     ControllerImpl controller = new ControllerImpl(model, view, in);
-    controller.go();
+    controller.goController();
     String expectedOutput = "To select a particular option,enter the number next to it\n" +
             "\n" +
             "1.Create User\n" +

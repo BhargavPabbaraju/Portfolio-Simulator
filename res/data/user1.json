@@ -1,0 +1,41 @@
+{
+  "name": "user1",
+  "balance": 40000.0,
+  "portfolios": [
+    {
+      "name": "college",
+      "stocks": [
+        {
+          "symbol": "AAPL",
+          "shares": 10.0,
+          "date": "2022-10-28"
+        },
+        {
+          "symbol": "TSLA",
+          "shares": 20.0,
+          "date": "2022-10-28"
+        }
+      ]
+    },
+    {
+      "name": "retirement",
+      "stocks": [
+        {
+          "symbol": "MSFT",
+          "shares": 30.0,
+          "date": "2022-10-28"
+        },
+        {
+          "symbol": "META",
+          "shares": 30.0,
+          "date": "2022-10-28"
+        },
+        {
+          "symbol": "GOOGL",
+          "shares": 30.0,
+          "date": "2022-10-28"
+        }
+      ]
+    }
+  ]
+}

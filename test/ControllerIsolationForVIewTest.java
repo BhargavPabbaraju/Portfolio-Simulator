@@ -10,7 +10,7 @@ import models.ModelImpl;
 import view.View;
 
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * This class tests the Controller in isolation with a mock view.
@@ -29,8 +29,9 @@ public class ControllerIsolationForVIewTest {
     String input = "1 user 10000 6";
     in = new ByteArrayInputStream(input.getBytes());
     ControllerImpl controller = new ControllerImpl(model, view, in);
-    controller.go();
-    assertEquals("displayInitialMenu askForUsername askForBalance displayMessage displayMainMenu ", olog.toString());
+    controller.goController();
+    assertEquals("displayInitialMenu askForUsername askForBalance displayMessage "
+            + "displayMainMenu ", olog.toString());
   }
 
   @Test
@@ -45,8 +46,9 @@ public class ControllerIsolationForVIewTest {
     String input = "2 user1 6";
     in = new ByteArrayInputStream(input.getBytes());
     ControllerImpl controller = new ControllerImpl(model, view, in);
-    controller.go();
-    assertEquals("displayInitialMenu askForUsername displayMessage displayMainMenu ", olog.toString());
+    controller.goController();
+    assertEquals("displayInitialMenu askForUsername displayMessage " +
+            "displayMainMenu ", olog.toString());
   }
 
   @Test
@@ -61,7 +63,7 @@ public class ControllerIsolationForVIewTest {
     String input = "1 user 10000 1 personal AAPL 10 2 6";
     in = new ByteArrayInputStream(input.getBytes());
     ControllerImpl controller = new ControllerImpl(model, view, in);
-    controller.go();
+    controller.goController();
     assertEquals("displayInitialMenu askForUsername askForBalance displayMessage " +
             "displayMainMenu askForPortfolioName askForStockSymbol askForShares " +
             "displayAddNewStockMenu displayMainMenu ", olog.toString());
@@ -79,7 +81,7 @@ public class ControllerIsolationForVIewTest {
     String input = "1 user 10000 1 personal GOOGL 20 2 6";
     in = new ByteArrayInputStream(input.getBytes());
     ControllerImpl controller = new ControllerImpl(model, view, in);
-    controller.go();
+    controller.goController();
     assertEquals("displayInitialMenu askForUsername askForBalance displayMessage " +
             "displayMainMenu askForPortfolioName askForStockSymbol askForShares " +
             "displayAddNewStockMenu displayMainMenu ", olog.toString());
@@ -97,7 +99,7 @@ public class ControllerIsolationForVIewTest {
     String input = "1 user 10000 2 personal 6";
     in = new ByteArrayInputStream(input.getBytes());
     ControllerImpl controller = new ControllerImpl(model, view, in);
-    controller.go();
+    controller.goController();
     assertEquals("displayInitialMenu askForUsername askForBalance displayMessage " +
             "displayMainMenu askForPortfolioName displayMessage displayMainMenu ", olog.toString());
   }
@@ -114,7 +116,7 @@ public class ControllerIsolationForVIewTest {
     String input = "2 user1 5 6";
     in = new ByteArrayInputStream(input.getBytes());
     ControllerImpl controller = new ControllerImpl(model, view, in);
-    controller.go();
+    controller.goController();
     assertEquals("displayInitialMenu askForUsername displayMessage displayMainMenu " +
             "displayMessage displayMainMenu ", olog.toString());
   }
@@ -131,7 +133,7 @@ public class ControllerIsolationForVIewTest {
     String input = "2 user1 4 2022-10-31 6";
     in = new ByteArrayInputStream(input.getBytes());
     ControllerImpl controller = new ControllerImpl(model, view, in);
-    controller.go();
+    controller.goController();
     assertEquals("26592.998 2022-10-31", log.toString());
     assertEquals("displayInitialMenu askForUsername displayMessage displayMainMenu " +
             "askForDate displayValue displayMainMenu ", olog.toString());
@@ -149,7 +151,7 @@ public class ControllerIsolationForVIewTest {
     String input = "2 user1 3 6";
     in = new ByteArrayInputStream(input.getBytes());
     ControllerImpl controller = new ControllerImpl(model, view, in);
-    controller.go();
+    controller.goController();
     String expectedValue = "                    retirement\n" +
             "MSFT                                    30.00\n" +
             "META                                    30.00\n" +

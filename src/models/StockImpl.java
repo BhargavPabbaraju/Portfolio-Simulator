@@ -58,12 +58,7 @@ class StockImpl implements Stock {
   }
 
   private boolean symbolvalidation(String symbol) {
-    if (ApiCallImpl.validSymbol(symbol)) {
-      return true;
-    } else {
-      return false;
-    }
-
+    return ApiCallImpl.validSymbol(symbol);
   }
 
   @Override
@@ -98,8 +93,7 @@ class StockImpl implements Stock {
     LocalDate dateNow = LocalDate.now();
     LocalTime timenow = LocalTime.now();
     LocalTime timepm = LocalTime.of(20, 2, 50, 0);
-    if (timenow.compareTo(timepm) > 0) {
-    } else {
+    if (timenow.compareTo(timepm) <= 0) {
       dateNow = dateNow.minusDays(1);
     }
     return shiftingDate(dateNow);

@@ -39,6 +39,6 @@ class JsonString implements JsonObject {
 
   @Override
   public String toString() {
-    return this.value.toString();
+    return this.value;
   }
 }

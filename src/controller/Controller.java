@@ -10,5 +10,5 @@ public interface Controller {
    * This method represents the starting point of a controller.
    * The main method interacts with this method to start the program.
    */
-  void go();
+  void goController();
 }

@@ -20,7 +20,7 @@ class JsonDict implements JsonObject {
   @Override
   public JsonObject get(String key) throws IllegalArgumentException {
     if (!this.dict.containsKey(key)) {
-      throw new IllegalArgumentException("Invalid key: "+key+"Field doesn't exist");
+      throw new IllegalArgumentException("Invalid key: " + key + "Field doesn't exist");
     }
     return this.dict.get(key);
   }

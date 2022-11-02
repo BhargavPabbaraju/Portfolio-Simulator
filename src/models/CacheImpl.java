@@ -43,7 +43,7 @@ public class CacheImpl implements Cache {
     Path path = Paths.get(this.cacheDir);
     this.loadCSVDate();
     if (Files.exists(path)) {
-      this.LoadDate();
+      this.loadDate();
     }
     try {
       Files.createDirectories(path);
@@ -73,12 +73,7 @@ public class CacheImpl implements Cache {
 
   @Override
   public boolean validSymbol(String symbol) {
-    if (symbolList.containsKey(symbol)) {
-      return true;
-    } else {
-      return false;
-    }
-
+    return symbolList.containsKey(symbol);
   }
 
   @Override
@@ -86,9 +81,9 @@ public class CacheImpl implements Cache {
     return symbolList.get(symbol);
   }
 
-  private void LoadDate() throws FileNotFoundException {
+  private void loadDate() throws FileNotFoundException {
     File directoryPath = new File(cacheDir);
-    String contents[] = directoryPath.list();
+    String[] contents = directoryPath.list();
 
     for (int i = 0; i < contents.length; i++) {
       String[] arr = contents[i].split("\\.");
@@ -116,7 +111,7 @@ public class CacheImpl implements Cache {
     try {
       while ((currentLine = writer.readLine()) != null) {
         String trimmedLine = currentLine.trim();
-        String arr[] = trimmedLine.split(",");
+        String[] arr = trimmedLine.split(",");
         this.symbolList.put(arr[1], Float.parseFloat(arr[2]));
       }
       writer.close();

@@ -21,7 +21,7 @@ public class ControllerImpl implements Controller {
   private boolean quit;
 
   /**
-   * Constructs Controller and initialises values of the model, view and input stream
+   * Constructs Controller and initialises values of the model, view and input stream.
    *
    * @param model model object which actually has the logic.
    * @param view  view object which is responsible to display things to the user
@@ -76,14 +76,12 @@ public class ControllerImpl implements Controller {
     }
     view.askForUsername();
     String userName = in.next();
-    switch (option) {
-      case 1:
-        createUser(userName);
-        break;
-      case 2:
-        loadUser(userName);
-        break;
+    if (option == 1) {
+      createUser(userName);
+    } else if (option == 2) {
+      loadUser(userName);
     }
+
   }
 
 
@@ -107,8 +105,8 @@ public class ControllerImpl implements Controller {
     return invalid;
   }
 
-
-  public void go() {
+  @Override
+  public void goController() {
     initialMenu();
     while (!quit) {
       mainMenu();
@@ -153,6 +151,8 @@ public class ControllerImpl implements Controller {
       case 6:
         this.quit = true;
         break;
+      default:
+        //Option can only be one of the above.
     }
   }
 
@@ -240,14 +240,12 @@ public class ControllerImpl implements Controller {
     if (isOptionInvalid(2)) {
       addNewStock();
     }
-    switch (option) {
-      case 1:
-        addAStock();
-        break;
-      case 2:
-        mainMenu();
-        break;
+    if (option == 1) {
+      addAStock();
+    } else if (option == 2) {
+      mainMenu();
     }
+
   }
 
 

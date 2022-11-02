@@ -12,6 +12,14 @@ interface Stock {
   float getShares();
 
   /**
+   * This method gets the value of the stock at a given date. This will take the date from the
+   * field of the object so there is no need to specify date.
+   *
+   * @return float value of the stock
+   */
+  float getValue() throws IOException;
+
+  /**
    * This method gets the value of the stock at a given date.
    *
    * @param date String on which the stock value is to be returned.
@@ -26,13 +34,7 @@ interface Stock {
    */
   LocalDate getDate();
 
-  /**
-   * This method gets the value of the stock at a given date. This will take the date from the
-   * field of the object so there is no need to specify date.
-   *
-   * @return float value of the stock
-   */
-  float getValue() throws IOException;
+
 
   /**
    * This method takes a number of shares and adds it to the current shares. This is only used when

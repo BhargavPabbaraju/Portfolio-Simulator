@@ -21,7 +21,7 @@ public class ModelImpl implements Model {
     try {
       this.user = Loader.loadFile(userName);
     } catch (Exception e) {
-      if (e.getMessage() == "User doesn't exists") {
+      if (e.getMessage().equals( "User doesn't exists")) {
         throw e;
       }
       throw new IllegalStateException("Load file is not in valid format.");
