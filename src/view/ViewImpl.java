@@ -5,16 +5,19 @@ import java.io.PrintStream;
 /**
  * This class represents an implementation of View.
  */
-public class ViewImpl implements View{
+public class ViewImpl implements View {
   private PrintStream out;
 
   /**
-   * This constructor creates a view with a given print steam.
-   * @param out
+   * This constructor creates a view with a given printStream. Displaying of the messages
+   * is done by the controller.
+   *
+   * @param out the printStream
    */
-  public ViewImpl(PrintStream out){
+  public ViewImpl(PrintStream out) {
     this.out = out;
   }
+
   @Override
   public void displayInitialMenu() {
     out.println("To select a particular option,enter the number next to it\n");
@@ -34,7 +37,7 @@ public class ViewImpl implements View{
 
   @Override
   public void displayMessage(String message) {
-    out.println("\n"+message);
+    out.println("\n" + message);
   }
 
   @Override
@@ -59,7 +62,7 @@ public class ViewImpl implements View{
 
   @Override
   public void displayValue(float totalValue, String date) {
-    out.println("\nTotal Value on "+date+" is "+totalValue+"\n");
+    out.println("\nTotal Value on " + date + " is " + totalValue + "\n");
   }
 
   @Override

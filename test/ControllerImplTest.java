@@ -12,6 +12,9 @@ import view.ViewImpl;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * This class tests the Controller, View and Model together.
+ */
 public class ControllerImplTest {
 
 
@@ -896,6 +899,7 @@ public class ControllerImplTest {
             "6.Exit\n";
     assertEquals(expectedOutput, bytes.toString());
   }
+
   @Test
   public void testGetOnFutureDate() {
     Model model = new ModelImpl();
@@ -947,6 +951,7 @@ public class ControllerImplTest {
             "6.Exit\n";
     assertEquals(expectedOutput, bytes.toString());
   }
+
   @Test
   public void testGetOnWithoutPortfolio() {
     Model model = new ModelImpl();
@@ -989,6 +994,7 @@ public class ControllerImplTest {
             "6.Exit\n";
     assertEquals(expectedOutput, bytes.toString());
   }
+
   @Test
   public void testGetOnInvalidTest() {
     Model model = new ModelImpl();
@@ -1034,6 +1040,7 @@ public class ControllerImplTest {
             "6.Exit\n";
     assertEquals(expectedOutput, bytes.toString());
   }
+
   @Test
   public void testCreatePortfolioShareZero() {
     Model model = new ModelImpl();
@@ -1082,6 +1089,7 @@ public class ControllerImplTest {
             "6.Exit\n";
     assertEquals(expectedOutput, bytes.toString());
   }
+
   @Test
   public void testCreatePortfolioSameStockTwice() {
     Model model = new ModelImpl();

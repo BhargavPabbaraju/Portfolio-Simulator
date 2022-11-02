@@ -12,7 +12,7 @@ public class ModelImpl implements Model {
   private User user;
 
   @Override
-  public void createUser(String userName, float balance) throws IOException {
+  public void createUser(String userName, float balance) {
     this.user = new UserImpl(userName, balance);
   }
 

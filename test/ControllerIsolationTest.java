@@ -11,6 +11,9 @@ import view.ViewImpl;
 
 import static org.junit.Assert.*;
 
+/**
+ * This class tests the Controller in isolation with a mock model.
+ */
 public class ControllerIsolationTest {
   @Test
   public void testCreateUser() {
@@ -113,6 +116,7 @@ public class ControllerIsolationTest {
     assertEquals("user ", log.toString());
     assertEquals("loadUser save ", olog.toString());
   }
+
   @Test
   public void testGetTotalValue() {
     StringBuilder log = new StringBuilder();
@@ -129,6 +133,7 @@ public class ControllerIsolationTest {
     assertEquals("user 2022-10-30 ", log.toString());
     assertEquals("loadUser getTotalValue ", olog.toString());
   }
+
   @Test
   public void testGetComposition() {
     StringBuilder log = new StringBuilder();

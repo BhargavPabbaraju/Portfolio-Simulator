@@ -3,17 +3,26 @@ import java.text.ParseException;
 
 import models.Model;
 
+/**
+ * This class is used to test the controller in isolation.
+ */
 public class MockModel implements Model {
   private StringBuilder inputLog;
   private StringBuilder outputLog;
 
+  /**
+   * This constructor creates a mock model to test the controller in isolation.
+   *
+   * @param inputLog String Builder to test if the input send by the controller are correct
+   * @param inputLog String Builder to test if correct method is called
+   */
   public MockModel(StringBuilder inputLog, StringBuilder outputLog) {
     this.inputLog = inputLog;
     this.outputLog = outputLog;
   }
 
   @Override
-  public void createUser(String userName, float balance) throws IOException {
+  public void createUser(String userName, float balance) {
     inputLog.append(userName + " " + balance + " ");
     outputLog.append("createUser ");
   }

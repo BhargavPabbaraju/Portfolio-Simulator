@@ -12,6 +12,9 @@ import view.View;
 
 import static org.junit.Assert.*;
 
+/**
+ * This class tests the Controller in isolation with a mock view.
+ */
 public class ControllerIsolationForVIewTest {
 
   @Test

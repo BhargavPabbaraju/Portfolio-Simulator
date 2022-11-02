@@ -8,7 +8,7 @@ import models.Model;
 import view.View;
 
 /**
- * This class represents a controller implementation. It process user inputs and delegates methods
+ * This class represents a controller implementation. It processes user inputs and delegates methods
  * to model and view.
  */
 
@@ -20,6 +20,13 @@ public class ControllerImpl implements Controller {
   private int option;
   private boolean quit;
 
+  /**
+   * Constructs Controller and initialises values of the model, view and input stream
+   *
+   * @param model model object which actually has the logic.
+   * @param view  view object which is responsible to display things to the user
+   * @param in    input stream of the data
+   */
   public ControllerImpl(Model model, View view, InputStream in) {
     this.model = model;
     this.view = view;
@@ -32,11 +39,11 @@ public class ControllerImpl implements Controller {
   private void createUser(String userName) {
     try {
       view.askForBalance();
-      if(in.hasNextFloat()){
+      if (in.hasNextFloat()) {
         float balance = in.nextFloat();
         model.createUser(userName, balance);
         view.displayMessage("User successfully created");
-      }else{
+      } else {
         in.next();
         throw new IllegalArgumentException("Balance must be a valid floating point number");
 
@@ -60,47 +67,45 @@ public class ControllerImpl implements Controller {
   }
 
 
-
   private void initialMenu() {
-      view.displayInitialMenu();
+    view.displayInitialMenu();
 
-        if(isOptionInvalid(2)){
+    if (isOptionInvalid(2)) {
 
-          initialMenu();
-        }
-        view.askForUsername();
-        String userName = in.next();
-        switch (option) {
-          case 1:
-            createUser(userName);
-            break;
-          case 2:
-            loadUser(userName);
-            break;
-        }
-      }
+      initialMenu();
+    }
+    view.askForUsername();
+    String userName = in.next();
+    switch (option) {
+      case 1:
+        createUser(userName);
+        break;
+      case 2:
+        loadUser(userName);
+        break;
+    }
+  }
 
 
-  private boolean isOptionInvalid(int numberOfOptions){
+  private boolean isOptionInvalid(int numberOfOptions) {
     boolean invalid = false;
-    if(in.hasNextInt()){
+    if (in.hasNextInt()) {
       option = in.nextInt();
-      if(option<1 || option>numberOfOptions) {
+      if (option < 1 || option > numberOfOptions) {
         invalid = true;
       }
 
-    }else{
+    } else {
       invalid = true;
     }
 
-    if(invalid){
+    if (invalid) {
       in.next();
       view.displayMessage("Option must be one of the following numbers");
 
     }
     return invalid;
   }
-
 
 
   public void go() {
@@ -114,7 +119,7 @@ public class ControllerImpl implements Controller {
     view.displayMainMenu();
 
     String portfolioName = "";
-    if(isOptionInvalid(6)){
+    if (isOptionInvalid(6)) {
       mainMenu();
     }
     if (option < 3) {
@@ -152,10 +157,10 @@ public class ControllerImpl implements Controller {
   }
 
   private void save() {
-    try{
+    try {
       model.save();
       view.displayMessage("Successfully saved.");
-    }catch(Exception e){
+    } catch (Exception e) {
       view.displayMessage(e.getMessage());
       mainMenu();
     }
@@ -163,10 +168,10 @@ public class ControllerImpl implements Controller {
   }
 
   private void loadPortfolio(String portfolioName) {
-    try{
+    try {
       model.loadPortfolio(portfolioName);
-      view.displayMessage("Loaded "+portfolioName);
-    }catch(Exception e){
+      view.displayMessage("Loaded " + portfolioName);
+    } catch (Exception e) {
       view.displayMessage(e.getMessage());
     }
 
@@ -174,14 +179,14 @@ public class ControllerImpl implements Controller {
 
   private void getTotalValue() {
     view.askForDate();
-    try{
+    try {
       String date = in.next();
       float value = model.getTotalValue(date);
       view.displayValue(value, date);
-    }catch(IllegalStateException e){
+    } catch (IllegalStateException e) {
       view.displayMessage(e.getMessage());
       mainMenu();
-    } catch(Exception e){
+    } catch (Exception e) {
       view.displayMessage(e.getMessage());
       getTotalValue();
     }
@@ -189,9 +194,9 @@ public class ControllerImpl implements Controller {
   }
 
   private void getComposition() {
-    try{
+    try {
       view.displayComposition(model.getComposition());
-    }catch(Exception e){
+    } catch (Exception e) {
       view.displayMessage(e.getMessage());
       mainMenu();
     }
@@ -199,31 +204,31 @@ public class ControllerImpl implements Controller {
   }
 
   private void createPortfolio(String portfolioName) {
-    try{
+    try {
       model.createPortfolio(portfolioName);
       addAStock();
-    }catch(Exception e){
+    } catch (Exception e) {
       view.displayMessage(e.getMessage());
       mainMenu();
     }
 
   }
 
-  private void addAStock(){
+  private void addAStock() {
     view.askForStockSymbol();
     String symbol = in.next();
     view.askForShares();
-    if(in.hasNextInt()) {
-      try{
+    if (in.hasNextInt()) {
+      try {
         int shares = in.nextInt();
         model.addStockToPortfolio(symbol, shares);
         addNewStock();
-      }catch(Exception e){
+      } catch (Exception e) {
         view.displayMessage(e.getMessage());
         addAStock();
       }
 
-    }else {
+    } else {
       in.next();
       view.displayMessage("Shares must be a valid positive integer");
       addAStock();
@@ -232,23 +237,21 @@ public class ControllerImpl implements Controller {
 
   private void addNewStock() {
     view.displayAddNewStockMenu();
-    if(isOptionInvalid(2)){
+    if (isOptionInvalid(2)) {
       addNewStock();
     }
-        switch (option) {
-          case 1:
-            addAStock();
-            break;
-          case 2:
-            mainMenu();
-            break;
-        }
-      }
-
-
-
-
+    switch (option) {
+      case 1:
+        addAStock();
+        break;
+      case 2:
+        mainMenu();
+        break;
+    }
   }
+
+
+}
 
 
 

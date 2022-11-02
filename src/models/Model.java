@@ -13,9 +13,8 @@ public interface Model {
    *
    * @param userName String username which is unique for a user
    * @param balance  float balance which is entered by the user
-   * @throws IOException
    */
-  void createUser(String userName, float balance) throws IOException;
+  void createUser(String userName, float balance);
 
   /**
    * This method loads a user from a file with the username as the file name.
