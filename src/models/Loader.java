@@ -15,14 +15,14 @@ import models.jsonparser.JsonParser;
 
 /**
  * This class represents a Json loader that loads a well formatted json file creates a user from
- * that file.
+ * that file and loads all the portfolios present in that file.
  */
 class Loader {
   /**
    * This method creates a user from a well formatted json file with the same name as the username
-   * provided.
-   * @param userName
-   * @return
+   * provided and loads all the portfolios present in it.
+   * @param userName String which is unique for a user.
+   * @return a user object which consists of all the data loaded from the file.
    * @throws IOException if a file with this username doesn't exist.
    * @throws ParseException if the file is of invalid format.
    */
