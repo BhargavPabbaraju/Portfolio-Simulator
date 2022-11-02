@@ -4,7 +4,9 @@ import java.time.LocalDate;
 import java.util.HashMap;
 
 /**
- * This class represents a single portfolio.
+ * This class represents a single portfolio. A portfolio contains list of stocks stored in a
+ * hashmap to speed up searching. While creation user can enter same stock symbol twice it will
+ * be handled by the portfolio and added into a single value by combining the shares.
  */
 class PortfolioImpl implements Portfolio {
   final String portfolioName;
@@ -15,13 +17,12 @@ class PortfolioImpl implements Portfolio {
   /**
    * This constructor creates a portfolio for this user.
    * Note: Portfolio name must not contain the following characters: {}[],:"\
-   * @param portfolioName
+   *
+   * @param portfolioName String which is unique for each user
    * @throws IllegalArgumentException if a user has already created a portfolio with this name.
    */
   PortfolioImpl(String portfolioName, User user) throws IllegalArgumentException {
-    //throw exception if portfolio already exists for this user.
-
-    if(Loader.isInvalidName(portfolioName)){
+    if (Loader.isInvalidName(portfolioName)) {
       throw new IllegalArgumentException(
               "Portfolio name must not contain any of \\\"{}[],: characters.");
     }
@@ -34,14 +35,14 @@ class PortfolioImpl implements Portfolio {
   @Override
   public void createStock(String symbol, float numberOfShares) throws IllegalArgumentException {
     Stock stock;
-    if(stockList.containsKey(symbol)){
+    if (stockList.containsKey(symbol)) {
       stock = stockList.get(symbol);
       stock.addToShares(numberOfShares);
-    }else{
+    } else {
       stock = new StockImpl(symbol, numberOfShares);
     }
     //float price = stock.getValue();
-    float price =0;
+    float price = 0;
     if (user.getBalance() >= price) {
       user.deductFromBalance(price);
       stockList.put(symbol, stock);
@@ -53,17 +54,17 @@ class PortfolioImpl implements Portfolio {
   @Override
   public void createStock(String symbol, float numberOfShares, LocalDate date) {
     Stock stock;
-    if(stockList.containsKey(symbol)){
+    if (stockList.containsKey(symbol)) {
       stock = stockList.get(symbol);
       stock.addToShares(numberOfShares);
-    }else{
+    } else {
       stock = new StockImpl(symbol, numberOfShares, date);
     }
     stockList.put(symbol, stock);
   }
 
   @Override
-  public float getTotalValue(String date){
+  public float getTotalValue(String date) {
     float value = 0;
     for (Stock stock : stockList.values()) {
       value += stock.getValue(date);
@@ -75,9 +76,9 @@ class PortfolioImpl implements Portfolio {
   public StringBuilder getComposition() {
     StringBuilder composition = new StringBuilder();
     String format = "%-40s%.2f%n";
-    composition.append(String.format("%-20s%s%n","",portfolioName));
-    for(String key:stockList.keySet()){
-      composition.append(String.format(format,key,stockList.get(key).getShares()));
+    composition.append(String.format("%-20s%s%n", "", portfolioName));
+    for (String key : stockList.keySet()) {
+      composition.append(String.format(format, key, stockList.get(key).getShares()));
 
     }
     return composition;

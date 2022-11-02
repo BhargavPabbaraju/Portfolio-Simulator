@@ -67,10 +67,11 @@ public interface User {
 
   /**
    * This method is used to load a stock from a file and add it to this user's active portfolio.
+   * This method is called while loading a file from the local file system.
    *
-   * @param symbol
-   * @param numberOfShares
-   * @param date           on which this stock was bought.
+   * @param symbol String which should be a valid.
+   * @param numberOfShares float which is the number of shares the user wants of that company.
+   * @param date           on which this stock was bought taken from the file.
    */
 
   void addStockToPortfolio(String symbol, float numberOfShares, LocalDate date);
@@ -104,7 +105,7 @@ public interface User {
    * @param date String which is given by the user
    * @return total value of the portfolio on a certain date.
    */
-  public float getTotalValue(String date);
+  float getTotalValue(String date);
 
   /**
    * This method is used to get the composition of this user's active portfolio. Composition shows

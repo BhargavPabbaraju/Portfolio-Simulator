@@ -9,7 +9,7 @@ public interface JsonObject{
   /**
    * This method gets the value a given key present in this object.
    * @param key The key whose value we wish to find out.
-   * @return
+   * @return JsonObject after parsing.
    * @throws IllegalArgumentException if the key is invalid.
    */
   public JsonObject get(String key) throws IllegalArgumentException;
@@ -31,7 +31,7 @@ public interface JsonObject{
 
   /**
    * The length of this json object.
-   * @return
+   * @return int length of this object
    */
   public int length();
 }

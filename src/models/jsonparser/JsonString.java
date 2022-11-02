@@ -1,7 +1,7 @@
 package models.jsonparser;
 
 /**
- * This class represents a json string.
+ * This class represents a json string. It handles the string values in a json file.
  */
 class JsonString implements JsonObject {
 
@@ -10,7 +10,7 @@ class JsonString implements JsonObject {
   /**
    * This constructor creates a json string with a given string.
    *
-   * @param value
+   * @param value String value from the json file
    */
   JsonString(String value) {
     this.value = value;

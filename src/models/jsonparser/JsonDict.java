@@ -3,7 +3,7 @@ package models.jsonparser;
 import java.util.HashMap;
 
 /**
- * This class represents a Json Dictionary.
+ * This class represents a Json Dictionary. It is used to parse the loaded file.
  */
 class JsonDict implements JsonObject {
   private HashMap<String, JsonObject> dict;
@@ -11,7 +11,7 @@ class JsonDict implements JsonObject {
   /**
    * This constructor creates a json dictionary from a hashmap.
    *
-   * @param dic
+   * @param dic Hashmap of json dictionary
    */
   JsonDict(HashMap<String, JsonObject> dic) {
     this.dict = dic;

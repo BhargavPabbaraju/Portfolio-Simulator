@@ -61,7 +61,7 @@ public class ModelImpl implements Model {
   }
 
   @Override
-  public String toString(){
+  public String toString() {
     return this.user.toString();
   }
 

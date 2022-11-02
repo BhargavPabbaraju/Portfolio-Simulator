@@ -3,7 +3,7 @@ package models.jsonparser;
 import java.util.ArrayList;
 
 /**
- * This class represents a Json list.
+ * This class represents a Json list. It is used to handel the list which appears in a json files
  */
 class JsonList implements JsonObject {
   private ArrayList<JsonObject> list;
@@ -11,7 +11,7 @@ class JsonList implements JsonObject {
   /**
    * This constructor is used to create a json list from an array list.
    *
-   * @param list
+   * @param list ArrayList from the loaded file.
    */
   JsonList(ArrayList<JsonObject> list) {
     this.list = list;
