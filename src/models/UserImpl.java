@@ -4,15 +4,13 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.text.ParseException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 
 
-
 /**
- * This class represents a single user.
+ * This class represents a single user. User has a unique name and can have portfolios.
+ * Creating a user is required to perform all the operations
  */
 public class UserImpl implements User {
   final String userName;
@@ -27,17 +25,16 @@ public class UserImpl implements User {
   /**
    * This constructor creates a user with a given username.
    * Note: Username must not contain the following characters: {}[],:"\
-   * @param userName
+   * This constructor is user while loading a user from file system.
+   *
+   * @param userName String which is unique for a user.
    * @throws IllegalArgumentException if a userName is already taken.
    */
 
   public UserImpl(String userName) throws IllegalArgumentException {
-    //Throw Exception if file not found.
     if (!userNameExits(userName)) {
       throw new IllegalArgumentException("User doesn't exists");
     }
-
-
     this.userName = userName;
     balance = DEFAULTBALANCE;
     this.portfolioList = new HashMap<>();
@@ -46,20 +43,20 @@ public class UserImpl implements User {
 
   /**
    * This constructor creates a user with given username and initial balance.
+   * This constructor is called which creating a user from the program.
    *
-   * @param userName
-   * @param balance
+   * @param userName String username which is unique for a user
+   * @param balance  float balance which is entered by the user
    * @throws IllegalArgumentException if username is already taken or if the balance is invalid.
    */
-  public UserImpl(String userName, float balance) throws IllegalArgumentException, IOException {
-    //Throw exception if userName already exists
-    //Throw exception if balance is negative
+  public UserImpl(String userName, float balance) throws IllegalArgumentException {
     if (userNameExits(userName)) {
       throw new IllegalArgumentException("User Already exists");
-    }if(Loader.isInvalidName(userName)){
+    }
+    if (Loader.isInvalidName(userName)) {
       throw new IllegalArgumentException("Username must not contain any of \\\"{}[],: characters.");
     }
-    if(userName == null || userName.equals("")){
+    if (userName == null || userName.equals("")) {
       throw new IllegalArgumentException("Username cannot  be empty");
     }
     if (balance < 0) {
@@ -74,7 +71,6 @@ public class UserImpl implements User {
   }
 
 
-
   private boolean userNameExits(String userName) {
     return Files.exists(Path.of("data" + File.separator + userName + ".json"));
   }
@@ -87,23 +83,22 @@ public class UserImpl implements User {
   }
 
 
-
   @Override
   public void addStockToPortfolio(String symbol, float numberOfShares) throws IllegalArgumentException {
-    if(numberOfShares<=0){
+    if (numberOfShares <= 0) {
       throw new IllegalArgumentException("Shares must be a valid positive integer");
     }
-    this.activePortfolio.createStock(symbol,numberOfShares);
+    this.activePortfolio.createStock(symbol, numberOfShares);
   }
 
   @Override
   public void addStockToPortfolio(String symbol, float numberOfShares, LocalDate date) {
-    this.activePortfolio.createStock(symbol,numberOfShares,date);
+    this.activePortfolio.createStock(symbol, numberOfShares, date);
   }
 
   @Override
   public float getTotalValue(String date) {
-    if(this.activePortfolio==null){
+    if (this.activePortfolio == null) {
       throw new IllegalStateException("No portfolio created yet");
     }
 
@@ -114,7 +109,7 @@ public class UserImpl implements User {
 
   @Override
   public StringBuilder getComposition() {
-    if(this.activePortfolio==null){
+    if (this.activePortfolio == null) {
       throw new IllegalStateException("No portfolio created yet");
     }
     return this.activePortfolio.getComposition();
@@ -122,11 +117,9 @@ public class UserImpl implements User {
 
   @Override
   public void save() throws IOException {
-    if(this.portfolioList.size()>0){
+    if (this.portfolioList.size() > 0) {
       Loader.save(this);
-    }
-
-    else{
+    } else {
       throw new IllegalStateException("Should have at least one portfolio to save");
     }
   }
@@ -155,7 +148,7 @@ public class UserImpl implements User {
 
   @Override
   public Portfolio loadPortfolio(String portfolioName) {
-    if(!this.portfolioList.containsKey(portfolioName)){
+    if (!this.portfolioList.containsKey(portfolioName)) {
       throw new IllegalArgumentException("Portfolio doesn't exist");
     }
     this.activePortfolio = this.portfolioList.get(portfolioName);
@@ -180,7 +173,7 @@ public class UserImpl implements User {
   }
 
   @Override
-  public String toString(){
+  public String toString() {
     return this.portfolioList.toString();
   }
 }
