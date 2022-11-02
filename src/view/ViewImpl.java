@@ -2,9 +2,16 @@ package view;
 
 import java.io.PrintStream;
 
+/**
+ * This class represents an implementation of View.
+ */
 public class ViewImpl implements View{
   private PrintStream out;
 
+  /**
+   * This constructor creates a view with a given print steam.
+   * @param out
+   */
   public ViewImpl(PrintStream out){
     this.out = out;
   }

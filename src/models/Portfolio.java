@@ -9,7 +9,7 @@ import java.util.HashMap;
  */
 interface Portfolio {
   /**
-   * This method adds a stock to this portfolio.
+   * This method creates a stock and adds it to this portfolio.
    *
    * @param symbol         The company's stock symbol.
    * @param numberOfShares Number of shares the user has.
@@ -18,6 +18,12 @@ interface Portfolio {
    */
   void createStock(String symbol, float numberOfShares) throws IllegalArgumentException;
 
+  /**
+   * This method loads a stock from a file and adds it to this portfolio.
+   * @param symbol
+   * @param numberOfShares
+   * @param date
+   */
   void createStock(String symbol, float numberOfShares, LocalDate date);
 
   /**
@@ -43,6 +49,9 @@ interface Portfolio {
    */
   void addStock(String symbol, float numberOfShares, LocalDate dateBought);
 
-
+  /**
+   * this method gives a hashmap representing all the stocks present in this portfolio.
+   * @return
+   */
   HashMap<String, Stock> getStocks();
 }

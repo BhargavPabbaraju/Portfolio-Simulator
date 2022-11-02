@@ -1,6 +1,7 @@
 package models;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
@@ -27,7 +28,7 @@ class Loader {
    */
   public static User loadFile(String userName) throws IOException, ParseException {
     User user = new UserImpl(userName);
-    JsonObject json = JsonParser.parse("data//" + userName + ".json");
+    JsonObject json = JsonParser.parse("data"+ File.separator + userName + ".json");
     float balance = Float.parseFloat(json.get("balance").toString());
     user.addToBalance(balance);
     loadPortfolioList(json, user);

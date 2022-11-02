@@ -4,6 +4,10 @@ import java.io.IOException;
 import java.text.ParseException;
 
 
+/**
+ * This class represents an implementation of model. It has a user field and delegates all the
+ * methods to this user.
+ */
 public class ModelImpl implements Model {
   private User user;
 
