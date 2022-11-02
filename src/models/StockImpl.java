@@ -1,47 +1,54 @@
 package models;
 
-
-import java.io.IOException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoField;
 
-
 /**
  * This class represents a stock. Each stock contains the symbol(company) , number of shares held in
- * that company and the price at which each share of this stock was bought.
+ * that company and the date on which this stock was bought.
  */
 class StockImpl implements Stock {
   float numberOfShares;
   final LocalDate date;
   final String symbol;
 
-  // Price of Single share
-
   /**
+   * Constructs StockImpl and initialises values and performs validations such as checking if the
+   * stock symbol is valid or not.
+   *
    * @param symbol         The symbol represents the company.
    * @param numberOfShares The number of shares the user has in that company.
-   * @throws IllegalArgumentException if symbol is invalid or if numberOfShares is negative.
+   * @throws IllegalArgumentException if symbol is invalid.
    */
   StockImpl(String symbol, float numberOfShares) throws IllegalArgumentException {
-    //Throw Exception if symbol is invalid
     if (this.symbolvalidation(symbol)) {
       this.symbol = symbol;
     } else {
-      throw new IllegalArgumentException(symbol+" Symbol not found");
+      throw new IllegalArgumentException(symbol + " Symbol not found");
     }
     this.numberOfShares = numberOfShares;
     this.date = this.dateHandling();
 
   }
 
+  /**
+   * Constructs StockImpl and initialises values and performs validations such as checking if the
+   * stock symbol is valid or not. It also validates if the date entered us weekend as the market
+   * is closed. This constructor is called only when the file is loaded.
+   *
+   * @param symbol         The symbol represents the company.
+   * @param numberOfShares The number of shares the user has in that company.
+   * @param date           Date on which the stock is brought
+   * @throws IllegalArgumentException if symbol is invalid.
+   */
   StockImpl(String symbol, float numberOfShares, LocalDate date) throws IllegalArgumentException {
     if (this.symbolvalidation(symbol)) {
       this.symbol = symbol;
     } else {
-      throw new IllegalArgumentException(symbol+" Symbol not found");
+      throw new IllegalArgumentException(symbol + " Symbol not found");
     }
     this.numberOfShares = numberOfShares;
     if (this.weekendValidation(date)) {
@@ -59,6 +66,7 @@ class StockImpl implements Stock {
 
   }
 
+  @Override
   public LocalDate getDate() {
     return this.date;
   }
@@ -76,14 +84,14 @@ class StockImpl implements Stock {
   }
 
   @Override
-  public float getValue() throws IOException {
+  public float getValue() {
     return this.numberOfShares * getValueOfSingleShare(this.date.toString());
 
   }
 
   @Override
   public void addToShares(float number) {
-    this.numberOfShares+=number;
+    this.numberOfShares += number;
   }
 
   private LocalDate dateHandling() {
@@ -115,7 +123,7 @@ class StockImpl implements Stock {
     try {
       dateString = LocalDate.parse(date,
               DateTimeFormatter.ISO_LOCAL_DATE);
-    }catch (IllegalStateException e){
+    } catch (IllegalStateException e) {
       throw new IllegalArgumentException("Date Should be in yyyy-mm-dd format");
     }
     if (this.weekendValidation(dateString)) {

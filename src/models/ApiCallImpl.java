@@ -17,6 +17,12 @@ import java.time.LocalDate;
 import models.jsonparser.JsonObject;
 import models.jsonparser.JsonParser;
 
+/**
+ * This class represents API Calls. It consists of static methods which interacts with third
+ * party Api. It contains fields like apikey which is used for authentication of the api and a
+ * cache object in which the data is stored after making api calls to avoid repeated calls for
+ * same symbol. It also contains a error message which is returned when a api call fails.
+ */
 public class ApiCallImpl {
   private static String apiKey = "3YCR9C5VHZEI9WFZ";
 
@@ -35,22 +41,28 @@ public class ApiCallImpl {
     }
   }
 
-  public static void initialize() {
-
-  }
-
+  /**
+   * This method takes in Symbol of a company and date on which the share price is required and
+   * returns the share value as a float. It checks in the cache first, if the symbol is not found
+   * in cache only then it makes api call.
+   *
+   * @param stockSymbol unique symbol of a company.
+   * @param date        the date in string format to get the share value
+   * @return returns a float which is the share value of that company on a particular date.
+   */
   public static float getData(String stockSymbol, LocalDate date) throws IllegalArgumentException {
     String dateString = date.toString();
     return dataChecking(stockSymbol, dateString);
   }
 
+  /**
+   * This method takes in Symbol of a company and checks if the symbol exists or not.
+   *
+   * @param symbol unique symbol of a company.
+   * @return returns a boolean value if the symbol is valid or not.
+   */
   public static boolean validSymbol(String symbol) {
     return cache.validSymbol(symbol);
-  }
-
-  public static float getSymbolData(String symbol) {
-    return cache.getSymbolData(symbol);
-
   }
 
   private static float dataChecking(String stockSymbol, String dateString) {
@@ -118,7 +130,6 @@ public class ApiCallImpl {
 
     }
   }
-
 
   public static void removeMetaDataInFile(String symbol) {
     File inputFile = new File("data" + File.separator + "cacheData" + File.separator + symbol + ".json");

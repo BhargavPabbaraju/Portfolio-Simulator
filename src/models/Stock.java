@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 
 /**
- * This interface represents the operations that can be performed on a single stock.
+ * This interface represents the operations that can be performed on a single stock of a company.
  */
 interface Stock {
 
@@ -13,20 +13,33 @@ interface Stock {
 
   /**
    * This method gets the value of the stock at a given date.
-   * @param date
-   * @return
+   *
+   * @param date String on which the stock value is to be returned.
+   * @return float value of the stock on a particular date
    */
   float getValue(String date);
 
   /**
    * This method gets the date of purchase of this stock.
    *
-   * @return date as a String
+   * @return date in the format LocalDate
    */
   LocalDate getDate();
 
+  /**
+   * This method gets the value of the stock at a given date. This will take the date from the
+   * field of the object so there is no need to specify date.
+   *
+   * @return float value of the stock
+   */
   float getValue() throws IOException;
 
+  /**
+   * This method takes a number of shares and adds it to the current shares. This is only used when
+   * user enters same stock symbol more than once while creating a portfolio.
+   *
+   * @param number the number of shares which are added to the current value
+   */
   void addToShares(float number);
 
 }

@@ -16,6 +16,7 @@ import java.util.Map;
 import models.jsonparser.JsonObject;
 import models.jsonparser.JsonParser;
 
+
 public class CacheImpl implements Cache {
   Map<String, JsonObject> cacheList;
 
@@ -23,6 +24,13 @@ public class CacheImpl implements Cache {
 
   private final String cacheDir = "data" + File.separator + "cacheData" + File.separator;
 
+  /**
+   * Constructs cacheImpl and initialises values by loading a file which contains stock symbol's
+   * of around 4000 companies. Along with this it also loads data from cacheData folder which
+   * contains time-series data for each company to improve performance. This file is not hardcoded
+   * it is generated on the go automatically from the API call and saved in file system.
+   * This improves the performance of the app.
+   */
   public CacheImpl() throws FileNotFoundException, InterruptedException {
     this.cacheList = new HashMap<>();
     this.symbolList = new HashMap<>();
@@ -72,7 +80,7 @@ public class CacheImpl implements Cache {
     return symbolList.get(symbol);
   }
 
-  private void LoadDate() throws FileNotFoundException, InterruptedException {
+  private void LoadDate() throws FileNotFoundException {
     File directoryPath = new File(cacheDir);
     String contents[] = directoryPath.list();
 

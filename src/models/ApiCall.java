@@ -1,13 +1,13 @@
 package models;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.time.LocalDate;
 
 /**
- * This interface represents the Api calls.
+ * This interface represents the Api calls. Mainly getting data from external sources.
  */
 public interface ApiCall {
+
   /**
    * This method takes in Symbol of a company and date on which the share price is required and
    * returns the share value as a float.
