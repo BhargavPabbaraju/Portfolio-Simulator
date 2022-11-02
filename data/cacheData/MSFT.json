@@ -1,11 +1,18 @@
 {
     "Meta Data": {
         "2. Symbol": "MSFT",
-        "3. Last Refreshed": "2022-11-01",
+        "3. Last Refreshed": "2022-11-02 16:00:01",
         "4. Output Size": "Full size",
         "5. Time Zone": "US/Eastern"
     },
     "Time Series (Daily)": {
+        "2022-11-02": {
+            "1. open": "229.4600",
+            "2. high": "231.3000",
+            "3. low": "220.0400",
+            "4. close": "220.1000",
+            "5. volume": "38343834"
+        },
         "2022-11-01": {
             "1. open": "234.6000",
             "2. high": "235.7400",

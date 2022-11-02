@@ -5,11 +5,11 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -89,8 +89,8 @@ public class ApiCallImpl {
   }
 
   private static JsonObject ApiInteration(String stockSymbol) {
-    getJsonFormat(stockSymbol);
-    removeMetaDataInFile(stockSymbol);
+    String output = getJsonFormat(stockSymbol);
+    removeMetaDataInFile(stockSymbol, output);
     JsonObject data = parseJson(stockSymbol);
     if (data != null) {
       cache.addStockToCache(stockSymbol, data);
@@ -106,53 +106,59 @@ public class ApiCallImpl {
   private static JsonObject parseJson(String symbol) {
     JsonObject json = null;
     try {
-      json = JsonParser.parse("data" + File.separator + "cacheData" + File.separator + symbol + ".json");
+      json = JsonParser.parse("data" + File.separator + "cacheData" + File.separator
+              + symbol + ".json");
     } catch (FileNotFoundException e) {
     }
     return json;
   }
 
-  private static void getJsonFormat(String stockSymbol) {
+  private static String getJsonFormat(String stockSymbol) {
     URL url = getURL(stockSymbol);
     InputStream in = null;
+    StringBuilder output = new StringBuilder();
+
     try {
       in = url.openStream();
-      File outputFile = new File("data" + File.separator + "cacheData" + File.separator + stockSymbol + ".json");
-      FileOutputStream fos = new FileOutputStream(outputFile);
       int b;
 
       while ((b = in.read()) != -1) {
-        fos.write(b);
+        output.append((char) b);
       }
-      fos.close();
-    } catch (Exception e) {
-
-
+    } catch (IOException e) {
+      throw new IllegalArgumentException("No price data found for " + stockSymbol);
     }
+    return output.toString();
   }
 
-  public static void removeMetaDataInFile(String symbol) {
-    File inputFile = new File("data" + File.separator + "cacheData" + File.separator + symbol + ".json");
-    File tempFile = new File("data" + File.separator + "cacheData" + File.separator + symbol + "1" + ".json");
+  public static void removeMetaDataInFile(String symbol, String output) {
+    if (output.length() < 300) {
+      return;
+    }
+    File inputFile = new File("data" + File.separator + "cacheData" + File.separator
+            + symbol + ".json");
+    BufferedReader br = new BufferedReader(new StringReader(output));
     try {
-      BufferedReader reader = new BufferedReader(new FileReader(inputFile));
-      BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
-      String lineToRemove = "\"1. Information\": \"Daily Prices (open, high, low, close) and Volumes\",";
+      BufferedWriter writer = new BufferedWriter(new FileWriter(inputFile));
+      String lineToRemove = "\"1. Information\": \"Daily Prices (open, high, low, close) " +
+              "and Volumes\",";
       String currentLine;
-      while ((currentLine = reader.readLine()) != null) {
+      while ((currentLine = br.readLine()) != null) {
         String trimmedLine = currentLine.trim();
-        if (trimmedLine.equals(lineToRemove)) continue;
+        if (trimmedLine.equals(lineToRemove)) {
+          continue;
+        }
         writer.write(currentLine + System.getProperty("line.separator"));
         if (trimmedLine.equals(errorString)) {
-          tempFile.delete();
           inputFile.delete();
           return;
         }
       }
       writer.close();
-      reader.close();
-      inputFile.delete();
-      tempFile.renameTo(inputFile);
+      BufferedReader br1 = new BufferedReader(new FileReader(inputFile));
+      if (br1.readLine() == null) {
+        inputFile.delete();
+      }
     } catch (IOException e) {
 
     }

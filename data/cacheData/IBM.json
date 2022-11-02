@@ -1,11 +1,18 @@
 {
     "Meta Data": {
         "2. Symbol": "IBM",
-        "3. Last Refreshed": "2022-11-01",
+        "3. Last Refreshed": "2022-11-02 16:00:01",
         "4. Output Size": "Full size",
         "5. Time Zone": "US/Eastern"
     },
     "Time Series (Daily)": {
+        "2022-11-02": {
+            "1. open": "137.7500",
+            "2. high": "140.1700",
+            "3. low": "136.8000",
+            "4. close": "136.8300",
+            "5. volume": "5360111"
+        },
         "2022-11-01": {
             "1. open": "138.2500",
             "2. high": "138.6500",
