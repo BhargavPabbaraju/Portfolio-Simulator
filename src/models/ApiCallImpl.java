@@ -151,6 +151,7 @@ public class ApiCallImpl {
       }
       writer.close();
       reader.close();
+      inputFile.delete();
       tempFile.renameTo(inputFile);
     } catch (IOException e) {
 

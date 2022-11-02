@@ -1,7 +1,7 @@
 {
     "Meta Data": {
         "2. Symbol": "GOOGL",
-        "3. Last Refreshed": "2022-11-01 16:00:01",
+        "3. Last Refreshed": "2022-11-01",
         "4. Output Size": "Full size",
         "5. Time Zone": "US/Eastern"
     },
@@ -11,7 +11,7 @@
             "2. high": "96.0300",
             "3. low": "90.3700",
             "4. close": "90.4700",
-            "5. volume": "46778022"
+            "5. volume": "47161351"
         },
         "2022-10-31": {
             "1. open": "95.4200",
