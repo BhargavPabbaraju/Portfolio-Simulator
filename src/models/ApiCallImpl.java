@@ -24,7 +24,10 @@ import models.jsonparser.JsonParser;
  * same symbol. It also contains a error message which is returned when a api call fails.
  */
 public class ApiCallImpl {
-  private static String apiKey = "3YCR9C5VHZEI9WFZ";
+  //private static String apiKey = "3YCR9C5VHZEI9WFZ";
+  private static String apiKey = "O7XGNPGQU35IKLRW";
+
+
 
   private static Cache cache;
 

@@ -213,6 +213,7 @@ It may take a couple of seconds to fetch data from the api the first time this o
 
 Note: The oldest date you can perform this query on  is exactly 20 years ago from the current date. For example,
 if today is 2022-11-02 , the oldest date the program can support is 1999-11-02.
+Note: Some stocks may not have data upto 20 years back in cases where companies were found less than 20 years ago.
 
 
 Instructions to switch to a different portfolio

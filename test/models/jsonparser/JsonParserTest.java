@@ -19,5 +19,7 @@ public class JsonParserTest {
     assertEquals("college", portfolio2.get("name").toString());
     JsonObject stock = portfolio2.get("stocks").get("0");
     assertEquals("BSE", stock.get("symbol").toString());
+
+
   }
 }

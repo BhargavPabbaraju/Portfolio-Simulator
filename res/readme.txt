@@ -30,7 +30,8 @@ Features
 	-The date must not be a future date.
 	-The date must not be a weekend.
 	-The date should be no older than 20 years ago from the current date.
-	  For example, if the current date is 2022-11-02 , the oldest date a user can enter is 1999-11-02.
+	  For example, if the current date is 2022-11-02 , the oldest date a user can enter is 		1999-11-02.
+	Note: Some stocks may not have data upto 20 years back in cases where companies were found less than 20 years ago.
 	-This operation takes a couple of seconds (could go upto 11 seconds) to display the total value the first time  
 	 this method is called. This is because of an api call in the backend. However , this operation is considerably 
 	 faster(around a second or less) in the subsequent calls of this method.
