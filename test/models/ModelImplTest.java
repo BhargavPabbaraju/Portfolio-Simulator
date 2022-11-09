@@ -62,21 +62,21 @@ public class ModelImplTest {
   @Test
   public void createPortfolio() throws IOException {
     model.createUser("user101", 1900);
-    model.createPortfolio("personal");
+    model.createPortfolio("personal",false);
     assertEquals("{personal={}}", model.toString());
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void createExistingPortfolio() throws IOException, ParseException {
     model.loadUser("user1");
-    model.createPortfolio("retirement");
+    model.createPortfolio("retirement",false);
     fail("Exception is expected for existing portfolio.");
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void createPortfolioInvalidCharacters() throws IOException, ParseException {
     model.loadUser("user1");
-    model.createPortfolio("[]{},;wjwihfwnf");
+    model.createPortfolio("[]{},;wjwihfwnf",false);
     fail("Exception is expected for invalid portfolio name.");
   }
 
@@ -105,7 +105,7 @@ public class ModelImplTest {
   @Test
   public void addStockToPortfolio() throws IOException {
     model.createUser("user101", 1900);
-    model.createPortfolio("personal");
+    model.createPortfolio("personal",false);
     model.addStockToPortfolio("ORCL", 10);
     assertEquals("{personal={ORCL=ORCL 10.0 2022-10-31}}", model.toString());
 
@@ -114,7 +114,7 @@ public class ModelImplTest {
   @Test(expected = IllegalArgumentException.class)
   public void addStockToPortfolioInvalidSymbol() throws IOException {
     model.createUser("user101", 1900);
-    model.createPortfolio("personal");
+    model.createPortfolio("personal",false);
     model.addStockToPortfolio("AAPL", 10);
     fail("Exception is expected for invalid stock symbol.");
 
@@ -143,7 +143,7 @@ public class ModelImplTest {
   @Test
   public void save() throws IOException, ParseException {
     model.createUser("user4", 1900);
-    model.createPortfolio("college");
+    model.createPortfolio("college",false);
     model.addStockToPortfolio("IBM", 10);
     model.save();
     model.loadUser("user4");

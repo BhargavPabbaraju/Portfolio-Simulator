@@ -205,7 +205,7 @@ public class ControllerImpl implements Controller {
 
   private void createPortfolio(String portfolioName) {
     try {
-      model.createPortfolio(portfolioName);
+      model.createPortfolio(portfolioName,false);
       addAStock();
     } catch (Exception e) {
       view.displayMessage(e.getMessage());

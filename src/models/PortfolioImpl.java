@@ -8,7 +8,7 @@ import java.util.HashMap;
  * hashmap to speed up searching. While creation user can enter same stock symbol twice it will
  * be handled by the portfolio and added into a single value by combining the shares.
  */
-class PortfolioImpl implements Portfolio {
+class PortfolioImpl extends AbstractPortfolio  {
   final String portfolioName;
   HashMap<String, Stock> stockList;
 
@@ -31,6 +31,8 @@ class PortfolioImpl implements Portfolio {
     this.stockList = new HashMap<>();
 
   }
+
+
 
   @Override
   public void createStock(String symbol, float numberOfShares) throws IllegalArgumentException {

@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.text.ParseException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 
 
@@ -18,9 +20,9 @@ public class UserImpl implements User {
 
   final static float DEFAULTBALANCE = 10000F;
 
-  Portfolio activePortfolio;
+  AbstractPortfolio activePortfolio;
 
-  HashMap<String, Portfolio> portfolioList;
+  HashMap<String, AbstractPortfolio> portfolioList;
 
   /**
    * This constructor creates a user with a given username.
@@ -116,6 +118,41 @@ public class UserImpl implements User {
     return this.activePortfolio.getComposition();
   }
 
+  private LocalDate parseDate(String date){
+    try {
+      return LocalDate.parse(date,
+              DateTimeFormatter.ISO_LOCAL_DATE);
+    } catch (Exception e) {
+      throw new IllegalArgumentException("Date must be in yyyy-mm-dd format");
+    }
+  }
+
+  @Override
+  public void buyStock(String symbol, String date, float numberOfShares) {
+
+    this.activePortfolio.buyStock(symbol,parseDate(date),numberOfShares);
+  }
+
+  @Override
+  public void sellStock(String symbol, String date, float numberOfShares) {
+    this.activePortfolio.sellStock(symbol,parseDate(date),numberOfShares);
+  }
+
+  @Override
+  public StringBuilder getPlot(String startDate, String endDate) {
+    return this.activePortfolio.getPlot(parseDate(startDate),parseDate(endDate));
+  }
+
+  @Override
+  public StringBuilder getComposition(String date) {
+    return this.activePortfolio.getComposition(parseDate(date));
+  }
+
+  @Override
+  public float getCostBasis(String date) {
+    return this.activePortfolio.getCostBasis(parseDate(date));
+  }
+
   @Override
   public void save() throws IOException {
     if (this.portfolioList.size() > 0) {
@@ -131,19 +168,25 @@ public class UserImpl implements User {
   }
 
   @Override
-  public HashMap<String, Portfolio> getPortfolios() {
+  public HashMap<String, AbstractPortfolio> getPortfolios() {
     return this.portfolioList;
   }
 
 
   @Override
-  public void createPortfolio(String portfolioName) throws IllegalArgumentException {
+  public void createPortfolio(String portfolioName,boolean isFlexible) throws IllegalArgumentException {
     if (portfolioList.containsKey(portfolioName)) {
       throw new IllegalArgumentException("Portfolio already exists");
     } else {
-      Portfolio portfolioObj = new PortfolioImpl(portfolioName, this);
+      AbstractPortfolio portfolioObj;
+      if(isFlexible) {
+        portfolioObj = new FlexiblePortfolioImpl(portfolioName, this);
+      }else{
+        portfolioObj = new PortfolioImpl(portfolioName, this);
+      }
+
       this.activePortfolio = portfolioObj;
-      this.portfolioList.put(portfolioName, portfolioObj);
+      this.portfolioList.put(portfolioName,  portfolioObj);
     }
   }
 

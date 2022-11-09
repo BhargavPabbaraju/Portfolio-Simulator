@@ -16,7 +16,7 @@ public interface User {
    *
    * @param portfolioName String which is unique for each user
    */
-  void createPortfolio(String portfolioName);
+  void createPortfolio(String portfolioName,boolean isFlexible);
 
   /**
    * This method is used to load a portfolio with a given portfolio name. This is called by the user
@@ -96,7 +96,7 @@ public interface User {
    *
    * @return HashMap which contains all the list of portfolio's for a particular folder
    */
-  HashMap<String, Portfolio> getPortfolios();
+  HashMap<String, AbstractPortfolio> getPortfolios();
 
   /**
    * This method is used to get the total value of this user's active portfolio on a certain date.
@@ -114,4 +114,11 @@ public interface User {
    * @return StringBuilder which has symbol and number of shares for each stock in portfolio
    */
   StringBuilder getComposition();
+
+  void buyStock(String symbol, String date, float numberOfShares);
+  void sellStock(String symbol, String date,float numberOfShares);
+  StringBuilder getPlot(String startDate,String endDate);
+
+  StringBuilder getComposition(String date);
+  float getCostBasis(String date);
 }

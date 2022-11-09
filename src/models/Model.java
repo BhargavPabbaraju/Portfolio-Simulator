@@ -32,7 +32,7 @@ public interface Model {
    *
    * @param portfolioName String which is unique for each user
    */
-  void createPortfolio(String portfolioName);
+  void createPortfolio(String portfolioName,boolean isFlexible);
 
   /**
    * This method is used to get the total value of this user's active portfolio on a certain date.

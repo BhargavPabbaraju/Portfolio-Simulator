@@ -9,7 +9,7 @@ import java.text.ParseException;
  * methods to this user.
  */
 public class ModelImpl implements Model {
-  private User user;
+  protected User user;
 
   @Override
   public void createUser(String userName, float balance) {
@@ -31,8 +31,8 @@ public class ModelImpl implements Model {
 
 
   @Override
-  public void createPortfolio(String portfolioName) {
-    this.user.createPortfolio(portfolioName);
+  public void createPortfolio(String portfolioName,boolean isFlexible) {
+    this.user.createPortfolio(portfolioName,isFlexible);
   }
 
   @Override

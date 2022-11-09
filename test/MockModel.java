@@ -35,7 +35,7 @@ public class MockModel implements Model {
   }
 
   @Override
-  public void createPortfolio(String portfolioName) {
+  public void createPortfolio(String portfolioName,boolean isFlexible) {
     inputLog.append(portfolioName + " ");
     outputLog.append("createPortfolio ");
 

@@ -45,7 +45,7 @@ class Loader {
 
     for (int i = length - 1; i >= 0; i--) {
       portfolio = portfolios.get(i + "");
-      user.createPortfolio(portfolio.get("name").toString());
+      user.createPortfolio(portfolio.get("name").toString(),false);
       loadStocksList(portfolio.get("stocks"), user);
 
     }
@@ -145,7 +145,7 @@ class Loader {
 
   private static int writePortfolios(User user, BufferedWriter writer, int tabs)
           throws IOException {
-    HashMap<String, Portfolio> portfolioList = user.getPortfolios();
+    HashMap<String, AbstractPortfolio> portfolioList = user.getPortfolios();
     int size = portfolioList.size();
     int i = 0;
     for (String key : portfolioList.keySet()) {
