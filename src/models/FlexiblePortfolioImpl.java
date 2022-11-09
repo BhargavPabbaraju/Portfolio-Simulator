@@ -1,6 +1,7 @@
 package models;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 
 /**
@@ -12,7 +13,7 @@ import java.util.HashMap;
 
 public class FlexiblePortfolioImpl extends AbstractPortfolio implements FlexiblePortfolio {
   String portfolioName;
-  HashMap<String,FlexibleStocksList> stockList;// {AAPl:{Stocks},IBM:{Stocks}}
+  HashMap<String, FlexibleStocksList> stockList;// {AAPl:{Stocks},IBM:{Stocks}}
   User user;
 
   FlexiblePortfolioImpl(String portfolioName, User user) throws IllegalArgumentException {
@@ -26,21 +27,22 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements Flexible
 
   }
 
-  
+
   @Override
   public void buyStock(String symbol, LocalDate date, float numberOfShares) {
-    if(this.stockList.containsKey(symbol)){
-      this.stockList.get(symbol).buyStock(symbol,date,numberOfShares);
-    }else{
-      FlexibleStocksList list = new FlexibleStocksListImpl(symbol,date,numberOfShares);
-      this.stockList.put(symbol,list);
+
+    if (this.stockList.containsKey(symbol)) {
+      this.stockList.get(symbol).buyStock(symbol, date, numberOfShares);
+    } else {
+      FlexibleStocksList list = new FlexibleStocksListImpl(symbol, date, numberOfShares);
+      this.stockList.put(symbol, list);
     }
 
   }
 
   @Override
   public void sellStock(String symbol, LocalDate date, float numberOfShares) {
-    this.stockList.get(symbol).sellStock(symbol,date,numberOfShares);
+    this.stockList.get(symbol).sellStock(symbol, date, numberOfShares);
   }
 
   @Override
@@ -50,7 +52,18 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements Flexible
 
   @Override
   public float getTotalValue(String date) {
-    return 0;
+    LocalDate dateValue;
+    try {
+      dateValue =  LocalDate.parse(date,
+              DateTimeFormatter.ISO_LOCAL_DATE);
+    } catch (Exception e) {
+      throw new IllegalArgumentException("Date must be in yyyy-mm-dd format");
+    }
+    float value=0;
+    for (String key : stockList.keySet()) {
+      value += this.stockList.get(key).getValue(dateValue);
+    }
+    return value;
   }
 
 
@@ -59,7 +72,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements Flexible
     StringBuilder composition = new StringBuilder();
     String format = "%-40s%.2f%n";
     composition.append(String.format("%-20sComposition of %s upto %s%n", "",
-            portfolioName,date.toString()));
+            portfolioName, date.toString()));
 
     for (String key : stockList.keySet()) {
       composition.append(String.format(format, key, stockList.get(key).getComposition(date)));
@@ -70,6 +83,10 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements Flexible
 
   @Override
   public float getCostBasis(LocalDate date) {
-    return 0;
+    float cost = 0;
+    for (String key : stockList.keySet()) {
+      cost += this.stockList.get(key).getCostBasis(date);
+    }
+    return cost;
   }
 }
