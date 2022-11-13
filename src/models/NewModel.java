@@ -11,4 +11,5 @@ public interface NewModel extends Model{
   StringBuilder getComposition(String date);
   float getCostBasis(String date);
 
+  boolean isFlexiblePortfolio();
 }

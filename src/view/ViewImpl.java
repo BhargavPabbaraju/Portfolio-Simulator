@@ -86,4 +86,34 @@ public class ViewImpl implements View {
     out.println("2.Back to main menu");
 
   }
+
+  @Override
+  public void displayPortfolioTypesMenu() {
+    out.println("Select which kind of portfolio you wish to create");
+    out.println("1.Flexible Portfolio");
+    out.println("2.Rigid Portfolio");
+  }
+
+  @Override
+  public void displayFlexibleMenu() {
+    out.println("\n1.Create Portfolio");
+    out.println("2.Load Portfolio");
+    out.println("3.Buy Stock");
+    out.println("4.Sell Stock");
+    out.println("5.Get Composition on certain date");
+    out.println("6.Get Total Value on certain date");
+    out.println("7.Get Plot within a certain date range");
+    out.println("8.Save");
+    out.println("9.Exit");
+  }
+
+  @Override
+  public void askForStartDate() {
+    out.println("Enter start date(yyyy-mm-dd)");
+  }
+
+  @Override
+  public void askForEndDate() {
+    out.println("Enter end date(yyyy-mm-dd)");
+  }
 }

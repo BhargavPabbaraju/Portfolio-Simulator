@@ -57,8 +57,15 @@ public class FlexibleStockImpl implements FlexibleStock {
     return this.numberOfShares;
   }
 
+  @Override
+  public float getTransactionCost() {
+    return this.transactionCost;
+  }
+
   private boolean weekendValidation(LocalDate date) {
     DayOfWeek day = DayOfWeek.of(date.get(ChronoField.DAY_OF_WEEK));
     return day == DayOfWeek.SUNDAY || day == DayOfWeek.SATURDAY;
   }
+
+
 }

@@ -114,7 +114,7 @@ public class ApiCallImpl {
     } catch (FileNotFoundException e) {
       //If file is not found in the directory.
     }
-    return json;
+    return json.get("TimeSeries(Daily)");
   }
 
   private static String getJsonFormat(String stockSymbol) {

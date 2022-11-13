@@ -75,4 +75,12 @@ public interface View {
    */
 
   void displayAddNewStockMenu();
+
+  void displayPortfolioTypesMenu();
+
+  void displayFlexibleMenu();
+
+  void askForStartDate();
+
+  void askForEndDate();
 }

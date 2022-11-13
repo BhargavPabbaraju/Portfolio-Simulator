@@ -22,4 +22,12 @@ public class JsonParserTest {
 
 
   }
+
+  @Test
+  public void testTwo() throws FileNotFoundException {
+    JsonObject result = JsonParser.parse("data/cacheData/GOOG.json");
+    System.out.println(result);
+    System.out.println(result.get("TimeSeries(Daily)").get("2022-11-08").get("2.high"));
+  }
+
 }

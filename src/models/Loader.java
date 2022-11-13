@@ -33,21 +33,52 @@ class Loader {
     float balance = Float.parseFloat(json.get("balance").toString());
     user.addToBalance(balance);
     loadPortfolioList(json, user);
+
     return user;
 
 
   }
 
   private static void loadPortfolioList(JsonObject json, User user) throws ParseException {
+
     JsonObject portfolios = json.get("portfolios");
     JsonObject portfolio;
     int length = portfolios.length();
 
+
     for (int i = length - 1; i >= 0; i--) {
       portfolio = portfolios.get(i + "");
-      user.createPortfolio(portfolio.get("name").toString(),false);
-      loadStocksList(portfolio.get("stocks"), user);
+      boolean flexible = portfolio.get("flexible").toString().equals("true");
+      user.createPortfolio(portfolio.get("name").toString(),flexible);
 
+      if(flexible){
+        loadFlexibleStocksList(portfolio.get("stocks"), user);
+      }
+      else{
+        loadStocksList(portfolio.get("stocks"), user);
+      }
+
+
+    }
+
+  }
+
+  private static void loadFlexibleStocksList(JsonObject json, User user) {
+    int length = json.length();
+    JsonObject stockList;
+    JsonObject stock;
+    for(String key:json.getKeys()){
+      stockList = json.get(key);
+      for(String date:stockList.getKeys()){
+        stock = stockList.get(date);
+        float shares = Float.parseFloat(stock.get("shares").toString());
+        float transactionCost = Float.parseFloat(stock.get("transactionCost").toString());
+        if(shares<0){
+          user.sellStock(key,date,shares,transactionCost);
+        }else{
+          user.buyStock(key,date,shares,transactionCost);
+        }
+      }
     }
 
   }
@@ -74,7 +105,8 @@ class Loader {
   }
 
   private static boolean dontPutQuotes(String key, String value) {
-    return key.equals("shares") || key.equals("balance") || value.equals("[");
+    return key.equals("shares") || key.equals("balance") || value.equals("[") || value.equals("{")
+            || key.equals("transactionCost");
   }
 
   private static int writeKeyValue(String key, String value, int tabs, BufferedWriter writer,
@@ -119,8 +151,78 @@ class Loader {
     return tabs;
   }
 
-  private static int writeStocks(Portfolio portfolio, BufferedWriter writer, int tabs)
+  private static int writeStocks(AbstractPortfolio portfolio, BufferedWriter writer, int tabs)
           throws IOException {
+
+    tabs = writeKeyValue("flexible", String.valueOf(portfolio.flexible), tabs, writer,
+            true, 0);
+
+
+    if(portfolio.flexible){
+      return writeFlexibleStocksList(portfolio,writer,tabs);
+    }else{
+      return writeInFlexibleStocksList(portfolio,writer,tabs);
+    }
+
+  }
+
+  private static int writeFlexibleStocksList(AbstractPortfolio portfolio, BufferedWriter writer,
+                                             int tabs) throws IOException {
+
+    HashMap<String, FlexibleStocksList> stocksList = portfolio.getStocksList();
+    tabs = writeKeyValue("stocks", "{", tabs, writer, false, 2);
+    int i=0;
+    int size = stocksList.size();
+    for(String symbol:stocksList.keySet()){
+      tabs = writeKeyValue(symbol, "{", tabs, writer, false, 2);
+      tabs = writeFlexibleStocks(stocksList.get(symbol),writer,tabs);
+      i++;
+      if (i == size) {
+        tabs = writeKeyValue("}", "", tabs, writer, false, -2);
+      } else {
+        tabs = writeKeyValue("}", "", tabs, writer, true, 0);
+      }
+    }
+
+    tabs = writeKeyValue("}", "", tabs, writer, false, -2);
+    return tabs;
+  }
+
+  private static int writeFlexibleStocks(FlexibleStocksList flexibleStocksList, BufferedWriter writer,
+                                         int tabs) throws IOException {
+
+    HashMap<LocalDate, FlexibleStock> stocks = flexibleStocksList.getStocks();
+    int i=0;
+    int size = stocks.size();
+    for(LocalDate date:stocks.keySet()){
+      tabs = writeKeyValue(date.toString(), "{", tabs, writer, false, 2);
+      tabs = writeFlexibleStock(stocks.get(date),writer,tabs);
+      i++;
+      if (i == size) {
+        tabs = writeKeyValue("}", "", tabs, writer, false, -2);
+      } else {
+        tabs = writeKeyValue("}", "", tabs, writer, true, 0);
+      }
+    }
+
+
+    return tabs;
+  }
+
+  private static int writeFlexibleStock(FlexibleStock flexibleStock, BufferedWriter writer,
+                                        int tabs) throws IOException {
+
+    String shares = String.valueOf(flexibleStock.getShares());
+    String transactionCost = String.valueOf(flexibleStock.getTransactionCost());
+    tabs = writeKeyValue("shares", shares, tabs, writer, true, 0);
+    tabs = writeKeyValue("transactionCost", transactionCost, tabs,
+            writer, false, -2);
+
+    return tabs;
+  }
+
+  private static int writeInFlexibleStocksList(AbstractPortfolio portfolio,BufferedWriter writer,
+                                               int tabs) throws IOException {
     HashMap<String, Stock> stocksList = portfolio.getStocks();
     tabs = writeKeyValue("stocks", "[", tabs, writer, false, 2);
 

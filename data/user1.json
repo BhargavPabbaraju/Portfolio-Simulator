@@ -4,6 +4,7 @@
   "portfolios": [
     {
       "name": "college",
+      "flexible": "false",
       "stocks": [
         {
           "symbol": "AAPL",
@@ -19,6 +20,7 @@
     },
     {
       "name": "retirement",
+      "flexible": "false",
       "stocks": [
         {
           "symbol": "MSFT",

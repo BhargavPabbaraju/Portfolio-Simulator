@@ -128,14 +128,14 @@ public class UserImpl implements User {
   }
 
   @Override
-  public void buyStock(String symbol, String date, float numberOfShares) {
+  public void buyStock(String symbol, String date, float numberOfShares,float transactionCost) {
 
-    this.activePortfolio.buyStock(symbol,parseDate(date),numberOfShares);
+    this.activePortfolio.buyStock(symbol,parseDate(date),numberOfShares,transactionCost);
   }
 
   @Override
-  public void sellStock(String symbol, String date, float numberOfShares) {
-    this.activePortfolio.sellStock(symbol,parseDate(date),numberOfShares);
+  public void sellStock(String symbol, String date, float numberOfShares,float transactionCost) {
+    this.activePortfolio.sellStock(symbol,parseDate(date),numberOfShares,transactionCost);
   }
 
   @Override
@@ -152,6 +152,12 @@ public class UserImpl implements User {
   public float getCostBasis(String date) {
     return this.activePortfolio.getCostBasis(parseDate(date));
   }
+
+  @Override
+  public boolean isFlexiblePortfolio() {
+    return  this.activePortfolio.flexible;
+  }
+
 
   @Override
   public void save() throws IOException {

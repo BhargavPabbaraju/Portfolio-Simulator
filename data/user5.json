@@ -1,0 +1,39 @@
+{
+  "name": "user5",
+  "balance": 12000.0,
+  "portfolios": [
+    {
+      "name": "college",
+      "flexible": "false",
+      "stocks": [
+        {
+          "symbol": "MSFT",
+          "shares": 30.0,
+          "date": "2022-11-11"
+        }
+      ]
+    },
+    {
+      "name": "retir",
+      "flexible": "true",
+      "stocks": {
+        "GOOG": {
+          "2022-08-01": {
+            "shares": 20.0,
+            "transactionCost": 10.0
+          },
+          "2022-11-01": {
+            "shares": 20.0,
+            "transactionCost": 10.0
+          }
+        },
+        "ORCL": {
+          "2022-08-01": {
+            "shares": 10.0,
+            "transactionCost": 10.0
+          }
+        }
+      }
+    }
+  ]
+}

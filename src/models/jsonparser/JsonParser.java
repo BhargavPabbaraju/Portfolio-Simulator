@@ -136,6 +136,8 @@ public class JsonParser {
       input = cleanInput(input);
 
 
+
+
       if (input.equals("")) {
         continue;
       }
@@ -148,7 +150,8 @@ public class JsonParser {
         ArrayList<JsonObject> list = new ArrayList<>();
         resultStack.push(new JsonList(list));
       } else if (input.equals("}")) {
-        inputStack.pop(); // Pop the {
+        inputStack.pop();// Pop the {
+        endDict2();
       } else if (input.equals("]")) {
         endArray();
       } else if (input.endsWith("}")) {
@@ -158,6 +161,16 @@ public class JsonParser {
       }
     }
     return resultStack.pop();
+  }
+
+  private static void endDict2() {
+    if(!inputStack.isEmpty() && !isEscapeCharacter(inputStack.peek())){
+      String key = inputStack.pop();
+      JsonObject value = resultStack.pop();
+      JsonObject dic = resultStack.pop();
+      dic.addElement(key,value);
+      resultStack.push(dic);
+    }
   }
 
 }

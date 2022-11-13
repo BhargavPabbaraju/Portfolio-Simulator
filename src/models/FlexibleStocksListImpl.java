@@ -1,6 +1,7 @@
 package models;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -8,35 +9,35 @@ import java.util.HashMap;
  * as keys and flexible stocks as values.
  */
 public class FlexibleStocksListImpl implements FlexibleStocksList {
-  float transactionCost = 10;
   HashMap<LocalDate, FlexibleStock> stocksList;// {2022-11-18:{Stock},2022-10-21:{Stock}}
 
   float currentShares;
 
-  public FlexibleStocksListImpl(String symbol, LocalDate date, float numberOfShares) {
+  public FlexibleStocksListImpl(String symbol, LocalDate date, float numberOfShares,
+                                float transactionCost) {
     if (this.stocksList == null) {
       this.stocksList = new HashMap<>();
       this.currentShares = 0;
     }
-    this.stocksList.put(date, new FlexibleStockImpl(symbol, date, numberOfShares, transactionCost));
+    this.stocksList.put(date, new FlexibleStockImpl(symbol, date, numberOfShares,transactionCost));
     this.currentShares += numberOfShares;
 
   }
 
   @Override
-  public void buyStock(String symbol, LocalDate date, float numberOfShares) {
+  public void buyStock(String symbol, LocalDate date, float numberOfShares,float transactionCost) {
     FlexibleStock stock = new FlexibleStockImpl(symbol, date, numberOfShares,
-            this.transactionCost);
+            transactionCost);
     stocksList.put(date, stock);
 
     currentShares += numberOfShares;
   }
 
   @Override
-  public void sellStock(String symbol, LocalDate date, float numberOfShares) {
+  public void sellStock(String symbol, LocalDate date, float numberOfShares,float transactionCost) {
     if (currentShares >= numberOfShares) {
       FlexibleStock stock = new FlexibleStockImpl(symbol, date, -numberOfShares,
-              this.transactionCost);
+              transactionCost);
       stocksList.put(date, stock);
       currentShares -= numberOfShares;
     } else {
@@ -47,8 +48,12 @@ public class FlexibleStocksListImpl implements FlexibleStocksList {
   }
 
   @Override
-  public StringBuilder getPlot(LocalDate startDate, LocalDate endDate) {
-    return null;
+  public ArrayList<Float> getPlot(ArrayList<LocalDate> datesList) {
+    ArrayList<Float> values = new ArrayList<>();
+    for(LocalDate date:datesList){
+      values.add(getValue(date));
+    }
+    return values;
   }
 
   @Override
@@ -86,4 +91,11 @@ public class FlexibleStocksListImpl implements FlexibleStocksList {
     }
     return cost;
   }
+
+  @Override
+  public HashMap<LocalDate, FlexibleStock> getStocks() {
+    return this.stocksList;
+  }
+
+
 }

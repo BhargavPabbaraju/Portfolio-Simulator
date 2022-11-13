@@ -5,7 +5,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 import controller.ControllerImpl;
-import models.Model;
+import models.NewModel;
 import view.View;
 import view.ViewImpl;
 
@@ -19,7 +19,7 @@ public class ControllerIsolationTest {
   public void testCreateUser() {
     StringBuilder log = new StringBuilder();
     StringBuilder olog = new StringBuilder();
-    Model model = new MockModel(log, olog);
+    NewModel model = new MockNewModel(log, olog);
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
     View view = new ViewImpl(out);
@@ -36,7 +36,7 @@ public class ControllerIsolationTest {
   public void testLoadUser() {
     StringBuilder log = new StringBuilder();
     StringBuilder olog = new StringBuilder();
-    Model model = new MockModel(log, olog);
+    NewModel model = new MockNewModel(log, olog);
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
     View view = new ViewImpl(out);
@@ -53,7 +53,7 @@ public class ControllerIsolationTest {
   public void testCreatePortfolio() {
     StringBuilder log = new StringBuilder();
     StringBuilder olog = new StringBuilder();
-    Model model = new MockModel(log, olog);
+    NewModel model = new MockNewModel(log, olog);
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
     View view = new ViewImpl(out);
@@ -70,7 +70,7 @@ public class ControllerIsolationTest {
   public void testAddStockToPortfolio() {
     StringBuilder log = new StringBuilder();
     StringBuilder olog = new StringBuilder();
-    Model model = new MockModel(log, olog);
+    NewModel model = new MockNewModel(log, olog);
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
     View view = new ViewImpl(out);
@@ -87,7 +87,7 @@ public class ControllerIsolationTest {
   public void testLoadPortfolio() {
     StringBuilder log = new StringBuilder();
     StringBuilder olog = new StringBuilder();
-    Model model = new MockModel(log, olog);
+    NewModel model = new MockNewModel(log, olog);
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
     View view = new ViewImpl(out);
@@ -104,7 +104,7 @@ public class ControllerIsolationTest {
   public void testSave() {
     StringBuilder log = new StringBuilder();
     StringBuilder olog = new StringBuilder();
-    Model model = new MockModel(log, olog);
+    NewModel model = new MockNewModel(log, olog);
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
     View view = new ViewImpl(out);
@@ -121,7 +121,7 @@ public class ControllerIsolationTest {
   public void testGetTotalValue() {
     StringBuilder log = new StringBuilder();
     StringBuilder olog = new StringBuilder();
-    Model model = new MockModel(log, olog);
+    NewModel model = new MockNewModel(log, olog);
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
     View view = new ViewImpl(out);
@@ -138,7 +138,7 @@ public class ControllerIsolationTest {
   public void testGetComposition() {
     StringBuilder log = new StringBuilder();
     StringBuilder olog = new StringBuilder();
-    Model model = new MockModel(log, olog);
+    NewModel model = new MockNewModel(log, olog);
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
     View view = new ViewImpl(out);

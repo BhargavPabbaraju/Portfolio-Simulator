@@ -4,7 +4,8 @@ import java.io.InputStream;
 
 import java.util.Scanner;
 
-import models.Model;
+
+import models.NewModel;
 import view.View;
 
 /**
@@ -13,7 +14,7 @@ import view.View;
  */
 
 public class ControllerImpl implements Controller {
-  private final Model model;
+  private final NewModel model;
   private final View view;
   private final Scanner in;
 
@@ -27,7 +28,7 @@ public class ControllerImpl implements Controller {
    * @param view  view object which is responsible to display things to the user
    * @param in    input stream of the data
    */
-  public ControllerImpl(Model model, View view, InputStream in) {
+  public ControllerImpl(NewModel model, View view, InputStream in) {
     this.model = model;
     this.view = view;
     this.in = new Scanner(in);
@@ -109,7 +110,11 @@ public class ControllerImpl implements Controller {
   public void goController() {
     initialMenu();
     while (!quit) {
-      mainMenu();
+      if(model.isFlexiblePortfolio()){
+        flexiblePortfolioOptions();
+      }else{
+        mainMenu();
+      }
     }
   }
 
@@ -203,7 +208,147 @@ public class ControllerImpl implements Controller {
 
   }
 
+  private void createFlexiblePortfolio(String portfolioName){
+    try {
+      model.createPortfolio(portfolioName,true);
+      buySellStock(true);
+    } catch (Exception e) {
+      view.displayMessage(e.getMessage());
+      mainMenu();
+    }
+  }
+
+  private void buySellStock(boolean buying){
+    view.askForDate();
+    try {
+      String date = in.next();
+      view.askForStockSymbol();
+      String symbol = in.next();
+      view.askForShares();
+      if (in.hasNextInt()) {
+        try {
+          int shares = in.nextInt();
+          if(buying){
+            model.buyStock(symbol, date,shares);
+          }else{
+            model.sellStock(symbol,date,shares);
+          }
+          flexiblePortfolioOptions();
+        } catch (Exception e) {
+          view.displayMessage(e.getMessage());
+          buySellStock(buying);
+        }
+
+      } else {
+        in.next();
+        view.displayMessage("Shares must be a valid positive integer");
+        buySellStock(buying);
+      }
+
+    } catch (IllegalStateException e) {
+      view.displayMessage(e.getMessage());
+      flexiblePortfolioOptions();
+    } catch (Exception e) {
+      view.displayMessage(e.getMessage());
+      buySellStock(buying);
+    }
+
+
+  }
+
+  private void flexiblePortfolioOptions() {
+    view.displayFlexibleMenu();
+    String portfolioName = "";
+    if (isOptionInvalid(9)) {
+      mainMenu();
+    }
+    if (option < 3) {
+      view.askForPortfolioName();
+      try {
+        portfolioName = in.next();
+      } catch (Exception e) {
+        view.displayMessage(e.getMessage());
+        mainMenu();
+      }
+    }
+
+    switch(option){
+      case 1:
+        createPortfolio(portfolioName);
+        break;
+      case 2:
+        loadPortfolio(portfolioName);
+        break;
+      case 3:
+        buySellStock(true);
+        break;
+      case 4:
+        buySellStock(false);
+        break;
+      case 5:
+        getFlexibleComposition();
+        break;
+      case 6:
+        getTotalValue();
+        break;
+      case 7:
+        getPlot();
+        break;
+      case 8:
+        save();
+        break;
+      case 9:
+        quit = true;
+        break;
+
+    }
+  }
+
+  private void getPlot() {
+    view.askForStartDate();
+    try {
+      String startDate = in.next();
+      view.askForEndDate();
+      String endDate = in.next();
+      view.displayComposition(model.getPlot(startDate,endDate));
+    } catch (IllegalStateException e) {
+      view.displayMessage(e.getMessage());
+      flexiblePortfolioOptions();
+    } catch (Exception e) {
+      view.displayMessage(e.getMessage());
+      getFlexibleComposition();
+    }
+  }
+
+  private void getFlexibleComposition() {
+    view.askForDate();
+    try {
+      String date = in.next();
+      view.displayComposition(model.getComposition(date));
+    } catch (IllegalStateException e) {
+      view.displayMessage(e.getMessage());
+      flexiblePortfolioOptions();
+    } catch (Exception e) {
+      view.displayMessage(e.getMessage());
+      getFlexibleComposition();
+    }
+  }
+
   private void createPortfolio(String portfolioName) {
+    view.displayPortfolioTypesMenu();
+    if(isOptionInvalid(2)){
+      createPortfolio(portfolioName);
+    }
+    if(option==1){
+      createFlexiblePortfolio(portfolioName);
+    }else{
+      createRigidPortfolio(portfolioName);
+    }
+
+
+  }
+
+  private void createRigidPortfolio(String portfolioName) {
     try {
       model.createPortfolio(portfolioName,false);
       addAStock();
@@ -211,7 +356,6 @@ public class ControllerImpl implements Controller {
       view.displayMessage(e.getMessage());
       mainMenu();
     }
-
   }
 
   private void addAStock() {
@@ -221,8 +365,9 @@ public class ControllerImpl implements Controller {
     if (in.hasNextInt()) {
       try {
         int shares = in.nextInt();
-        model.addStockToPortfolio(symbol, shares);
-        addNewStock();
+          model.addStockToPortfolio(symbol, shares);
+          addNewStock();
+
       } catch (Exception e) {
         view.displayMessage(e.getMessage());
         addAStock();
@@ -250,6 +395,8 @@ public class ControllerImpl implements Controller {
 
 
 }
+
+
 
 
 

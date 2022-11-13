@@ -115,10 +115,12 @@ public interface User {
    */
   StringBuilder getComposition();
 
-  void buyStock(String symbol, String date, float numberOfShares);
-  void sellStock(String symbol, String date,float numberOfShares);
+  void buyStock(String symbol, String date, float numberOfShares,float transactionCost);
+  void sellStock(String symbol, String date,float numberOfShares,float transactionCost);
   StringBuilder getPlot(String startDate,String endDate);
 
   StringBuilder getComposition(String date);
   float getCostBasis(String date);
+
+  boolean isFlexiblePortfolio();
 }

@@ -5,13 +5,19 @@ import java.util.HashMap;
 
 public abstract class AbstractPortfolio implements Portfolio,FlexiblePortfolio{
 
+  protected boolean flexible = false;
+
+  protected void  setFlexible(boolean flexible){
+    this.flexible = flexible;
+  }
+
   @Override
-  public void buyStock(String symbol, LocalDate date, float numberOfShares) {
+  public void buyStock(String symbol, LocalDate date, float numberOfShares,float transactionCost) {
     //throw exception for inflexible
   }
 
   @Override
-  public void sellStock(String symbol, LocalDate date, float numberOfShares) {
+  public void sellStock(String symbol, LocalDate date, float numberOfShares,float transactionCost) {
     //throw exception for inflexible
   }
 
@@ -60,6 +66,13 @@ public abstract class AbstractPortfolio implements Portfolio,FlexiblePortfolio{
   @Override
   public HashMap<String, Stock> getStocks() {
     //throw exception for flexible
+    return null;
+  }
+
+
+  @Override
+  public HashMap<String, FlexibleStocksList> getStocksList(){
+    //throw exception for inflexible
     return null;
   }
 }

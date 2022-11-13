@@ -4,18 +4,43 @@
   "portfolios": [
     {
       "name": "retirement",
+      "flexible" : true,
+      "stocks": {
+        "GOOG": {
+          "2022-11-01": {
+            "shares": 10.0,
+            "transactionCost": 10.0
+          },
+          "2022-08-01": {
+            "shares": 10.0,
+            "transactionCost": 10.0
+          }
+        },
+        "ORCL": {
+          "2022-11-01": {
+            "shares": 10.0,
+            "transactionCost": 10.0
+          }
+        }
+      }
+
+    },
+    {
+      "name": "college",
+      "flexible" : false,
       "stocks": [
         {
-          "symbol": "GOOG",
-          "shares": 10.0,
-          "date": "2022-11-01"
+          "symbol": "MSFT",
+          "shares": 30.0,
+          "date": "2022-10-28"
         },
         {
-          "symbol": "ORCL",
-          "shares": 5.0,
-          "date": "2022-11-01"
+          "symbol": "META",
+          "shares": 30.0,
+          "date": "2022-10-28"
         }
       ]
+
     }
   ]
 }

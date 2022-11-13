@@ -1,6 +1,7 @@
 package models.jsonparser;
 
 import java.util.HashMap;
+import java.util.Set;
 
 /**
  * This class represents a Json Dictionary. It is used to parse the loaded file.
@@ -28,6 +29,10 @@ class JsonDict implements JsonObject {
   @Override
   public JsonType getType() {
     return JsonType.DICT;
+  }
+
+  public Set<String> getKeys() {
+    return this.dict.keySet();
   }
 
   @Override

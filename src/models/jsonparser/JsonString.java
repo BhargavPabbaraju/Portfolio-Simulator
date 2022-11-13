@@ -1,5 +1,8 @@
 package models.jsonparser;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * This class represents a json string. It handles the string values in a json file.
  */
@@ -24,6 +27,13 @@ class JsonString implements JsonObject {
   @Override
   public JsonType getType() {
     return JsonType.STRING;
+  }
+
+  @Override
+  public Set<String> getKeys() {
+    Set<String> keys = new HashSet();
+    keys.add(this.value);
+    return keys;
   }
 
   @Override

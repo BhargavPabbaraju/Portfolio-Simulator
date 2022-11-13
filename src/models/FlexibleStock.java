@@ -9,4 +9,6 @@ public interface FlexibleStock {
   float getCostBasis(LocalDate date);
 
   float getShares();
+
+  float getTransactionCost();
 }

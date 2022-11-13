@@ -1,6 +1,8 @@
 package models.jsonparser;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * This class represents a Json list. It is used to handel the list which appears in a json files
@@ -25,6 +27,15 @@ class JsonList implements JsonObject {
   @Override
   public JsonType getType() {
     return JsonType.LIST;
+  }
+
+  @Override
+  public Set<String> getKeys() {
+    Set<String> keys = new HashSet();
+    for(int i=0;i<this.list.size();i++){
+      keys.add(i+"");
+    }
+    return keys;
   }
 
   @Override

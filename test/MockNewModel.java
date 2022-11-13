@@ -1,12 +1,12 @@
 import java.io.IOException;
 import java.text.ParseException;
 
-import models.Model;
+import models.NewModel;
 
 /**
  * This class is used to test the controller in isolation.
  */
-public class MockModel implements Model {
+public class MockNewModel implements NewModel {
   private StringBuilder inputLog;
   private StringBuilder outputLog;
 
@@ -16,7 +16,7 @@ public class MockModel implements Model {
    * @param inputLog String Builder to test if the input send by the controller are correct
    * @param outputLog String Builder to test if correct method is called
    */
-  public MockModel(StringBuilder inputLog, StringBuilder outputLog) {
+  public MockNewModel(StringBuilder inputLog, StringBuilder outputLog) {
     this.inputLog = inputLog;
     this.outputLog = outputLog;
   }
@@ -42,10 +42,40 @@ public class MockModel implements Model {
   }
 
   @Override
+  public void buyStock(String symbol, String date, float numberOfShares) {
+
+  }
+
+  @Override
+  public void sellStock(String symbol, String date, float numberOfShares) {
+
+  }
+
+  @Override
+  public StringBuilder getPlot(String startDate, String endDate) {
+    return null;
+  }
+
+  @Override
   public float getTotalValue(String date) {
     inputLog.append(date + " ");
     outputLog.append("getTotalValue ");
     return 0;
+  }
+
+  @Override
+  public StringBuilder getComposition(String date) {
+    return null;
+  }
+
+  @Override
+  public float getCostBasis(String date) {
+    return 0;
+  }
+
+  @Override
+  public boolean isFlexiblePortfolio() {
+    return false;
   }
 
   @Override

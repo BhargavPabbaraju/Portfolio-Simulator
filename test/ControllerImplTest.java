@@ -5,22 +5,22 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 import controller.ControllerImpl;
-import models.Model;
-import models.ModelImpl;
+import models.NewModel;
+import models.NewModelImpl;
 import view.View;
 import view.ViewImpl;
 
 import static org.junit.Assert.assertEquals;
 
 /**
- * This class tests the Controller, View and Model together.
+ * This class tests the Controller, View and NewModel together.
  */
 public class ControllerImplTest {
 
 
   @Test
   public void testCreateExistingUser() {
-    Model model = new ModelImpl();
+    NewModel model = new NewModelImpl();
 
     ByteArrayInputStream in;
 
@@ -61,7 +61,7 @@ public class ControllerImplTest {
 
   @Test
   public void testCreateUserInvalidName() {
-    Model model = new ModelImpl();
+    NewModel model = new NewModelImpl();
 
     ByteArrayInputStream in;
 
@@ -102,7 +102,7 @@ public class ControllerImplTest {
 
   @Test
   public void testCreateUserBalanceNegative() {
-    Model model = new ModelImpl();
+    NewModel model = new NewModelImpl();
 
     ByteArrayInputStream in;
 
@@ -143,7 +143,7 @@ public class ControllerImplTest {
 
   @Test
   public void testCreateUserBalanceNAN() {
-    Model model = new ModelImpl();
+    NewModel model = new NewModelImpl();
 
     ByteArrayInputStream in;
 
@@ -184,7 +184,7 @@ public class ControllerImplTest {
 
   @Test
   public void testCreateUserSuccess() {
-    Model model = new ModelImpl();
+    NewModel model = new NewModelImpl();
 
     ByteArrayInputStream in;
 
@@ -218,7 +218,7 @@ public class ControllerImplTest {
 
   @Test
   public void testLoadNonExistingUser() {
-    Model model = new ModelImpl();
+    NewModel model = new NewModelImpl();
 
     ByteArrayInputStream in;
 
@@ -258,7 +258,7 @@ public class ControllerImplTest {
 
   @Test
   public void testLoadUserInvalid() {
-    Model model = new ModelImpl();
+    NewModel model = new NewModelImpl();
 
     ByteArrayInputStream in;
 
@@ -298,7 +298,7 @@ public class ControllerImplTest {
 
   @Test
   public void testCreatePortfolioInvalidName() {
-    Model model = new ModelImpl();
+    NewModel model = new NewModelImpl();
 
     ByteArrayInputStream in;
 
@@ -342,7 +342,7 @@ public class ControllerImplTest {
 
   @Test
   public void testCreatePortfolioExistingName() {
-    Model model = new ModelImpl();
+    NewModel model = new NewModelImpl();
 
     ByteArrayInputStream in;
 
@@ -384,7 +384,7 @@ public class ControllerImplTest {
 
   @Test
   public void testCreatePortfolio() {
-    Model model = new ModelImpl();
+    NewModel model = new NewModelImpl();
 
     ByteArrayInputStream in;
 
@@ -432,7 +432,7 @@ public class ControllerImplTest {
 
   @Test
   public void testLoadUserValid() {
-    Model model = new ModelImpl();
+    NewModel model = new NewModelImpl();
 
     ByteArrayInputStream in;
 
@@ -465,7 +465,7 @@ public class ControllerImplTest {
 
   @Test
   public void testLoadPortfolioInvalid() {
-    Model model = new ModelImpl();
+    NewModel model = new NewModelImpl();
 
     ByteArrayInputStream in;
 
@@ -508,7 +508,7 @@ public class ControllerImplTest {
 
   @Test
   public void testLoadPortfolioValid() {
-    Model model = new ModelImpl();
+    NewModel model = new NewModelImpl();
 
     ByteArrayInputStream in;
 
@@ -551,7 +551,7 @@ public class ControllerImplTest {
 
   @Test
   public void testGetComposition() {
-    Model model = new ModelImpl();
+    NewModel model = new NewModelImpl();
 
     ByteArrayInputStream in;
 
@@ -610,7 +610,7 @@ public class ControllerImplTest {
 
   @Test
   public void testSave() {
-    Model model = new ModelImpl();
+    NewModel model = new NewModelImpl();
 
     ByteArrayInputStream in;
 
@@ -669,7 +669,7 @@ public class ControllerImplTest {
 
   @Test
   public void testCreatePortfolioInvalidSymbol() {
-    Model model = new ModelImpl();
+    NewModel model = new NewModelImpl();
 
     ByteArrayInputStream in;
 
@@ -717,7 +717,7 @@ public class ControllerImplTest {
 
   @Test
   public void testCreatePortfolioNegativeShare() {
-    Model model = new ModelImpl();
+    NewModel model = new NewModelImpl();
 
     ByteArrayInputStream in;
 
@@ -765,7 +765,7 @@ public class ControllerImplTest {
 
   @Test
   public void testCreatePortfolioNonDigitShares() {
-    Model model = new ModelImpl();
+    NewModel model = new NewModelImpl();
 
     ByteArrayInputStream in;
 
@@ -813,7 +813,7 @@ public class ControllerImplTest {
 
   @Test
   public void testCreatePortfolioFloatShares() {
-    Model model = new ModelImpl();
+    NewModel model = new NewModelImpl();
 
     ByteArrayInputStream in;
 
@@ -861,7 +861,7 @@ public class ControllerImplTest {
 
   @Test
   public void testGetValueNormal() {
-    Model model = new ModelImpl();
+    NewModel model = new NewModelImpl();
 
     ByteArrayInputStream in;
 
@@ -904,7 +904,7 @@ public class ControllerImplTest {
 
   @Test
   public void testGetOnWeekend() {
-    Model model = new ModelImpl();
+    NewModel model = new NewModelImpl();
 
     ByteArrayInputStream in;
 
@@ -950,7 +950,7 @@ public class ControllerImplTest {
 
   @Test
   public void testGetOnFutureDate() {
-    Model model = new ModelImpl();
+    NewModel model = new NewModelImpl();
 
     ByteArrayInputStream in;
 
@@ -1002,7 +1002,7 @@ public class ControllerImplTest {
 
   @Test
   public void testGetOnWithoutPortfolio() {
-    Model model = new ModelImpl();
+    NewModel model = new NewModelImpl();
 
     ByteArrayInputStream in;
 
@@ -1045,7 +1045,7 @@ public class ControllerImplTest {
 
   @Test
   public void testGetOnInvalidTest() {
-    Model model = new ModelImpl();
+    NewModel model = new NewModelImpl();
 
     ByteArrayInputStream in;
 
@@ -1091,7 +1091,7 @@ public class ControllerImplTest {
 
   @Test
   public void testCreatePortfolioShareZero() {
-    Model model = new ModelImpl();
+    NewModel model = new NewModelImpl();
 
     ByteArrayInputStream in;
 
@@ -1140,7 +1140,7 @@ public class ControllerImplTest {
 
   @Test
   public void testCreatePortfolioSameStockTwice() {
-    Model model = new ModelImpl();
+    NewModel model = new NewModelImpl();
 
     ByteArrayInputStream in;
 

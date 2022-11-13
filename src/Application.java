@@ -2,8 +2,8 @@ import java.io.IOException;
 import java.text.ParseException;
 
 import controller.ControllerImpl;
-import models.Model;
-import models.ModelImpl;
+import models.NewModel;
+import models.NewModelImpl;
 import view.View;
 import view.ViewImpl;
 
@@ -20,7 +20,7 @@ public class Application {
    * @throws ParseException throws an ParseException if parser fails
    */
   public static void main(String[] args) throws IOException, ParseException {
-    Model model = new ModelImpl();
+    NewModel model = new NewModelImpl();
     View view = new ViewImpl(System.out);
 
     ControllerImpl controller = new ControllerImpl(model, view, System.in);

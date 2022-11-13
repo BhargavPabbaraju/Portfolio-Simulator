@@ -91,4 +91,24 @@ public class MockView implements View {
     outputLog.append("displayAddNewStockMenu ");
 
   }
+
+  @Override
+  public void displayPortfolioTypesMenu() {
+
+  }
+
+  @Override
+  public void displayFlexibleMenu() {
+
+  }
+
+  @Override
+  public void askForStartDate() {
+
+  }
+
+  @Override
+  public void askForEndDate() {
+
+  }
 }

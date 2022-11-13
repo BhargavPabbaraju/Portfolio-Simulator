@@ -5,8 +5,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 import controller.ControllerImpl;
-import models.Model;
-import models.ModelImpl;
+import models.NewModel;
+import models.NewModelImpl;
 import view.View;
 
 
@@ -21,7 +21,7 @@ public class ControllerIsolationForVIewTest {
   public void testCreateUser() {
     StringBuilder log = new StringBuilder();
     StringBuilder olog = new StringBuilder();
-    Model model = new ModelImpl();
+    NewModel model = new NewModelImpl();
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
     View view = new MockView(log, olog);
@@ -38,7 +38,7 @@ public class ControllerIsolationForVIewTest {
   public void testLoadUser() {
     StringBuilder log = new StringBuilder();
     StringBuilder olog = new StringBuilder();
-    Model model = new ModelImpl();
+    NewModel model = new NewModelImpl();
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
     View view = new MockView(log, olog);
@@ -55,7 +55,7 @@ public class ControllerIsolationForVIewTest {
   public void testCreatePortfolio() {
     StringBuilder log = new StringBuilder();
     StringBuilder olog = new StringBuilder();
-    Model model = new ModelImpl();
+    NewModel model = new NewModelImpl();
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
     View view = new MockView(log, olog);
@@ -73,7 +73,7 @@ public class ControllerIsolationForVIewTest {
   public void testAddStockToPortfolio() {
     StringBuilder log = new StringBuilder();
     StringBuilder olog = new StringBuilder();
-    Model model = new ModelImpl();
+    NewModel model = new NewModelImpl();
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
     View view = new MockView(log, olog);
@@ -91,7 +91,7 @@ public class ControllerIsolationForVIewTest {
   public void testLoadPortfolio() {
     StringBuilder log = new StringBuilder();
     StringBuilder olog = new StringBuilder();
-    Model model = new ModelImpl();
+    NewModel model = new NewModelImpl();
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
     View view = new MockView(log, olog);
@@ -108,7 +108,7 @@ public class ControllerIsolationForVIewTest {
   public void testSave() {
     StringBuilder log = new StringBuilder();
     StringBuilder olog = new StringBuilder();
-    Model model = new ModelImpl();
+    NewModel model = new NewModelImpl();
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
     View view = new MockView(log, olog);
@@ -125,7 +125,7 @@ public class ControllerIsolationForVIewTest {
   public void testGetTotalValue() {
     StringBuilder log = new StringBuilder();
     StringBuilder olog = new StringBuilder();
-    Model model = new ModelImpl();
+    NewModel model = new NewModelImpl();
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
     View view = new MockView(log, olog);
@@ -143,7 +143,7 @@ public class ControllerIsolationForVIewTest {
   public void testGetComposition() {
     StringBuilder log = new StringBuilder();
     StringBuilder olog = new StringBuilder();
-    Model model = new ModelImpl();
+    NewModel model = new NewModelImpl();
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
     View view = new MockView(log, olog);

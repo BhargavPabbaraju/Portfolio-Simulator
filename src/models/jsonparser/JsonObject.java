@@ -1,5 +1,8 @@
 package models.jsonparser;
 
+import java.util.Iterator;
+import java.util.Set;
+
 /**
  * This interface represents a Json Object and basic operations on it.
  * A Json object can be of three types. Dictionary , List or String.
@@ -22,6 +25,8 @@ public interface JsonObject {
    * @return returns a JsonType Object
    */
   public JsonType getType();
+
+  public Set<String> getKeys();
 
   /**
    * This method adds an element with a given key to this json object.
