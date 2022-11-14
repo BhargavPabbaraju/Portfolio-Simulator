@@ -41,4 +41,23 @@ public class NewModelImpl extends ModelImpl implements  NewModel{
   public boolean isFlexiblePortfolio() {
     return this.user.isFlexiblePortfolio();
   }
+
+  @Override
+  public boolean userExists(String userName) {
+    return Loader.userNameExits(userName);
+  }
+
+  @Override
+  public boolean portfolioExists(String portfolioName) {
+    if(Loader.isInvalidName(portfolioName)){
+      throw new IllegalArgumentException("Portfolio name must not contain " +
+              "any of \\\"{}[],: characters.");
+    }
+    return user.portfolioExists(portfolioName);
+  }
+
+  @Override
+  public StringBuilder getListOfPortfolios() {
+    return user.getListOfPortfolios();
+  }
 }

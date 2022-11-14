@@ -34,7 +34,7 @@ public class UserImpl implements User {
    */
 
   public UserImpl(String userName) throws IllegalArgumentException {
-    if (!userNameExits(userName)) {
+    if (!Loader.userNameExits(userName)) {
       throw new IllegalArgumentException("User doesn't exists");
     }
     this.userName = userName;
@@ -52,7 +52,7 @@ public class UserImpl implements User {
    * @throws IllegalArgumentException if username is already taken or if the balance is invalid.
    */
   public UserImpl(String userName, float balance) throws IllegalArgumentException {
-    if (userNameExits(userName)) {
+    if (Loader.userNameExits(userName)) {
       throw new IllegalArgumentException("User Already exists");
     }
     if (Loader.isInvalidName(userName)) {
@@ -73,9 +73,7 @@ public class UserImpl implements User {
   }
 
 
-  private boolean userNameExits(String userName) {
-    return Files.exists(Path.of("data" + File.separator + userName + ".json"));
-  }
+
 
   private void createFile(String userName) throws IOException {
     String path = "data" + File.separator + userName + ".json";
@@ -155,7 +153,27 @@ public class UserImpl implements User {
 
   @Override
   public boolean isFlexiblePortfolio() {
+    if(this.activePortfolio==null){
+      return false;
+    }
     return  this.activePortfolio.flexible;
+  }
+
+  @Override
+  public boolean portfolioExists(String portfolioName) {
+    return this.portfolioList.containsKey(portfolioName);
+  }
+
+  @Override
+  public StringBuilder getListOfPortfolios() {
+    StringBuilder str = new StringBuilder();
+
+    str.append(String.format("%-40s%s%n","Portfolio","Type"));
+    for(String portfolioName:this.portfolioList.keySet()){
+      String flexible = this.portfolioList.get(portfolioName).flexible ? "Flexible" : "Inflexible";
+      str.append(String.format("%-40s%s%n",portfolioName,flexible));
+    }
+    return str;
   }
 
 

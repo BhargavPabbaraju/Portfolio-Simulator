@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.util.Scanner;
 
 
+import models.ApiCallImpl;
 import models.NewModel;
 import view.View;
 
@@ -36,20 +37,62 @@ public class ControllerImpl implements Controller {
     this.quit = false;
   }
 
-
-  private void createUser(String userName) {
-    try {
+  private float floatHandler(String type){
+    if(type=="Balance"){
       view.askForBalance();
-      if (in.hasNextFloat()) {
-        float balance = in.nextFloat();
-        model.createUser(userName, balance);
-        view.displayMessage("User successfully created");
-      } else {
-        in.next();
-        throw new IllegalArgumentException("Balance must be a valid floating point number");
+    }else{
+      view.askForTransactionCost();
+    }
 
+    if (in.hasNextFloat()) {
+      float balance = in.nextFloat();
+
+      if(balance>0){
+        return balance;
       }
 
+    }else{
+      in.next();
+    }
+
+
+      view.displayMessage(type+" must be a valid floating point number");
+      return floatHandler(type);
+
+  }
+
+  private String dateHandler(String kind){
+    if(kind=="start"){
+      view.askForStartDate();
+    }else if(kind=="end"){
+      view.askForEndDate();
+    }else{
+      view.askForDate();
+    }
+
+    String date = in.next();
+    try{
+      if(model.isValidDate(date)){
+        return date;
+      }else{
+        view.displayMessage("Date cannot be a future date");
+      }
+    }catch(Exception e){
+      view.displayMessage(e.getMessage());
+
+    }
+    return dateHandler(kind);
+  }
+
+  private void createUser(String userName) {
+    if(model.userExists(userName)){
+      view.displayMessage("User already exists");
+      initialMenu();
+    }
+    try {
+      float balance =  floatHandler("Balance");
+      model.createUser(userName, balance);
+      view.displayMessage("User successfully created");
     } catch (Exception e) {
       view.displayMessage(e.getMessage());
       initialMenu();
@@ -183,9 +226,8 @@ public class ControllerImpl implements Controller {
   }
 
   private void getTotalValue() {
-    view.askForDate();
+    String date = dateHandler("");
     try {
-      String date = in.next();
       float value = model.getTotalValue(date);
       view.displayValue(value, date);
     } catch (IllegalStateException e) {
@@ -218,48 +260,43 @@ public class ControllerImpl implements Controller {
     }
   }
 
-  private void buySellStock(boolean buying){
-    view.askForDate();
-    try {
-      String date = in.next();
-      view.askForStockSymbol();
-      String symbol = in.next();
-      view.askForShares();
-      if (in.hasNextInt()) {
-        try {
-          int shares = in.nextInt();
-          view.askForTransactionCost();
-          if(in.hasNextFloat()){
-            float transactionCost = in.nextFloat();
-            if(buying){
-              model.buyStock(symbol, date,shares,transactionCost);
-            }else{
-              model.sellStock(symbol,date,shares,transactionCost);
-            }
-            flexiblePortfolioOptions();
-          }else{
-            in.next();
-            view.displayMessage("Transaction cost must be a valid positive floating point number");
-            buySellStock(buying);
-          }
-        } catch (Exception e) {
-          view.displayMessage(e.getMessage());
-          buySellStock(buying);
-        }
 
-      } else {
-        in.next();
-        view.displayMessage("Shares must be a valid positive integer");
-        buySellStock(buying);
+  private String symbolHandler(){
+    view.askForStockSymbol();
+    String symbol = in.next();
+    if (ApiCallImpl.validSymbol(symbol)){
+      return symbol;
+
+    }
+    view.displayMessage("Invalid symbol");
+    return symbolHandler();
+  }
+
+  private  void buySellStockHelper(String symbol,int shares,float transactionCost,String date,
+                                   boolean buying){
+    try{
+      if(buying){
+        model.buyStock(symbol, date,shares,transactionCost);
+        view.displayMessage("Successfully bought stocks");
+      }else{
+        model.sellStock(symbol,date,shares,transactionCost);
+        view.displayMessage("Successfully sold stocks");
       }
-
-    } catch (IllegalStateException e) {
-      view.displayMessage(e.getMessage());
       flexiblePortfolioOptions();
-    } catch (Exception e) {
+    }catch(Exception e){
       view.displayMessage(e.getMessage());
       buySellStock(buying);
     }
+
+
+  }
+  private void buySellStock(boolean buying){
+
+    String symbol = symbolHandler();
+    int shares = sharesHandler();
+    float transactionCost = floatHandler("Transaction Cost");
+    String date = dateHandler("");
+    buySellStockHelper(symbol,shares,transactionCost,date,buying);
 
 
   }
@@ -267,7 +304,7 @@ public class ControllerImpl implements Controller {
   private void flexiblePortfolioOptions() {
     view.displayFlexibleMenu();
     String portfolioName = "";
-    if (isOptionInvalid(10)) {
+    if (isOptionInvalid(11)) {
       flexiblePortfolioOptions();
     }
     if (option < 3) {
@@ -294,31 +331,37 @@ public class ControllerImpl implements Controller {
         buySellStock(false);
         break;
       case 5:
-        getCostBasis();
+        viewListOfPortfolios();
         break;
       case 6:
-        getFlexibleComposition();
+        getCostBasis();
         break;
       case 7:
-        getTotalValue();
+        getFlexibleComposition();
         break;
       case 8:
-        getPlot();
+        getTotalValue();
         break;
       case 9:
-        save();
+        getPlot();
         break;
       case 10:
+        save();
+        break;
+      case 11:
         quit = true;
         break;
 
     }
   }
 
+  private void viewListOfPortfolios() {
+    view.displayListOfPortfolios(model.getListOfPortfolios());
+  }
+
   private void getCostBasis() {
-    view.askForDate();
+    String date = dateHandler("");
     try {
-      String date = in.next();
       view.displayCostBasis(date,model.getCostBasis(date));
     } catch (IllegalStateException e) {
       view.displayMessage(e.getMessage());
@@ -330,11 +373,9 @@ public class ControllerImpl implements Controller {
   }
 
   private void getPlot() {
-    view.askForStartDate();
+    String startDate = dateHandler("start");
+    String endDate = dateHandler("end");
     try {
-      String startDate = in.next();
-      view.askForEndDate();
-      String endDate = in.next();
       view.displayComposition(model.getPlot(startDate,endDate));
     } catch (IllegalStateException e) {
       view.displayMessage(e.getMessage());
@@ -346,9 +387,8 @@ public class ControllerImpl implements Controller {
   }
 
   private void getFlexibleComposition() {
-    view.askForDate();
+    String date = dateHandler("");
     try {
-      String date = in.next();
       view.displayComposition(model.getComposition(date));
     } catch (IllegalStateException e) {
       view.displayMessage(e.getMessage());
@@ -360,6 +400,16 @@ public class ControllerImpl implements Controller {
   }
 
   private void createPortfolio(String portfolioName) {
+    try{
+      if(model.portfolioExists(portfolioName)){
+        view.displayMessage("Portfolio already exists");
+        return;
+      }
+    }catch(IllegalArgumentException e){
+      view.displayMessage(e.getMessage());
+      return;
+    }
+
     view.displayPortfolioTypesMenu();
     if(isOptionInvalid(2)){
       createPortfolio(portfolioName);
@@ -383,26 +433,31 @@ public class ControllerImpl implements Controller {
     }
   }
 
-  private void addAStock() {
-    view.askForStockSymbol();
-    String symbol = in.next();
+
+  private int sharesHandler(){
     view.askForShares();
     if (in.hasNextInt()) {
-      try {
-        int shares = in.nextInt();
-          model.addStockToPortfolio(symbol, shares);
-          addNewStock();
-
-      } catch (Exception e) {
-        view.displayMessage(e.getMessage());
-        addAStock();
+      int shares = in.nextInt();
+      if(shares>0){
+        return shares;
       }
-
-    } else {
+    }else{
       in.next();
-      view.displayMessage("Shares must be a valid positive integer");
+    }
+    view.displayMessage("Shares must be a valid positive integer");
+    return sharesHandler();
+  }
+  private void addAStock() {
+
+    String symbol = symbolHandler();
+    int shares = sharesHandler();
+    try{
+      model.addStockToPortfolio(symbol, shares);
+    }catch (Exception e) {
+      view.displayMessage(e.getMessage());
       addAStock();
     }
+
   }
 
   private void addNewStock() {

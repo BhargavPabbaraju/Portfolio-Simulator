@@ -17,4 +17,11 @@ public interface NewModel extends Model {
   float getCostBasis(String date);
 
   boolean isFlexiblePortfolio();
+
+  boolean userExists(String userName);
+
+  boolean portfolioExists(String portfolioName);
+
+  StringBuilder getListOfPortfolios();
+
 }

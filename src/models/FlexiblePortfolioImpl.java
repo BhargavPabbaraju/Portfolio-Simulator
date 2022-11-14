@@ -41,6 +41,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements Flexible
   public void buyStock(String symbol, LocalDate date, float numberOfShares,
                        float transactionCost) {
 
+    dateValidation(date);
     if (this.stockList.containsKey(symbol)) {
       this.stockList.get(symbol).buyStock(symbol, date, numberOfShares,transactionCost);
     } else {
@@ -53,8 +54,13 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements Flexible
 
   @Override
   public void sellStock(String symbol, LocalDate date, float numberOfShares,float transactionCost) {
+    dateValidation(date);
+    if(this.stockList.containsKey(symbol)){
+      this.stockList.get(symbol).sellStock(symbol, date, numberOfShares,transactionCost);
+    }else{
+      throw new IllegalArgumentException("You cannot sell stocks which are not in your portfolio.");
+    }
 
-    this.stockList.get(symbol).sellStock(symbol, date, numberOfShares,transactionCost);
   }
 
   private ArrayList<LocalDate> dayWiseList(LocalDate startDate,LocalDate endDate,
@@ -90,6 +96,15 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements Flexible
 
   }
 
+  private void dateValidation(LocalDate date){
+    LocalDate today = LocalDate.now();
+    if(date.compareTo(today)>0){
+      throw new IllegalArgumentException("Date cannot be a future date.");
+    }else if(isWeekend(date)){
+      throw new IllegalArgumentException("Date cannot be a weekend.");
+    }
+  }
+
 
 
   private float findMinimum(ArrayList<Float> list){
@@ -111,7 +126,8 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements Flexible
 
   }
 
-  private StringBuilder getPlotHelper(ArrayList<LocalDate> dates, String pattern){
+  private StringBuilder getPlotHelper(ArrayList<LocalDate> dates, String pattern,
+                                      LocalDate startDate,LocalDate endDate){
     ArrayList<Float> values=new ArrayList<>();
     Iterator<LocalDate> itr = dates.iterator();
     while(itr.hasNext()){
@@ -129,7 +145,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements Flexible
     float scale = fixScale(min);
 
 
-    return drawStars(dates,values,scale,pattern);
+    return drawStars(dates,values,scale,pattern,startDate,endDate);
 
   }
 
@@ -141,26 +157,28 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements Flexible
       endDate = startDate;
       startDate = temp;
     }
+
     long daysBetween = DAYS.between(startDate,endDate);
     int maximumPlots = 30;
-    StringBuilder plot;
+    StringBuilder plot = new StringBuilder();
+
     try{
       if(daysBetween<=maximumPlots){ //Day wise
         dates = dayWiseList(startDate,endDate,1);
-        return getPlotHelper(dates,"MMM dd");
+        return getPlotHelper(dates,"MMM dd",startDate,endDate);
 
 
       }else if(notFiveMonthsApart(daysBetween)){
         int numberOfDaysToAdd = (int) daysBetween / 5;
         dates = dayWiseList(startDate,endDate,numberOfDaysToAdd);
-        return  getPlotHelper(dates,"MMM dd");
+        return  getPlotHelper(dates,"MMM dd",startDate,endDate);
       }else if(withinTheSameYear(daysBetween)){
         dates = monthWiseList(startDate,endDate,1);
-        return getPlotHelper(dates,"MMM yyyy");
+        return getPlotHelper(dates,"MMM yyyy",startDate,endDate);
 
       }else if(notFiveYearsApart(daysBetween)){
         dates = monthWiseList(startDate,endDate,3);
-        return getPlotHelper(dates,"MMM yyyy");
+        return getPlotHelper(dates,"MMM yyyy",startDate,endDate);
       }
       else{
         int yearsToAdd = 1;
@@ -168,7 +186,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements Flexible
           yearsToAdd = (int) daysBetween/365/10;
         }
         dates = yearWiseList(startDate,endDate,yearsToAdd);
-        return getPlotHelper(dates,"yyyy");
+        return getPlotHelper(dates,"yyyy",startDate,endDate);
       }
     }catch(Exception e){
       throw new IllegalArgumentException("This stock wasn't yet established on "+startDate);
@@ -212,9 +230,13 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements Flexible
   }
 
   private StringBuilder drawStars(ArrayList<LocalDate> dates, ArrayList<Float> values, float scale,
-                                  String pattern) {
+                                  String pattern,LocalDate startDate,LocalDate endDate) {
+
+
 
     StringBuilder plot = new StringBuilder();
+    plot.append(String.format("Performance of portfolio %s from %s to %s\n",
+            portfolioName,formatDate(startDate,pattern),formatDate(endDate,pattern)));
     for(int i=0;i<dates.size();i++){
       int numberOfStars = (int) Math.floor(values.get(i)/scale);
       String date = formatDate(dates.get(i),pattern);
@@ -264,6 +286,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements Flexible
     } catch (Exception e) {
       throw new IllegalArgumentException("Date must be in yyyy-mm-dd format");
     }
+    dateValidation(dateValue);
     float value=0;
     for (String key : stockList.keySet()) {
       value += this.stockList.get(key).getValue(dateValue);

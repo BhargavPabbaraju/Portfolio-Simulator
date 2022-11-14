@@ -4,6 +4,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -288,5 +290,9 @@ class Loader {
       }
     }
     return false;
+  }
+
+  public static boolean userNameExits(String userName) {
+    return Files.exists(Path.of("data" + File.separator + userName + ".json"));
   }
 }

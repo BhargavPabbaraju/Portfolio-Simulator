@@ -123,4 +123,8 @@ public interface User {
   float getCostBasis(String date);
 
   boolean isFlexiblePortfolio();
+
+  boolean portfolioExists(String portfolioName);
+
+  StringBuilder getListOfPortfolios();
 }

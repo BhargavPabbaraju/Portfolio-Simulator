@@ -88,4 +88,6 @@ public interface View {
   void displayCostBasis(String date,float costBasis);
 
   void askForTransactionCost();
+
+  void displayListOfPortfolios(StringBuilder listOfPortfolios);
 }

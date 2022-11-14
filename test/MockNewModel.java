@@ -79,6 +79,21 @@ public class MockNewModel implements NewModel {
   }
 
   @Override
+  public boolean userExists(String userName) {
+    return false;
+  }
+
+  @Override
+  public boolean portfolioExists(String portfolioName) {
+    return false;
+  }
+
+  @Override
+  public StringBuilder getListOfPortfolios() {
+    return null;
+  }
+
+  @Override
   public StringBuilder getComposition() {
     inputLog.append("");
     outputLog.append("getComposition ");
@@ -104,5 +119,10 @@ public class MockNewModel implements NewModel {
     inputLog.append("");
     outputLog.append("save ");
 
+  }
+
+  @Override
+  public boolean isValidDate(String date) {
+    return false;
   }
 }

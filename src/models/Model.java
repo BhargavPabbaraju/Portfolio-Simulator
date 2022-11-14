@@ -77,4 +77,6 @@ public interface Model {
    * @throws IOException throws an IO exception is save is failed which is handled by controller
    */
   void save() throws IOException;
+
+  boolean isValidDate(String date);
 }

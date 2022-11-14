@@ -24,6 +24,8 @@ public class FlexibleStocksListImpl implements FlexibleStocksList {
 
   }
 
+
+
   @Override
   public void buyStock(String symbol, LocalDate date, float numberOfShares,float transactionCost) {
     FlexibleStock stock = new FlexibleStockImpl(symbol, date, numberOfShares,

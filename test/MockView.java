@@ -121,4 +121,9 @@ public class MockView implements View {
   public void askForTransactionCost() {
 
   }
+
+  @Override
+  public void displayListOfPortfolios(StringBuilder listOfPortfolios) {
+
+  }
 }
