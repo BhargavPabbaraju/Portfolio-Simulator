@@ -228,12 +228,20 @@ public class ControllerImpl implements Controller {
       if (in.hasNextInt()) {
         try {
           int shares = in.nextInt();
-          if(buying){
-            model.buyStock(symbol, date,shares);
+          view.askForTransactionCost();
+          if(in.hasNextFloat()){
+            float transactionCost = in.nextFloat();
+            if(buying){
+              model.buyStock(symbol, date,shares,transactionCost);
+            }else{
+              model.sellStock(symbol,date,shares,transactionCost);
+            }
+            flexiblePortfolioOptions();
           }else{
-            model.sellStock(symbol,date,shares);
+            in.next();
+            view.displayMessage("Transaction cost must be a valid positive floating point number");
+            buySellStock(buying);
           }
-          flexiblePortfolioOptions();
         } catch (Exception e) {
           view.displayMessage(e.getMessage());
           buySellStock(buying);
@@ -259,8 +267,8 @@ public class ControllerImpl implements Controller {
   private void flexiblePortfolioOptions() {
     view.displayFlexibleMenu();
     String portfolioName = "";
-    if (isOptionInvalid(9)) {
-      mainMenu();
+    if (isOptionInvalid(10)) {
+      flexiblePortfolioOptions();
     }
     if (option < 3) {
       view.askForPortfolioName();
@@ -286,21 +294,38 @@ public class ControllerImpl implements Controller {
         buySellStock(false);
         break;
       case 5:
-        getFlexibleComposition();
+        getCostBasis();
         break;
       case 6:
-        getTotalValue();
+        getFlexibleComposition();
         break;
       case 7:
-        getPlot();
+        getTotalValue();
         break;
       case 8:
-        save();
+        getPlot();
         break;
       case 9:
+        save();
+        break;
+      case 10:
         quit = true;
         break;
 
+    }
+  }
+
+  private void getCostBasis() {
+    view.askForDate();
+    try {
+      String date = in.next();
+      view.displayCostBasis(date,model.getCostBasis(date));
+    } catch (IllegalStateException e) {
+      view.displayMessage(e.getMessage());
+      flexiblePortfolioOptions();
+    } catch (Exception e) {
+      view.displayMessage(e.getMessage());
+      getCostBasis();
     }
   }
 

@@ -83,4 +83,9 @@ public interface View {
   void askForStartDate();
 
   void askForEndDate();
+
+
+  void displayCostBasis(String date,float costBasis);
+
+  void askForTransactionCost();
 }

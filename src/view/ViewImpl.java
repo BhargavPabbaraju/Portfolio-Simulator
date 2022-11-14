@@ -100,11 +100,12 @@ public class ViewImpl implements View {
     out.println("2.Load Portfolio");
     out.println("3.Buy Stock");
     out.println("4.Sell Stock");
-    out.println("5.Get Composition on certain date");
-    out.println("6.Get Total Value on certain date");
-    out.println("7.Get Plot within a certain date range");
-    out.println("8.Save");
-    out.println("9.Exit");
+    out.println("5.Get Cost basis on certain date");
+    out.println("6.Get Composition on certain date");
+    out.println("7.Get Total Value on certain date");
+    out.println("8.Get Plot within a certain date range");
+    out.println("9.Save");
+    out.println("10.Exit");
   }
 
   @Override
@@ -115,5 +116,15 @@ public class ViewImpl implements View {
   @Override
   public void askForEndDate() {
     out.println("Enter end date(yyyy-mm-dd)");
+  }
+
+  @Override
+  public void displayCostBasis(String date,float costBasis) {
+    out.println("Cost basis till "+date+" is "+costBasis);
+  }
+
+  @Override
+  public void askForTransactionCost() {
+    out.println("Enter transaction cost");
   }
 }

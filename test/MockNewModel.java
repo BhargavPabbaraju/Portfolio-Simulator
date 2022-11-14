@@ -42,12 +42,12 @@ public class MockNewModel implements NewModel {
   }
 
   @Override
-  public void buyStock(String symbol, String date, float numberOfShares) {
+  public void buyStock(String symbol, String date, float numberOfShares,float transactionCost) {
 
   }
 
   @Override
-  public void sellStock(String symbol, String date, float numberOfShares) {
+  public void sellStock(String symbol, String date, float numberOfShares,float transactionCost) {
 
   }
 

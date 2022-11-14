@@ -4,15 +4,21 @@ import java.time.LocalDate;
 
 public class NewModelImpl extends ModelImpl implements  NewModel{
 
-  float transactionCost = 10;
   @Override
-  public void buyStock(String symbol, String date, float numberOfShares) {
-
+  public void buyStock(String symbol, String date, float numberOfShares,float transactionCost) {
+    if(transactionCost<0){
+      throw new IllegalArgumentException("Transaction Cost must be a valid positive floating" +
+              "point number");
+    }
     this.user.buyStock(symbol,date,numberOfShares,transactionCost);
   }
 
   @Override
-  public void sellStock(String symbol, String date, float numberOfShares) {
+  public void sellStock(String symbol, String date, float numberOfShares,float transactionCost) {
+    if(transactionCost<0){
+      throw new IllegalArgumentException("Transaction Cost must be a valid positive floating" +
+              "point number");
+    }
     this.user.sellStock(symbol,date,numberOfShares,transactionCost);
   }
 

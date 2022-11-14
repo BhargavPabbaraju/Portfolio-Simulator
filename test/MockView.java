@@ -111,4 +111,14 @@ public class MockView implements View {
   public void askForEndDate() {
 
   }
+
+  @Override
+  public void displayCostBasis(String date, float costBasis) {
+
+  }
+
+  @Override
+  public void askForTransactionCost() {
+
+  }
 }
