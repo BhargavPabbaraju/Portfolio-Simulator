@@ -1,11 +1,18 @@
 {
     "Meta Data": {
         "2. Symbol": "GOOG",
-        "3. Last Refreshed": "2022-11-11",
+        "3. Last Refreshed": "2022-11-14",
         "4. Output Size": "Full size",
         "5. Time Zone": "US/Eastern"
     },
     "Time Series (Daily)": {
+        "2022-11-14": {
+            "1. open": "95.5000",
+            "2. high": "97.1800",
+            "3. low": "95.1125",
+            "4. close": "96.0300",
+            "5. volume": "24170076"
+        },
         "2022-11-11": {
             "1. open": "94.7100",
             "2. high": "97.3600",

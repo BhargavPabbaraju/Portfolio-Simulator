@@ -127,4 +127,10 @@ public interface User {
   boolean portfolioExists(String portfolioName);
 
   StringBuilder getListOfPortfolios();
+
+  boolean stockExists(String symbol);
+
+  boolean isValidDate(String date);
+
+  boolean portfolioExists();
 }

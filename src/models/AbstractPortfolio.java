@@ -75,4 +75,9 @@ public abstract class AbstractPortfolio implements Portfolio,FlexiblePortfolio{
     //throw exception for inflexible
     return null;
   }
+  @Override
+  public boolean stockExists(String symbol){
+    //Throw exception for infelxible
+    return false;
+  }
 }

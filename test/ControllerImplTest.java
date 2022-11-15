@@ -24,7 +24,7 @@ public class ControllerImplTest {
 
     ByteArrayInputStream in;
 
-    String input = "1 user1 1900 2 user1 6";
+    String input = "1 user3 1 user11 1900 11";
     in = new ByteArrayInputStream(input.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
@@ -39,23 +39,28 @@ public class ControllerImplTest {
             "1.Create User\n" +
             "2.Load User\n" +
             "Enter username\n" +
-            "Enter initial balance\n" +
             "\n" +
-            "User Already exists\n" +
+            "User already exists\n" +
             "To select a particular option,enter the number next to it\n" +
             "\n" +
             "1.Create User\n" +
             "2.Load User\n" +
             "Enter username\n" +
+            "Enter initial balance\n" +
             "\n" +
-            "User successfully loaded\n" +
+            "User successfully created\n" +
             "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
-            "3.Get Composition\n" +
-            "4.Get Total Value on certain date\n" +
-            "5.Save\n" +
-            "6.Exit\n";
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n";
     assertEquals(expectedOutput, bytes.toString());
   }
 
@@ -65,7 +70,7 @@ public class ControllerImplTest {
 
     ByteArrayInputStream in;
 
-    String input = "1 user{][:,1 1900 2 user1 6";
+    String input = "1 user{][:,1 1900 2 user5 11";
     in = new ByteArrayInputStream(input.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
@@ -93,10 +98,15 @@ public class ControllerImplTest {
             "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
-            "3.Get Composition\n" +
-            "4.Get Total Value on certain date\n" +
-            "5.Save\n" +
-            "6.Exit\n";
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n";
     assertEquals(expectedOutput, bytes.toString());
   }
 
@@ -106,48 +116,7 @@ public class ControllerImplTest {
 
     ByteArrayInputStream in;
 
-    String input = "1 user2 -1900 2 user1 6";
-    in = new ByteArrayInputStream(input.getBytes());
-    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-    PrintStream out = new PrintStream(bytes);
-
-    View view = new ViewImpl(out);
-
-    ControllerImpl controller = new ControllerImpl(model, view, in);
-    controller.goController();
-
-    String expectedOutput = "To select a particular option,enter the number next to it\n" +
-            "\n" +
-            "1.Create User\n" +
-            "2.Load User\n" +
-            "Enter username\n" +
-            "Enter initial balance\n" +
-            "\n" +
-            "Balance cannot be negative\n" +
-            "To select a particular option,enter the number next to it\n" +
-            "\n" +
-            "1.Create User\n" +
-            "2.Load User\n" +
-            "Enter username\n" +
-            "\n" +
-            "User successfully loaded\n" +
-            "\n" +
-            "1.Create Portfolio\n" +
-            "2.Load Portfolio\n" +
-            "3.Get Composition\n" +
-            "4.Get Total Value on certain date\n" +
-            "5.Save\n" +
-            "6.Exit\n";
-    assertEquals(expectedOutput, bytes.toString());
-  }
-
-  @Test
-  public void testCreateUserBalanceNAN() {
-    NewModel model = new NewModelImpl();
-
-    ByteArrayInputStream in;
-
-    String input = "1 user2 18sadahdaeb 2 user1 6";
+    String input = "1 user2 -1900 2 user5 11";
     in = new ByteArrayInputStream(input.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
@@ -165,20 +134,91 @@ public class ControllerImplTest {
             "Enter initial balance\n" +
             "\n" +
             "Balance must be a valid floating point number\n" +
-            "To select a particular option,enter the number next to it\n" +
+            "Enter initial balance\n" +
+            "\n" +
+            "User successfully created\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n" +
+            "\n" +
+            "Option must be one of the following numbers\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n";
+    assertEquals(expectedOutput, bytes.toString());
+  }
+
+  @Test
+  public void testCreateUserBalanceNAN() {
+    NewModel model = new NewModelImpl();
+
+    ByteArrayInputStream in;
+
+    String input = "1 user2 18sadahdaeb 2 user5 11";
+    in = new ByteArrayInputStream(input.getBytes());
+    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+    PrintStream out = new PrintStream(bytes);
+
+    View view = new ViewImpl(out);
+
+    ControllerImpl controller = new ControllerImpl(model, view, in);
+    controller.goController();
+
+    String expectedOutput = "To select a particular option,enter the number next to it\n" +
             "\n" +
             "1.Create User\n" +
             "2.Load User\n" +
             "Enter username\n" +
+            "Enter initial balance\n" +
             "\n" +
-            "User successfully loaded\n" +
+            "Balance must be a valid floating point number\n" +
+            "Enter initial balance\n" +
+            "\n" +
+            "User successfully created\n" +
             "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
-            "3.Get Composition\n" +
-            "4.Get Total Value on certain date\n" +
-            "5.Save\n" +
-            "6.Exit\n";
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n" +
+            "\n" +
+            "Option must be one of the following numbers\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n";
     assertEquals(expectedOutput, bytes.toString());
   }
 
@@ -188,7 +228,7 @@ public class ControllerImplTest {
 
     ByteArrayInputStream in;
 
-    String input = "1 user2 1900 6";
+    String input = "1 user2 1900 11";
     in = new ByteArrayInputStream(input.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
@@ -209,10 +249,15 @@ public class ControllerImplTest {
             "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
-            "3.Get Composition\n" +
-            "4.Get Total Value on certain date\n" +
-            "5.Save\n" +
-            "6.Exit\n";
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n";
     assertEquals(expectedOutput, bytes.toString());
   }
 
@@ -222,7 +267,7 @@ public class ControllerImplTest {
 
     ByteArrayInputStream in;
 
-    String input = "2 user2 2 user1 6";
+    String input = "2 user2 2 user5 11";
     in = new ByteArrayInputStream(input.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
@@ -249,10 +294,15 @@ public class ControllerImplTest {
             "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
-            "3.Get Composition\n" +
-            "4.Get Total Value on certain date\n" +
-            "5.Save\n" +
-            "6.Exit\n";
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n";
     assertEquals(expectedOutput, bytes.toString());
   }
 
@@ -262,7 +312,7 @@ public class ControllerImplTest {
 
     ByteArrayInputStream in;
 
-    String input = "2 user5 2 user1 6";
+    String input = "2 user10 2 user5 11";
     in = new ByteArrayInputStream(input.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
@@ -278,7 +328,7 @@ public class ControllerImplTest {
             "2.Load User\n" +
             "Enter username\n" +
             "\n" +
-            "Load file is not in valid format.\n" +
+            "User doesn't exists\n" +
             "To select a particular option,enter the number next to it\n" +
             "\n" +
             "1.Create User\n" +
@@ -289,10 +339,15 @@ public class ControllerImplTest {
             "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
-            "3.Get Composition\n" +
-            "4.Get Total Value on certain date\n" +
-            "5.Save\n" +
-            "6.Exit\n";
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n";
     assertEquals(expectedOutput, bytes.toString());
   }
 
@@ -302,7 +357,7 @@ public class ControllerImplTest {
 
     ByteArrayInputStream in;
 
-    String input = "1 user3 1900 1 retire:{54 6";
+    String input = "1 user1 1900 1 retire:{54 11";
     in = new ByteArrayInputStream(input.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
@@ -322,20 +377,30 @@ public class ControllerImplTest {
             "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
-            "3.Get Composition\n" +
-            "4.Get Total Value on certain date\n" +
-            "5.Save\n" +
-            "6.Exit\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n" +
             "Enter portfolio name\n" +
             "\n" +
             "Portfolio name must not contain any of \\\"{}[],: characters.\n" +
             "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
-            "3.Get Composition\n" +
-            "4.Get Total Value on certain date\n" +
-            "5.Save\n" +
-            "6.Exit\n";
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n";
     assertEquals(expectedOutput, bytes.toString());
 
   }
@@ -346,7 +411,7 @@ public class ControllerImplTest {
 
     ByteArrayInputStream in;
 
-    String input = "2 user1 1 retirement 6";
+    String input = "2 user5 1 retir 11";
     in = new ByteArrayInputStream(input.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
@@ -365,30 +430,40 @@ public class ControllerImplTest {
             "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
-            "3.Get Composition\n" +
-            "4.Get Total Value on certain date\n" +
-            "5.Save\n" +
-            "6.Exit\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n" +
             "Enter portfolio name\n" +
             "\n" +
             "Portfolio already exists\n" +
             "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
-            "3.Get Composition\n" +
-            "4.Get Total Value on certain date\n" +
-            "5.Save\n" +
-            "6.Exit\n";
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n";
     assertEquals(expectedOutput, bytes.toString());
   }
 
   @Test
-  public void testCreatePortfolio() {
+  public void testCreateFlexiblePortfolio() {
     NewModel model = new NewModelImpl();
 
     ByteArrayInputStream in;
 
-    String input = "2 user1 1 personal AAPL 10 1 ORCL 20 2 6";
+    String input = "2 user5 1 personal 1 AAPL 1 2022-10-11 10 11";
     in = new ByteArrayInputStream(input.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
@@ -407,11 +482,77 @@ public class ControllerImplTest {
             "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
-            "3.Get Composition\n" +
-            "4.Get Total Value on certain date\n" +
-            "5.Save\n" +
-            "6.Exit\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n" +
             "Enter portfolio name\n" +
+            "Select which kind of portfolio you wish to create\n" +
+            "1.Flexible Portfolio\n" +
+            "2.Inflexible Portfolio\n" +
+            "Enter Stock Symbol\n" +
+            "Enter transaction cost\n" +
+            "Enter date(yyyy-mm-dd)\n" +
+            "Enter number of shares\n" +
+            "\n" +
+            "Successfully bought stocks\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n";
+    assertEquals(expectedOutput, bytes.toString());
+  }
+  @Test
+  public void testCreateInFlexiblePortfolio() {
+    NewModel model = new NewModelImpl();
+
+    ByteArrayInputStream in;
+
+    String input = "2 user5 1 personal 2 AAPL 10 1 ORCL 20 2 6";
+    in = new ByteArrayInputStream(input.getBytes());
+    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+    PrintStream out = new PrintStream(bytes);
+
+    View view = new ViewImpl(out);
+
+    ControllerImpl controller = new ControllerImpl(model, view, in);
+    controller.goController();
+    String expectedOutput = "To select a particular option,enter the number next to it\n" +
+            "\n" +
+            "1.Create User\n" +
+            "2.Load User\n" +
+            "Enter username\n" +
+            "\n" +
+            "User successfully loaded\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n" +
+            "Enter portfolio name\n" +
+            "Select which kind of portfolio you wish to create\n" +
+            "1.Flexible Portfolio\n" +
+            "2.Inflexible Portfolio\n" +
             "Enter Stock Symbol\n" +
             "Enter number of shares\n" +
             "1.Add new stock\n" +
@@ -436,7 +577,7 @@ public class ControllerImplTest {
 
     ByteArrayInputStream in;
 
-    String input = "2 user1 6";
+    String input = "2 user5 11";
     in = new ByteArrayInputStream(input.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
@@ -456,10 +597,15 @@ public class ControllerImplTest {
             "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
-            "3.Get Composition\n" +
-            "4.Get Total Value on certain date\n" +
-            "5.Save\n" +
-            "6.Exit\n";
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n";
     assertEquals(expectedOutput, bytes.toString());
   }
 
@@ -469,7 +615,7 @@ public class ControllerImplTest {
 
     ByteArrayInputStream in;
 
-    String input = "2 user1 2 shares 6";
+    String input = "2 user5 2 shares 11";
     in = new ByteArrayInputStream(input.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
@@ -489,20 +635,30 @@ public class ControllerImplTest {
             "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
-            "3.Get Composition\n" +
-            "4.Get Total Value on certain date\n" +
-            "5.Save\n" +
-            "6.Exit\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n" +
             "Enter portfolio name\n" +
             "\n" +
             "Portfolio doesn't exist\n" +
             "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
-            "3.Get Composition\n" +
-            "4.Get Total Value on certain date\n" +
-            "5.Save\n" +
-            "6.Exit\n";
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n";
     assertEquals(expectedOutput, bytes.toString());
   }
 
@@ -512,7 +668,7 @@ public class ControllerImplTest {
 
     ByteArrayInputStream in;
 
-    String input = "2 user1 2 college 6";
+    String input = "2 user5 2 college 6";
     in = new ByteArrayInputStream(input.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
@@ -532,10 +688,15 @@ public class ControllerImplTest {
             "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
-            "3.Get Composition\n" +
-            "4.Get Total Value on certain date\n" +
-            "5.Save\n" +
-            "6.Exit\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n" +
             "Enter portfolio name\n" +
             "\n" +
             "Loaded college\n" +
@@ -550,12 +711,12 @@ public class ControllerImplTest {
   }
 
   @Test
-  public void testGetComposition() {
+  public void testGetCompositionInFlexiblePortfolio() {
     NewModel model = new NewModelImpl();
 
     ByteArrayInputStream in;
 
-    String input = "2 user1 2 retirement 3 6";
+    String input = "2 user5 2 college 3 6";
     in = new ByteArrayInputStream(input.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
@@ -575,13 +736,18 @@ public class ControllerImplTest {
             "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
-            "3.Get Composition\n" +
-            "4.Get Total Value on certain date\n" +
-            "5.Save\n" +
-            "6.Exit\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n" +
             "Enter portfolio name\n" +
             "\n" +
-            "Loaded retirement\n" +
+            "Loaded college\n" +
             "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
@@ -589,14 +755,8 @@ public class ControllerImplTest {
             "4.Get Total Value on certain date\n" +
             "5.Save\n" +
             "6.Exit\n" +
-            "                    retirement\n" +
+            "                    college\n" +
             "MSFT                                    30.00\n" +
-            "META                                    30.00\n" +
-            "GOOGL                                   30.00\n" +
-            "IBM                                     20.00\n" +
-            "ORCL                                    40.00\n" +
-            "MRNA                                    30.00\n" +
-            "AMZN                                    30.00\n" +
             "\n" +
             "\n" +
             "1.Create Portfolio\n" +
@@ -614,7 +774,7 @@ public class ControllerImplTest {
 
     ByteArrayInputStream in;
 
-    String input = "1 user3 1990.787 1 retirement GOOG 10 1 ORCL 5 2 5 6";
+    String input = "1 user1 1990.787 1 retirement 2 GOOG 10 1 ORCL 5 2 5 6";
     in = new ByteArrayInputStream(input.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
@@ -635,11 +795,19 @@ public class ControllerImplTest {
             "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
-            "3.Get Composition\n" +
-            "4.Get Total Value on certain date\n" +
-            "5.Save\n" +
-            "6.Exit\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n" +
             "Enter portfolio name\n" +
+            "Select which kind of portfolio you wish to create\n" +
+            "1.Flexible Portfolio\n" +
+            "2.Inflexible Portfolio\n" +
             "Enter Stock Symbol\n" +
             "Enter number of shares\n" +
             "1.Add new stock\n" +
@@ -673,7 +841,7 @@ public class ControllerImplTest {
 
     ByteArrayInputStream in;
 
-    String input = "2 user1 1 personal ABCD 10 AAPL 2 2 6";
+    String input = "2 user5 1 personal 2 ABCD AAPL 2 2 6";
     in = new ByteArrayInputStream(input.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
@@ -692,16 +860,77 @@ public class ControllerImplTest {
             "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n" +
+            "Enter portfolio name\n" +
+            "Select which kind of portfolio you wish to create\n" +
+            "1.Flexible Portfolio\n" +
+            "2.Inflexible Portfolio\n" +
+            "Enter Stock Symbol\n" +
+            "\n" +
+            "Invalid symbol\n" +
+            "Enter Stock Symbol\n" +
+            "Enter number of shares\n" +
+            "1.Add new stock\n" +
+            "2.Back to main menu\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
             "3.Get Composition\n" +
             "4.Get Total Value on certain date\n" +
             "5.Save\n" +
-            "6.Exit\n" +
+            "6.Exit\n";
+    assertEquals(expectedOutput, bytes.toString());
+  }
+  @Test
+  public void testCreatePortfolioNegativeShare() {
+    NewModel model = new NewModelImpl();
+
+    ByteArrayInputStream in;
+
+    String input = "2 user5 1 personal 2 AAPL -2 10 2 6";
+    in = new ByteArrayInputStream(input.getBytes());
+    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+    PrintStream out = new PrintStream(bytes);
+
+    View view = new ViewImpl(out);
+
+    ControllerImpl controller = new ControllerImpl(model, view, in);
+    controller.goController();
+    String expectedOutput = "To select a particular option,enter the number next to it\n" +
+            "\n" +
+            "1.Create User\n" +
+            "2.Load User\n" +
+            "Enter username\n" +
+            "\n" +
+            "User successfully loaded\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n" +
             "Enter portfolio name\n" +
+            "Select which kind of portfolio you wish to create\n" +
+            "1.Flexible Portfolio\n" +
+            "2.Inflexible Portfolio\n" +
             "Enter Stock Symbol\n" +
             "Enter number of shares\n" +
             "\n" +
-            "ABCD Symbol not found\n" +
-            "Enter Stock Symbol\n" +
+            "Shares must be a valid positive integer\n" +
             "Enter number of shares\n" +
             "1.Add new stock\n" +
             "2.Back to main menu\n" +
@@ -716,12 +945,11 @@ public class ControllerImplTest {
   }
 
   @Test
-  public void testCreatePortfolioNegativeShare() {
+  public void testCreateFlexiblePortfolioNegativeShare() {
     NewModel model = new NewModelImpl();
 
     ByteArrayInputStream in;
-
-    String input = "2 user1 1 personal AAPL -2 AAPL 10 2 6";
+    String input = "2 user5 1 personal 1 AAPL 10 2022-11-14 -10 10 11";
     in = new ByteArrayInputStream(input.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
@@ -740,26 +968,40 @@ public class ControllerImplTest {
             "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
-            "3.Get Composition\n" +
-            "4.Get Total Value on certain date\n" +
-            "5.Save\n" +
-            "6.Exit\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n" +
             "Enter portfolio name\n" +
+            "Select which kind of portfolio you wish to create\n" +
+            "1.Flexible Portfolio\n" +
+            "2.Inflexible Portfolio\n" +
             "Enter Stock Symbol\n" +
+            "Enter transaction cost\n" +
+            "Enter date(yyyy-mm-dd)\n" +
             "Enter number of shares\n" +
             "\n" +
             "Shares must be a valid positive integer\n" +
-            "Enter Stock Symbol\n" +
             "Enter number of shares\n" +
-            "1.Add new stock\n" +
-            "2.Back to main menu\n" +
+            "\n" +
+            "Successfully bought stocks\n" +
             "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
-            "3.Get Composition\n" +
-            "4.Get Total Value on certain date\n" +
-            "5.Save\n" +
-            "6.Exit\n";
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n";
     assertEquals(expectedOutput, bytes.toString());
   }
 
@@ -769,7 +1011,7 @@ public class ControllerImplTest {
 
     ByteArrayInputStream in;
 
-    String input = "2 user1 1 personal AAPL a AAPL 10 2 6";
+    String input = "2 user5 1 personal 2 AAPL a 10 2 6";
     in = new ByteArrayInputStream(input.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
@@ -788,16 +1030,23 @@ public class ControllerImplTest {
             "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
-            "3.Get Composition\n" +
-            "4.Get Total Value on certain date\n" +
-            "5.Save\n" +
-            "6.Exit\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n" +
             "Enter portfolio name\n" +
+            "Select which kind of portfolio you wish to create\n" +
+            "1.Flexible Portfolio\n" +
+            "2.Inflexible Portfolio\n" +
             "Enter Stock Symbol\n" +
             "Enter number of shares\n" +
             "\n" +
             "Shares must be a valid positive integer\n" +
-            "Enter Stock Symbol\n" +
             "Enter number of shares\n" +
             "1.Add new stock\n" +
             "2.Back to main menu\n" +
@@ -808,6 +1057,127 @@ public class ControllerImplTest {
             "4.Get Total Value on certain date\n" +
             "5.Save\n" +
             "6.Exit\n";
+    assertEquals(expectedOutput, bytes.toString());
+  }
+  @Test
+  public void testCreateFlexiblePortfolioNonDigitShares() {
+    NewModel model = new NewModelImpl();
+
+    ByteArrayInputStream in;
+
+    String input = "2 user5 1 personal 1 AAPL 10 2022-11-14 a 10 11";
+    in = new ByteArrayInputStream(input.getBytes());
+    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+    PrintStream out = new PrintStream(bytes);
+
+    View view = new ViewImpl(out);
+
+    ControllerImpl controller = new ControllerImpl(model, view, in);
+    controller.goController();
+    String expectedOutput = "To select a particular option,enter the number next to it\n" +
+            "\n" +
+            "1.Create User\n" +
+            "2.Load User\n" +
+            "Enter username\n" +
+            "\n" +
+            "User successfully loaded\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n" +
+            "Enter portfolio name\n" +
+            "Select which kind of portfolio you wish to create\n" +
+            "1.Flexible Portfolio\n" +
+            "2.Inflexible Portfolio\n" +
+            "Enter Stock Symbol\n" +
+            "Enter transaction cost\n" +
+            "Enter date(yyyy-mm-dd)\n" +
+            "Enter number of shares\n" +
+            "\n" +
+            "Shares must be a valid positive integer\n" +
+            "Enter number of shares\n" +
+            "\n" +
+            "Successfully bought stocks\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n";
+    assertEquals(expectedOutput, bytes.toString());
+  }
+  @Test
+  public void testCreateFlexiblePortfolioFloatShares() {
+    NewModel model = new NewModelImpl();
+
+    ByteArrayInputStream in;
+    String input = "2 user5 1 personal 1 AAPL 10 2022-11-14 123.23 10 11";
+    in = new ByteArrayInputStream(input.getBytes());
+    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+    PrintStream out = new PrintStream(bytes);
+
+    View view = new ViewImpl(out);
+
+    ControllerImpl controller = new ControllerImpl(model, view, in);
+    controller.goController();
+    String expectedOutput = "To select a particular option,enter the number next to it\n" +
+            "\n" +
+            "1.Create User\n" +
+            "2.Load User\n" +
+            "Enter username\n" +
+            "\n" +
+            "User successfully loaded\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n" +
+            "Enter portfolio name\n" +
+            "Select which kind of portfolio you wish to create\n" +
+            "1.Flexible Portfolio\n" +
+            "2.Inflexible Portfolio\n" +
+            "Enter Stock Symbol\n" +
+            "Enter transaction cost\n" +
+            "Enter date(yyyy-mm-dd)\n" +
+            "Enter number of shares\n" +
+            "\n" +
+            "Shares must be a valid positive integer\n" +
+            "Enter number of shares\n" +
+            "\n" +
+            "Successfully bought stocks\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n";
     assertEquals(expectedOutput, bytes.toString());
   }
 
@@ -817,7 +1187,7 @@ public class ControllerImplTest {
 
     ByteArrayInputStream in;
 
-    String input = "2 user1 1 personal AAPL 192.34 AAPL 10 2 6";
+    String input = "2 user5 1 personal 2 AAPL 192.34 10 2 6";
     in = new ByteArrayInputStream(input.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
@@ -836,16 +1206,23 @@ public class ControllerImplTest {
             "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
-            "3.Get Composition\n" +
-            "4.Get Total Value on certain date\n" +
-            "5.Save\n" +
-            "6.Exit\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n" +
             "Enter portfolio name\n" +
+            "Select which kind of portfolio you wish to create\n" +
+            "1.Flexible Portfolio\n" +
+            "2.Inflexible Portfolio\n" +
             "Enter Stock Symbol\n" +
             "Enter number of shares\n" +
             "\n" +
             "Shares must be a valid positive integer\n" +
-            "Enter Stock Symbol\n" +
             "Enter number of shares\n" +
             "1.Add new stock\n" +
             "2.Back to main menu\n" +
@@ -856,6 +1233,196 @@ public class ControllerImplTest {
             "4.Get Total Value on certain date\n" +
             "5.Save\n" +
             "6.Exit\n";
+    assertEquals(expectedOutput, bytes.toString());
+  }
+  @Test
+  public void testCreateFlexiblePortfolioNegativeTransactionValue() {
+    NewModel model = new NewModelImpl();
+
+    ByteArrayInputStream in;
+
+    String input = "2 user5 1 personal 1 AAPL -10 10 2022-11-14 a 10 11";
+    in = new ByteArrayInputStream(input.getBytes());
+    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+    PrintStream out = new PrintStream(bytes);
+
+    View view = new ViewImpl(out);
+
+    ControllerImpl controller = new ControllerImpl(model, view, in);
+    controller.goController();
+    String expectedOutput = "To select a particular option,enter the number next to it\n" +
+            "\n" +
+            "1.Create User\n" +
+            "2.Load User\n" +
+            "Enter username\n" +
+            "\n" +
+            "User successfully loaded\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n" +
+            "Enter portfolio name\n" +
+            "Select which kind of portfolio you wish to create\n" +
+            "1.Flexible Portfolio\n" +
+            "2.Inflexible Portfolio\n" +
+            "Enter Stock Symbol\n" +
+            "Enter transaction cost\n" +
+            "\n" +
+            "Transaction Cost must be a valid floating point number\n" +
+            "Enter transaction cost\n" +
+            "Enter date(yyyy-mm-dd)\n" +
+            "Enter number of shares\n" +
+            "\n" +
+            "Shares must be a valid positive integer\n" +
+            "Enter number of shares\n" +
+            "\n" +
+            "Successfully bought stocks\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n";
+    assertEquals(expectedOutput, bytes.toString());
+  }
+  @Test
+  public void testCreateFlexiblePortfolioNonDigitTransactionValue() {
+    NewModel model = new NewModelImpl();
+
+    ByteArrayInputStream in;
+
+    String input = "2 user5 1 personal 1 AAPL a 10 2022-11-14 a 10 11";
+    in = new ByteArrayInputStream(input.getBytes());
+    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+    PrintStream out = new PrintStream(bytes);
+
+    View view = new ViewImpl(out);
+
+    ControllerImpl controller = new ControllerImpl(model, view, in);
+    controller.goController();
+    String expectedOutput = "To select a particular option,enter the number next to it\n" +
+            "\n" +
+            "1.Create User\n" +
+            "2.Load User\n" +
+            "Enter username\n" +
+            "\n" +
+            "User successfully loaded\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n" +
+            "Enter portfolio name\n" +
+            "Select which kind of portfolio you wish to create\n" +
+            "1.Flexible Portfolio\n" +
+            "2.Inflexible Portfolio\n" +
+            "Enter Stock Symbol\n" +
+            "Enter transaction cost\n" +
+            "\n" +
+            "Transaction Cost must be a valid floating point number\n" +
+            "Enter transaction cost\n" +
+            "Enter date(yyyy-mm-dd)\n" +
+            "Enter number of shares\n" +
+            "\n" +
+            "Shares must be a valid positive integer\n" +
+            "Enter number of shares\n" +
+            "\n" +
+            "Successfully bought stocks\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n";
+    assertEquals(expectedOutput, bytes.toString());
+  }
+
+  @Test
+  public void testCreateFlexiblePortfolioFloatTransactionValue() {
+    NewModel model = new NewModelImpl();
+
+    ByteArrayInputStream in;
+
+    String input = "2 user5 1 personal 1 AAPL 10.12 2022-11-14 a 10 11";
+    in = new ByteArrayInputStream(input.getBytes());
+    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+    PrintStream out = new PrintStream(bytes);
+
+    View view = new ViewImpl(out);
+
+    ControllerImpl controller = new ControllerImpl(model, view, in);
+    controller.goController();
+    String expectedOutput = "To select a particular option,enter the number next to it\n" +
+            "\n" +
+            "1.Create User\n" +
+            "2.Load User\n" +
+            "Enter username\n" +
+            "\n" +
+            "User successfully loaded\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n" +
+            "Enter portfolio name\n" +
+            "Select which kind of portfolio you wish to create\n" +
+            "1.Flexible Portfolio\n" +
+            "2.Inflexible Portfolio\n" +
+            "Enter Stock Symbol\n" +
+            "Enter transaction cost\n" +
+            "Enter date(yyyy-mm-dd)\n" +
+            "Enter number of shares\n" +
+            "\n" +
+            "Shares must be a valid positive integer\n" +
+            "Enter number of shares\n" +
+            "\n" +
+            "Successfully bought stocks\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n";
     assertEquals(expectedOutput, bytes.toString());
   }
 
@@ -865,7 +1432,7 @@ public class ControllerImplTest {
 
     ByteArrayInputStream in;
 
-    String input = "2 user1 4 2022-10-31 6";
+    String input = "2 user5 2 college 4 2022-10-31 6";
     in = new ByteArrayInputStream(input.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
@@ -884,13 +1451,28 @@ public class ControllerImplTest {
             "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n" +
+            "Enter portfolio name\n" +
+            "\n" +
+            "Loaded college\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
             "3.Get Composition\n" +
             "4.Get Total Value on certain date\n" +
             "5.Save\n" +
             "6.Exit\n" +
             "Enter date(yyyy-mm-dd)\n" +
             "\n" +
-            "Total Value on 2022-10-31 is 6139.4\n" +
+            "Total Value on 2022-10-31 is $7047.6\n" +
             "\n" +
             "\n" +
             "1.Create Portfolio\n" +
@@ -899,6 +1481,58 @@ public class ControllerImplTest {
             "4.Get Total Value on certain date\n" +
             "5.Save\n" +
             "6.Exit\n";
+    assertEquals(expectedOutput, bytes.toString());
+  }
+  @Test
+  public void testGetValueNormalFlexible() {
+    NewModel model = new NewModelImpl();
+
+    ByteArrayInputStream in;
+
+    String input = "2 user5 8 2022-10-31 11";
+    in = new ByteArrayInputStream(input.getBytes());
+    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+    PrintStream out = new PrintStream(bytes);
+
+    View view = new ViewImpl(out);
+
+    ControllerImpl controller = new ControllerImpl(model, view, in);
+    controller.goController();
+    String expectedOutput = "To select a particular option,enter the number next to it\n" +
+            "\n" +
+            "1.Create User\n" +
+            "2.Load User\n" +
+            "Enter username\n" +
+            "\n" +
+            "User successfully loaded\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n" +
+            "Enter date(yyyy-mm-dd)\n" +
+            "\n" +
+            "Total Value on 2022-10-31 is $2690.3\n" +
+            "\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n";
     assertEquals(expectedOutput, bytes.toString());
   }
 
@@ -908,7 +1542,7 @@ public class ControllerImplTest {
 
     ByteArrayInputStream in;
 
-    String input = "2 user1 4 2022-10-30 2022-10-31 6";
+    String input = "2 user5 2 college 4 2022-10-30 2022-10-31 6";
     in = new ByteArrayInputStream(input.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
@@ -927,16 +1561,31 @@ public class ControllerImplTest {
             "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n" +
+            "Enter portfolio name\n" +
+            "\n" +
+            "Loaded college\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
             "3.Get Composition\n" +
             "4.Get Total Value on certain date\n" +
             "5.Save\n" +
             "6.Exit\n" +
             "Enter date(yyyy-mm-dd)\n" +
             "\n" +
-            "Market is closed on weekend, date passed is 2022-10-30\n" +
+            "Date cannot be a weekend\n" +
             "Enter date(yyyy-mm-dd)\n" +
             "\n" +
-            "Total Value on 2022-10-31 is 6139.4\n" +
+            "Total Value on 2022-10-31 is $7047.6\n" +
             "\n" +
             "\n" +
             "1.Create Portfolio\n" +
@@ -947,14 +1596,13 @@ public class ControllerImplTest {
             "6.Exit\n";
     assertEquals(expectedOutput, bytes.toString());
   }
-
   @Test
-  public void testGetOnFutureDate() {
+  public void testGetOnWeekendFlexible() {
     NewModel model = new NewModelImpl();
 
     ByteArrayInputStream in;
 
-    String input = "2 user1 4 2022-11-01 2022-10-31 6";
+    String input = "2 user5 8 2022-10-31 2022-10-31 11";
     in = new ByteArrayInputStream(input.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
@@ -973,14 +1621,84 @@ public class ControllerImplTest {
             "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
-            "3.Get Composition\n" +
-            "4.Get Total Value on certain date\n" +
-            "5.Save\n" +
-            "6.Exit\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n" +
             "Enter date(yyyy-mm-dd)\n" +
             "\n" +
-            "Total Value on 2022-11-01 is 6139.4\n" +
+            "Total Value on 2022-10-31 is $2690.3\n" +
             "\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n" +
+            "\n" +
+            "Option must be one of the following numbers\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n";
+    assertEquals(expectedOutput, bytes.toString());
+  }
+  @Test
+  public void testGetOnFutureDate() {
+    NewModel model = new NewModelImpl();
+
+    ByteArrayInputStream in;
+
+    String input = "2 user5 2 college 4 2022-12-01 2022-10-31 6";
+    in = new ByteArrayInputStream(input.getBytes());
+    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+    PrintStream out = new PrintStream(bytes);
+
+    View view = new ViewImpl(out);
+
+    ControllerImpl controller = new ControllerImpl(model, view, in);
+    controller.goController();
+    String expectedOutput = "To select a particular option,enter the number next to it\n" +
+            "\n" +
+            "1.Create User\n" +
+            "2.Load User\n" +
+            "Enter username\n" +
+            "\n" +
+            "User successfully loaded\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n" +
+            "Enter portfolio name\n" +
+            "\n" +
+            "Loaded college\n" +
             "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
@@ -988,8 +1706,13 @@ public class ControllerImplTest {
             "4.Get Total Value on certain date\n" +
             "5.Save\n" +
             "6.Exit\n" +
+            "Enter date(yyyy-mm-dd)\n" +
             "\n" +
-            "Option must be one of the following numbers\n" +
+            "Date cannot be a future date\n" +
+            "Enter date(yyyy-mm-dd)\n" +
+            "\n" +
+            "Total Value on 2022-10-31 is $7047.6\n" +
+            "\n" +
             "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
@@ -997,6 +1720,61 @@ public class ControllerImplTest {
             "4.Get Total Value on certain date\n" +
             "5.Save\n" +
             "6.Exit\n";
+    assertEquals(expectedOutput, bytes.toString());
+  }
+  @Test
+  public void testGetOnFutureDateFlexible() {
+    NewModel model = new NewModelImpl();
+
+    ByteArrayInputStream in;
+
+    String input = "2 user5 8 2022-12-01 2022-10-31 11";
+    in = new ByteArrayInputStream(input.getBytes());
+    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+    PrintStream out = new PrintStream(bytes);
+
+    View view = new ViewImpl(out);
+
+    ControllerImpl controller = new ControllerImpl(model, view, in);
+    controller.goController();
+    String expectedOutput = "To select a particular option,enter the number next to it\n" +
+            "\n" +
+            "1.Create User\n" +
+            "2.Load User\n" +
+            "Enter username\n" +
+            "\n" +
+            "User successfully loaded\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n" +
+            "Enter date(yyyy-mm-dd)\n" +
+            "\n" +
+            "Date cannot be a future date\n" +
+            "Enter date(yyyy-mm-dd)\n" +
+            "\n" +
+            "Total Value on 2022-10-31 is $2690.3\n" +
+            "\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n";
     assertEquals(expectedOutput, bytes.toString());
   }
 
@@ -1006,7 +1784,7 @@ public class ControllerImplTest {
 
     ByteArrayInputStream in;
 
-    String input = "1 sree 10000 4 2022-10-31 6";
+    String input = "1 sree 10000 8 11";
     in = new ByteArrayInputStream(input.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
@@ -1026,20 +1804,29 @@ public class ControllerImplTest {
             "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
-            "3.Get Composition\n" +
-            "4.Get Total Value on certain date\n" +
-            "5.Save\n" +
-            "6.Exit\n" +
-            "Enter date(yyyy-mm-dd)\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n" +
             "\n" +
-            "No portfolio created yet\n" +
+            "You should create at least one portfolio\n" +
             "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
-            "3.Get Composition\n" +
-            "4.Get Total Value on certain date\n" +
-            "5.Save\n" +
-            "6.Exit\n";
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n";
     assertEquals(expectedOutput, bytes.toString());
   }
 
@@ -1049,7 +1836,7 @@ public class ControllerImplTest {
 
     ByteArrayInputStream in;
 
-    String input = "2 user1 4 jkegrhbs  2022-10-31 6";
+    String input = "2 user5 2 college 4 jkegrhbs  2022-10-31 6";
     in = new ByteArrayInputStream(input.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
@@ -1068,16 +1855,31 @@ public class ControllerImplTest {
             "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n" +
+            "Enter portfolio name\n" +
+            "\n" +
+            "Loaded college\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
             "3.Get Composition\n" +
             "4.Get Total Value on certain date\n" +
             "5.Save\n" +
             "6.Exit\n" +
             "Enter date(yyyy-mm-dd)\n" +
             "\n" +
-            "Text 'jkegrhbs' could not be parsed at index 0\n" +
+            "Date must be in yyyy-mm-dd format\n" +
             "Enter date(yyyy-mm-dd)\n" +
             "\n" +
-            "Total Value on 2022-10-31 is 6139.4\n" +
+            "Total Value on 2022-10-31 is $7047.6\n" +
             "\n" +
             "\n" +
             "1.Create Portfolio\n" +
@@ -1090,12 +1892,12 @@ public class ControllerImplTest {
   }
 
   @Test
-  public void testCreatePortfolioShareZero() {
+  public void testGetOnInvalidDateFlexible() {
     NewModel model = new NewModelImpl();
 
     ByteArrayInputStream in;
 
-    String input = "1 sree 10000 1 personal AAPL 0 AAPL 10 2 6";
+    String input = "2 user5 8 2022-adsfs-01 2022-10-31 11";
     in = new ByteArrayInputStream(input.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
@@ -1109,22 +1911,83 @@ public class ControllerImplTest {
             "1.Create User\n" +
             "2.Load User\n" +
             "Enter username\n" +
-            "Enter initial balance\n" +
             "\n" +
-            "User successfully created\n" +
+            "User successfully loaded\n" +
             "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
-            "3.Get Composition\n" +
-            "4.Get Total Value on certain date\n" +
-            "5.Save\n" +
-            "6.Exit\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n" +
+            "Enter date(yyyy-mm-dd)\n" +
+            "\n" +
+            "Date must be in yyyy-mm-dd format\n" +
+            "Enter date(yyyy-mm-dd)\n" +
+            "\n" +
+            "Total Value on 2022-10-31 is $2690.3\n" +
+            "\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n";
+    assertEquals(expectedOutput, bytes.toString());
+  }
+
+  @Test
+  public void testCreatePortfolioShareZero() {
+    NewModel model = new NewModelImpl();
+
+    ByteArrayInputStream in;
+    String input = "2 user5 1 personal 2 AAPL 0 10 2 6";
+    in = new ByteArrayInputStream(input.getBytes());
+    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+    PrintStream out = new PrintStream(bytes);
+
+    View view = new ViewImpl(out);
+
+    ControllerImpl controller = new ControllerImpl(model, view, in);
+    controller.goController();
+    String expectedOutput = "To select a particular option,enter the number next to it\n" +
+            "\n" +
+            "1.Create User\n" +
+            "2.Load User\n" +
+            "Enter username\n" +
+            "\n" +
+            "User successfully loaded\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n" +
             "Enter portfolio name\n" +
+            "Select which kind of portfolio you wish to create\n" +
+            "1.Flexible Portfolio\n" +
+            "2.Inflexible Portfolio\n" +
             "Enter Stock Symbol\n" +
             "Enter number of shares\n" +
             "\n" +
             "Shares must be a valid positive integer\n" +
-            "Enter Stock Symbol\n" +
             "Enter number of shares\n" +
             "1.Add new stock\n" +
             "2.Back to main menu\n" +
@@ -1137,6 +2000,432 @@ public class ControllerImplTest {
             "6.Exit\n";
     assertEquals(expectedOutput, bytes.toString());
   }
+  @Test
+  public void testCreateFlexiblePortfolioShareZero() {
+    NewModel model = new NewModelImpl();
+
+    ByteArrayInputStream in;
+    String input = "2 user5 1 personal 1 AAPL 10 2022-11-14 0 10 11";
+    in = new ByteArrayInputStream(input.getBytes());
+    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+    PrintStream out = new PrintStream(bytes);
+
+    View view = new ViewImpl(out);
+
+    ControllerImpl controller = new ControllerImpl(model, view, in);
+    controller.goController();
+    String expectedOutput = "To select a particular option,enter the number next to it\n" +
+            "\n" +
+            "1.Create User\n" +
+            "2.Load User\n" +
+            "Enter username\n" +
+            "\n" +
+            "User successfully loaded\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n" +
+            "Enter portfolio name\n" +
+            "Select which kind of portfolio you wish to create\n" +
+            "1.Flexible Portfolio\n" +
+            "2.Inflexible Portfolio\n" +
+            "Enter Stock Symbol\n" +
+            "Enter transaction cost\n" +
+            "Enter date(yyyy-mm-dd)\n" +
+            "Enter number of shares\n" +
+            "\n" +
+            "Shares must be a valid positive integer\n" +
+            "Enter number of shares\n" +
+            "\n" +
+            "Successfully bought stocks\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n";
+    assertEquals(expectedOutput, bytes.toString());
+  }
+  @Test
+  public void testCreateFlexiblePortfolioInvalidDate() {
+    NewModel model = new NewModelImpl();
+
+    ByteArrayInputStream in;
+    String input = "2 user5 1 personal 1 AAPL 10 2022-11-1412 2022-11-14 10 11";
+    in = new ByteArrayInputStream(input.getBytes());
+    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+    PrintStream out = new PrintStream(bytes);
+
+    View view = new ViewImpl(out);
+
+    ControllerImpl controller = new ControllerImpl(model, view, in);
+    controller.goController();
+    String expectedOutput = "To select a particular option,enter the number next to it\n" +
+            "\n" +
+            "1.Create User\n" +
+            "2.Load User\n" +
+            "Enter username\n" +
+            "\n" +
+            "User successfully loaded\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n" +
+            "Enter portfolio name\n" +
+            "Select which kind of portfolio you wish to create\n" +
+            "1.Flexible Portfolio\n" +
+            "2.Inflexible Portfolio\n" +
+            "Enter Stock Symbol\n" +
+            "Enter transaction cost\n" +
+            "Enter date(yyyy-mm-dd)\n" +
+            "\n" +
+            "Date must be in yyyy-mm-dd format\n" +
+            "Enter date(yyyy-mm-dd)\n" +
+            "Enter number of shares\n" +
+            "\n" +
+            "Successfully bought stocks\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n";
+    assertEquals(expectedOutput, bytes.toString());
+  }
+  @Test
+  public void testCreateFlexiblePortfolioFutureDate() {
+    NewModel model = new NewModelImpl();
+
+    ByteArrayInputStream in;
+    String input = "2 user5 1 personal 1 AAPL 10 2022-11-18 2022-11-14 10 11";
+    in = new ByteArrayInputStream(input.getBytes());
+    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+    PrintStream out = new PrintStream(bytes);
+
+    View view = new ViewImpl(out);
+
+    ControllerImpl controller = new ControllerImpl(model, view, in);
+    controller.goController();
+    String expectedOutput = "To select a particular option,enter the number next to it\n" +
+            "\n" +
+            "1.Create User\n" +
+            "2.Load User\n" +
+            "Enter username\n" +
+            "\n" +
+            "User successfully loaded\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n" +
+            "Enter portfolio name\n" +
+            "Select which kind of portfolio you wish to create\n" +
+            "1.Flexible Portfolio\n" +
+            "2.Inflexible Portfolio\n" +
+            "Enter Stock Symbol\n" +
+            "Enter transaction cost\n" +
+            "Enter date(yyyy-mm-dd)\n" +
+            "\n" +
+            "Date cannot be a future date\n" +
+            "Enter date(yyyy-mm-dd)\n" +
+            "Enter number of shares\n" +
+            "\n" +
+            "Successfully bought stocks\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n";
+    assertEquals(expectedOutput, bytes.toString());
+  }
+
+
+  @Test
+  public void testCreateFlexiblePortfolioWeekendDate() {
+    NewModel model = new NewModelImpl();
+
+    ByteArrayInputStream in;
+    String input = "2 user5 1 personal 1 AAPL 10 2022-11-13 2022-11-14 10 11";
+    in = new ByteArrayInputStream(input.getBytes());
+    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+    PrintStream out = new PrintStream(bytes);
+
+    View view = new ViewImpl(out);
+
+    ControllerImpl controller = new ControllerImpl(model, view, in);
+    controller.goController();
+    String expectedOutput = "To select a particular option,enter the number next to it\n" +
+            "\n" +
+            "1.Create User\n" +
+            "2.Load User\n" +
+            "Enter username\n" +
+            "\n" +
+            "User successfully loaded\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n" +
+            "Enter portfolio name\n" +
+            "Select which kind of portfolio you wish to create\n" +
+            "1.Flexible Portfolio\n" +
+            "2.Inflexible Portfolio\n" +
+            "Enter Stock Symbol\n" +
+            "Enter transaction cost\n" +
+            "Enter date(yyyy-mm-dd)\n" +
+            "\n" +
+            "Date cannot be a weekend\n" +
+            "Enter date(yyyy-mm-dd)\n" +
+            "Enter number of shares\n" +
+            "\n" +
+            "Successfully bought stocks\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n";
+    assertEquals(expectedOutput, bytes.toString());
+  }
+
+  @Test
+  public void testCreateFlexiblePortfolioSameStockDiffDate() {
+    NewModel model = new NewModelImpl();
+
+    ByteArrayInputStream in;
+    String input = "2 user5 1 personal 1 AAPL 10 2022-11-10 10 3 AAPL 10 2022-11-14 20 7 2022-11-14 11";
+    in = new ByteArrayInputStream(input.getBytes());
+    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+    PrintStream out = new PrintStream(bytes);
+
+    View view = new ViewImpl(out);
+
+    ControllerImpl controller = new ControllerImpl(model, view, in);
+    controller.goController();
+    String expectedOutput = "To select a particular option,enter the number next to it\n" +
+            "\n" +
+            "1.Create User\n" +
+            "2.Load User\n" +
+            "Enter username\n" +
+            "\n" +
+            "User successfully loaded\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n" +
+            "Enter portfolio name\n" +
+            "Select which kind of portfolio you wish to create\n" +
+            "1.Flexible Portfolio\n" +
+            "2.Inflexible Portfolio\n" +
+            "Enter Stock Symbol\n" +
+            "Enter transaction cost\n" +
+            "Enter date(yyyy-mm-dd)\n" +
+            "Enter number of shares\n" +
+            "\n" +
+            "Successfully bought stocks\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n" +
+            "Enter Stock Symbol\n" +
+            "Enter transaction cost\n" +
+            "Enter date(yyyy-mm-dd)\n" +
+            "Enter number of shares\n" +
+            "\n" +
+            "Successfully bought stocks\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n" +
+            "Enter date(yyyy-mm-dd)\n" +
+            " Composition of personal upto 2022-11-14\n" +
+            "AAPL                                    30.00\n" +
+            "\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n";
+    assertEquals(expectedOutput, bytes.toString());
+  }
+
+  @Test
+  public void testCreateFlexiblePortfolioSameStockSameDate() {
+    NewModel model = new NewModelImpl();
+
+    ByteArrayInputStream in;
+    String input = "2 user5 1 personal 1 AAPL 10 2022-11-10 10 3 AAPL 10 2022-11-10 20 7 2022-11-14 11";
+    in = new ByteArrayInputStream(input.getBytes());
+    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+    PrintStream out = new PrintStream(bytes);
+
+    View view = new ViewImpl(out);
+
+    ControllerImpl controller = new ControllerImpl(model, view, in);
+    controller.goController();
+    String expectedOutput = "To select a particular option,enter the number next to it\n" +
+            "\n" +
+            "1.Create User\n" +
+            "2.Load User\n" +
+            "Enter username\n" +
+            "\n" +
+            "User successfully loaded\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n" +
+            "Enter portfolio name\n" +
+            "Select which kind of portfolio you wish to create\n" +
+            "1.Flexible Portfolio\n" +
+            "2.Inflexible Portfolio\n" +
+            "Enter Stock Symbol\n" +
+            "Enter transaction cost\n" +
+            "Enter date(yyyy-mm-dd)\n" +
+            "Enter number of shares\n" +
+            "\n" +
+            "Successfully bought stocks\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n" +
+            "Enter Stock Symbol\n" +
+            "Enter transaction cost\n" +
+            "Enter date(yyyy-mm-dd)\n" +
+            "Enter number of shares\n" +
+            "\n" +
+            "Successfully bought stocks\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n" +
+            "Enter date(yyyy-mm-dd)\n" +
+            " Composition of personal upto 2022-11-14\n" +
+            "AAPL                                    30.00\n" +
+            "\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n";
+    assertEquals(expectedOutput, bytes.toString());
+  }
 
   @Test
   public void testCreatePortfolioSameStockTwice() {
@@ -1144,7 +2433,7 @@ public class ControllerImplTest {
 
     ByteArrayInputStream in;
 
-    String input = "1 sree 10000 1 personal AAPL 10 1 ORCL 10 1 ORCL 30 2 3 6";
+    String input = "1 sree 10000 1 personal 2 AAPL 10 1 ORCL 10 1 ORCL 30 2 3 6";
     in = new ByteArrayInputStream(input.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
@@ -1164,11 +2453,19 @@ public class ControllerImplTest {
             "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
-            "3.Get Composition\n" +
-            "4.Get Total Value on certain date\n" +
-            "5.Save\n" +
-            "6.Exit\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n" +
             "Enter portfolio name\n" +
+            "Select which kind of portfolio you wish to create\n" +
+            "1.Flexible Portfolio\n" +
+            "2.Inflexible Portfolio\n" +
             "Enter Stock Symbol\n" +
             "Enter number of shares\n" +
             "1.Add new stock\n" +

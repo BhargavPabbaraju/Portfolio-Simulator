@@ -28,6 +28,13 @@ public class FlexibleStocksListImpl implements FlexibleStocksList {
 
   @Override
   public void buyStock(String symbol, LocalDate date, float numberOfShares,float transactionCost) {
+    for (LocalDate key : stocksList.keySet()) {
+      if (key.compareTo(date) == 0) {
+        float shares = this.stocksList.get(key).getShares();
+        numberOfShares+=shares;
+      }
+
+    }
     FlexibleStock stock = new FlexibleStockImpl(symbol, date, numberOfShares,
             transactionCost);
     stocksList.put(date, stock);
@@ -37,6 +44,10 @@ public class FlexibleStocksListImpl implements FlexibleStocksList {
 
   @Override
   public void sellStock(String symbol, LocalDate date, float numberOfShares,float transactionCost) {
+    if(!checkIfStocksExists(date)){
+      throw new IllegalArgumentException("You need to buy a stock before you sell");
+    }
+
     if (currentShares >= numberOfShares) {
       FlexibleStock stock = new FlexibleStockImpl(symbol, date, -numberOfShares,
               transactionCost);
@@ -72,6 +83,9 @@ public class FlexibleStocksListImpl implements FlexibleStocksList {
 
   @Override
   public float getComposition(LocalDate date) {
+    if(!checkIfStocksExists(date)){
+      return -1.0f;
+    }
     float shares = 0;
     for (LocalDate key : stocksList.keySet()) {
       if (key.compareTo(date) <= 0) {
@@ -97,6 +111,21 @@ public class FlexibleStocksListImpl implements FlexibleStocksList {
   @Override
   public HashMap<LocalDate, FlexibleStock> getStocks() {
     return this.stocksList;
+  }
+  private boolean checkIfStocksExists(LocalDate date){
+    int c=0;
+    for (LocalDate key : stocksList.keySet()) {
+      if (date.compareTo(key) >= 0 && stocksList.get(key).getShares()>0) {
+        c=c+1;
+      }
+    }
+    if(c==0){
+
+      return false;
+    }else{
+      return true;
+    }
+
   }
 
 

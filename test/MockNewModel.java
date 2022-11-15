@@ -84,7 +84,17 @@ public class MockNewModel implements NewModel {
   }
 
   @Override
+  public boolean stockExists(String symbol) {
+    return false;
+  }
+
+  @Override
   public boolean portfolioExists(String portfolioName) {
+    return false;
+  }
+
+  @Override
+  public boolean portfolioExists() {
     return false;
   }
 

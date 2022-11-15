@@ -48,6 +48,11 @@ public class NewModelImpl extends ModelImpl implements  NewModel{
   }
 
   @Override
+  public boolean stockExists(String symbol) {
+    return this.user.stockExists(symbol);
+  }
+
+  @Override
   public boolean portfolioExists(String portfolioName) {
     if(Loader.isInvalidName(portfolioName)){
       throw new IllegalArgumentException("Portfolio name must not contain " +
@@ -57,7 +62,17 @@ public class NewModelImpl extends ModelImpl implements  NewModel{
   }
 
   @Override
+  public boolean portfolioExists() {
+    return this.user.portfolioExists();
+  }
+
+  @Override
   public StringBuilder getListOfPortfolios() {
     return user.getListOfPortfolios();
+  }
+
+  @Override
+  public boolean isValidDate(String date) {
+    return this.user.isValidDate(date);
   }
 }

@@ -12,4 +12,7 @@ public interface FlexiblePortfolio {
   float getCostBasis(LocalDate date);
 
   HashMap<String, FlexibleStocksList> getStocksList();
+
+  public boolean stockExists(String symbol);
+
 }

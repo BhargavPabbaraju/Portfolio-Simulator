@@ -2,9 +2,8 @@ package models;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.text.ParseException;
+
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -73,8 +72,6 @@ public class UserImpl implements User {
   }
 
 
-
-
   private void createFile(String userName) throws IOException {
     String path = "data" + File.separator + userName + ".json";
     File f = new File(path);
@@ -116,7 +113,7 @@ public class UserImpl implements User {
     return this.activePortfolio.getComposition();
   }
 
-  private LocalDate parseDate(String date){
+  private LocalDate parseDate(String date) {
     try {
       return LocalDate.parse(date,
               DateTimeFormatter.ISO_LOCAL_DATE);
@@ -126,37 +123,51 @@ public class UserImpl implements User {
   }
 
   @Override
-  public void buyStock(String symbol, String date, float numberOfShares,float transactionCost) {
+  public void buyStock(String symbol, String date, float numberOfShares, float transactionCost) {
 
-    this.activePortfolio.buyStock(symbol,parseDate(date),numberOfShares,transactionCost);
+    this.activePortfolio.buyStock(symbol, parseDate(date), numberOfShares, transactionCost);
   }
 
   @Override
-  public void sellStock(String symbol, String date, float numberOfShares,float transactionCost) {
-    this.activePortfolio.sellStock(symbol,parseDate(date),numberOfShares,transactionCost);
+  public void sellStock(String symbol, String date, float numberOfShares, float transactionCost) {
+    if (this.activePortfolio == null) {
+      throw new IllegalStateException("No portfolio created yet");
+    }
+    this.activePortfolio.sellStock(symbol, parseDate(date), numberOfShares, transactionCost);
   }
 
   @Override
   public StringBuilder getPlot(String startDate, String endDate) {
-    return this.activePortfolio.getPlot(parseDate(startDate),parseDate(endDate));
+    if (this.activePortfolio == null) {
+      throw new IllegalStateException("No portfolio created yet");
+    }
+    return this.activePortfolio.getPlot(parseDate(startDate), parseDate(endDate));
   }
 
   @Override
   public StringBuilder getComposition(String date) {
+    if (this.activePortfolio == null) {
+      throw new IllegalStateException("No portfolio created yet");
+    }
     return this.activePortfolio.getComposition(parseDate(date));
   }
 
   @Override
   public float getCostBasis(String date) {
+    if (this.activePortfolio == null) {
+      throw new IllegalStateException("No portfolio created yet");
+    }
     return this.activePortfolio.getCostBasis(parseDate(date));
   }
 
+
+
   @Override
   public boolean isFlexiblePortfolio() {
-    if(this.activePortfolio==null){
-      return false;
+    if (this.activePortfolio == null) {
+      return true;
     }
-    return  this.activePortfolio.flexible;
+    return this.activePortfolio.flexible;
   }
 
   @Override
@@ -168,12 +179,43 @@ public class UserImpl implements User {
   public StringBuilder getListOfPortfolios() {
     StringBuilder str = new StringBuilder();
 
-    str.append(String.format("%-40s%s%n","Portfolio","Type"));
-    for(String portfolioName:this.portfolioList.keySet()){
+    str.append(String.format("%-40s%s%n", "Portfolio", "Type"));
+    for (String portfolioName : this.portfolioList.keySet()) {
       String flexible = this.portfolioList.get(portfolioName).flexible ? "Flexible" : "Inflexible";
-      str.append(String.format("%-40s%s%n",portfolioName,flexible));
+      str.append(String.format("%-40s%s%n", portfolioName, flexible));
     }
     return str;
+  }
+
+  @Override
+  public boolean stockExists(String symbol) {
+    return this.activePortfolio.stockExists(symbol);
+  }
+
+  @Override
+  public boolean isValidDate(String date) {
+
+    try {
+      LocalDate now = LocalDate.parse(date,
+              DateTimeFormatter.ISO_LOCAL_DATE);
+      LocalDate today = LocalDate.now();
+      if (now.compareTo(today) > 0) {
+        return false;
+      }
+      if (now.getDayOfWeek() == DayOfWeek.SATURDAY || now.getDayOfWeek() == DayOfWeek.SUNDAY) {
+        throw new IllegalArgumentException("Date cannot be a weekend");
+      }
+      return true;
+    } catch (IllegalArgumentException e) {
+      throw e;
+    } catch (Exception e) {
+      throw new IllegalArgumentException("Date must be in yyyy-mm-dd format");
+    }
+  }
+
+  @Override
+  public boolean portfolioExists() {
+    return this.activePortfolio!=null;
   }
 
 
@@ -198,19 +240,19 @@ public class UserImpl implements User {
 
 
   @Override
-  public void createPortfolio(String portfolioName,boolean isFlexible) throws IllegalArgumentException {
+  public void createPortfolio(String portfolioName, boolean isFlexible) throws IllegalArgumentException {
     if (portfolioList.containsKey(portfolioName)) {
       throw new IllegalArgumentException("Portfolio already exists");
     } else {
       AbstractPortfolio portfolioObj;
-      if(isFlexible) {
+      if (isFlexible) {
         portfolioObj = new FlexiblePortfolioImpl(portfolioName, this);
-      }else{
+      } else {
         portfolioObj = new PortfolioImpl(portfolioName, this);
       }
 
       this.activePortfolio = portfolioObj;
-      this.portfolioList.put(portfolioName,  portfolioObj);
+      this.portfolioList.put(portfolioName, portfolioObj);
     }
   }
 

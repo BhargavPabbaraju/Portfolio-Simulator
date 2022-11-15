@@ -1,11 +1,18 @@
 {
     "Meta Data": {
         "2. Symbol": "ORCL",
-        "3. Last Refreshed": "2022-11-11",
+        "3. Last Refreshed": "2022-11-14",
         "4. Output Size": "Full size",
         "5. Time Zone": "US/Eastern"
     },
     "Time Series (Daily)": {
+        "2022-11-14": {
+            "1. open": "77.4800",
+            "2. high": "79.5350",
+            "3. low": "77.3350",
+            "4. close": "78.5300",
+            "5. volume": "7152952"
+        },
         "2022-11-11": {
             "1. open": "77.1300",
             "2. high": "77.8911",

@@ -85,17 +85,23 @@ public class ControllerImpl implements Controller {
   }
 
   private void createUser(String userName) {
+
     if(model.userExists(userName)){
       view.displayMessage("User already exists");
       initialMenu();
+      return;
+
     }
     try {
       float balance =  floatHandler("Balance");
       model.createUser(userName, balance);
       view.displayMessage("User successfully created");
+      flexiblePortfolioOptions();
+
     } catch (Exception e) {
       view.displayMessage(e.getMessage());
       initialMenu();
+
     }
   }
 
@@ -117,11 +123,14 @@ public class ControllerImpl implements Controller {
     if (isOptionInvalid(2)) {
 
       initialMenu();
+      return;
+
     }
     view.askForUsername();
     String userName = in.next();
     if (option == 1) {
       createUser(userName);
+
     } else if (option == 2) {
       loadUser(userName);
     }
@@ -138,11 +147,12 @@ public class ControllerImpl implements Controller {
       }
 
     } else {
+      in.next();
       invalid = true;
     }
 
     if (invalid) {
-      in.next();
+
       view.displayMessage("Option must be one of the following numbers");
 
     }
@@ -152,13 +162,17 @@ public class ControllerImpl implements Controller {
   @Override
   public void goController() {
     initialMenu();
+
     while (!quit) {
+
       if(model.isFlexiblePortfolio()){
         flexiblePortfolioOptions();
       }else{
         mainMenu();
       }
+
     }
+
   }
 
   private void mainMenu() {
@@ -285,7 +299,8 @@ public class ControllerImpl implements Controller {
       flexiblePortfolioOptions();
     }catch(Exception e){
       view.displayMessage(e.getMessage());
-      buySellStock(buying);
+
+      flexiblePortfolioOptions();
     }
 
 
@@ -293,9 +308,13 @@ public class ControllerImpl implements Controller {
   private void buySellStock(boolean buying){
 
     String symbol = symbolHandler();
-    int shares = sharesHandler();
+    if(!buying && !model.stockExists(symbol)){
+      view.displayMessage("Stock doesn't exist in portfolio");
+      flexiblePortfolioOptions();
+    }
     float transactionCost = floatHandler("Transaction Cost");
     String date = dateHandler("");
+    int shares = sharesHandler();
     buySellStockHelper(symbol,shares,transactionCost,date,buying);
 
 
@@ -306,6 +325,7 @@ public class ControllerImpl implements Controller {
     String portfolioName = "";
     if (isOptionInvalid(11)) {
       flexiblePortfolioOptions();
+      return;
     }
     if (option < 3) {
       view.askForPortfolioName();
@@ -313,7 +333,16 @@ public class ControllerImpl implements Controller {
         portfolioName = in.next();
       } catch (Exception e) {
         view.displayMessage(e.getMessage());
-        mainMenu();
+        flexiblePortfolioOptions();
+        return;
+      }
+    }
+
+    if(option>2 && option<11){
+      if(!model.portfolioExists()){
+        view.displayMessage("You should create at least one portfolio");
+        flexiblePortfolioOptions();
+        return;
       }
     }
 
@@ -453,6 +482,7 @@ public class ControllerImpl implements Controller {
     int shares = sharesHandler();
     try{
       model.addStockToPortfolio(symbol, shares);
+      addNewStock();
     }catch (Exception e) {
       view.displayMessage(e.getMessage());
       addAStock();

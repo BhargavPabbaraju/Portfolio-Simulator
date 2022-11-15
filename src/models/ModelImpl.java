@@ -13,21 +13,7 @@ import java.time.format.DateTimeFormatter;
 public class ModelImpl implements Model {
   protected User user;
 
-  @Override
-  public boolean isValidDate(String date) {
 
-    try{
-    LocalDate now = LocalDate.parse(date,
-              DateTimeFormatter.ISO_LOCAL_DATE);
-    LocalDate today = LocalDate.now();
-    if(now.compareTo(today)>0){
-      return false;
-    }
-    return true;
-    }catch(Exception e){
-      throw new IllegalArgumentException("Date must be in yyyy-mm-dd format");
-    }
-  }
 
   @Override
   public void createUser(String userName, float balance) {

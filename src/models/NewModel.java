@@ -20,8 +20,14 @@ public interface NewModel extends Model {
 
   boolean userExists(String userName);
 
+  boolean stockExists(String symbol);
+
   boolean portfolioExists(String portfolioName);
 
+  boolean portfolioExists();
+
   StringBuilder getListOfPortfolios();
+
+  public boolean isValidDate(String date);
 
 }

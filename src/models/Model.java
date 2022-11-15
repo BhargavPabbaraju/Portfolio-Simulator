@@ -78,5 +78,5 @@ public interface Model {
    */
   void save() throws IOException;
 
-  boolean isValidDate(String date);
+
 }
