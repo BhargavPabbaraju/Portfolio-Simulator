@@ -146,4 +146,83 @@ public class ViewImplTest {
             "2.Back to main menu\n";
     assertEquals(expectedResult, bytes.toString());
   }
+
+  @Test
+  public void testDisplayPortfolioTypesMenu(){
+    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+    PrintStream out = new PrintStream(bytes);
+    view = new ViewImpl(out);
+    view.displayPortfolioTypesMenu();
+    String expectedResult = "Select which kind of portfolio you wish to create\n" +
+            "1.Flexible Portfolio\n" +
+            "2.Inflexible Portfolio\n";
+    assertEquals(expectedResult, bytes.toString());
+  }
+  @Test
+  public void testDisplayFlexibleMenu(){
+    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+    PrintStream out = new PrintStream(bytes);
+    view = new ViewImpl(out);
+    view.displayFlexibleMenu();
+    String expectedResult = "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n";
+    assertEquals(expectedResult, bytes.toString());
+  }
+  @Test
+  public void askForStartDate(){
+    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+    PrintStream out = new PrintStream(bytes);
+    view = new ViewImpl(out);
+    view.askForStartDate();
+    String expectedResult = "Enter start date(yyyy-mm-dd)\n";
+    assertEquals(expectedResult, bytes.toString());
+  }
+  @Test
+  public void askForEndDate(){
+    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+    PrintStream out = new PrintStream(bytes);
+    view = new ViewImpl(out);
+    view.askForEndDate();
+    String expectedResult = "Enter end date(yyyy-mm-dd)\n";
+    assertEquals(expectedResult, bytes.toString());
+  }
+
+  @Test
+  public void testDisplayCostBasis(){
+    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+    PrintStream out = new PrintStream(bytes);
+    view = new ViewImpl(out);
+    view.displayCostBasis("2022-11-01",101.45f);
+    String expectedResult = "Cost basis till 2022-11-01 is $101.45\n";
+    assertEquals(expectedResult, bytes.toString());
+  }
+  @Test
+  public
+  void askForTransactionCost(){
+    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+    PrintStream out = new PrintStream(bytes);
+    view = new ViewImpl(out);
+    view.askForTransactionCost();
+    String expectedResult = "Enter transaction cost\n";
+    assertEquals(expectedResult, bytes.toString());
+  }
+  @Test
+  public void testDisplayListOfPortfolios(){
+    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+    PrintStream out = new PrintStream(bytes);
+    view = new ViewImpl(out);
+    view.displayListOfPortfolios(new StringBuilder("portfolio"));
+    String expectedResult = "portfolio\n";
+    assertEquals(expectedResult, bytes.toString());
+  }
 }

@@ -231,15 +231,23 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements Flexible
 
 
     StringBuilder plot = new StringBuilder();
+    boolean moreThan50 = false;
     plot.append(String.format("Performance of portfolio %s from %s to %s\n",
             portfolioName, formatDate(startDate, pattern), formatDate(endDate, pattern)));
     for (int i = 0; i < dates.size(); i++) {
       int numberOfStars = (int) Math.floor(values.get(i) / scale);
+      if(numberOfStars>50){
+        numberOfStars = 50;
+        moreThan50 = true;
+      }
       String date = formatDate(dates.get(i), pattern);
       String stars = formStars(numberOfStars);
       plot.append(date + " : " + stars + "\n");
     }
     plot.append("Scale: * = $" + (int) scale + "\n");
+    if(moreThan50){
+      plot.append("Maximum plot length is 50 *'s. Remaining *'s are truncated");
+    }
 
     return plot;
   }
