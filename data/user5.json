@@ -1,10 +1,10 @@
 {
   "name": "user5",
-  "balance": 12000.0,
+  "balance": 22000.0,
   "portfolios": [
     {
       "name": "college",
-      "flexible": "false",
+      "flexible": false,
       "stocks": [
         {
           "symbol": "MSFT",
@@ -15,7 +15,7 @@
     },
     {
       "name": "retir",
-      "flexible": "true",
+      "flexible": true,
       "stocks": {
         "GOOG": {
           "2022-08-01": {

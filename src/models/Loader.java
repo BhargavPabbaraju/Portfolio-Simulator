@@ -106,7 +106,8 @@ class Loader {
   }
 
   private static boolean dontPutQuotes(String key, String value) {
-    return key.equals("shares") || key.equals("balance") || value.equals("[") || value.equals("{")
+    return key.equals("shares") || key.equals("balance") || key.equals("flexible")
+            || value.equals("[") || value.equals("{")
             || key.equals("transactionCost");
   }
 
