@@ -3632,4 +3632,62 @@ public class ControllerImplTest {
             "11.Exit\n";
     assertEquals(expectedOutput, bytes.toString());
   }
+
+  @Test
+  public void testSellingbuyingsyncronously() {
+    NewModel model = new NewModelImpl();
+
+    ByteArrayInputStream in;
+
+    String input = "2 user5 1 abcd 1 AAPL 10 2022-01-03 50 3 AAPL 10 2022-01-10 5 4 AAPL 10 2022-01-06 30 11";
+    in = new ByteArrayInputStream(input.getBytes());
+    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+    PrintStream out = new PrintStream(bytes);
+
+    View view = new ViewImpl(out);
+
+    ControllerImpl controller = new ControllerImpl(model, view, in);
+    controller.goController();
+    String expectedOutput = "To select a particular option,enter the number next to it\n" +
+            "\n" +
+            "1.Create User\n" +
+            "2.Load User\n" +
+            "Enter username\n" +
+            "\n" +
+            "User successfully loaded\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n" +
+            "Enter Stock Symbol\n" +
+            "Enter transaction cost\n" +
+            "Enter date(yyyy-mm-dd)\n" +
+            "\n" +
+            "Date must be in yyyy-mm-dd format\n" +
+            "Enter date(yyyy-mm-dd)\n" +
+            "Enter number of shares\n" +
+            "\n" +
+            "Successfully sold stocks\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n";
+    assertEquals(expectedOutput, bytes.toString());
+  }
 }

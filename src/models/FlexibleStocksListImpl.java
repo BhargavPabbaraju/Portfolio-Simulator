@@ -55,12 +55,31 @@ public class FlexibleStocksListImpl implements FlexibleStocksList {
     if (!checkIfStocksExists(date)) {
       throw new IllegalArgumentException("You need to buy a stock before you sell");
     }
-
+    float shares = 0;
     if (currentShares >= numberOfShares) {
-      FlexibleStock stock = new FlexibleStockImpl(symbol, date, -numberOfShares,
-              transactionCost);
-      stocksList.put(date, stock);
-      currentShares -= numberOfShares;
+      float beforeValues = 0;
+      for (LocalDate key : stocksList.keySet()) {
+        if (key.compareTo(date) <= 0) {
+          beforeValues += this.stocksList.get(key).getShares();
+        }
+
+      }
+      if (beforeValues>=numberOfShares) {
+        for (LocalDate key : stocksList.keySet()) {
+          if (key.compareTo(date) == 0) {
+            shares = this.stocksList.get(key).getShares();
+          }
+
+        }
+        FlexibleStock stock = new FlexibleStockImpl(symbol, date, -numberOfShares + shares,
+                transactionCost);
+        stocksList.put(date, stock);
+        currentShares -= numberOfShares;
+      }else{
+        throw new IllegalArgumentException("You have only " + beforeValues + " of " + symbol
+                + " before the entered date");
+
+      }
     } else {
       throw new IllegalArgumentException("You have only " + currentShares + " of " + symbol
               + " after the last transaction");
@@ -69,20 +88,20 @@ public class FlexibleStocksListImpl implements FlexibleStocksList {
   }
 
   @Override
-  public ArrayList<Float> getPlot(ArrayList<LocalDate> datesList,ApiType apiType) {
+  public ArrayList<Float> getPlot(ArrayList<LocalDate> datesList, ApiType apiType) {
     ArrayList<Float> values = new ArrayList<>();
     for (LocalDate date : datesList) {
-      values.add(getValue(date,apiType));
+      values.add(getValue(date, apiType));
     }
     return values;
   }
 
   @Override
-  public float getValue(LocalDate date,ApiType apiType) {
+  public float getValue(LocalDate date, ApiType apiType) {
     float value = 0;
     for (LocalDate key : stocksList.keySet()) {
       if (date.compareTo(key) >= 0) {
-        value += this.stocksList.get(key).getValue(date,apiType);
+        value += this.stocksList.get(key).getValue(date, apiType);
       }
     }
     return value;
@@ -110,7 +129,7 @@ public class FlexibleStocksListImpl implements FlexibleStocksList {
     float cost = 0;
     for (LocalDate key : stocksList.keySet()) {
       if (date.compareTo(key) >= 0) {
-        cost += this.stocksList.get(key).getCostBasis(date,apiType);
+        cost += this.stocksList.get(key).getCostBasis(date, apiType);
       }
     }
     return cost;
