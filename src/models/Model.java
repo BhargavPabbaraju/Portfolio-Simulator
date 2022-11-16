@@ -32,16 +32,17 @@ public interface Model {
    *
    * @param portfolioName String which is unique for each user
    */
-  void createPortfolio(String portfolioName,boolean isFlexible);
+  void createPortfolio(String portfolioName, boolean isFlexible);
 
   /**
    * This method is used to get the total value of this user's active portfolio on a certain date.
    * If weekend values are govern then it tells the user to enter a date which is not weekend.
    *
-   * @param date String which is given by the user
+   * @param date    String which is given by the user
+   * @param apiType ApiType used determine which third party api is to be called.
    * @return total value of the portfolio on a certain date.
    */
-  float getTotalValue(String date);
+  float getTotalValue(String date, ApiType apiType);
 
   /**
    * This method is used to get the composition of this user's active portfolio. Composition shows

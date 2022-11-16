@@ -3004,7 +3004,7 @@ public class ControllerImplTest {
 
     ByteArrayInputStream in;
 
-    String input = "2 user5 3 AP AAPL 10 2022-11-04 10 11";
+    String input = "2 user5 3 AsP AAPL 10 2022-11-04 10 11";
     in = new ByteArrayInputStream(input.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
@@ -3062,7 +3062,7 @@ public class ControllerImplTest {
 
     ByteArrayInputStream in;
 
-    String input = "2 user5 3 AP AAPL 10 2022-11-06 2022-11-04 10 11";
+    String input = "2 user5 3 AsP AAPL 10 2022-11-06 2022-11-04 10 11";
     in = new ByteArrayInputStream(input.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
@@ -3123,7 +3123,7 @@ public class ControllerImplTest {
 
     ByteArrayInputStream in;
 
-    String input = "2 user5 3 AP AAPL 10 2022-11-22 2022-11-04 10 11";
+    String input = "2 user5 3 AAPL 10 2022-11-22 2022-11-04 10 11";
     in = new ByteArrayInputStream(input.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
@@ -3151,9 +3151,6 @@ public class ControllerImplTest {
             "9.Get Plot within a certain date range\n" +
             "10.Save\n" +
             "11.Exit\n" +
-            "Enter Stock Symbol\n" +
-            "\n" +
-            "Invalid symbol\n" +
             "Enter Stock Symbol\n" +
             "Enter transaction cost\n" +
             "Enter date(yyyy-mm-dd)\n" +
@@ -3184,7 +3181,7 @@ public class ControllerImplTest {
 
     ByteArrayInputStream in;
 
-    String input = "2 user5 3 AP AAPL 10 2022-11-2asd2 2022-11-04 10 11";
+    String input = "2 user5 3 AsP AAPL 10 2022-11-2asd2 2022-11-04 10 11";
     in = new ByteArrayInputStream(input.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
@@ -3224,6 +3221,403 @@ public class ControllerImplTest {
             "Enter number of shares\n" +
             "\n" +
             "Successfully bought stocks\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n";
+    assertEquals(expectedOutput, bytes.toString());
+  }
+
+  @Test
+  public void testSellStock() {
+    NewModel model = new NewModelImpl();
+
+    ByteArrayInputStream in;
+
+    String input = "2 user5 4 GOOG 10 2022-11-14 5 11";
+    in = new ByteArrayInputStream(input.getBytes());
+    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+    PrintStream out = new PrintStream(bytes);
+
+    View view = new ViewImpl(out);
+
+    ControllerImpl controller = new ControllerImpl(model, view, in);
+    controller.goController();
+    String expectedOutput = "To select a particular option,enter the number next to it\n" +
+            "\n" +
+            "1.Create User\n" +
+            "2.Load User\n" +
+            "Enter username\n" +
+            "\n" +
+            "User successfully loaded\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n" +
+            "Enter Stock Symbol\n" +
+            "Enter transaction cost\n" +
+            "Enter date(yyyy-mm-dd)\n" +
+            "Enter number of shares\n" +
+            "\n" +
+            "Successfully sold stocks\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n";
+    assertEquals(expectedOutput, bytes.toString());
+  }
+
+  @Test
+  public void testSellStockInvalidSymbol() {
+    NewModel model = new NewModelImpl();
+
+    ByteArrayInputStream in;
+
+    String input = "2 user5 4 GOO GOOG 10 2022-11-14 5 11";
+    in = new ByteArrayInputStream(input.getBytes());
+    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+    PrintStream out = new PrintStream(bytes);
+
+    View view = new ViewImpl(out);
+
+    ControllerImpl controller = new ControllerImpl(model, view, in);
+    controller.goController();
+    String expectedOutput = "To select a particular option,enter the number next to it\n" +
+            "\n" +
+            "1.Create User\n" +
+            "2.Load User\n" +
+            "Enter username\n" +
+            "\n" +
+            "User successfully loaded\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n" +
+            "Enter Stock Symbol\n" +
+            "\n" +
+            "Invalid symbol\n" +
+            "Enter Stock Symbol\n" +
+            "Enter transaction cost\n" +
+            "Enter date(yyyy-mm-dd)\n" +
+            "Enter number of shares\n" +
+            "\n" +
+            "Successfully sold stocks\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n";
+    assertEquals(expectedOutput, bytes.toString());
+  }
+
+  @Test
+  public void testSellStockBeforeBuying() {
+    NewModel model = new NewModelImpl();
+
+    ByteArrayInputStream in;
+
+    String input = "2 user5 4 GOOG 10 2020-11-13 5  11";
+    in = new ByteArrayInputStream(input.getBytes());
+    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+    PrintStream out = new PrintStream(bytes);
+
+    View view = new ViewImpl(out);
+
+    ControllerImpl controller = new ControllerImpl(model, view, in);
+    controller.goController();
+    String expectedOutput = "To select a particular option,enter the number next to it\n" +
+            "\n" +
+            "1.Create User\n" +
+            "2.Load User\n" +
+            "Enter username\n" +
+            "\n" +
+            "User successfully loaded\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n" +
+            "Enter Stock Symbol\n" +
+            "Enter transaction cost\n" +
+            "Enter date(yyyy-mm-dd)\n" +
+            "Enter number of shares\n" +
+            "\n" +
+            "You need to buy a stock before you sell\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n";
+    assertEquals(expectedOutput, bytes.toString());
+  }
+
+  @Test
+  public void testSellMoreStocks() {
+    NewModel model = new NewModelImpl();
+
+    ByteArrayInputStream in;
+
+    String input = "2 user5 4 GOOG 10 2022-11-14 500  11";
+    in = new ByteArrayInputStream(input.getBytes());
+    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+    PrintStream out = new PrintStream(bytes);
+
+    View view = new ViewImpl(out);
+
+    ControllerImpl controller = new ControllerImpl(model, view, in);
+    controller.goController();
+    String expectedOutput = "To select a particular option,enter the number next to it\n" +
+            "\n" +
+            "1.Create User\n" +
+            "2.Load User\n" +
+            "Enter username\n" +
+            "\n" +
+            "User successfully loaded\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n" +
+            "Enter Stock Symbol\n" +
+            "Enter transaction cost\n" +
+            "Enter date(yyyy-mm-dd)\n" +
+            "Enter number of shares\n" +
+            "\n" +
+            "You have only 40.0 of GOOG after the last transaction\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n";
+    assertEquals(expectedOutput, bytes.toString());
+  }
+
+  @Test
+  public void testSellingFutureDate() {
+    NewModel model = new NewModelImpl();
+
+    ByteArrayInputStream in;
+
+    String input = "2 user5 4 GOOG 10 2022-11-30 2022-11-14 5 11";
+    in = new ByteArrayInputStream(input.getBytes());
+    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+    PrintStream out = new PrintStream(bytes);
+
+    View view = new ViewImpl(out);
+
+    ControllerImpl controller = new ControllerImpl(model, view, in);
+    controller.goController();
+    String expectedOutput = "To select a particular option,enter the number next to it\n" +
+            "\n" +
+            "1.Create User\n" +
+            "2.Load User\n" +
+            "Enter username\n" +
+            "\n" +
+            "User successfully loaded\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n" +
+            "Enter Stock Symbol\n" +
+            "Enter transaction cost\n" +
+            "Enter date(yyyy-mm-dd)\n" +
+            "\n" +
+            "Date cannot be a future date\n" +
+            "Enter date(yyyy-mm-dd)\n" +
+            "Enter number of shares\n" +
+            "\n" +
+            "Successfully sold stocks\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n";
+    assertEquals(expectedOutput, bytes.toString());
+  }
+
+  @Test
+  public void testSellingWeekendDate() {
+    NewModel model = new NewModelImpl();
+
+    ByteArrayInputStream in;
+
+    String input = "2 user5 4 GOOG 10 2022-11-13 2022-11-14 5 11";
+    in = new ByteArrayInputStream(input.getBytes());
+    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+    PrintStream out = new PrintStream(bytes);
+
+    View view = new ViewImpl(out);
+
+    ControllerImpl controller = new ControllerImpl(model, view, in);
+    controller.goController();
+    String expectedOutput = "To select a particular option,enter the number next to it\n" +
+            "\n" +
+            "1.Create User\n" +
+            "2.Load User\n" +
+            "Enter username\n" +
+            "\n" +
+            "User successfully loaded\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n" +
+            "Enter Stock Symbol\n" +
+            "Enter transaction cost\n" +
+            "Enter date(yyyy-mm-dd)\n" +
+            "\n" +
+            "Date cannot be a weekend\n" +
+            "Enter date(yyyy-mm-dd)\n" +
+            "Enter number of shares\n" +
+            "\n" +
+            "Successfully sold stocks\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n";
+    assertEquals(expectedOutput, bytes.toString());
+  }
+
+  @Test
+  public void testSellingInvalidDate() {
+    NewModel model = new NewModelImpl();
+
+    ByteArrayInputStream in;
+
+    String input = "2 user5 4 GOOG 10 2022-11-1as3 2022-11-14 5 11";
+    in = new ByteArrayInputStream(input.getBytes());
+    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+    PrintStream out = new PrintStream(bytes);
+
+    View view = new ViewImpl(out);
+
+    ControllerImpl controller = new ControllerImpl(model, view, in);
+    controller.goController();
+    String expectedOutput = "To select a particular option,enter the number next to it\n" +
+            "\n" +
+            "1.Create User\n" +
+            "2.Load User\n" +
+            "Enter username\n" +
+            "\n" +
+            "User successfully loaded\n" +
+            "\n" +
+            "1.Create Portfolio\n" +
+            "2.Load Portfolio\n" +
+            "3.Buy Stock\n" +
+            "4.Sell Stock\n" +
+            "5.View List of Portfolios\n" +
+            "6.Get Cost basis on certain date\n" +
+            "7.Get Composition on certain date\n" +
+            "8.Get Total Value on certain date\n" +
+            "9.Get Plot within a certain date range\n" +
+            "10.Save\n" +
+            "11.Exit\n" +
+            "Enter Stock Symbol\n" +
+            "Enter transaction cost\n" +
+            "Enter date(yyyy-mm-dd)\n" +
+            "\n" +
+            "Date must be in yyyy-mm-dd format\n" +
+            "Enter date(yyyy-mm-dd)\n" +
+            "Enter number of shares\n" +
+            "\n" +
+            "Successfully sold stocks\n" +
             "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +

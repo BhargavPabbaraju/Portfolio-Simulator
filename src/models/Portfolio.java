@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 
 /**
- * This interface represents the operations on a single portfolio. It contains a hash
+ * This interface represents the operations on a single portfolio.
  */
 interface Portfolio {
 
@@ -36,7 +36,7 @@ interface Portfolio {
    * @param date String which is given by the user
    * @return total value of the portfolio on a certain date.
    */
-  float getTotalValue(String date);
+  float getTotalValue(String date,ApiType apiType);
 
   /**
    * This method is used to get the composition of this user's active portfolio. Composition shows

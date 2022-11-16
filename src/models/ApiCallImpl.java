@@ -28,7 +28,6 @@ public class ApiCallImpl {
   private static String apiKey = "O7XGNPGQU35IKLRW";
 
 
-
   private static Cache cache;
 
   private static String errorString = "\"Note\": \"Thank you for using Alpha Vantage! Our " +
@@ -53,9 +52,9 @@ public class ApiCallImpl {
    * @param date        the date in string format to get the share value
    * @return returns a float which is the share value of that company on a particular date.
    */
-  public static float getData(String stockSymbol, LocalDate date) throws IllegalArgumentException {
+  public static float getData(String stockSymbol, LocalDate date, ApiType apiType) throws IllegalArgumentException {
     String dateString = date.toString();
-    return dataChecking(stockSymbol, dateString);
+    return dataChecking(stockSymbol, dateString, apiType);
   }
 
   /**
@@ -68,22 +67,22 @@ public class ApiCallImpl {
     return cache.validSymbol(symbol);
   }
 
-  private static float dataChecking(String stockSymbol, String dateString) {
+  private static float dataChecking(String stockSymbol, String dateString, ApiType apiType) {
     JsonObject data = cache.getTimeData(stockSymbol);
     if (data != null) {
       try {
         return getShareValue(data, dateString);
       } catch (IllegalArgumentException e) {
         cache.remove(stockSymbol);
-        return stockValue(stockSymbol, dateString);
+        return stockValue(stockSymbol, dateString, apiType);
       }
     } else {
-      return stockValue(stockSymbol, dateString);
+      return stockValue(stockSymbol, dateString, apiType);
     }
   }
 
-  private static float stockValue(String stockSymbol, String dateString) {
-    JsonObject data = apiInteration(stockSymbol);
+  private static float stockValue(String stockSymbol, String dateString, ApiType apiType) {
+    JsonObject data = apiInteration(stockSymbol, apiType);
     if (data == null) {
       return cache.getSymbolData(stockSymbol);
     } else {
@@ -91,8 +90,8 @@ public class ApiCallImpl {
     }
   }
 
-  private static JsonObject apiInteration(String stockSymbol) {
-    String output = getJsonFormat(stockSymbol);
+  private static JsonObject apiInteration(String stockSymbol, ApiType apiType) {
+    String output = getJsonFormat(stockSymbol, apiType);
     removeMetaDataInFile(stockSymbol, output);
     JsonObject data = parseJson(stockSymbol);
     if (data != null) {
@@ -103,7 +102,7 @@ public class ApiCallImpl {
   }
 
   private static float getShareValue(JsonObject timeseries, String date) {
-    return Float.parseFloat(timeseries.get(date).get("2.high").toString());
+    return Float.parseFloat(timeseries.get(date).get("4. close").toString());
   }
 
   private static JsonObject parseJson(String symbol) {
@@ -117,8 +116,8 @@ public class ApiCallImpl {
     return json.get("TimeSeries(Daily)");
   }
 
-  private static String getJsonFormat(String stockSymbol) {
-    URL url = getURL(stockSymbol);
+  private static String getJsonFormat(String stockSymbol, ApiType apiType) {
+    URL url = getURL(stockSymbol, apiType);
     InputStream in = null;
     StringBuilder output = new StringBuilder();
 
@@ -169,7 +168,21 @@ public class ApiCallImpl {
 
   }
 
-  private static URL getURL(String stockSymbol) {
+  private static URL getURL(String stockSymbol, ApiType apiType) {
+    URL url = null;
+    switch (apiType) {
+      case ALPHA_VANTAGE:
+        url = getAplhaVantageURL(stockSymbol, apiType);
+        break;
+      default:
+        url = getAplhaVantageURL(stockSymbol, apiType);
+        break;
+    }
+    return url;
+
+  }
+
+  private static URL getAplhaVantageURL(String stockSymbol, ApiType apiType) {
     URL url = null;
     try {
       url = new URL("https://www.alphavantage"
@@ -183,6 +196,8 @@ public class ApiCallImpl {
     }
     return url;
 
+
   }
+
 }
 

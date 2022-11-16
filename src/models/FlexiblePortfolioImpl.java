@@ -21,6 +21,14 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements Flexible
   HashMap<String, FlexibleStocksList> stockList;// {AAPl:{Stocks},IBM:{Stocks}}
   User user;
 
+  /**
+   * This constructor creates a portfolio for this user.
+   * Note: Portfolio name must not contain the following characters: {}[],:"\
+   *
+   * @param portfolioName String which is unique for each user
+   * @param user          user object
+   * @throws IllegalArgumentException if a user has already created a portfolio with this name.
+   */
   FlexiblePortfolioImpl(String portfolioName, User user) throws IllegalArgumentException {
     if (Loader.isInvalidName(portfolioName)) {
       throw new IllegalArgumentException(
@@ -125,15 +133,15 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements Flexible
   }
 
   private StringBuilder getPlotHelper(ArrayList<LocalDate> dates, String pattern,
-                                      LocalDate startDate, LocalDate endDate) {
+                                      LocalDate startDate, LocalDate endDate,ApiType apiType) {
     ArrayList<Float> values = new ArrayList<>();
     Iterator<LocalDate> itr = dates.iterator();
     while (itr.hasNext()) {
       LocalDate date = itr.next();
       try {
-        values.add(getTotalValue(date.toString()));
+        values.add(getTotalValue(date.toString(),apiType));
       } catch (Exception e) { //Holidays
-        values.add(getTotalValue(weekendValidation(date.minusDays(1)).toString()));
+        values.add(getTotalValue(weekendValidation(date.minusDays(1)).toString(),apiType));
 
       }
     }
@@ -148,7 +156,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements Flexible
   }
 
   @Override
-  public StringBuilder getPlot(LocalDate startDate, LocalDate endDate) {
+  public StringBuilder getPlot(LocalDate startDate, LocalDate endDate,ApiType apiType) {
     ArrayList<LocalDate> dates;
     if (startDate.compareTo(endDate) > 0) {
       LocalDate temp = endDate;
@@ -163,27 +171,27 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements Flexible
     try {
       if (daysBetween <= maximumPlots) { //Day wise
         dates = dayWiseList(startDate, endDate, 1);
-        return getPlotHelper(dates, "MMM dd", startDate, endDate);
+        return getPlotHelper(dates, "MMM dd", startDate, endDate,apiType);
 
 
       } else if (notFiveMonthsApart(daysBetween)) {
         int numberOfDaysToAdd = (int) daysBetween / 5;
         dates = dayWiseList(startDate, endDate, numberOfDaysToAdd);
-        return getPlotHelper(dates, "MMM dd", startDate, endDate);
+        return getPlotHelper(dates, "MMM dd", startDate, endDate,apiType);
       } else if (withinTheSameYear(daysBetween)) {
         dates = monthWiseList(startDate, endDate, 1);
-        return getPlotHelper(dates, "MMM yyyy", startDate, endDate);
+        return getPlotHelper(dates, "MMM yyyy", startDate, endDate,apiType);
 
       } else if (notFiveYearsApart(daysBetween)) {
         dates = monthWiseList(startDate, endDate, 3);
-        return getPlotHelper(dates, "MMM yyyy", startDate, endDate);
+        return getPlotHelper(dates, "MMM yyyy", startDate, endDate,apiType);
       } else {
         int yearsToAdd = 1;
         if (daysBetween / 365 > 10) {
           yearsToAdd = (int) daysBetween / 365 / 10;
         }
         dates = yearWiseList(startDate, endDate, yearsToAdd);
-        return getPlotHelper(dates, "yyyy", startDate, endDate);
+        return getPlotHelper(dates, "yyyy", startDate, endDate,apiType);
       }
     } catch (Exception e) {
       throw new IllegalArgumentException("This stock wasn't yet established on " + startDate);
@@ -234,18 +242,21 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements Flexible
     boolean moreThan50 = false;
     plot.append(String.format("Performance of portfolio %s from %s to %s\n",
             portfolioName, formatDate(startDate, pattern), formatDate(endDate, pattern)));
+
     for (int i = 0; i < dates.size(); i++) {
       int numberOfStars = (int) Math.floor(values.get(i) / scale);
-      if(numberOfStars>50){
+      String value="";
+      if (numberOfStars > 50) {
         numberOfStars = 50;
         moreThan50 = true;
+        value = String.format("($%.2f)",values.get(i));
       }
       String date = formatDate(dates.get(i), pattern);
       String stars = formStars(numberOfStars);
-      plot.append(date + " : " + stars + "\n");
+      plot.append(date + " : " + stars + value+ "\n");
     }
     plot.append("Scale: * = $" + (int) scale + "\n");
-    if(moreThan50){
+    if (moreThan50) {
       plot.append("Maximum plot length is 50 *'s. Remaining *'s are truncated");
     }
 
@@ -282,7 +293,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements Flexible
   }
 
   @Override
-  public float getTotalValue(String date) {
+  public float getTotalValue(String date,ApiType apiType) {
     LocalDate dateValue;
     try {
       dateValue = LocalDate.parse(date,
@@ -293,7 +304,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements Flexible
     dateValidation(dateValue);
     float value = 0;
     for (String key : stockList.keySet()) {
-      value += this.stockList.get(key).getValue(dateValue);
+      value += this.stockList.get(key).getValue(dateValue,apiType);
     }
     return value;
   }
@@ -320,10 +331,10 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements Flexible
   }
 
   @Override
-  public float getCostBasis(LocalDate date) {
+  public float getCostBasis(LocalDate date,ApiType apiType) {
     float cost = 0;
     for (String key : stockList.keySet()) {
-      cost += this.stockList.get(key).getCostBasis(date);
+      cost += this.stockList.get(key).getCostBasis(date,apiType);
     }
     return cost;
   }

@@ -40,8 +40,8 @@ public class ModelImpl implements Model {
   }
 
   @Override
-  public float getTotalValue(String date) {
-    return this.user.getTotalValue(date);
+  public float getTotalValue(String date,ApiType apiType) {
+    return this.user.getTotalValue(date,apiType);
   }
 
   @Override

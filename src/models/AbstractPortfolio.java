@@ -22,7 +22,7 @@ public abstract class AbstractPortfolio implements Portfolio,FlexiblePortfolio{
   }
 
   @Override
-  public StringBuilder getPlot(LocalDate startDate, LocalDate endDate) {
+  public StringBuilder getPlot(LocalDate startDate, LocalDate endDate,ApiType apiType) {
     //throw exception for inflexible
     return null;
   }
@@ -35,7 +35,7 @@ public abstract class AbstractPortfolio implements Portfolio,FlexiblePortfolio{
   }
 
   @Override
-  public float getCostBasis(LocalDate date) {
+  public float getCostBasis(LocalDate date,ApiType apiType) {
     //throw exception for inflexible
     return 0;
   }
@@ -51,7 +51,7 @@ public abstract class AbstractPortfolio implements Portfolio,FlexiblePortfolio{
   }
 
   @Override
-  public abstract float getTotalValue(String date);
+  public abstract float getTotalValue(String date,ApiType apiType);
 
   @Override
   public StringBuilder getComposition(){

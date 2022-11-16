@@ -73,21 +73,45 @@ public interface View {
   /**
    * This method displays the menu to add a new stock.
    */
-
   void displayAddNewStockMenu();
 
+  /**
+   * This method displays the type of portfolios to choose from.
+   */
   void displayPortfolioTypesMenu();
 
+  /**
+   * This method displays menu for flexible portfolios.
+   */
   void displayFlexibleMenu();
 
+  /**
+   * This method prompts the user to enter start date .
+   */
   void askForStartDate();
 
+  /**
+   * This method prompts the user to enter end date .
+   */
   void askForEndDate();
 
+  /**
+   * This method displays the given costbasis of a portfolio.
+   *
+   * @param date      composition sent from controller
+   * @param costBasis composition sent from controller
+   */
+  void displayCostBasis(String date, float costBasis);
 
-  void displayCostBasis(String date,float costBasis);
-
+  /**
+   * This method prompts the user to enter transaction cost .
+   */
   void askForTransactionCost();
 
+  /**
+   * This method displays the given list of  portfolio.
+   *
+   * @param listOfPortfolios Stringbuilder
+   */
   void displayListOfPortfolios(StringBuilder listOfPortfolios);
 }

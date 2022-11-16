@@ -94,36 +94,45 @@ public class MockView implements View {
 
   @Override
   public void displayPortfolioTypesMenu() {
+    outputLog.append("displayPortfolioTypesMenu ");
 
   }
 
   @Override
   public void displayFlexibleMenu() {
+    outputLog.append("displayFlexibleMenu ");
 
   }
 
   @Override
   public void askForStartDate() {
+    outputLog.append("askForStartDate ");
 
   }
 
   @Override
   public void askForEndDate() {
+    outputLog.append("askForEndDate ");
 
   }
 
   @Override
   public void displayCostBasis(String date, float costBasis) {
+    inputLog.append(date + " " + costBasis);
+    outputLog.append("displayCostBasis ");
 
   }
 
   @Override
   public void askForTransactionCost() {
+    outputLog.append("askForTransactionCost ");
 
   }
 
   @Override
   public void displayListOfPortfolios(StringBuilder listOfPortfolios) {
+    inputLog.append(listOfPortfolios);
+    outputLog.append("displayListOfPortfolios ");
 
   }
 }

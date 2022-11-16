@@ -95,12 +95,12 @@ public class UserImpl implements User {
   }
 
   @Override
-  public float getTotalValue(String date) {
+  public float getTotalValue(String date,ApiType apiType) {
     if (this.activePortfolio == null) {
       throw new IllegalStateException("No portfolio created yet");
     }
 
-    return this.activePortfolio.getTotalValue(date);
+    return this.activePortfolio.getTotalValue(date,apiType);
 
 
   }
@@ -137,11 +137,11 @@ public class UserImpl implements User {
   }
 
   @Override
-  public StringBuilder getPlot(String startDate, String endDate) {
+  public StringBuilder getPlot(String startDate, String endDate,ApiType apiType) {
     if (this.activePortfolio == null) {
       throw new IllegalStateException("No portfolio created yet");
     }
-    return this.activePortfolio.getPlot(parseDate(startDate), parseDate(endDate));
+    return this.activePortfolio.getPlot(parseDate(startDate), parseDate(endDate),apiType);
   }
 
   @Override
@@ -153,11 +153,11 @@ public class UserImpl implements User {
   }
 
   @Override
-  public float getCostBasis(String date) {
+  public float getCostBasis(String date,ApiType apiType) {
     if (this.activePortfolio == null) {
       throw new IllegalStateException("No portfolio created yet");
     }
-    return this.activePortfolio.getCostBasis(parseDate(date));
+    return this.activePortfolio.getCostBasis(parseDate(date),apiType);
   }
 
 

@@ -66,10 +66,10 @@ class PortfolioImpl extends AbstractPortfolio  {
   }
 
   @Override
-  public float getTotalValue(String date) {
+  public float getTotalValue(String date,ApiType apiType) {
     float value = 0;
     for (Stock stock : stockList.values()) {
-      value += stock.getValue(date);
+      value += stock.getValue(date,apiType);
     }
     return value;
   }

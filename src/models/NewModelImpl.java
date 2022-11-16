@@ -2,29 +2,32 @@ package models;
 
 import java.time.LocalDate;
 
-public class NewModelImpl extends ModelImpl implements  NewModel{
+/**
+ * This class represents an implementation of NewModel. It extends ModelImpl created previously.
+ */
+public class NewModelImpl extends ModelImpl implements NewModel {
 
   @Override
-  public void buyStock(String symbol, String date, float numberOfShares,float transactionCost) {
-    if(transactionCost<0){
+  public void buyStock(String symbol, String date, float numberOfShares, float transactionCost) {
+    if (transactionCost < 0) {
       throw new IllegalArgumentException("Transaction Cost must be a valid positive floating" +
               "point number");
     }
-    this.user.buyStock(symbol,date,numberOfShares,transactionCost);
+    this.user.buyStock(symbol, date, numberOfShares, transactionCost);
   }
 
   @Override
-  public void sellStock(String symbol, String date, float numberOfShares,float transactionCost) {
-    if(transactionCost<0){
+  public void sellStock(String symbol, String date, float numberOfShares, float transactionCost) {
+    if (transactionCost < 0) {
       throw new IllegalArgumentException("Transaction Cost must be a valid positive floating" +
               "point number");
     }
-    this.user.sellStock(symbol,date,numberOfShares,transactionCost);
+    this.user.sellStock(symbol, date, numberOfShares, transactionCost);
   }
 
   @Override
-  public StringBuilder getPlot(String startDate, String endDate) {
-    return this.user.getPlot(startDate,endDate);
+  public StringBuilder getPlot(String startDate, String endDate,ApiType apiType) {
+    return this.user.getPlot(startDate, endDate,apiType);
   }
 
   @Override
@@ -33,8 +36,8 @@ public class NewModelImpl extends ModelImpl implements  NewModel{
   }
 
   @Override
-  public float getCostBasis(String date) {
-    return this.user.getCostBasis(date);
+  public float getCostBasis(String date,ApiType apiType) {
+    return this.user.getCostBasis(date,apiType);
   }
 
   @Override
@@ -54,7 +57,7 @@ public class NewModelImpl extends ModelImpl implements  NewModel{
 
   @Override
   public boolean portfolioExists(String portfolioName) {
-    if(Loader.isInvalidName(portfolioName)){
+    if (Loader.isInvalidName(portfolioName)) {
       throw new IllegalArgumentException("Portfolio name must not contain " +
               "any of \\\"{}[],: characters.");
     }

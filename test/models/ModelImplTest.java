@@ -84,7 +84,7 @@ public class ModelImplTest {
   @Test
   public void getTotalValue() throws IOException, ParseException {
     model.loadUser("user1");
-    assertEquals(6063.400390625, model.getTotalValue("2022-10-18"), 0.001);
+    assertEquals(6063.400390625, model.getTotalValue("2022-10-18",ApiType.ALPHA_VANTAGE), 0.001);
   }
 
   @Test

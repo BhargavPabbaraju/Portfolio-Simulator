@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 
 import models.ApiCallImpl;
+import models.ApiType;
 import models.NewModel;
 import view.View;
 
@@ -242,7 +243,7 @@ public class ControllerImpl implements Controller {
   private void getTotalValue() {
     String date = dateHandler("");
     try {
-      float value = model.getTotalValue(date);
+      float value = model.getTotalValue(date,ApiType.ALPHA_VANTAGE);
       view.displayValue(value, date);
     } catch (IllegalStateException e) {
       view.displayMessage(e.getMessage());
@@ -391,7 +392,7 @@ public class ControllerImpl implements Controller {
   private void getCostBasis() {
     String date = dateHandler("");
     try {
-      view.displayCostBasis(date,model.getCostBasis(date));
+      view.displayCostBasis(date,model.getCostBasis(date,ApiType.ALPHA_VANTAGE));
     } catch (IllegalStateException e) {
       view.displayMessage(e.getMessage());
       flexiblePortfolioOptions();
@@ -405,7 +406,7 @@ public class ControllerImpl implements Controller {
     String startDate = dateHandler("start");
     String endDate = dateHandler("end");
     try {
-      view.displayComposition(model.getPlot(startDate,endDate));
+      view.displayComposition(model.getPlot(startDate,endDate, ApiType.ALPHA_VANTAGE));
     } catch (IllegalStateException e) {
       view.displayMessage(e.getMessage());
       flexiblePortfolioOptions();
