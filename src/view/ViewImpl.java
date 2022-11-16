@@ -46,8 +46,9 @@ public class ViewImpl implements View {
     out.println("2.Load Portfolio");
     out.println("3.Get Composition");
     out.println("4.Get Total Value on certain date");
-    out.println("5.Save");
-    out.println("6.Exit");
+    out.println("5.View list of portfolios");
+    out.println("6.Save");
+    out.println("7.Exit");
   }
 
   @Override
@@ -121,7 +122,7 @@ public class ViewImpl implements View {
 
   @Override
   public void displayCostBasis(String date,float costBasis) {
-    out.println("Cost basis till "+date+" is $"+costBasis);
+    out.println("\nCost basis till "+date+" is $"+costBasis);
   }
 
   @Override

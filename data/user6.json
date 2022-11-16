@@ -1,0 +1,22 @@
+{
+  "name": "user6",
+  "balance": 1900.0,
+  "portfolios": [
+    {
+      "name": "personal",
+      "flexible": true,
+      "stocks": {
+        "T": {
+          "2022-11-02": {
+            "shares": -10.0,
+            "transactionCost": 10.0
+          },
+          "2022-11-01": {
+            "shares": 50.0,
+            "transactionCost": 10.0
+          }
+        }
+      }
+    }
+  ]
+}

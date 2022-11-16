@@ -71,7 +71,8 @@ public class FlexibleStocksListImpl implements FlexibleStocksList {
           }
 
         }
-        FlexibleStock stock = new FlexibleStockImpl(symbol, date, -numberOfShares + shares,
+        FlexibleStock stock = new FlexibleStockImpl(symbol, date, -numberOfShares +
+                shares,
                 transactionCost);
         stocksList.put(date, stock);
         currentShares -= numberOfShares;

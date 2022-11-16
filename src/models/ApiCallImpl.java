@@ -102,7 +102,7 @@ public class ApiCallImpl {
   }
 
   private static float getShareValue(JsonObject timeseries, String date) {
-    return Float.parseFloat(timeseries.get(date).get("4. close").toString());
+    return Float.parseFloat(timeseries.get(date).get("4.close").toString());
   }
 
   private static JsonObject parseJson(String symbol) {

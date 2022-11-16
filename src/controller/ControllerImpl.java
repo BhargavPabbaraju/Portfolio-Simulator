@@ -180,7 +180,7 @@ public class ControllerImpl implements Controller {
     view.displayMainMenu();
 
     String portfolioName = "";
-    if (isOptionInvalid(6)) {
+    if (isOptionInvalid(7)) {
       mainMenu();
     }
     if (option < 3) {
@@ -209,9 +209,12 @@ public class ControllerImpl implements Controller {
         getTotalValue();
         break;
       case 5:
-        save();
+        viewListOfPortfolios();
         break;
       case 6:
+        save();
+        break;
+      case 7:
         this.quit = true;
         break;
       default:
