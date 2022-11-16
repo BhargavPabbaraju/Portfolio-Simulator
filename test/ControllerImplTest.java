@@ -2261,7 +2261,8 @@ public class ControllerImplTest {
     NewModel model = new NewModelImpl();
 
     ByteArrayInputStream in;
-    String input = "2 user5 1 personal 1 AAPL 10 2022-11-10 10 3 AAPL 10 2022-11-14 20 7 2022-11-14 11";
+    String input = "2 user5 1 personal 1 AAPL 10 2022-11-10 10 3 AAPL 10 2022-11-14 20 7 " +
+            "2022-11-14 11";
     in = new ByteArrayInputStream(input.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
@@ -2353,7 +2354,8 @@ public class ControllerImplTest {
     NewModel model = new NewModelImpl();
 
     ByteArrayInputStream in;
-    String input = "2 user5 1 personal 1 AAPL 10 2022-11-10 10 3 AAPL 10 2022-11-10 20 7 2022-11-14 11";
+    String input = "2 user5 1 personal 1 AAPL 10 2022-11-10 10 3 AAPL 10 2022-11-10 20 7 " +
+            "2022-11-14 11";
     in = new ByteArrayInputStream(input.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
