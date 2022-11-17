@@ -3639,7 +3639,8 @@ public class ControllerImplTest {
 
     ByteArrayInputStream in;
 
-    String input = "2 user5 1 abcd 1 AAPL 10 2022-01-03 50 4 AAPL 10 2022-01-10 50 4 AAPL 10 2022-01-06 30 11";
+    String input = "2 user5 1 abcd 1 AAPL 10 2022-01-03 50 4 AAPL 10 2022-01-10 50 4 "
+            + "AAPL 10 2022-01-06 30 11";
     in = new ByteArrayInputStream(input.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);

@@ -18,9 +18,9 @@ public class FlexibleStockImpl implements FlexibleStock {
    * Constructs FlexibleStockImpl and initialises values and performs validations such as
    * checking if the stock symbol is valid or not.
    *
-   * @param symbol         The symbol represents the company.
-   * @param numberOfShares The number of shares the user has in that company.
-   * @param date         date on which this stock was brought.
+   * @param symbol          The symbol represents the company.
+   * @param numberOfShares  The number of shares the user has in that company.
+   * @param date            date on which this stock was brought.
    * @param transactionCost transaction associated with the stock.
    * @throws IllegalArgumentException if symbol is invalid.
    */
@@ -44,25 +44,25 @@ public class FlexibleStockImpl implements FlexibleStock {
   }
 
   @Override
-  public StringBuilder getPlot(LocalDate startDate, LocalDate endDate,ApiType apiType) {
+  public StringBuilder getPlot(LocalDate startDate, LocalDate endDate, ApiType apiType) {
     return null;
   }
 
   @Override
   public float getValue(LocalDate date, ApiType apiType) {
     float value = 0;
-    value = ApiCallImpl.getData(symbol, date,apiType);
+    value = ApiCallImpl.getData(symbol, date, apiType);
     return (value * numberOfShares) - transactionCost;
   }
 
 
   @Override
-  public float getCostBasis(LocalDate date,ApiType apiType) {
+  public float getCostBasis(LocalDate date, ApiType apiType) {
     float cost = 0;
     if (numberOfShares <= 0) {
       return cost;
     } else {
-      cost = ApiCallImpl.getData(symbol, this.date,apiType);
+      cost = ApiCallImpl.getData(symbol, this.date, apiType);
       return (cost * numberOfShares) + transactionCost;
     }
   }

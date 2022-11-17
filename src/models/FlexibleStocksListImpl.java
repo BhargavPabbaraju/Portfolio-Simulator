@@ -51,7 +51,8 @@ public class FlexibleStocksListImpl implements FlexibleStocksList {
   }
 
   @Override
-  public void sellStock(String symbol, LocalDate date, float numberOfShares, float transactionCost) {
+  public void sellStock(String symbol, LocalDate date, float numberOfShares,
+                        float transactionCost) {
     if (!checkIfStocksExists(date)) {
       throw new IllegalArgumentException("You need to buy a stock before you sell");
     }
@@ -64,19 +65,18 @@ public class FlexibleStocksListImpl implements FlexibleStocksList {
         }
 
       }
-      if (beforeValues>=numberOfShares) {
+      if (beforeValues >= numberOfShares) {
         for (LocalDate key : stocksList.keySet()) {
           if (key.compareTo(date) == 0) {
             shares = this.stocksList.get(key).getShares();
           }
 
         }
-        FlexibleStock stock = new FlexibleStockImpl(symbol, date, -numberOfShares +
-                shares,
-                transactionCost);
+        FlexibleStock stock = new FlexibleStockImpl(symbol, date, -numberOfShares
+                + shares, transactionCost);
         stocksList.put(date, stock);
         currentShares -= numberOfShares;
-      }else{
+      } else {
         throw new IllegalArgumentException("You have only " + beforeValues + " of " + symbol
                 + " before the entered date");
 
@@ -148,10 +148,7 @@ public class FlexibleStocksListImpl implements FlexibleStocksList {
         c = c + 1;
       }
     }
-    if (c == 0) {
-      return false;
-    } else {
-      return true;
-    }
+    return c != 0;
+
   }
 }

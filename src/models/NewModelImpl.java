@@ -1,6 +1,6 @@
 package models;
 
-import java.time.LocalDate;
+
 
 /**
  * This class represents an implementation of NewModel. It extends ModelImpl created previously.
@@ -10,8 +10,8 @@ public class NewModelImpl extends ModelImpl implements NewModel {
   @Override
   public void buyStock(String symbol, String date, float numberOfShares, float transactionCost) {
     if (transactionCost < 0) {
-      throw new IllegalArgumentException("Transaction Cost must be a valid positive floating" +
-              "point number");
+      throw new IllegalArgumentException("Transaction Cost must be a valid positive floating"
+              + "point number");
     }
     this.user.buyStock(symbol, date, numberOfShares, transactionCost);
   }
@@ -19,15 +19,15 @@ public class NewModelImpl extends ModelImpl implements NewModel {
   @Override
   public void sellStock(String symbol, String date, float numberOfShares, float transactionCost) {
     if (transactionCost < 0) {
-      throw new IllegalArgumentException("Transaction Cost must be a valid positive floating" +
-              "point number");
+      throw new IllegalArgumentException("Transaction Cost must be a valid positive floating"
+              + "point number");
     }
     this.user.sellStock(symbol, date, numberOfShares, transactionCost);
   }
 
   @Override
-  public StringBuilder getPlot(String startDate, String endDate,ApiType apiType) {
-    return this.user.getPlot(startDate, endDate,apiType);
+  public StringBuilder getPlot(String startDate, String endDate, ApiType apiType) {
+    return this.user.getPlot(startDate, endDate, apiType);
   }
 
   @Override
@@ -36,8 +36,8 @@ public class NewModelImpl extends ModelImpl implements NewModel {
   }
 
   @Override
-  public float getCostBasis(String date,ApiType apiType) {
-    return this.user.getCostBasis(date,apiType);
+  public float getCostBasis(String date, ApiType apiType) {
+    return this.user.getCostBasis(date, apiType);
   }
 
   @Override
@@ -58,8 +58,8 @@ public class NewModelImpl extends ModelImpl implements NewModel {
   @Override
   public boolean portfolioExists(String portfolioName) {
     if (Loader.isInvalidName(portfolioName)) {
-      throw new IllegalArgumentException("Portfolio name must not contain " +
-              "any of \\\"{}[],: characters.");
+      throw new IllegalArgumentException("Portfolio name must not contain "
+              + "any of \\\"{}[],: characters.");
     }
     return user.portfolioExists(portfolioName);
   }

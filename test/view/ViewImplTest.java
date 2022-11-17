@@ -148,7 +148,7 @@ public class ViewImplTest {
   }
 
   @Test
-  public void testDisplayPortfolioTypesMenu(){
+  public void testDisplayPortfolioTypesMenu() {
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
     view = new ViewImpl(out);
@@ -158,8 +158,9 @@ public class ViewImplTest {
             "2.Inflexible Portfolio\n";
     assertEquals(expectedResult, bytes.toString());
   }
+
   @Test
-  public void testDisplayFlexibleMenu(){
+  public void testDisplayFlexibleMenu() {
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
     view = new ViewImpl(out);
@@ -178,8 +179,9 @@ public class ViewImplTest {
             "11.Exit\n";
     assertEquals(expectedResult, bytes.toString());
   }
+
   @Test
-  public void askForStartDate(){
+  public void askForStartDate() {
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
     view = new ViewImpl(out);
@@ -187,8 +189,9 @@ public class ViewImplTest {
     String expectedResult = "Enter start date(yyyy-mm-dd)\n";
     assertEquals(expectedResult, bytes.toString());
   }
+
   @Test
-  public void askForEndDate(){
+  public void askForEndDate() {
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
     view = new ViewImpl(out);
@@ -198,17 +201,17 @@ public class ViewImplTest {
   }
 
   @Test
-  public void testDisplayCostBasis(){
+  public void testDisplayCostBasis() {
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
     view = new ViewImpl(out);
-    view.displayCostBasis("2022-11-01",101.45f);
+    view.displayCostBasis("2022-11-01", 101.45f);
     String expectedResult = "Cost basis till 2022-11-01 is $101.45\n";
     assertEquals(expectedResult, bytes.toString());
   }
+
   @Test
-  public
-  void askForTransactionCost(){
+  public void askForTransactionCost() {
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
     view = new ViewImpl(out);
@@ -216,8 +219,9 @@ public class ViewImplTest {
     String expectedResult = "Enter transaction cost\n";
     assertEquals(expectedResult, bytes.toString());
   }
+
   @Test
-  public void testDisplayListOfPortfolios(){
+  public void testDisplayListOfPortfolios() {
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
     view = new ViewImpl(out);

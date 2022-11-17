@@ -108,13 +108,6 @@ public interface User {
    */
   float getTotalValue(String date, ApiType apiType);
 
-  /**
-   * This method is used to get the composition of this user's active portfolio. Composition shows
-   * the symbol and number of shares of each stock in a portfolio.
-   *
-   * @return StringBuilder which has symbol and number of shares for each stock in portfolio
-   */
-  StringBuilder getComposition();
 
   /**
    * This method is used to buy a stock and add it to this user's active portfolio.
@@ -155,6 +148,14 @@ public interface User {
 
   /**
    * This method is used to get the composition of this user's active portfolio. Composition shows
+   * the symbol and number of shares of each stock in a portfolio.
+   *
+   * @return StringBuilder which has symbol and number of shares for each stock in portfolio
+   */
+  StringBuilder getComposition();
+
+  /**
+   * This method is used to get the composition of this user's active portfolio. Composition shows
    * the symbol and number of shares of each stock in a portfolio purchased before a particular day.
    *
    * @param date String which is given by the user
@@ -173,42 +174,43 @@ public interface User {
   float getCostBasis(String date, ApiType apiType);
 
   /**
-   * This method returns a boolean after checking if a portfolio is flexible.
+   * This method checks if a portfolio is flexible.
    *
    * @return boolean result of a validation.
    */
   boolean isFlexiblePortfolio();
 
-  /**
-   * This method returns a boolean after checking if a portfolio exists.
-   *
-   * @return boolean result of a validation.
-   */
-  boolean portfolioExists(String portfolioName);
 
   /**
-   * This method returns a String builder of list of portfolios.
+   * This method gives a list of portfolios as a string builder.
    *
    * @return StringBuilder to get list of portfolios.
    */
   StringBuilder getListOfPortfolios();
 
   /**
-   * This method returns a boolean after checking if a particular stock exists in a portfolio.
+   * This method checks if a particular stock exists in a portfolio.
    *
    * @return boolean result of a validation.
    */
   boolean stockExists(String symbol);
 
   /**
-   * This method returns a boolean after checking if a Date is valid.
+   * This method checks if a Date is valid.
    *
    * @return boolean result of a validation.
    */
   boolean isValidDate(String date);
 
   /**
-   * This method returns a boolean after checking if a portfolio exists.
+   * This method checks if a portfolio exists with a given portfolio name.
+   *
+   * @return boolean result of a validation.
+   */
+  boolean portfolioExists(String portfolioName);
+
+  /**
+   * This method checks if at least one portfolio exists.
    *
    * @return boolean result of a validation.
    */

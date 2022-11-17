@@ -1,6 +1,6 @@
 package models;
 
-import java.time.LocalDate;
+
 
 /**
  * This interface represents a NewModel which extends previously used Model interface.
@@ -41,7 +41,7 @@ public interface NewModel extends Model {
    * @param endDate   LocalDate end date of the range.
    * @return plot showing the performance of the portfolio.
    */
-  StringBuilder getPlot(String startDate, String endDate,ApiType apiType);
+  StringBuilder getPlot(String startDate, String endDate, ApiType apiType);
 
   /**
    * This method is used to get the total value of this user's active portfolio on a certain date.
@@ -50,7 +50,7 @@ public interface NewModel extends Model {
    * @param date String which is given by the user
    * @return total value of the portfolio on a certain date.
    */
-  float getTotalValue(String date,ApiType apiType);
+  float getTotalValue(String date, ApiType apiType);
 
   /**
    * This method is used to get the composition of this user's active portfolio. Composition shows
@@ -68,52 +68,52 @@ public interface NewModel extends Model {
    * @param date String which is given by the user
    * @return float which has the total amount of money invested in a portfolio by a specific date
    */
-  float getCostBasis(String date,ApiType apiType);
+  float getCostBasis(String date, ApiType apiType);
 
   /**
-   * This method returns a boolean after checking if a portfolio is flexible.
+   * This method checks if a portfolio is flexible.
    *
    * @return boolean result of a validation.
    */
   boolean isFlexiblePortfolio();
 
   /**
-   * This method returns a boolean after checking if a User Exists.
+   * This method checks if a User Exists.
    *
    * @return boolean result of a validation.
    */
   boolean userExists(String userName);
 
   /**
-   * This method returns a boolean after checking if a particular stock exists in a portfolio.
+   * This method checks if a particular stock exists in a portfolio.
    *
    * @return boolean result of a validation.
    */
   boolean stockExists(String symbol);
 
   /**
-   * This method returns a boolean after checking if a portfolio exists.
+   * This method checks if a portfolio exists with a given portfolio name.
    *
    * @return boolean result of a validation.
    */
   boolean portfolioExists(String portfolioName);
 
   /**
-   * This method returns a boolean after checking if a portfolio exists.
+   * This method checks if at least one portfolio exists.
    *
    * @return boolean result of a validation.
    */
   boolean portfolioExists();
 
   /**
-   * This method returns a String builder of list of portfolios.
+   * This method gives a list of portfolio as a stringbuilder.
    *
    * @return StringBuilder to get list of portfolios.
    */
   StringBuilder getListOfPortfolios();
 
   /**
-   * This method returns a boolean after checking if a Date is valid.
+   * This method checks if a Date is valid.
    *
    * @return boolean result of a validation.
    */

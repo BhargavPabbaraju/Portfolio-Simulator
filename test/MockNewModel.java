@@ -71,6 +71,14 @@ public class MockNewModel implements NewModel {
   }
 
   @Override
+  public StringBuilder getComposition() {
+    inputLog.append("");
+    outputLog.append("getComposition ");
+    return null;
+  }
+
+
+  @Override
   public StringBuilder getComposition(String date) {
     inputLog.append(date + " ");
     outputLog.append("getComposition ");
@@ -78,7 +86,7 @@ public class MockNewModel implements NewModel {
   }
 
   @Override
-  public float getCostBasis(String date , ApiType apiType) {
+  public float getCostBasis(String date, ApiType apiType) {
     inputLog.append(date + " ");
     outputLog.append("getCostBasis ");
     return 0;
@@ -126,12 +134,6 @@ public class MockNewModel implements NewModel {
     return null;
   }
 
-  @Override
-  public StringBuilder getComposition() {
-    inputLog.append("");
-    outputLog.append("getComposition ");
-    return null;
-  }
 
   @Override
   public void addStockToPortfolio(String symbol, int shares) {

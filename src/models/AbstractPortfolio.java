@@ -3,39 +3,47 @@ package models;
 import java.time.LocalDate;
 import java.util.HashMap;
 
-public abstract class AbstractPortfolio implements Portfolio,FlexiblePortfolio{
+/**
+ * This class represents a general portfolio. An abstract portfolio can be either an Inflexible
+ * portfolio or a flexible portfolio.
+ */
+public abstract class AbstractPortfolio implements Portfolio, FlexiblePortfolio {
 
   protected boolean flexible = false;
 
-  protected void  setFlexible(boolean flexible){
+  protected void setFlexible(boolean flexible) {
     this.flexible = flexible;
   }
 
   @Override
-  public void buyStock(String symbol, LocalDate date, float numberOfShares,float transactionCost) {
+  public void buyStock(String symbol, LocalDate date, float numberOfShares, float transactionCost) {
     //throw exception for inflexible
   }
 
   @Override
-  public void sellStock(String symbol, LocalDate date, float numberOfShares,float transactionCost) {
+  public void sellStock(String symbol, LocalDate date, float numberOfShares,
+                        float transactionCost) {
     //throw exception for inflexible
   }
 
   @Override
-  public StringBuilder getPlot(LocalDate startDate, LocalDate endDate,ApiType apiType) {
+  public StringBuilder getPlot(LocalDate startDate, LocalDate endDate, ApiType apiType) {
     //throw exception for inflexible
     return null;
   }
 
-
-
   @Override
-  public StringBuilder getComposition(LocalDate date){
+  public StringBuilder getComposition() {
     return null;
   }
 
   @Override
-  public float getCostBasis(LocalDate date,ApiType apiType) {
+  public StringBuilder getComposition(LocalDate date) {
+    return null;
+  }
+
+  @Override
+  public float getCostBasis(LocalDate date, ApiType apiType) {
     //throw exception for inflexible
     return 0;
   }
@@ -51,12 +59,8 @@ public abstract class AbstractPortfolio implements Portfolio,FlexiblePortfolio{
   }
 
   @Override
-  public abstract float getTotalValue(String date,ApiType apiType);
+  public abstract float getTotalValue(String date, ApiType apiType);
 
-  @Override
-  public StringBuilder getComposition(){
-    return null;
-  }
 
   @Override
   public void addStock(String symbol, float numberOfShares, LocalDate dateBought) {
@@ -71,13 +75,14 @@ public abstract class AbstractPortfolio implements Portfolio,FlexiblePortfolio{
 
 
   @Override
-  public HashMap<String, FlexibleStocksList> getStocksList(){
+  public HashMap<String, FlexibleStocksList> getStocksList() {
     //throw exception for inflexible
     return null;
   }
+
   @Override
-  public boolean stockExists(String symbol){
-    //Throw exception for infelxible
+  public boolean stockExists(String symbol) {
+    //Throw exception for inflexible
     return false;
   }
 }

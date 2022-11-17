@@ -30,10 +30,10 @@ public class ApiCallImpl {
 
   private static Cache cache;
 
-  private static String errorString = "\"Note\": \"Thank you for using Alpha Vantage! Our " +
-          "standard API call frequency is 5 calls per minute and 500 calls per day. Please visit " +
-          "https://www.alphavantage.co/premium/ if you would like to target a higher API call " +
-          "frequency.\"";
+  private static String errorString = "\"Note\": \"Thank you for using Alpha Vantage! Our "
+          + "standard API call frequency is 5 calls per minute and 500 calls per day. Please visit "
+          + "https://www.alphavantage.co/premium/ if you would like to target a higher API call "
+          + "frequency.\"";
 
   static {
     try {
@@ -52,7 +52,8 @@ public class ApiCallImpl {
    * @param date        the date in string format to get the share value
    * @return returns a float which is the share value of that company on a particular date.
    */
-  public static float getData(String stockSymbol, LocalDate date, ApiType apiType) throws IllegalArgumentException {
+  public static float getData(String stockSymbol, LocalDate date, ApiType apiType)
+          throws IllegalArgumentException {
     String dateString = date.toString();
     return dataChecking(stockSymbol, dateString, apiType);
   }
@@ -143,8 +144,8 @@ public class ApiCallImpl {
     BufferedReader br = new BufferedReader(new StringReader(output));
     try {
       BufferedWriter writer = new BufferedWriter(new FileWriter(inputFile));
-      String lineToRemove = "\"1. Information\": \"Daily Prices (open, high, low, close) " +
-              "and Volumes\",";
+      String lineToRemove = "\"1. Information\": \"Daily Prices (open, high, low, close) "
+              + "and Volumes\",";
       String currentLine;
       while ((currentLine = br.readLine()) != null) {
         String trimmedLine = currentLine.trim();
@@ -170,13 +171,8 @@ public class ApiCallImpl {
 
   private static URL getURL(String stockSymbol, ApiType apiType) {
     URL url = null;
-    switch (apiType) {
-      case ALPHA_VANTAGE:
-        url = getAplhaVantageURL(stockSymbol, apiType);
-        break;
-      default:
-        url = getAplhaVantageURL(stockSymbol, apiType);
-        break;
+    if (apiType == ApiType.ALPHA_VANTAGE) {
+      url = getAplhaVantageURL(stockSymbol, apiType);
     }
     return url;
 

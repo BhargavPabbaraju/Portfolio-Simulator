@@ -32,8 +32,8 @@ class JsonList implements JsonObject {
   @Override
   public Set<String> getKeys() {
     Set<String> keys = new HashSet();
-    for(int i=0;i<this.list.size();i++){
-      keys.add(i+"");
+    for (int i = 0; i < this.list.size(); i++) {
+      keys.add(i + "");
     }
     return keys;
   }

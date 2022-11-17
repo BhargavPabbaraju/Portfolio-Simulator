@@ -41,14 +41,14 @@ public interface FlexibleStock {
   float getCostBasis(LocalDate date, ApiType apiType);
 
   /**
-   * This method returns the  number of shares present in this stock.
+   * This method gives the  number of shares present in this stock.
    *
    * @return float number of shares present for this stock
    */
   float getShares();
 
   /**
-   * This method returns transaction cost associated with this stock.
+   * This method gives transaction cost associated with this stock.
    *
    * @return float transaction cost
    */

@@ -72,15 +72,15 @@ class StockImpl implements Stock {
   }
 
   @Override
-  public float getValue(String date,ApiType apiType) {
-    return this.numberOfShares * getValueOfSingleShare(date,apiType);
+  public float getValue(String date, ApiType apiType) {
+    return this.numberOfShares * getValueOfSingleShare(date, apiType);
     //return 100;
 
   }
 
   @Override
   public float getValue(ApiType apiType) {
-    return this.numberOfShares * getValueOfSingleShare(this.date.toString(),apiType);
+    return this.numberOfShares * getValueOfSingleShare(this.date.toString(), apiType);
 
   }
 
@@ -111,7 +111,8 @@ class StockImpl implements Stock {
     }
   }
 
-  private float getValueOfSingleShare(String date,ApiType apiType) throws IllegalArgumentException {
+  private float getValueOfSingleShare(String date, ApiType apiType)
+          throws IllegalArgumentException {
     //Call api and return the value of a single share on that date.
     LocalDate dateString;
     try {
@@ -129,7 +130,7 @@ class StockImpl implements Stock {
     } else if (dateNow.compareTo(dateString) == 0) {
       dateString = dateHandling();
     }
-    return ApiCallImpl.getData(this.symbol, dateString,apiType);
+    return ApiCallImpl.getData(this.symbol, dateString, apiType);
   }
 
   public String toString() {

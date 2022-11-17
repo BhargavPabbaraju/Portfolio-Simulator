@@ -190,8 +190,8 @@ class Loader {
     return tabs;
   }
 
-  private static int writeFlexibleStocks(FlexibleStocksList flexibleStocksList, BufferedWriter writer,
-                                         int tabs) throws IOException {
+  private static int writeFlexibleStocks(FlexibleStocksList flexibleStocksList,
+                                         BufferedWriter writer, int tabs) throws IOException {
 
     HashMap<LocalDate, FlexibleStock> stocks = flexibleStocksList.getStocks();
     int i = 0;

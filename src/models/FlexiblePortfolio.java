@@ -40,16 +40,16 @@ public interface FlexiblePortfolio {
    *
    * @param startDate LocalDate start date of the range.
    * @param endDate   LocalDate end date of the range.
-   * @param apiType ApiType used determine which third party api is to be called.
+   * @param apiType   ApiType used determine which third party api is to be called.
    * @return plot showing the performance of the portfolio.
    */
-  StringBuilder getPlot(LocalDate startDate, LocalDate endDate,ApiType apiType);
+  StringBuilder getPlot(LocalDate startDate, LocalDate endDate, ApiType apiType);
 
   /**
    * This method is used to get the total value of this user's active portfolio on a certain date.
    * If weekend values are given then it tells the user to enter a date which is not weekend.
    *
-   * @param date String which is given by the user
+   * @param date    String which is given by the user
    * @param apiType ApiType used determine which third party api is to be called.
    * @return total value of the portfolio on a certain date.
    */
@@ -68,7 +68,7 @@ public interface FlexiblePortfolio {
    * This method is used to get the cost basis of this user's active portfolio.Cost Basis shows
    * the total amount of money invested in a portfolio by a specific date.
    *
-   * @param date String which is given by the user
+   * @param date    String which is given by the user
    * @param apiType ApiType used determine which third party api is to be called.
    * @return float which has the total amount of money invested in a portfolio by a specific date
    */
@@ -82,7 +82,7 @@ public interface FlexiblePortfolio {
   HashMap<String, FlexibleStocksList> getStocksList();
 
   /**
-   * This method returns a boolean after checking if a particular stock exists in a portfolio.
+   * This method checks if a particular stock is present in a portfolio.
    *
    * @return boolean result of a validation.
    */

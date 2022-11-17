@@ -34,7 +34,7 @@ public interface FlexibleStocksList {
   void sellStock(String symbol, LocalDate date, float numberOfShares, float transactionCost);
 
   /**
-   * This method returns a ArrayList of flot values of the stock on given dates which is used for
+   * This method gives an ArrayList of flot values of the stock on given dates which is used for
    * plotting to show the portfolio's performance in a given range.
    *
    * @param datesList ArrayList of LocaDate for which the value is need.
@@ -48,8 +48,8 @@ public interface FlexibleStocksList {
    * which were brought on different date.If weekend values are given then it tells the user to
    * enter a date which is not weekend.
    *
-   * @param date String which is given by the user
-   * @param apiType   ApiType used determine which third party api is to be called.
+   * @param date    String which is given by the user
+   * @param apiType ApiType used determine which third party api is to be called.
    * @return total value of the stock on a certain date.
    */
   float getValue(LocalDate date, ApiType apiType);
@@ -68,14 +68,14 @@ public interface FlexibleStocksList {
    * * which were brought on different date .Cost Basis shows
    * the total amount of money invested in a portfolio by a specific date.
    *
-   * @param date String which is given by the user
-   * @param apiType   ApiType used determine which third party api is to be called.
+   * @param date    String which is given by the user
+   * @param apiType ApiType used determine which third party api is to be called.
    * @return float which has the total amount of money invested in a stock by a specific date
    */
   float getCostBasis(LocalDate date, ApiType apiType);
 
   /**
-   * This method returns a HashMap of a stock with its shares purchased on different dates.
+   * This method gives a HashMap of a stock with its shares purchased on different dates.
    *
    * @return hashmap of a stock with its shares purchased on different dates
    */

@@ -17,7 +17,7 @@ public class UserImpl implements User {
   final String userName;
   float balance;
 
-  final static float DEFAULTBALANCE = 10000F;
+  final static float DEFAULT_BALANCE = 10000F;
 
   AbstractPortfolio activePortfolio;
 
@@ -37,7 +37,7 @@ public class UserImpl implements User {
       throw new IllegalArgumentException("User doesn't exists");
     }
     this.userName = userName;
-    balance = DEFAULTBALANCE;
+    balance = DEFAULT_BALANCE;
     this.portfolioList = new HashMap<>();
 
   }
@@ -95,23 +95,17 @@ public class UserImpl implements User {
   }
 
   @Override
-  public float getTotalValue(String date,ApiType apiType) {
+  public float getTotalValue(String date, ApiType apiType) {
     if (this.activePortfolio == null) {
       throw new IllegalStateException("No portfolio created yet");
     }
 
-    return this.activePortfolio.getTotalValue(date,apiType);
+    return this.activePortfolio.getTotalValue(date, apiType);
 
 
   }
 
-  @Override
-  public StringBuilder getComposition() {
-    if (this.activePortfolio == null) {
-      throw new IllegalStateException("No portfolio created yet");
-    }
-    return this.activePortfolio.getComposition();
-  }
+
 
   private LocalDate parseDate(String date) {
     try {
@@ -137,11 +131,19 @@ public class UserImpl implements User {
   }
 
   @Override
-  public StringBuilder getPlot(String startDate, String endDate,ApiType apiType) {
+  public StringBuilder getPlot(String startDate, String endDate, ApiType apiType) {
     if (this.activePortfolio == null) {
       throw new IllegalStateException("No portfolio created yet");
     }
-    return this.activePortfolio.getPlot(parseDate(startDate), parseDate(endDate),apiType);
+    return this.activePortfolio.getPlot(parseDate(startDate), parseDate(endDate), apiType);
+  }
+
+  @Override
+  public StringBuilder getComposition() {
+    if (this.activePortfolio == null) {
+      throw new IllegalStateException("No portfolio created yet");
+    }
+    return this.activePortfolio.getComposition();
   }
 
   @Override
@@ -153,13 +155,12 @@ public class UserImpl implements User {
   }
 
   @Override
-  public float getCostBasis(String date,ApiType apiType) {
+  public float getCostBasis(String date, ApiType apiType) {
     if (this.activePortfolio == null) {
       throw new IllegalStateException("No portfolio created yet");
     }
-    return this.activePortfolio.getCostBasis(parseDate(date),apiType);
+    return this.activePortfolio.getCostBasis(parseDate(date), apiType);
   }
-
 
 
   @Override
@@ -170,10 +171,7 @@ public class UserImpl implements User {
     return this.activePortfolio.flexible;
   }
 
-  @Override
-  public boolean portfolioExists(String portfolioName) {
-    return this.portfolioList.containsKey(portfolioName);
-  }
+
 
   @Override
   public StringBuilder getListOfPortfolios() {
@@ -214,8 +212,13 @@ public class UserImpl implements User {
   }
 
   @Override
+  public boolean portfolioExists(String portfolioName) {
+    return this.portfolioList.containsKey(portfolioName);
+  }
+
+  @Override
   public boolean portfolioExists() {
-    return this.activePortfolio!=null;
+    return this.activePortfolio != null;
   }
 
 
@@ -240,7 +243,8 @@ public class UserImpl implements User {
 
 
   @Override
-  public void createPortfolio(String portfolioName, boolean isFlexible) throws IllegalArgumentException {
+  public void createPortfolio(String portfolioName, boolean isFlexible)
+          throws IllegalArgumentException {
     if (portfolioList.containsKey(portfolioName)) {
       throw new IllegalArgumentException("Portfolio already exists");
     } else {

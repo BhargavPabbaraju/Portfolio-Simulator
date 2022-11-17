@@ -2,8 +2,7 @@ package models;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+
 
 
 /**
@@ -12,7 +11,6 @@ import java.time.format.DateTimeFormatter;
  */
 public class ModelImpl implements Model {
   protected User user;
-
 
 
   @Override
@@ -25,7 +23,7 @@ public class ModelImpl implements Model {
     try {
       this.user = Loader.loadFile(userName);
     } catch (Exception e) {
-      if (e.getMessage().equals( "User doesn't exists")) {
+      if (e.getMessage().equals("User doesn't exists")) {
         throw e;
       }
       throw new IllegalStateException("Load file is not in valid format.");
@@ -35,13 +33,13 @@ public class ModelImpl implements Model {
 
 
   @Override
-  public void createPortfolio(String portfolioName,boolean isFlexible) {
-    this.user.createPortfolio(portfolioName,isFlexible);
+  public void createPortfolio(String portfolioName, boolean isFlexible) {
+    this.user.createPortfolio(portfolioName, isFlexible);
   }
 
   @Override
-  public float getTotalValue(String date,ApiType apiType) {
-    return this.user.getTotalValue(date,apiType);
+  public float getTotalValue(String date, ApiType apiType) {
+    return this.user.getTotalValue(date, apiType);
   }
 
   @Override

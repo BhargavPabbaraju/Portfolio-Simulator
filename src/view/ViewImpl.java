@@ -121,8 +121,8 @@ public class ViewImpl implements View {
   }
 
   @Override
-  public void displayCostBasis(String date,float costBasis) {
-    out.println("\nCost basis till "+date+" is $"+costBasis);
+  public void displayCostBasis(String date, float costBasis) {
+    out.println("\nCost basis till " + date + " is $" + costBasis);
   }
 
   @Override

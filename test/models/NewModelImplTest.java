@@ -12,6 +12,10 @@ import java.text.ParseException;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * Tests for New model.
+ */
+
 public class NewModelImplTest extends TestCase {
 
 
@@ -60,7 +64,9 @@ public class NewModelImplTest extends TestCase {
             "2020 : \n" +
             "2021 : *\n" +
             "2022 : *****\n" +
-            "Scale: * = $1000\n", m.getPlot("2010-11-01", "2022-05-20", ApiType.ALPHA_VANTAGE).toString());
+            "Scale: * = $1000\n",
+            m.getPlot("2010-11-01", "2022-05-20",
+                    ApiType.ALPHA_VANTAGE).toString());
 
 
   }
@@ -76,6 +82,10 @@ public class NewModelImplTest extends TestCase {
     m.createPortfolio("college", false);
     m.addStockToPortfolio("MSFT", 30);
     m.save();
+    m.loadUser("user9");
+    assertEquals(" Composition of retir upto 2022-08-01\n" +
+            "GOOG                                    20.00\n" +
+            "ORCL                                    10.00\n",m.getComposition("2022-08-01"));
 
 
   }
@@ -89,7 +99,6 @@ public class NewModelImplTest extends TestCase {
                     "GOOG                                    40.00\n" +
                     "ORCL                                    10.00\n",
             m.getComposition("2022-11-02").toString());
-    System.out.println();
     m.loadPortfolio("college");
     assertEquals("                    college\n" +
             "MSFT                                    30.00\n", m.getComposition().toString());
@@ -99,7 +108,8 @@ public class NewModelImplTest extends TestCase {
   public void testCostBasis() throws IOException, ParseException {
     NewModel m = new NewModelImpl();
     m.loadUser("user5");
-    assertEquals(5073.78125, m.getCostBasis("2022-11-02", ApiType.ALPHA_VANTAGE), 0.01);
+    assertEquals(4924, m.getCostBasis("2022-11-02",
+            ApiType.ALPHA_VANTAGE), 0.01);
   }
 
   @Test

@@ -136,8 +136,6 @@ public class JsonParser {
       input = cleanInput(input);
 
 
-
-
       if (input.equals("")) {
         continue;
       }
@@ -164,11 +162,11 @@ public class JsonParser {
   }
 
   private static void endDict2() {
-    if(!inputStack.isEmpty() && !isEscapeCharacter(inputStack.peek())){
+    if (!inputStack.isEmpty() && !isEscapeCharacter(inputStack.peek())) {
       String key = inputStack.pop();
       JsonObject value = resultStack.pop();
       JsonObject dic = resultStack.pop();
-      dic.addElement(key,value);
+      dic.addElement(key, value);
       resultStack.push(dic);
     }
   }
