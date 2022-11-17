@@ -1,50 +1,59 @@
 
 Features
 --------
-1. Creation of multiple portfolios with shares of one or more stock.
+1. Purchase a specific number of shares of a specific stock on a specified date,and add them to the portfolio.
 	-This feature works completely. 
+	-A user can buy shares of a stock on any date(as long as the date is neither a weekend nor a future date).
 	-A user can create multiple portfolios with shares of one or more stock.
-	-During creation, if the user adds more shares for a stock already added , the shares will be combined. 
-	-For example, if a user adds stocks AMZN 10 , ORCL 20 , AMZN 5 in that order,
-	-then the resulting portfolio will contain AMZN 15, ORCL 20.
-	-Once a portfolio is created , there is no option to edit it. It can only be loaded.
+	-If a user buys shares of same stock on a date he already bought , the shares will be combined.
+	-For example, if a user buys stocks AMZN 10 on 2022-11-01 , ORCL 20 on 2022-11-01 , AMZN 5 on 2022-11-01 in that 	order,then the resulting portfolio will contain AMZN 15 on 2022-11-01, ORCL 20 on 2022-11-01
+	-Once a portfolio is created, stocks can be bought and sold at any time.
+	-A user must enter the transaction cost each time he tries to buy.
 
 
-2. Examine the composition of a portfolio
+2. Sell a specific number of shares of a specific stock on a specified date from a given portfolio.
 	-This feature works completely.
-	-When a user enters option 3 in the main menu, the composition of the current portfolio is displayed.
-	-The user has to load a portfolio by entering its name if the composition for a different portfolio is to be 	 	 displayed.
-	-Composition of a portfolio simply displays the stocks present in this portfolio with their symbols and shares.
-	-Example of how the composition will look like:
-
-		>>                    retirement
-		>>IBM                                     10.00
-		>>ORCL                                    20.00
-		>>AMZN                                    50.00
+	-A user can sell shares of a stock on any date(as long as the date is neither a weekend nor a future date) but
+	only if this transaction is consistent with previously done transactions.
+	-A user cannot sell stocks on a date when he hasn't bought any stocks yet.
+	-A user can only sell shares of a stock if he has enough shares of that stock on that date.
+	-A user must enter the transaction cost each time he tries to sell.
 
 
-3. Determine the total value of a portfolio on a certain date.
+3. Determine the cost basis of a portfolio by a certain date.
 	-This feature works completely.
-	-A user must load a portfolio to specify which portfolio this operation must be performed on.
-	-The date must be in 'yyyy-mm-dd' format. 
-	-The date must not be a future date.
-	-The date must not be a weekend.
-	-The date should be no older than 20 years ago from the current date.
-	  For example, if the current date is 2022-11-02 , the oldest date a user can enter is 		1999-11-02.
-	Note: Some stocks may not have data upto 20 years back in cases where companies were found less than 20 years ago.
-	-This operation takes a couple of seconds (could go upto 11 seconds) to display the total value the first time  
+	-Cost basis includes the purchase cost of the shares till that date as well as the transaction cost for each 	purchase.
+	-This operation takes a couple of seconds (could go upto 11 seconds) to display the cost basis the first time  
 	 this method is called. This is because of an api call in the backend. However , this operation is considerably 
 	 faster(around a second or less) in the subsequent calls of this method.
 
 
-4. Persist a portfolio so that it can be saved and loaded.
+4. Determine the value of a portfolio on a specific date.
 	-This feature works completely.
-	-A user must enter 5 on the main menu to save data before exitting the application.
-	-A user cannot save until he has created at least one portfolio.
-	-Data is persisted in data folder saved as "username".json.
-	-User can load his file as soon as he/she opens the application and can access all the portfolios he/she 	 created.
-	 
+	-The value will be determined based on the stocks present on that date.
+	-The value of a portfolio before any purchase is 0.
 
+5. Plot the portfolio performance over time.
+	-This feature works completely.
+	-A user must enter the start date and end date (both in yyyy-mm-dd formats and cannot be future dates)
+	-The plot ranges are daily,monthly or yearly based on the number of days between the start and end dates.
+	Note: If the range(maxium value - minimum value) of the portfolio on any date is too huge(goes beyond 50 *'s), 	then the plot is truncated.
+		Only 50 *s are displayed with the actual value beside it.
+
+	Example:
+		>>1Performance of portfolio retir from Oct 31 to Nov 08
+		>>Oct 31 :
+		>>Nov 01 : *
+		>>Nov 02 : *
+		>>Nov 03 : *
+		>>Nov 04 : *
+		>>Nov 07 : **************************************************($4437421.50)
+		>>Nov 08 : **************************************************($4450396.50)
+		>>Scale: * = $4000
+		>>Maximum plot length is 50 *'s. Remaining *'s are truncated
+
+	 
+ 
 
 
 

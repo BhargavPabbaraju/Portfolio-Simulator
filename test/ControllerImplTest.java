@@ -522,7 +522,7 @@ public class ControllerImplTest {
 
     ByteArrayInputStream in;
 
-    String input = "2 user5 1 personal 2 AAPL 10 1 ORCL 20 2 6";
+    String input = "2 user5 1 personal 2 AAPL 10 1 ORCL 20 2 7";
     in = new ByteArrayInputStream(input.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
@@ -567,8 +567,9 @@ public class ControllerImplTest {
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
             "4.Get Total Value on certain date\n" +
-            "5.Save\n" +
-            "6.Exit\n";
+            "5.View list of portfolios\n" +
+            "6.Save\n" +
+            "7.Exit\n";
     assertEquals(expectedOutput, bytes.toString());
   }
 
@@ -669,7 +670,7 @@ public class ControllerImplTest {
 
     ByteArrayInputStream in;
 
-    String input = "2 user5 2 college 6";
+    String input = "2 user5 2 college 7";
     in = new ByteArrayInputStream(input.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
@@ -706,8 +707,9 @@ public class ControllerImplTest {
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
             "4.Get Total Value on certain date\n" +
-            "5.Save\n" +
-            "6.Exit\n";
+            "5.View list of portfolios\n" +
+            "6.Save\n" +
+            "7.Exit\n";
     assertEquals(expectedOutput, bytes.toString());
   }
 
@@ -717,7 +719,7 @@ public class ControllerImplTest {
 
     ByteArrayInputStream in;
 
-    String input = "2 user5 2 college 3 6";
+    String input = "2 user5 2 college 3 7";
     in = new ByteArrayInputStream(input.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
@@ -754,8 +756,9 @@ public class ControllerImplTest {
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
             "4.Get Total Value on certain date\n" +
-            "5.Save\n" +
-            "6.Exit\n" +
+            "5.View list of portfolios\n" +
+            "6.Save\n" +
+            "7.Exit\n" +
             "                    college\n" +
             "MSFT                                    30.00\n" +
             "\n" +
@@ -764,8 +767,9 @@ public class ControllerImplTest {
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
             "4.Get Total Value on certain date\n" +
-            "5.Save\n" +
-            "6.Exit\n";
+            "5.View list of portfolios\n" +
+            "6.Save\n" +
+            "7.Exit\n";
     assertEquals(expectedOutput, bytes.toString());
   }
 
@@ -842,7 +846,7 @@ public class ControllerImplTest {
 
     ByteArrayInputStream in;
 
-    String input = "2 user5 1 personal 2 ABCD AAPL 2 2 6";
+    String input = "2 user5 1 personal 2 ABCD AAPL 2 2 7";
     in = new ByteArrayInputStream(input.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
@@ -886,8 +890,9 @@ public class ControllerImplTest {
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
             "4.Get Total Value on certain date\n" +
-            "5.Save\n" +
-            "6.Exit\n";
+            "5.View list of portfolios\n" +
+            "6.Save\n" +
+            "7.Exit\n";
     assertEquals(expectedOutput, bytes.toString());
   }
 
@@ -897,7 +902,7 @@ public class ControllerImplTest {
 
     ByteArrayInputStream in;
 
-    String input = "2 user5 1 personal 2 AAPL -2 10 2 6";
+    String input = "2 user5 1 personal 2 AAPL -2 10 2 7";
     in = new ByteArrayInputStream(input.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
@@ -941,8 +946,9 @@ public class ControllerImplTest {
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
             "4.Get Total Value on certain date\n" +
-            "5.Save\n" +
-            "6.Exit\n";
+            "5.View list of portfolios\n" +
+            "6.Save\n" +
+            "7.Exit\n";
     assertEquals(expectedOutput, bytes.toString());
   }
 
@@ -1013,7 +1019,7 @@ public class ControllerImplTest {
 
     ByteArrayInputStream in;
 
-    String input = "2 user5 1 personal 2 AAPL a 10 2 6";
+    String input = "2 user5 1 personal 2 AAPL a 10 2 7";
     in = new ByteArrayInputStream(input.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
@@ -1057,8 +1063,9 @@ public class ControllerImplTest {
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
             "4.Get Total Value on certain date\n" +
-            "5.Save\n" +
-            "6.Exit\n";
+            "5.View list of portfolios\n" +
+            "6.Save\n" +
+            "7.Exit\n";
     assertEquals(expectedOutput, bytes.toString());
   }
 
@@ -1191,7 +1198,7 @@ public class ControllerImplTest {
 
     ByteArrayInputStream in;
 
-    String input = "2 user5 1 personal 2 AAPL 192.34 10 2 6";
+    String input = "2 user5 1 personal 2 AAPL 192.34 10 2 7";
     in = new ByteArrayInputStream(input.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
@@ -1235,8 +1242,9 @@ public class ControllerImplTest {
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
             "4.Get Total Value on certain date\n" +
-            "5.Save\n" +
-            "6.Exit\n";
+            "5.View list of portfolios\n" +
+            "6.Save\n" +
+            "7.Exit\n";
     assertEquals(expectedOutput, bytes.toString());
   }
 
@@ -1438,7 +1446,7 @@ public class ControllerImplTest {
 
     ByteArrayInputStream in;
 
-    String input = "2 user5 2 college 4 2022-10-31 6";
+    String input = "2 user5 2 college 4 2022-10-31 7";
     in = new ByteArrayInputStream(input.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
@@ -1474,19 +1482,21 @@ public class ControllerImplTest {
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
             "4.Get Total Value on certain date\n" +
-            "5.Save\n" +
-            "6.Exit\n" +
+            "5.View list of portfolios\n" +
+            "6.Save\n" +
+            "7.Exit\n" +
             "Enter date(yyyy-mm-dd)\n" +
             "\n" +
-            "Total Value on 2022-10-31 is $7047.6\n" +
+            "Total Value on 2022-10-31 is $6963.9004\n" +
             "\n" +
             "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
             "4.Get Total Value on certain date\n" +
-            "5.Save\n" +
-            "6.Exit\n";
+            "5.View list of portfolios\n" +
+            "6.Save\n" +
+            "7.Exit\n";
     assertEquals(expectedOutput, bytes.toString());
   }
 
@@ -1526,7 +1536,7 @@ public class ControllerImplTest {
             "11.Exit\n" +
             "Enter date(yyyy-mm-dd)\n" +
             "\n" +
-            "Total Value on 2022-10-31 is $2690.3\n" +
+            "Total Value on 2022-10-31 is $2653.9001\n" +
             "\n" +
             "\n" +
             "1.Create Portfolio\n" +
@@ -1549,7 +1559,7 @@ public class ControllerImplTest {
 
     ByteArrayInputStream in;
 
-    String input = "2 user5 2 college 4 2022-10-30 2022-10-31 6";
+    String input = "2 user5 2 college 4 2022-10-30 2022-10-31 7";
     in = new ByteArrayInputStream(input.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
@@ -1585,22 +1595,24 @@ public class ControllerImplTest {
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
             "4.Get Total Value on certain date\n" +
-            "5.Save\n" +
-            "6.Exit\n" +
+            "5.View list of portfolios\n" +
+            "6.Save\n" +
+            "7.Exit\n" +
             "Enter date(yyyy-mm-dd)\n" +
             "\n" +
             "Date cannot be a weekend\n" +
             "Enter date(yyyy-mm-dd)\n" +
             "\n" +
-            "Total Value on 2022-10-31 is $7047.6\n" +
+            "Total Value on 2022-10-31 is $6963.9004\n" +
             "\n" +
             "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
             "4.Get Total Value on certain date\n" +
-            "5.Save\n" +
-            "6.Exit\n";
+            "5.View list of portfolios\n" +
+            "6.Save\n" +
+            "7.Exit\n";
     assertEquals(expectedOutput, bytes.toString());
   }
 
@@ -1640,7 +1652,7 @@ public class ControllerImplTest {
             "11.Exit\n" +
             "Enter date(yyyy-mm-dd)\n" +
             "\n" +
-            "Total Value on 2022-10-31 is $2690.3\n" +
+            "Total Value on 2022-10-31 is $2653.9001\n" +
             "\n" +
             "\n" +
             "1.Create Portfolio\n" +
@@ -1677,7 +1689,7 @@ public class ControllerImplTest {
 
     ByteArrayInputStream in;
 
-    String input = "2 user5 2 college 4 2022-12-01 2022-10-31 6";
+    String input = "2 user5 2 college 4 2022-12-01 2022-10-31 7";
     in = new ByteArrayInputStream(input.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
@@ -1713,22 +1725,24 @@ public class ControllerImplTest {
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
             "4.Get Total Value on certain date\n" +
-            "5.Save\n" +
-            "6.Exit\n" +
+            "5.View list of portfolios\n" +
+            "6.Save\n" +
+            "7.Exit\n" +
             "Enter date(yyyy-mm-dd)\n" +
             "\n" +
             "Date cannot be a future date\n" +
             "Enter date(yyyy-mm-dd)\n" +
             "\n" +
-            "Total Value on 2022-10-31 is $7047.6\n" +
+            "Total Value on 2022-10-31 is $6963.9004\n" +
             "\n" +
             "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
             "4.Get Total Value on certain date\n" +
-            "5.Save\n" +
-            "6.Exit\n";
+            "5.View list of portfolios\n" +
+            "6.Save\n" +
+            "7.Exit\n";
     assertEquals(expectedOutput, bytes.toString());
   }
 
@@ -1771,7 +1785,7 @@ public class ControllerImplTest {
             "Date cannot be a future date\n" +
             "Enter date(yyyy-mm-dd)\n" +
             "\n" +
-            "Total Value on 2022-10-31 is $2690.3\n" +
+            "Total Value on 2022-10-31 is $2653.9001\n" +
             "\n" +
             "\n" +
             "1.Create Portfolio\n" +
@@ -1846,7 +1860,7 @@ public class ControllerImplTest {
 
     ByteArrayInputStream in;
 
-    String input = "2 user5 2 college 4 jkegrhbs  2022-10-31 6";
+    String input = "2 user5 2 college 4 jkegrhbs  2022-10-31 7";
     in = new ByteArrayInputStream(input.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
@@ -1882,22 +1896,24 @@ public class ControllerImplTest {
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
             "4.Get Total Value on certain date\n" +
-            "5.Save\n" +
-            "6.Exit\n" +
+            "5.View list of portfolios\n" +
+            "6.Save\n" +
+            "7.Exit\n" +
             "Enter date(yyyy-mm-dd)\n" +
             "\n" +
             "Date must be in yyyy-mm-dd format\n" +
             "Enter date(yyyy-mm-dd)\n" +
             "\n" +
-            "Total Value on 2022-10-31 is $7047.6\n" +
+            "Total Value on 2022-10-31 is $6963.9004\n" +
             "\n" +
             "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
             "4.Get Total Value on certain date\n" +
-            "5.Save\n" +
-            "6.Exit\n";
+            "5.View list of portfolios\n" +
+            "6.Save\n" +
+            "7.Exit\n";
     assertEquals(expectedOutput, bytes.toString());
   }
 
@@ -1940,7 +1956,7 @@ public class ControllerImplTest {
             "Date must be in yyyy-mm-dd format\n" +
             "Enter date(yyyy-mm-dd)\n" +
             "\n" +
-            "Total Value on 2022-10-31 is $2690.3\n" +
+            "Total Value on 2022-10-31 is $2653.9001\n" +
             "\n" +
             "\n" +
             "1.Create Portfolio\n" +
@@ -1962,7 +1978,7 @@ public class ControllerImplTest {
     NewModel model = new NewModelImpl();
 
     ByteArrayInputStream in;
-    String input = "2 user5 1 personal 2 AAPL 0 10 2 6";
+    String input = "2 user5 1 personal 2 AAPL 0 10 2 7";
     in = new ByteArrayInputStream(input.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
@@ -2006,8 +2022,9 @@ public class ControllerImplTest {
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
             "4.Get Total Value on certain date\n" +
-            "5.Save\n" +
-            "6.Exit\n";
+            "5.View list of portfolios\n" +
+            "6.Save\n" +
+            "7.Exit\n";
     assertEquals(expectedOutput, bytes.toString());
   }
 
@@ -2448,7 +2465,7 @@ public class ControllerImplTest {
 
     ByteArrayInputStream in;
 
-    String input = "1 sree 10000 1 personal 2 AAPL 10 1 ORCL 10 1 ORCL 30 2 3 6";
+    String input = "1 sree 10000 1 personal 2 AAPL 10 1 ORCL 10 1 ORCL 30 2 3 7";
     in = new ByteArrayInputStream(input.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
@@ -2498,8 +2515,9 @@ public class ControllerImplTest {
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
             "4.Get Total Value on certain date\n" +
-            "5.Save\n" +
-            "6.Exit\n" +
+            "5.View list of portfolios\n" +
+            "6.Save\n" +
+            "7.Exit\n" +
             "                    personal\n" +
             "AAPL                                    10.00\n" +
             "ORCL                                    40.00\n" +
@@ -2509,8 +2527,9 @@ public class ControllerImplTest {
             "2.Load Portfolio\n" +
             "3.Get Composition\n" +
             "4.Get Total Value on certain date\n" +
-            "5.Save\n" +
-            "6.Exit\n";
+            "5.View list of portfolios\n" +
+            "6.Save\n" +
+            "7.Exit\n";
     assertEquals(expectedOutput, bytes.toString());
   }
 
@@ -2549,7 +2568,8 @@ public class ControllerImplTest {
             "10.Save\n" +
             "11.Exit\n" +
             "Enter date(yyyy-mm-dd)\n" +
-            "Cost basis till 2022-11-14 is $5073.7812\n" +
+            "\n" +
+            "Cost basis till 2022-11-14 is $4924.0\n" +
             "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
@@ -2600,7 +2620,7 @@ public class ControllerImplTest {
             "10.Save\n" +
             "11.Exit\n" +
             "Enter date(yyyy-mm-dd)\n" +
-            "Cost basis till 2020-11-13 is $0.0\n" +
+            "\nCost basis till 2020-11-13 is $0.0\n" +
             "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
@@ -2654,7 +2674,8 @@ public class ControllerImplTest {
             "\n" +
             "Date cannot be a weekend\n" +
             "Enter date(yyyy-mm-dd)\n" +
-            "Cost basis till 2022-11-14 is $5073.7812\n" +
+            "\n" +
+            "Cost basis till 2022-11-14 is $4924.0\n" +
             "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
@@ -2708,7 +2729,8 @@ public class ControllerImplTest {
             "\n" +
             "Date must be in yyyy-mm-dd format\n" +
             "Enter date(yyyy-mm-dd)\n" +
-            "Cost basis till 2022-11-14 is $5073.7812\n" +
+            "\n" +
+            "Cost basis till 2022-11-14 is $4924.0\n" +
             "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
@@ -4513,7 +4535,8 @@ public class ControllerImplTest {
             "Feb 24 : ********\n" +
             "Mar 14 : *\n" +
             "Mar 31 : *\n" +
-            "Scale: * = $1000" +
+            "Scale: * = $1000\n" +
+            "\n" +
             "\n" +
             "1.Create Portfolio\n" +
             "2.Load Portfolio\n" +
