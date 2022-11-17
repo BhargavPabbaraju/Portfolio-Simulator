@@ -15,6 +15,7 @@ public interface User {
    * A portfolios should have unique names for a particular user.
    *
    * @param portfolioName String which is unique for each user
+   * @param isFlexible    tells if the portfolio is flexible
    */
   void createPortfolio(String portfolioName, boolean isFlexible);
 
@@ -191,6 +192,7 @@ public interface User {
   /**
    * This method checks if a particular stock exists in a portfolio.
    *
+   * @param symbol Symbol for validation.
    * @return boolean result of a validation.
    */
   boolean stockExists(String symbol);
@@ -198,6 +200,7 @@ public interface User {
   /**
    * This method checks if a Date is valid.
    *
+   * @param date date validation.
    * @return boolean result of a validation.
    */
   boolean isValidDate(String date);
@@ -205,6 +208,7 @@ public interface User {
   /**
    * This method checks if a portfolio exists with a given portfolio name.
    *
+   * @param portfolioName portfolio for validation.
    * @return boolean result of a validation.
    */
   boolean portfolioExists(String portfolioName);

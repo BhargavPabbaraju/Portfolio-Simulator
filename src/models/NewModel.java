@@ -1,7 +1,6 @@
 package models;
 
 
-
 /**
  * This interface represents a NewModel which extends previously used Model interface.
  * The controller of the program only interacts with this model.
@@ -39,6 +38,7 @@ public interface NewModel extends Model {
    *
    * @param startDate LocalDate start date of the range.
    * @param endDate   LocalDate end date of the range.
+   * @param apiType   ApiType used determine which third party api is to be called.
    * @return plot showing the performance of the portfolio.
    */
   StringBuilder getPlot(String startDate, String endDate, ApiType apiType);
@@ -65,7 +65,8 @@ public interface NewModel extends Model {
    * This method is used to get the cost basis of this user's active portfolio.Cost Basis shows
    * the total amount of money invested in a portfolio by a specific date.
    *
-   * @param date String which is given by the user
+   * @param date    String which is given by the user
+   * @param apiType ApiType used determine which third party api is to be called.
    * @return float which has the total amount of money invested in a portfolio by a specific date
    */
   float getCostBasis(String date, ApiType apiType);
@@ -80,6 +81,7 @@ public interface NewModel extends Model {
   /**
    * This method checks if a User Exists.
    *
+   * @param userName name of the current user.
    * @return boolean result of a validation.
    */
   boolean userExists(String userName);
@@ -87,6 +89,7 @@ public interface NewModel extends Model {
   /**
    * This method checks if a particular stock exists in a portfolio.
    *
+   * @param symbol Symbol for validation.
    * @return boolean result of a validation.
    */
   boolean stockExists(String symbol);
@@ -94,6 +97,7 @@ public interface NewModel extends Model {
   /**
    * This method checks if a portfolio exists with a given portfolio name.
    *
+   * @param portfolioName portfolio for validation.
    * @return boolean result of a validation.
    */
   boolean portfolioExists(String portfolioName);
@@ -115,6 +119,7 @@ public interface NewModel extends Model {
   /**
    * This method checks if a Date is valid.
    *
+   * @param date date validation.
    * @return boolean result of a validation.
    */
   public boolean isValidDate(String date);

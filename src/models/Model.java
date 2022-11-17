@@ -31,6 +31,7 @@ public interface Model {
    * A portfolios should have unique names for a particular user.
    *
    * @param portfolioName String which is unique for each user
+   * @param isFlexible    tells if the portfolio is flexible
    */
   void createPortfolio(String portfolioName, boolean isFlexible);
 

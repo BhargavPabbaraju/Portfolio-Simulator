@@ -50,6 +50,7 @@ public class ApiCallImpl {
    *
    * @param stockSymbol unique symbol of a company.
    * @param date        the date in string format to get the share value
+   * @param apiType     ApiType used determine which third party api is to be called.
    * @return returns a float which is the share value of that company on a particular date.
    */
   public static float getData(String stockSymbol, LocalDate date, ApiType apiType)

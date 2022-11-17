@@ -84,6 +84,7 @@ public interface FlexiblePortfolio {
   /**
    * This method checks if a particular stock is present in a portfolio.
    *
+   * @param symbol Symbol for validation.
    * @return boolean result of a validation.
    */
   public boolean stockExists(String symbol);
