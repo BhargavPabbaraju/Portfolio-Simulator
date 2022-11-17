@@ -60,7 +60,7 @@ public class ControllerIsolationForVIewTest {
     PrintStream out = new PrintStream(bytes);
     View view = new MockView(log, olog);
     ByteArrayInputStream in;
-    String input = "2 user5 1 personal 2 AAPL 10 1 ORCL 20 2 6";
+    String input = "2 user5 1 personal 2 AAPL 10 1 ORCL 20 2 7";
     in = new ByteArrayInputStream(input.getBytes());
     ControllerImpl controller = new ControllerImpl(model, view, in);
     controller.goController();
@@ -98,7 +98,7 @@ public class ControllerIsolationForVIewTest {
     PrintStream out = new PrintStream(bytes);
     View view = new MockView(log, olog);
     ByteArrayInputStream in;
-    String input = "2 user5 1 personal 2 AAPL 10 1 ORCL 20 2 6";
+    String input = "2 user5 1 personal 2 AAPL 10 1 ORCL 20 2 7";
     in = new ByteArrayInputStream(input.getBytes());
     ControllerImpl controller = new ControllerImpl(model, view, in);
     controller.goController();
@@ -117,7 +117,7 @@ public class ControllerIsolationForVIewTest {
     PrintStream out = new PrintStream(bytes);
     View view = new MockView(log, olog);
     ByteArrayInputStream in;
-    String input = "2 user5 2 college 6";
+    String input = "2 user5 2 college 7";
     in = new ByteArrayInputStream(input.getBytes());
     ControllerImpl controller = new ControllerImpl(model, view, in);
     controller.goController();
@@ -153,14 +153,14 @@ public class ControllerIsolationForVIewTest {
     PrintStream out = new PrintStream(bytes);
     View view = new MockView(log, olog);
     ByteArrayInputStream in;
-    String input = "1 user1 1990.787 1 retirement 2 GOOG 10 1 ORCL 5 2 5 6";
+    String input = "1 user1 1990.787 1 retirement 2 GOOG 10 1 ORCL 5 2 5 7";
     in = new ByteArrayInputStream(input.getBytes());
     ControllerImpl controller = new ControllerImpl(model, view, in);
     controller.goController();
     assertEquals("displayInitialMenu askForUsername askForBalance displayMessage " +
             "displayFlexibleMenu askForPortfolioName displayPortfolioTypesMenu askForStockSymbol " +
             "askForShares displayAddNewStockMenu askForStockSymbol askForShares " +
-            "displayAddNewStockMenu displayMainMenu displayMessage " +
+            "displayAddNewStockMenu displayMainMenu displayListOfPortfolios " +
             "displayMainMenu ", olog.toString());
   }
 
@@ -173,11 +173,11 @@ public class ControllerIsolationForVIewTest {
     PrintStream out = new PrintStream(bytes);
     View view = new MockView(log, olog);
     ByteArrayInputStream in;
-    String input = "2 user5 2 college 4 2022-10-31 6";
+    String input = "2 user5 2 college 4 2022-10-31 7";
     in = new ByteArrayInputStream(input.getBytes());
     ControllerImpl controller = new ControllerImpl(model, view, in);
     controller.goController();
-    assertEquals("7047.6 2022-10-31", log.toString());
+    assertEquals("6963.9004 2022-10-31", log.toString());
     assertEquals("displayInitialMenu askForUsername displayMessage displayFlexibleMenu" +
             " askForPortfolioName displayMessage displayMainMenu askForDate displayValue" +
             " displayMainMenu ", olog.toString());
@@ -196,7 +196,7 @@ public class ControllerIsolationForVIewTest {
     in = new ByteArrayInputStream(input.getBytes());
     ControllerImpl controller = new ControllerImpl(model, view, in);
     controller.goController();
-    assertEquals("2690.3 2022-10-31", log.toString());
+    assertEquals("2653.9001 2022-10-31", log.toString());
     assertEquals("displayInitialMenu askForUsername displayMessage displayFlexibleMenu" +
             " askForDate displayValue displayFlexibleMenu ", olog.toString());
   }
@@ -210,7 +210,7 @@ public class ControllerIsolationForVIewTest {
     PrintStream out = new PrintStream(bytes);
     View view = new MockView(log, olog);
     ByteArrayInputStream in;
-    String input = "2 user5 2 college 3 6";
+    String input = "2 user5 2 college 3 7";
     in = new ByteArrayInputStream(input.getBytes());
     ControllerImpl controller = new ControllerImpl(model, view, in);
     controller.goController();
@@ -256,7 +256,7 @@ public class ControllerIsolationForVIewTest {
     in = new ByteArrayInputStream(input.getBytes());
     ControllerImpl controller = new ControllerImpl(model, view, in);
     controller.goController();
-    assertEquals("2022-11-14 5073.7812", log.toString());
+    assertEquals("2022-11-14 4924.0", log.toString());
     assertEquals("displayInitialMenu askForUsername displayMessage displayFlexibleMenu" +
             " askForDate displayCostBasis displayFlexibleMenu ", olog.toString());
   }

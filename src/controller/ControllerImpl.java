@@ -300,10 +300,11 @@ public class ControllerImpl implements Controller {
         model.sellStock(symbol, date, shares, transactionCost);
         view.displayMessage("Successfully sold stocks");
       }
+
       flexiblePortfolioOptions();
+
     } catch (Exception e) {
       view.displayMessage(e.getMessage());
-
       flexiblePortfolioOptions();
     }
 
@@ -316,6 +317,7 @@ public class ControllerImpl implements Controller {
     if (!buying && !model.stockExists(symbol)) {
       view.displayMessage("Stock doesn't exist in portfolio");
       flexiblePortfolioOptions();
+      return;
     }
     float transactionCost = floatHandler("Transaction Cost");
     String date = dateHandler("");
@@ -419,7 +421,7 @@ public class ControllerImpl implements Controller {
       flexiblePortfolioOptions();
     } catch (Exception e) {
       view.displayMessage(e.getMessage());
-      getFlexibleComposition();
+      getPlot();
     }
   }
 
@@ -450,6 +452,7 @@ public class ControllerImpl implements Controller {
     view.displayPortfolioTypesMenu();
     if (isOptionInvalid(2)) {
       createPortfolio(portfolioName);
+      return;
     }
     if (option == 1) {
       createFlexiblePortfolio(portfolioName);
@@ -509,10 +512,7 @@ public class ControllerImpl implements Controller {
     } else if (option == 2) {
       mainMenu();
     }
-
   }
-
-
 }
 
 

@@ -58,7 +58,7 @@ public class ControllerIsolationTest {
     PrintStream out = new PrintStream(bytes);
     View view = new ViewImpl(out);
     ByteArrayInputStream in;
-    String input = "2 user5 1 personal 2 AAPL 10 1 ORCL 20 2 6";
+    String input = "2 user5 1 personal 2 AAPL 10 1 ORCL 20 2 7";
     in = new ByteArrayInputStream(input.getBytes());
     ControllerImpl controller = new ControllerImpl(model, view, in);
     controller.goController();
@@ -96,7 +96,7 @@ public class ControllerIsolationTest {
     PrintStream out = new PrintStream(bytes);
     View view = new ViewImpl(out);
     ByteArrayInputStream in;
-    String input = "2 user5 1 personal 2 AAPL 10 1 ORCL 20 2 7";
+    String input = "2 user5 1 personal 2 AAPL 10 1 ORCL 20 2 7 ";
     in = new ByteArrayInputStream(input.getBytes());
     ControllerImpl controller = new ControllerImpl(model, view, in);
     controller.goController();
@@ -114,7 +114,7 @@ public class ControllerIsolationTest {
     PrintStream out = new PrintStream(bytes);
     View view = new ViewImpl(out);
     ByteArrayInputStream in;
-    String input = "2 user5 2 college 6";
+    String input = "2 user5 2 college 7";
     in = new ByteArrayInputStream(input.getBytes());
     ControllerImpl controller = new ControllerImpl(model, view, in);
     controller.goController();
@@ -150,7 +150,7 @@ public class ControllerIsolationTest {
     PrintStream out = new PrintStream(bytes);
     View view = new ViewImpl(out);
     ByteArrayInputStream in;
-    String input = "2 user5 1 retirement 2 GOOG 10 1 ORCL 5 2 5 6";
+    String input = "2 user5 1 retirement 2 GOOG 10 1 ORCL 5 2 5 7";
     in = new ByteArrayInputStream(input.getBytes());
     ControllerImpl controller = new ControllerImpl(model, view, in);
     controller.goController();
@@ -167,7 +167,7 @@ public class ControllerIsolationTest {
     PrintStream out = new PrintStream(bytes);
     View view = new ViewImpl(out);
     ByteArrayInputStream in;
-    String input = "2 user5 2 college 4 2022-10-31 6";
+    String input = "2 user5 2 college 4 2022-10-31 7";
     in = new ByteArrayInputStream(input.getBytes());
     ControllerImpl controller = new ControllerImpl(model, view, in);
     controller.goController();
@@ -202,7 +202,7 @@ public class ControllerIsolationTest {
     PrintStream out = new PrintStream(bytes);
     View view = new ViewImpl(out);
     ByteArrayInputStream in;
-    String input = "2 user5 2 college 3 6";
+    String input = "2 user5 2 college 3 7";
     in = new ByteArrayInputStream(input.getBytes());
     ControllerImpl controller = new ControllerImpl(model, view, in);
     controller.goController();
@@ -223,8 +223,10 @@ public class ControllerIsolationTest {
     in = new ByteArrayInputStream(input.getBytes());
     ControllerImpl controller = new ControllerImpl(model, view, in);
     controller.goController();
-    assertEquals("user ", log.toString());
-    assertEquals("loadUser getComposition ", olog.toString());
+    assertEquals("user5 2022-11-14 ", log.toString());
+    assertEquals("loadUser isFlexiblePortfolio portfolioExists isValidDate " +
+            "getComposition " +
+            "isFlexiblePortfolio ", olog.toString());
   }
 
   @Test
@@ -258,9 +260,9 @@ public class ControllerIsolationTest {
     in = new ByteArrayInputStream(input.getBytes());
     ControllerImpl controller = new ControllerImpl(model, view, in);
     controller.goController();
-    assertEquals("user5 2022-11-14 ", log.toString());
-    assertEquals("loadUser isFlexiblePortfolio portfolioExists isValidDate " +
-            "getCostBasis isFlexiblePortfolio ", olog.toString());
+    assertEquals("user5 2021-11-15 2022-11-14 ", log.toString());
+    assertEquals("loadUser isFlexiblePortfolio portfolioExists isValidDate isValidDate " +
+            "getPlot isFlexiblePortfolio ", olog.toString());
   }
 
 }

@@ -60,7 +60,7 @@ public class MockNewModel implements NewModel {
   public StringBuilder getPlot(String startDate, String endDate, ApiType apiType) {
     inputLog.append(startDate + " " + endDate + " ");
     outputLog.append("getPlot ");
-    return null;
+    return new StringBuilder("hello");
   }
 
   @Override
@@ -74,7 +74,7 @@ public class MockNewModel implements NewModel {
   public StringBuilder getComposition() {
     inputLog.append("");
     outputLog.append("getComposition ");
-    return null;
+    return new StringBuilder("hello");
   }
 
 
@@ -82,7 +82,7 @@ public class MockNewModel implements NewModel {
   public StringBuilder getComposition(String date) {
     inputLog.append(date + " ");
     outputLog.append("getComposition ");
-    return null;
+    return new StringBuilder("hello");
   }
 
   @Override
@@ -131,7 +131,7 @@ public class MockNewModel implements NewModel {
   public StringBuilder getListOfPortfolios() {
     inputLog.append("");
     outputLog.append("getListOfPortfolios ");
-    return null;
+    return new StringBuilder("hello");
   }
 
 
