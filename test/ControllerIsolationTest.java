@@ -96,7 +96,7 @@ public class ControllerIsolationTest {
     PrintStream out = new PrintStream(bytes);
     View view = new ViewImpl(out);
     ByteArrayInputStream in;
-    String input = "2 user5 1 personal 2 AAPL 10 1 ORCL 20 2 6";
+    String input = "2 user5 1 personal 2 AAPL 10 1 ORCL 20 2 7";
     in = new ByteArrayInputStream(input.getBytes());
     ControllerImpl controller = new ControllerImpl(model, view, in);
     controller.goController();
