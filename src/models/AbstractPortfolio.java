@@ -7,7 +7,7 @@ import java.util.HashMap;
  * This class represents a general portfolio. An abstract portfolio can be either an Inflexible
  * portfolio or a flexible portfolio.
  */
-public abstract class AbstractPortfolio implements Portfolio, FlexiblePortfolio {
+public abstract class AbstractPortfolio implements Portfolio, FlexiblePortfolio{
 
   protected boolean flexible = false;
 
@@ -79,6 +79,10 @@ public abstract class AbstractPortfolio implements Portfolio, FlexiblePortfolio 
     //throw exception for inflexible
     return null;
   }
+
+
+
+
 
   @Override
   public boolean stockExists(String symbol) {
