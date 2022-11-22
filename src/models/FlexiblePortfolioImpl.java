@@ -19,6 +19,8 @@ import static java.time.temporal.ChronoUnit.DAYS;
 public class FlexiblePortfolioImpl extends AbstractPortfolio implements FlexiblePortfolio {
   String portfolioName;
   HashMap<String, FlexibleStocksList> stockList;// {AAPl:{Stocks},IBM:{Stocks}}
+
+  ArrayList<DollarCostStock> dollarCostStockList;
   User user;
 
   /**
@@ -37,6 +39,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements Flexible
     this.portfolioName = portfolioName;
     this.user = user;
     this.stockList = new HashMap<>();
+    this.dollarCostStockList = new ArrayList<>();
     this.setFlexible(true);
 
 

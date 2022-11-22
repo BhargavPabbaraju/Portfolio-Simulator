@@ -219,4 +219,6 @@ public interface User {
    * @return boolean result of a validation.
    */
   boolean portfolioExists();
+
+
 }
