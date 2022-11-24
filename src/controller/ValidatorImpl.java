@@ -1,6 +1,8 @@
 package controller;
 
 
+import java.time.LocalDate;
+
 import models.NewerModel;
 
 public class ValidatorImpl implements Validator {
@@ -23,7 +25,7 @@ public class ValidatorImpl implements Validator {
   public ValidationResult validateFloat(String content) {
     ValidationResult empty = emptyValidation(content);
     if(!empty.result){
-      return empty;
+      return new ValidationResult(true,"",1000f);
     }
 
     float result;
@@ -42,7 +44,7 @@ public class ValidatorImpl implements Validator {
 
   @Override
   public ValidationResult validateDate(String content) {
-    return null;
+    return new ValidationResult(false,"Invalid date",content);
   }
 
   @Override
