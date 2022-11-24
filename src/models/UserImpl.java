@@ -106,7 +106,6 @@ public class UserImpl implements User {
   }
 
 
-
   private LocalDate parseDate(String date) {
     try {
       return LocalDate.parse(date,
@@ -172,7 +171,6 @@ public class UserImpl implements User {
   }
 
 
-
   @Override
   public StringBuilder getListOfPortfolios() {
     StringBuilder str = new StringBuilder();
@@ -219,6 +217,16 @@ public class UserImpl implements User {
   @Override
   public boolean portfolioExists() {
     return this.activePortfolio != null;
+  }
+
+  @Override
+  public void investIntoPortfolio(String date, float amount, float transactionCost, HashMap<String, Float> stocks, ApiType apiType) {
+    this.activePortfolio.investIntoPortfolio(parseDate(date), amount, transactionCost, stocks, apiType);
+  }
+
+  @Override
+  public void createDollarCostStrategyPortfolio(String startDate, String endDate, int interval, float amount, float transactionCost, HashMap<String, Float> stocks) {
+    this.activePortfolio.createDollarCostStrategyPortfolio(parseDate(startDate), endDate==null ? null:parseDate(endDate)  , interval, amount, transactionCost, stocks);
   }
 
 

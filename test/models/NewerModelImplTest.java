@@ -12,7 +12,7 @@ public class NewerModelImplTest {
   @Test
   public void testInsertIntoPortfolio() throws IOException, ParseException {
     NewerModel m = new NewerModelImpl();
-    m.loadUser("user5");
+    m.loadUser("user3");
     m.createPortfolio("flex", true);
     HashMap<String, Float> stocks = new HashMap<>();
     stocks.put("META", 40F);
@@ -27,7 +27,7 @@ public class NewerModelImplTest {
   @Test
   public void testDollarCostBasisWithEndDate() throws IOException, ParseException {
     NewerModel m = new NewerModelImpl();
-    m.loadUser("user5");
+    m.loadUser("user3");
     m.createPortfolio("flex", true);
     HashMap<String, Float> stocks = new HashMap<>();
     stocks.put("META", 40F);
@@ -48,7 +48,7 @@ public class NewerModelImplTest {
   @Test
   public void testDollarCostBasisWithOutEndDate() throws IOException, ParseException {
     NewerModel m = new NewerModelImpl();
-    m.loadUser("user5");
+    m.loadUser("user3");
     m.createPortfolio("flex", true);
     HashMap<String, Float> stocks = new HashMap<>();
     stocks.put("META", 40F);
@@ -69,7 +69,7 @@ public class NewerModelImplTest {
   @Test
   public void testDollarGetValue() throws IOException, ParseException {
     NewerModel m = new NewerModelImpl();
-    m.loadUser("user5");
+    m.loadUser("user3");
     m.createPortfolio("flex", true);
     HashMap<String, Float> stocks = new HashMap<>();
     stocks.put("META", 40F);

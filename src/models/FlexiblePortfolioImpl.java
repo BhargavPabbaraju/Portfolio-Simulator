@@ -311,7 +311,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements Flexible
     for (String key : stockList.keySet()) {
       value += this.stockList.get(key).getValue(dateValue, apiType);
     }
-    return value;
+    return value + getTotalValueDollarStrategy(dateValue, apiType);
   }
 
 
@@ -341,7 +341,8 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements Flexible
     for (String key : stockList.keySet()) {
       cost += this.stockList.get(key).getCostBasis(date, apiType);
     }
-    return cost;
+    float dollarStrategyCostBasis = costbasisDollarStrategy(date);
+    return cost + dollarStrategyCostBasis;
   }
 
   @Override
@@ -352,6 +353,44 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements Flexible
   @Override
   public boolean stockExists(String symbol) {
     return this.stockList.containsKey(symbol);
+
+  }
+
+  @Override
+  public void investIntoPortfolio(LocalDate date, float amount, float transactionCost, HashMap<String, Float> stocks, ApiType apiType) {
+    float individualTranscationCost = transactionCost / stocks.size();
+    for (String key : stocks.keySet()) {
+      float value = ApiCallImpl.getData(key, date, apiType);
+      float stockAmount = (stocks.get(key) / 100) * amount;
+      float numberOfShares = stockAmount / value;
+      this.buyStock(key, date, numberOfShares, individualTranscationCost);
+    }
+  }
+
+  @Override
+  public void createDollarCostStrategyPortfolio(LocalDate startDate, LocalDate endDate, int interval, float amount, float transactionCost, HashMap<String, Float> stocks) {
+    for (String key : stocks.keySet()) {
+      stocks.put(key, (stocks.get(key) / 100) * amount);
+    }
+    this.dollarCostStockList.add(new DollarCostStockImpl(startDate, interval, amount, transactionCost, stocks, endDate));
+  }
+
+  private float costbasisDollarStrategy(LocalDate date) {
+    float cost = 0;
+    for (DollarCostStock dollarCostStock : this.dollarCostStockList) {
+      cost += dollarCostStock.getCostBasis(date);
+    }
+    return cost;
+
+  }
+
+  private float getTotalValueDollarStrategy(LocalDate date, ApiType apiType) {
+    float value = 0;
+    for (DollarCostStock dollarCostStock : this.dollarCostStockList) {
+      value += dollarCostStock.getTotalValue(date, apiType);
+    }
+    return value;
+
 
   }
 

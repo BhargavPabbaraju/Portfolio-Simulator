@@ -89,4 +89,8 @@ public interface FlexiblePortfolio {
    */
   public boolean stockExists(String symbol);
 
+  void investIntoPortfolio( LocalDate date,float amount ,float transactionCost, HashMap<String,Float> stocks,ApiType apiType);
+
+  void createDollarCostStrategyPortfolio(LocalDate startDate,LocalDate endDate,int interval,float amount ,float transactionCost, HashMap<String,Float> stocks);
+
 }

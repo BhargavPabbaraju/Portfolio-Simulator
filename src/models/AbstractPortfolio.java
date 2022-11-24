@@ -80,13 +80,18 @@ public abstract class AbstractPortfolio implements Portfolio, FlexiblePortfolio{
     return null;
   }
 
-
-
-
-
   @Override
   public boolean stockExists(String symbol) {
     //Throw exception for inflexible
     return false;
+  }
+  @Override
+  public void investIntoPortfolio(LocalDate date, float amount, float transactionCost, HashMap<String, Float> stocks,ApiType apiType) {
+
+  }
+
+  @Override
+  public void createDollarCostStrategyPortfolio(LocalDate startDate, LocalDate endDate, int interval, float amount, float transactionCost, HashMap<String, Float> stocks) {
+
   }
 }

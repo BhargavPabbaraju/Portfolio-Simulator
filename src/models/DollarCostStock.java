@@ -1,8 +1,10 @@
 package models;
 
-public interface DollarCostStock {
-  float getCostBasis(String date);
+import java.time.LocalDate;
 
-  float getTotalValue(String date);
+public interface DollarCostStock {
+  float getCostBasis(LocalDate date);
+
+  float getTotalValue(LocalDate date, ApiType apiType);
 
 }

@@ -220,5 +220,9 @@ public interface User {
    */
   boolean portfolioExists();
 
+  void investIntoPortfolio( String date,float amount ,float transactionCost, HashMap<String,Float> stocks,ApiType apiType);
+
+  void createDollarCostStrategyPortfolio(String startDate,String endDate,int interval,float amount ,float transactionCost, HashMap<String,Float> stocks);
+
 
 }
