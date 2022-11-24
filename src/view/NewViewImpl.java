@@ -13,7 +13,7 @@ import controller.ValidationResult;
 import controller.Validator;
 
 
-public class NewViewImpl extends JFrame implements NewView{
+public class NewViewImpl extends JFrame implements NewView {
 
   private JPanel footerPanel;
   private JPanel menuPanel;
@@ -27,37 +27,37 @@ public class NewViewImpl extends JFrame implements NewView{
 
   private JLabel displayMessage;
 
-  private HashMap<ScreenNames,JPanel> screens;
+  private HashMap<ScreenNames, JPanel> screens;
   private ScreenNames currentScreen;
 
 
   private Validator validator;
   private Features features;
-  private HashMap<String,ValidationResult> validationResults;
-  private HashMap<String,JButton> buttons;
+  private HashMap<String, ValidationResult> validationResults;
+  private HashMap<String, JButton> buttons;
 
   private String portfolioName;
 
 
   @Override
-  public void setValidator(Validator validator){
+  public void setValidator(Validator validator) {
     this.validator = validator;
   }
 
   @Override
-  public void setFeatures(Features features){
+  public void setFeatures(Features features) {
     this.features = features;
   }
 
-  private boolean isCenterScreen(){
-    switch(currentScreen){
+  private boolean isCenterScreen() {
+    switch (currentScreen) {
       case MAIN_SCREEN:
       case INITIAL_SCREEN:
       case CREATE_USER_SCREEN:
       case LOAD_USER_SCREEN:
         return false;
       default:
-        return  true;
+        return true;
     }
   }
 
@@ -67,24 +67,24 @@ public class NewViewImpl extends JFrame implements NewView{
 
     screen.setLayout(new BorderLayout());
     centerPanel = new JPanel();
-    centerPanel.setSize(new Dimension(900-320,500));
+    centerPanel.setSize(new Dimension(900 - 320, 500));
     initializeDisplayMessage(centerPanel);
 
 
 
     initializeMenu();
 
-    screen.add(menuPanel,BorderLayout.LINE_START);
-    screen.add(centerPanel,BorderLayout.CENTER);
-    screen.add(footerPanel,BorderLayout.PAGE_END);
-    setMinimumSize(new Dimension(900,500));
-    screen.setPreferredSize(new Dimension(900,500));
+    screen.add(menuPanel, BorderLayout.LINE_START);
+    screen.add(centerPanel, BorderLayout.CENTER);
+    screen.add(footerPanel, BorderLayout.PAGE_END);
+    setMinimumSize(new Dimension(900, 500));
+    screen.setPreferredSize(new Dimension(900, 500));
 
-    setScreen(ScreenNames.MAIN_SCREEN,screen);
+    setScreen(ScreenNames.MAIN_SCREEN, screen);
   }
 
   @Override
-  public void showMessage(String message,boolean error) {
+  public void showMessage(String message, boolean error) {
     displayMessage.setText(message);
     Color color = error ? Color.RED : Color.BLACK;
     displayMessage.setForeground(color);
@@ -93,27 +93,27 @@ public class NewViewImpl extends JFrame implements NewView{
   @Override
   public void showInitialMenu() {
     JPanel screen = new JPanel();
-    screen.setLayout(new GridLayout(0,1));
+    screen.setLayout(new GridLayout(0, 1));
 
     setButtons(
-            new String[] {
+            new String[]{
                     "Create user",
                     "Load user",
                     "Exit"
             },
             screen
     );
-    buttons.get("Create user").addActionListener(e->new CreateUserScreen());
-    buttons.get("Load user").addActionListener(e->new LoadUserScreen());
+    buttons.get("Create user").addActionListener(e -> new CreateUserScreen());
+    buttons.get("Load user").addActionListener(e -> new LoadUserScreen());
     initializeDisplayMessage(screen);
-    setScreen(ScreenNames.INITIAL_SCREEN,screen);
+    setScreen(ScreenNames.INITIAL_SCREEN, screen);
   }
 
 
-  public NewViewImpl(){
+  public NewViewImpl() {
     super();
     setTitle("Portfolio Application");
-    setMinimumSize(new Dimension(400,400));
+    setMinimumSize(new Dimension(400, 400));
     setLocation(200, 200);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     screens = new HashMap<>();
@@ -121,36 +121,35 @@ public class NewViewImpl extends JFrame implements NewView{
     showInitialMenu();
 
 
-
-
-
   }
 
 
-
-
-  private ValidationResult validate(String content, String type, JLabel errorLabel){
+  private ValidationResult validate(String content, String type, JLabel errorLabel) {
     ValidationResult validationResult;
-    switch(type){
+    switch (type) {
 
       case "float":
         validationResult = validator.validateFloat(content);
         break;
 
       case "newUserName":
-        validationResult = validator.validateUserName(content,false);
+        validationResult = validator.validateUserName(content, false);
         break;
 
       case "oldUserName":
-        validationResult = validator.validateUserName(content,true);
+        validationResult = validator.validateUserName(content, true);
         break;
 
       case "newPortfolioName":
-        validationResult = validator.validatePortfolioName(content,false);
+        validationResult = validator.validatePortfolioName(content, false);
         break;
 
       case "date":
         validationResult = validator.validateDate(content);
+        break;
+
+      case "futureDate":
+        validationResult = validator.validateFutureDate(content);
         break;
 
 
@@ -164,52 +163,51 @@ public class NewViewImpl extends JFrame implements NewView{
   }
 
 
-
-  private void centerAlignLabel(String text,JPanel screen){
+  private void centerAlignLabel(String text, JPanel screen) {
     JLabel label = new JLabel(text, JLabel.CENTER);
     label.setAlignmentX(JLabel.CENTER_ALIGNMENT);
     screen.add(label);
   }
 
 
-  private void setScreen(ScreenNames screenName,JPanel screen){
-    screens.put(screenName,screen);
+  private void setScreen(ScreenNames screenName, JPanel screen) {
+    screens.put(screenName, screen);
     currentScreen = screenName;
-    if(isCenterScreen()){
+    if (isCenterScreen()) {
       centerPanel.removeAll();
       centerPanel.add(screen);
       centerPanel.revalidate();
 
-    }else{
+    } else {
       this.add(screen);
     }
 
     setScreenVisibilities(screenName);
   }
 
-  private void setScreenVisibilities(ScreenNames screenName){
+  private void setScreenVisibilities(ScreenNames screenName) {
     this.setVisible(false);
-    for(ScreenNames screen:screens.keySet()){
+    for (ScreenNames screen : screens.keySet()) {
       screens.get(screen).setVisible(false);
     }
-    if(isCenterScreen()){
+    if (isCenterScreen()) {
       screens.get(ScreenNames.MAIN_SCREEN).setVisible(true);
     }
     screens.get(screenName).setVisible(true);
     this.setVisible(true);
   }
 
-  private void initializeMenu(){
+  private void initializeMenu() {
     menuPanel = new JPanel();
-    menuPanel.setLayout(new BoxLayout(menuPanel,BoxLayout.PAGE_AXIS));
+    menuPanel.setLayout(new BoxLayout(menuPanel, BoxLayout.PAGE_AXIS));
 
-    JPanel panel = new JPanel(new GridLayout(0,2));
+    JPanel panel = new JPanel(new GridLayout(0, 2));
     panel.setPreferredSize(new Dimension(320, 300));
     panel.setBackground(Color.LIGHT_GRAY);
     menuPanel.setBackground(Color.LIGHT_GRAY);
 
     setButtons(
-            new String[] {
+            new String[]{
                     "Create portfolio",
                     "Load portfolio",
                     "Buy stocks",
@@ -227,11 +225,12 @@ public class NewViewImpl extends JFrame implements NewView{
     );
 
 
-    buttons.get("Create portfolio").addActionListener(e->new CreatePortfolioScreen());
-    buttons.get("Get Cost basis").addActionListener(e->new GetCostBasisScreen());
+    buttons.get("Create portfolio").addActionListener(e -> new CreatePortfolioScreen());
+    buttons.get("Get Cost basis").addActionListener(e -> new GetCostBasisScreen());
+    buttons.get("Get Value").addActionListener(e -> new GetTotalValue());
+
 
     menuPanel.add(panel);
-
 
 
     footerPanel = new JPanel(new GridLayout());
@@ -246,12 +245,12 @@ public class NewViewImpl extends JFrame implements NewView{
   }
 
 
-  private  boolean checkErrors(String[] fields,
-                                 HashMap<String, ValidationResult> validationResults){
-    for(String field:fields){
+  private boolean checkErrors(String[] fields,
+                              HashMap<String, ValidationResult> validationResults) {
+    for (String field : fields) {
       ValidationResult result = validationResults.get(field);
-      if(!result.result){
-        showMessage("Please fill all required fields and fix all errors",true);
+      if (!result.result) {
+        showMessage("Please fill all required fields and fix all errors", true);
         return true;
       }
     }
@@ -290,7 +289,7 @@ public class NewViewImpl extends JFrame implements NewView{
         }
       });
       panel.add(textField);
-      if(required[i]){
+      if (required[i]) {
         JLabel star = new JLabel("*");
         star.setForeground(Color.RED);
         panel.add(star);
@@ -308,95 +307,92 @@ public class NewViewImpl extends JFrame implements NewView{
   }
 
   private void initializeDisplayMessage(JPanel screen) {
-    displayMessage = new JLabel("",JLabel.CENTER);
+    displayMessage = new JLabel("", JLabel.CENTER);
     displayMessage.setAlignmentX(JLabel.CENTER_ALIGNMENT);
     screen.add(displayMessage);
   }
 
-  private void setButtons(String[] buttonNames,JPanel panel){
+  private void setButtons(String[] buttonNames, JPanel panel) {
     buttons = new HashMap<>();
-    for(String buttonName:buttonNames ){
+    for (String buttonName : buttonNames) {
       JButton button = new JButton(buttonName);
-      buttons.put(buttonName,button);
+      buttons.put(buttonName, button);
       panel.add(button);
     }
   }
 
 
-
-  private final class CreateUserScreen{
-    CreateUserScreen(){
+  private final class CreateUserScreen {
+    CreateUserScreen() {
       JPanel screen = new JPanel();
-      screen.setLayout(new BoxLayout(screen,BoxLayout.PAGE_AXIS));
+      screen.setLayout(new BoxLayout(screen, BoxLayout.PAGE_AXIS));
 
 
-      String [] fields = new String[] {"username","balance"};
-      String [] types = new String[] {"newUserName","float"};
-      boolean[] required = new boolean[] {true,false};
+      String[] fields = new String[]{"username", "balance"};
+      String[] types = new String[]{"newUserName", "float"};
+      boolean[] required = new boolean[]{true, false};
       validationResults = new HashMap<>();
 
-      initialScreensLoader(fields,types,required,screen);
-
+      initialScreensLoader(fields, types, required, screen);
 
 
       JPanel panel = new JPanel(new FlowLayout());
       setButtons(
-              new String[] {
+              new String[]{
                       "Create user",
                       "Go back"
               },
               panel
       );
-      buttons.get("Go back").addActionListener(e->showInitialMenu());
+      buttons.get("Go back").addActionListener(e -> showInitialMenu());
 
       screen.add(panel);
 
-      buttons.get("Create user").addActionListener(e->buttonHandler(fields,validationResults));
+      buttons.get("Create user").addActionListener(e -> buttonHandler(fields, validationResults));
 
 
-      setScreen(ScreenNames.CREATE_USER_SCREEN,screen);
+      setScreen(ScreenNames.CREATE_USER_SCREEN, screen);
     }
 
     private void buttonHandler(String[] fields,
-                                   HashMap<String, ValidationResult> validationResults) {
+                               HashMap<String, ValidationResult> validationResults) {
 
-      if(checkErrors(fields,validationResults)){
+      if (checkErrors(fields, validationResults)) {
         return;
       }
       String userName = validationResults.get("username").data.toString();
       float balance = (float) validationResults.get("balance").data;
-      features.createUser(userName,balance);
+      features.createUser(userName, balance);
     }
   }
 
-  private final class LoadUserScreen{
-    LoadUserScreen(){
+  private final class LoadUserScreen {
+    LoadUserScreen() {
       JPanel screen = new JPanel();
-      screen.setLayout(new BoxLayout(screen,BoxLayout.PAGE_AXIS));
+      screen.setLayout(new BoxLayout(screen, BoxLayout.PAGE_AXIS));
 
 
-      String [] fields = new String[] {"username"};
-      String [] types = new String[] {"oldUserName"};
-      boolean[] required = new boolean[] {true};
+      String[] fields = new String[]{"username"};
+      String[] types = new String[]{"oldUserName"};
+      boolean[] required = new boolean[]{true};
       validationResults = new HashMap<>();
 
-      initialScreensLoader(fields,types, required, screen);
-
+      initialScreensLoader(fields, types, required, screen);
 
 
       JPanel panel = new JPanel(new FlowLayout());
       setButtons(
-              new String[] {
+              new String[]{
                       "Load user",
                       "Go back"
               },
               panel
       );
-      buttons.get("Go back").addActionListener(e->showInitialMenu());
+      buttons.get("Go back").addActionListener(e -> showInitialMenu());
 
       screen.add(panel);
 
-      buttons.get("Load user").addActionListener(e->buttonHandler(fields,validationResults));
+      buttons.get("Load user").addActionListener(e -> buttonHandler(fields, validationResults));
 
 
       setScreen(ScreenNames.LOAD_USER_SCREEN,screen);
@@ -508,24 +504,23 @@ public class NewViewImpl extends JFrame implements NewView{
     }
   }
 
-  private final class GetCostBasisScreen{
-    GetCostBasisScreen(){
+  private final class GetCostBasisScreen {
+    GetCostBasisScreen() {
       JPanel screen = new JPanel();
-      screen.setLayout(new BoxLayout(screen,BoxLayout.PAGE_AXIS));
+      screen.setLayout(new BoxLayout(screen, BoxLayout.PAGE_AXIS));
 
 
-      String [] fields = new String[] {"date"};
-      String [] types = new String[] {"date"};
-      boolean[] required = new boolean[] {true};
+      String[] fields = new String[]{"date"};
+      String[] types = new String[]{"futureDate"};
+      boolean[] required = new boolean[]{true};
       validationResults = new HashMap<>();
 
-      initialScreensLoader(fields,types, required, screen);
-
+      initialScreensLoader(fields, types, required, screen);
 
 
       JPanel panel = new JPanel(new FlowLayout());
       setButtons(
-              new String[] {
+              new String[]{
                       "Get cost basis",
 
               },
@@ -535,20 +530,63 @@ public class NewViewImpl extends JFrame implements NewView{
 
       screen.add(panel);
 
-      buttons.get("Get cost basis").addActionListener(e->buttonHandler(fields,validationResults));
+      buttons.get("Get cost basis").addActionListener(e -> buttonHandler(fields, validationResults));
 
 
-      setScreen(ScreenNames.GET_COST_BASIS_SCREEN,screen);
+      setScreen(ScreenNames.GET_COST_BASIS_SCREEN, screen);
     }
 
     private void buttonHandler(String[] fields,
                                HashMap<String, ValidationResult> validationResults) {
 
-      if(checkErrors(fields,validationResults)){
+      if (checkErrors(fields, validationResults)) {
         return;
       }
       String date = validationResults.get("date").data.toString();
       features.getCostBasis(date);
+    }
+  }
+
+  private final class GetTotalValue {
+    GetTotalValue() {
+      JPanel screen = new JPanel();
+      screen.setLayout(new BoxLayout(screen, BoxLayout.PAGE_AXIS));
+
+
+      String[] fields = new String[]{"date"};
+      String[] types = new String[]{"date"};
+      boolean[] required = new boolean[]{true};
+      validationResults = new HashMap<>();
+
+      initialScreensLoader(fields, types, required, screen);
+
+
+      JPanel panel = new JPanel(new FlowLayout());
+      setButtons(
+              new String[]{
+                      "Get total value",
+
+              },
+              panel
+      );
+
+
+      screen.add(panel);
+
+      buttons.get("Get total value").addActionListener(e -> buttonHandler(fields, validationResults));
+
+
+      setScreen(ScreenNames.GET_TOTAL_VALUE_SCREEN, screen);
+    }
+
+    private void buttonHandler(String[] fields,
+                               HashMap<String, ValidationResult> validationResults) {
+
+      if (checkErrors(fields, validationResults)) {
+        return;
+      }
+      String date = validationResults.get("date").data.toString();
+      features.getTotalValue(date);
     }
   }
 
