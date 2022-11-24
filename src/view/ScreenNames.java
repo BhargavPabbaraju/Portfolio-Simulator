@@ -1,0 +1,9 @@
+package view;
+
+public enum ScreenNames {
+  INITIAL_SCREEN,
+  MAIN_SCREEN,
+  LOAD_USER_SCREEN, CREATE_PORTFOLIO_SCREEN, CREATE_USER_SCREEN
+
+
+};
