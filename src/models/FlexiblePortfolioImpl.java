@@ -394,5 +394,10 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements Flexible
 
   }
 
+  @Override
+  public String getName(){
+    return this.portfolioName;
+  }
+
 
 }

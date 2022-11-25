@@ -4,6 +4,8 @@ package controller;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Collection;
+import java.util.HashMap;
 
 import models.NewerModel;
 
@@ -25,10 +27,15 @@ public class ValidatorImpl implements Validator {
   }
 
   @Override
-  public ValidationResult validateFloat(String content) {
+  public ValidationResult validateFloat(String content,boolean required) {
     ValidationResult empty = emptyValidation(content);
     if (!empty.result) {
-      return new ValidationResult(true, "", 1000f);
+      if(!required){
+        return new ValidationResult(true, "", 0f);
+      }else{
+        return new ValidationResult(false, "cannot be empty", 0f);
+      }
+
     }
 
     float result;
@@ -107,7 +114,23 @@ public class ValidatorImpl implements Validator {
 
   @Override
   public ValidationResult validateInt(String content) {
-    return null;
+    ValidationResult empty = emptyValidation(content);
+    if (!empty.result) {
+      return empty;
+    }
+
+    int result;
+    String errorMessage = "Must be a positive integer";
+    try {
+      result = Integer.parseInt(content);
+      if (result > 0) {
+        return new ValidationResult(true, "", result);
+      } else {
+        return new ValidationResult(false, errorMessage, content);
+      }
+    } catch (Exception e) {
+      return new ValidationResult(false, errorMessage, content);
+    }
   }
 
   private ValidationResult validateNewUserName(boolean condition, String content, String errorMessage) {
@@ -148,6 +171,34 @@ public class ValidatorImpl implements Validator {
     } else {
       return validationResult;
     }
+  }
+
+  @Override
+  public ValidationResult validateSymbol(String content) {
+    ValidationResult empty = emptyValidation(content);
+    if (!empty.result) {
+      return empty;
+    }else{
+      if(model.isValidSymbol(content)){
+        return new ValidationResult(true, "", content);
+      }else{
+        return new ValidationResult(false, "Invalid symbol", content);
+      }
+    }
+
+  }
+
+  @Override
+  public ValidationResult validateWeights(HashMap<String,Float> stocks) {
+    float sum = 0;
+    for(String symbol:stocks.keySet()){
+      sum+=stocks.get(symbol);
+    }
+    if(sum==100f){
+      return new ValidationResult(true,"","");
+    }
+    return new ValidationResult(false,"Weights do not add to 100","");
+
   }
 
   private boolean isWeekend(LocalDate date) {

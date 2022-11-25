@@ -229,6 +229,11 @@ public class UserImpl implements User {
     this.activePortfolio.createDollarCostStrategyPortfolio(parseDate(startDate), endDate==null ? null:parseDate(endDate)  , interval, amount, transactionCost, stocks);
   }
 
+  @Override
+  public String getActivePortfolio() {
+    return this.activePortfolio.getName();
+  }
+
 
   @Override
   public void save() throws IOException {

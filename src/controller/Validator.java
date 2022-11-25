@@ -1,9 +1,10 @@
 package controller;
 
+import java.util.Collection;
 import java.util.HashMap;
 
 public interface Validator {
-  ValidationResult validateFloat(String content);
+  ValidationResult validateFloat(String content,boolean required);
 
   ValidationResult validateDate(String content);
 
@@ -18,4 +19,8 @@ public interface Validator {
   ValidationResult validateUserName(String content, boolean loading);
 
   ValidationResult validatePortfolioName(String content, boolean loading);
+
+  ValidationResult validateSymbol(String content);
+
+  ValidationResult validateWeights(HashMap<String,Float> stocks);
 }

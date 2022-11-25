@@ -1,5 +1,8 @@
 package controller;
 
+import java.util.HashMap;
+
+import models.ApiType;
 import models.NewerModel;
 import view.NewView;
 
@@ -21,7 +24,22 @@ public class NewController implements Features{
   }
 
   @Override
-  public void buyStocks(int numberOfShares, String date, float commissionFee) {
+  public void buyStocks(String symbol, int numberOfShares, String date, float commissionFee,
+                        boolean creating) {
+
+    try{
+      model.buyStock(symbol,date,numberOfShares,commissionFee);
+      String message = "Successfully bought stocks";
+      if(creating){
+        message = "Successfully created portfolio";
+      }
+      view.showMainMenu();
+      view.showMessage(message,false);
+    }catch(Exception e){
+      view.showMainMenu();
+      view.showMessage(e.getMessage(),true);
+    }
+
 
   }
 
@@ -51,10 +69,19 @@ public class NewController implements Features{
   }
 
   @Override
-  public void investOnDate(String date, float amount, float commissionFee, String symbol,
-                           float weight) {
+  public void investOnDate(String date, float amount, float commissionFee,
+                           HashMap<String, Float> stocks) {
+    try{
+      model.investIntoPortfolio(date,amount,commissionFee,stocks, ApiType.ALPHA_VANTAGE);
+      view.showMainMenu();
+      view.showMessage("Successfully invested",false);
+    }catch(Exception e){
+      view.showMainMenu();
+      view.showMessage(e.getMessage(),true);
+    }
 
   }
+
 
   @Override
   public void dollarCost(String startDate, String endDate, int interval, float amount,
@@ -64,10 +91,7 @@ public class NewController implements Features{
 
 
 
-  @Override
-  public void addStock(String symbol, float weight) {
 
-  }
 
   @Override
   public void createUser(String userName, float balance) {
@@ -95,5 +119,10 @@ public class NewController implements Features{
     }
 
 
+  }
+
+  @Override
+  public String getActivePortfolio() {
+    return model.getActivePortfolio();
   }
 }

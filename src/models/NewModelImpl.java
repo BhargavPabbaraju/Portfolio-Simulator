@@ -78,4 +78,6 @@ public class NewModelImpl extends ModelImpl implements NewModel {
   public boolean isValidDate(String date) {
     return this.user.isValidDate(date);
   }
+
+
 }

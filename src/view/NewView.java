@@ -14,4 +14,6 @@ public interface NewView {
   void showMessage(String message,boolean error);
 
   void showInitialMenu();
+
+
 }

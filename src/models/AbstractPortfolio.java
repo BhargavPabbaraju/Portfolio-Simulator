@@ -94,4 +94,9 @@ public abstract class AbstractPortfolio implements Portfolio, FlexiblePortfolio{
   public void createDollarCostStrategyPortfolio(LocalDate startDate, LocalDate endDate, int interval, float amount, float transactionCost, HashMap<String, Float> stocks) {
 
   }
+
+  @Override
+  public String getName(){
+    return null;
+  }
 }

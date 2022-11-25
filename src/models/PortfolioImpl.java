@@ -102,4 +102,9 @@ class PortfolioImpl extends AbstractPortfolio  {
   public String toString() {
     return this.stockList.toString();
   }
+
+  @Override
+  public String getName(){
+    return this.portfolioName;
+  }
 }

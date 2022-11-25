@@ -61,4 +61,6 @@ interface Portfolio {
    * @return Hashmap of all the stocks in this portfolio
    */
   HashMap<String, Stock> getStocks();
+
+  String getName();
 }

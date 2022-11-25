@@ -225,4 +225,5 @@ public interface User {
   void createDollarCostStrategyPortfolio(String startDate,String endDate,int interval,float amount ,float transactionCost, HashMap<String,Float> stocks);
 
 
+  String getActivePortfolio();
 }
