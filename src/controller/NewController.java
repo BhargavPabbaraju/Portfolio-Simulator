@@ -20,7 +20,7 @@ public class NewController implements Features{
 
   @Override
   public void createPortfolio(String portfolioName) {
-
+    model.createPortfolio(portfolioName,true);
   }
 
   @Override
@@ -44,18 +44,34 @@ public class NewController implements Features{
   }
 
   @Override
-  public void sellStocks(float numberOfShares, String date, float commissionFee) {
-
+  public void sellStocks(String symbol, float numberOfShares, String date, float commissionFee) {
+    try{
+      model.sellStock(symbol,date,numberOfShares,commissionFee);
+      showMainMenu("Successfully sold stocks",false);
+    }catch(Exception e){
+      view.showMessage(e.getMessage(),true);
+    }
   }
 
   @Override
   public float getCostBasis(String date) {
-    return 0;
+    try{
+      return model.getCostBasis(date,ApiType.ALPHA_VANTAGE);
+    }catch(Exception e){
+      showMainMenu(e.getMessage(),true);
+      return -1;
+    }
+
   }
 
   @Override
   public float getTotalValue(String date) {
-    return 0;
+    try{
+      return model.getTotalValue(date,ApiType.ALPHA_VANTAGE);
+    }catch(Exception e){
+      showMainMenu(e.getMessage(),true);
+      return -1;
+    }
   }
 
   @Override
@@ -65,19 +81,32 @@ public class NewController implements Features{
 
   @Override
   public void loadPortfolio(String portfolioName) {
+    try{
+      model.loadPortfolio(portfolioName);
+      showMainMenu("Successfully loaded portfolio",false);
+    }catch (Exception e){
+      showMainMenu(e.getMessage(),true);
+    }
 
+  }
+
+  private void showMainMenu(String message,boolean isError){
+    view.showMainMenu();
+    view.showMessage(message,isError);
   }
 
   @Override
   public void investOnDate(String date, float amount, float commissionFee,
-                           HashMap<String, Float> stocks) {
+                           HashMap<String, Float> stocks, boolean creating) {
     try{
       model.investIntoPortfolio(date,amount,commissionFee,stocks, ApiType.ALPHA_VANTAGE);
-      view.showMainMenu();
-      view.showMessage("Successfully invested",false);
+      String message = "Successfully invested";
+      if(creating){
+        message = "Successfully created portfolio";
+      }
+      showMainMenu(message,false);
     }catch(Exception e){
-      view.showMainMenu();
-      view.showMessage(e.getMessage(),true);
+      showMainMenu(e.getMessage(),true);
     }
 
   }
@@ -85,7 +114,7 @@ public class NewController implements Features{
 
   @Override
   public void dollarCost(String startDate, String endDate, int interval, float amount,
-                         float commissionFee, String symbol, float weight) {
+                         float commissionFee, HashMap<String, Float> stocks, boolean creating) {
 
   }
 
@@ -95,14 +124,15 @@ public class NewController implements Features{
 
   @Override
   public void createUser(String userName, float balance) {
-    try{
-      model.createUser(userName,balance);
-      view.showMainMenu();
-      view.showMessage("Successfully created user",false);
-    }catch(Exception e){
-      view.showInitialMenu();
-      view.showMessage(e.getMessage(),true);
-    }
+//    try{
+//      model.createUser(userName,balance);
+//      view.showNewUserMenu();
+//    }catch(Exception e){
+//      view.showInitialMenu();
+//      view.showMessage(e.getMessage(),true);
+//    }
+    model.createUser(userName,balance);
+      view.showNewUserMenu();
 
   }
 
@@ -110,8 +140,7 @@ public class NewController implements Features{
   public void loadUser(String userName) {
     try{
       model.loadUser(userName);
-      view.showMainMenu();
-      view.showMessage("Successfully loaded "+userName,false);
+      showMainMenu("Successfully loaded "+userName,false);
     }catch(Exception e){
       view.showInitialMenu();
       String message = e.getMessage()==null  ? "Load file is in invalid format" : e.getMessage();
@@ -125,4 +154,15 @@ public class NewController implements Features{
   public String getActivePortfolio() {
     return model.getActivePortfolio();
   }
+
+  @Override
+  public String getListOfPortfolios() {
+    try{
+      return model.getListOfPortfolios().toString();
+    }catch(Exception e){
+      return "";
+    }
+  }
+
+
 }

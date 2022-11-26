@@ -63,6 +63,7 @@ public class NewViewImpl extends JFrame implements NewView {
       case INITIAL_SCREEN:
       case CREATE_USER_SCREEN:
       case LOAD_USER_SCREEN:
+      case NEW_USER_SCREEN:
         return false;
       default:
         return true;
@@ -71,21 +72,36 @@ public class NewViewImpl extends JFrame implements NewView {
 
   @Override
   public void showMainMenu() {
+    if(!screens.containsKey(ScreenNames.MAIN_SCREEN)){
+      setScreen(ScreenNames.MAIN_SCREEN, mainMenuHelper(false));
+    }else{
+      mainMenuHelper(false);
+    }
 
+  }
+
+  private JPanel mainMenuHelper(boolean creating){
     if (screens.containsKey(ScreenNames.MAIN_SCREEN)) {
       setScreenVisibilities(ScreenNames.MAIN_SCREEN);
       initializeDisplayMessage(centerPanel);
-      return;
+      return null;
+    }
+    else if (creating && screens.containsKey(ScreenNames.NEW_USER_SCREEN)) {
+      setScreenVisibilities(ScreenNames.NEW_USER_SCREEN);
+      initializeDisplayMessage(centerPanel);
+      return null;
     }
     JPanel screen = new JPanel();
 
     screen.setLayout(new BorderLayout());
     centerPanel = new JPanel();
+
+
     centerPanel.setSize(new Dimension(900 - 320, 500));
     initializeDisplayMessage(centerPanel);
 
 
-    initializeMenu();
+    initializeMenu(creating);
 
     screen.add(menuPanel, BorderLayout.LINE_START);
     screen.add(centerPanel, BorderLayout.CENTER);
@@ -93,7 +109,8 @@ public class NewViewImpl extends JFrame implements NewView {
     setMinimumSize(new Dimension(900, 500));
     screen.setPreferredSize(new Dimension(900, 500));
 
-    setScreen(ScreenNames.MAIN_SCREEN, screen);
+    return screen;
+
   }
 
   @Override
@@ -120,6 +137,12 @@ public class NewViewImpl extends JFrame implements NewView {
     buttons.get("Load user").addActionListener(e -> new LoadUserScreen());
     initializeDisplayMessage(screen);
     setScreen(ScreenNames.INITIAL_SCREEN, screen);
+  }
+
+  @Override
+  public void showNewUserMenu() {
+    setScreen(ScreenNames.NEW_USER_SCREEN, mainMenuHelper(true));
+    showMessage("Successfully created user",false);
   }
 
 
@@ -155,6 +178,10 @@ public class NewViewImpl extends JFrame implements NewView {
 
       case "newPortfolioName":
         validationResult = validator.validatePortfolioName(content, false);
+        break;
+
+      case "oldPortfolioName":
+        validationResult = validator.validatePortfolioName(content, true);
         break;
 
       case "date":
@@ -211,46 +238,64 @@ public class NewViewImpl extends JFrame implements NewView {
       screens.get(screen).setVisible(false);
     }
     if (isCenterScreen()) {
-      screens.get(ScreenNames.MAIN_SCREEN).setVisible(true);
+      if(screens.containsKey(ScreenNames.MAIN_SCREEN)){
+        screens.get(ScreenNames.MAIN_SCREEN).setVisible(true);
+      }else if(screens.containsKey(ScreenNames.NEW_USER_SCREEN)){
+        screens.get(ScreenNames.NEW_USER_SCREEN).setVisible(true);
+      }
     }
     screens.get(screenName).setVisible(true);
     this.setVisible(true);
   }
 
-  private void initializeMenu() {
+  private void initializeMenu(boolean creating) {
     menuPanel = new JPanel();
     menuPanel.setLayout(new BoxLayout(menuPanel, BoxLayout.PAGE_AXIS));
 
-    JPanel panel = new JPanel(new GridLayout(0, 2));
+    int cols = 2;
+    if(creating){
+      cols=1;
+    }
+    JPanel panel = new JPanel(new GridLayout(0, cols));
     panel.setPreferredSize(new Dimension(320, 300));
     panel.setBackground(Color.LIGHT_GRAY);
     menuPanel.setBackground(Color.LIGHT_GRAY);
 
-    setButtons(
-            new String[]{
-                    "Create portfolio",
-                    "Load portfolio",
-                    "Buy stocks",
-                    "Sell stocks",
-                    "Get Cost basis",
-                    "Get Value",
-                    "Invest on a date",
-                    "Dollar Cost-Averaging",
-                    "View Performance Plot",
-                    "View List of portfolios"
+    if(creating){
+      setButtons(
+              new String[]{
+                      "Create portfolio",
+              },
+              panel
+      );
+    }else{
+      setButtons(
+              new String[]{
+                      "Create portfolio",
+                      "Load portfolio",
+                      "Buy stocks",
+                      "Sell stocks",
+                      "Get Cost basis",
+                      "Get Value",
+                      "Invest on a date",
+                      "Dollar Cost-Averaging",
+                      "View Performance Plot",
+                      "View List of portfolios"
 
 
-            },
-            panel
-    );
+              },
+              panel
+      );
+      buttons.get("Get Cost basis").addActionListener(e -> new GetCostBasisScreen());
+      buttons.get("Buy stocks").addActionListener(e -> new BuyStocksScreen(false));
+      buttons.get("Invest on a date").addActionListener(e -> new InvestOnDateScreen(false));
+      buttons.get("Sell stocks").addActionListener(e -> new SellStocksScreen());
 
-
+      buttons.get("Load portfolio").addActionListener(e -> new LoadPortfolioScreen());
+      buttons.get("Get Value").addActionListener(e -> new GetTotalValue());
+      buttons.get("View List of portfolios").addActionListener(e -> new ListOfPortfoliosScreen());
+    }
     buttons.get("Create portfolio").addActionListener(e -> new CreatePortfolioScreen());
-    buttons.get("Get Cost basis").addActionListener(e -> new GetCostBasisScreen());
-    buttons.get("Get Value").addActionListener(e -> new GetTotalValue());
-    buttons.get("Buy stocks").addActionListener(e -> new BuyStocksScreen(false));
-    buttons.get("Invest on a date").addActionListener(e -> new InvestOnDateScreen(false));
-
 
     menuPanel.add(panel);
 
@@ -363,10 +408,45 @@ public class NewViewImpl extends JFrame implements NewView {
     for (String buttonName : buttonNames) {
       JButton button = new JButton(buttonName);
       buttons.put(buttonName, button);
-      button.setMargin(new Insets(1, 1, 1, 1));
+      button.setMargin(new Insets(4, 2, 4, 2));
       panel.add(button);
 
     }
+  }
+
+  private void initializeAddStocksPanel(JPanel screen) {
+
+    addStocksPanel = new JPanel();
+
+    addStocksPanel.setLayout(new BoxLayout(addStocksPanel, BoxLayout.PAGE_AXIS));
+    scrollPane = new JScrollPane(addStocksPanel);
+    addStocksPanel.setAutoscrolls(true);
+    scrollPane.setPreferredSize(new Dimension(500, 100));
+    screen.add(scrollPane);
+    symbols = new ArrayList<JTextField>();
+    weights = new ArrayList<>();
+    scrollMaxValue = scrollPane.getVerticalScrollBar().getMaximum();
+    scrollPane.getVerticalScrollBar().addAdjustmentListener(e -> {
+      if (scrollMaxValue - e.getAdjustable().getMaximum() == 0) {
+        return;
+      }
+      e.getAdjustable().setValue(e.getAdjustable().getMaximum());
+      scrollMaxValue = scrollPane.getVerticalScrollBar().getMaximum();
+    });
+
+  }
+
+  private void addStocks() {
+    JPanel panel = new JPanel();
+    panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+    String[] fields = new String[]{"symbol", "weight"};
+    String[] types = new String[]{"symbol", "float"};
+    boolean[] required = new boolean[]{true, true};
+    initialScreensLoader(fields, types, required, panel);
+    addStocksPanel.add(panel);
+    addStocksPanel.add(Box.createVerticalStrut(10));
+    scrollPane.revalidate();
+
   }
 
 
@@ -524,39 +604,48 @@ public class NewViewImpl extends JFrame implements NewView {
 
   }
 
-  private void initializeAddStocksPanel(JPanel screen) {
 
-    addStocksPanel = new JPanel();
+  private final class LoadPortfolioScreen {
+    LoadPortfolioScreen() {
+      JPanel screen = new JPanel();
+      screen.setLayout(new BoxLayout(screen, BoxLayout.PAGE_AXIS));
 
-    addStocksPanel.setLayout(new BoxLayout(addStocksPanel, BoxLayout.PAGE_AXIS));
-    scrollPane = new JScrollPane(addStocksPanel);
-    addStocksPanel.setAutoscrolls(true);
-    scrollPane.setPreferredSize(new Dimension(500, 100));
-    screen.add(scrollPane);
-    symbols = new ArrayList<JTextField>();
-    weights = new ArrayList<>();
-    scrollMaxValue = scrollPane.getVerticalScrollBar().getMaximum();
-    scrollPane.getVerticalScrollBar().addAdjustmentListener(e -> {
-      if (scrollMaxValue - e.getAdjustable().getMaximum() == 0) {
+
+      String[] fields = new String[]{"portfolio name"};
+      String[] types = new String[]{"oldPortfolioName"};
+      boolean[] required = new boolean[]{true};
+      validationResults = new HashMap<>();
+
+      initialScreensLoader(fields, types, required, screen);
+
+
+      JPanel panel = new JPanel(new FlowLayout());
+      setButtons(
+              new String[]{
+                      "Load portfolio",
+              },
+              panel
+      );
+
+      screen.add(panel);
+
+      buttons.get("Load portfolio").addActionListener(e -> buttonHandler(fields, validationResults));
+
+
+      setScreen(ScreenNames.LOAD_PORTFOLIO_SCREEN, screen);
+    }
+
+    private void buttonHandler(String[] fields,
+                               HashMap<String, ValidationResult> validationResults) {
+
+      if (checkErrors(fields, validationResults)) {
         return;
       }
-      e.getAdjustable().setValue(e.getAdjustable().getMaximum());
-      scrollMaxValue = scrollPane.getVerticalScrollBar().getMaximum();
-    });
+      portfolioName = validationResults.get("portfolio name").data.toString();
+      features.loadPortfolio(portfolioName);
+      setActivePortfolio();
 
-  }
-
-  private void addStocks() {
-    JPanel panel = new JPanel();
-    panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
-    String[] fields = new String[]{"symbol", "weight"};
-    String[] types = new String[]{"symbol", "float"};
-    boolean[] required = new boolean[]{true, true};
-    initialScreensLoader(fields, types, required, panel);
-    addStocksPanel.add(panel);
-    addStocksPanel.add(Box.createVerticalStrut(10));
-    scrollPane.revalidate();
-
+    }
   }
 
 
@@ -578,13 +667,27 @@ public class NewViewImpl extends JFrame implements NewView {
 
 
       JPanel panel = new JPanel(new FlowLayout());
-      setButtons(
-              new String[]{
-                      "Buy stock",
 
-              },
-              panel
-      );
+      if(creating){
+        setButtons(
+                new String[]{
+                        "Buy stock",
+                        "Go back",
+
+                },
+                panel
+        );
+        buttons.get("Go back").addActionListener(e -> new CreatePortfolioScreen());
+      }else{
+        setButtons(
+                new String[]{
+                        "Buy stock",
+
+                },
+                panel
+        );
+      }
+
 
 
       screen.add(panel);
@@ -592,7 +695,7 @@ public class NewViewImpl extends JFrame implements NewView {
       buttons.get("Buy stock").addActionListener(e -> buttonHandler(fields, validationResults));
 
 
-      setScreen(ScreenNames.GET_COST_BASIS_SCREEN, screen);
+      setScreen(ScreenNames.BUY_STOCKS_SCREEN, screen);
     }
 
     private void buttonHandler(String[] fields,
@@ -632,7 +735,6 @@ public class NewViewImpl extends JFrame implements NewView {
       validationResults = new HashMap<>();
 
 
-
       initialScreensLoader(fields, types, required, screen);
       initializeAddStocksPanel(screen);
       addStocks();
@@ -642,14 +744,28 @@ public class NewViewImpl extends JFrame implements NewView {
       screen.add(Box.createVerticalStrut(30));
 
       JPanel panel = new JPanel(new FlowLayout());
-      setButtons(
-              new String[]{
-                      "Add a stock",
-                      "Invest"
+      if(creating){
+        setButtons(
+                new String[]{
+                        "Add a stock",
+                        "Invest",
+                        "Go back"
 
-              },
-              panel
-      );
+                },
+                panel
+        );
+        buttons.get("Go back").addActionListener(e -> new CreatePortfolioScreen());
+      }else{
+        setButtons(
+                new String[]{
+                        "Add a stock",
+                        "Invest"
+
+                },
+                panel
+        );
+      }
+
 
 
       screen.add(panel);
@@ -675,16 +791,16 @@ public class NewViewImpl extends JFrame implements NewView {
     private HashMap getStocks() {
 
       ValidationResult result;
-      HashMap<String,Float> stocks = new HashMap<>();
+      HashMap<String, Float> stocks = new HashMap<>();
       for (int i = 0; i < symbols.size(); i++) {
         result = validate(symbols.get(i).getText(), "symbol", displayMessage, true);
         String symbol = result.data.toString();
         result = validate(weights.get(i).getText(), "float", displayMessage, true);
         float weight = (float) result.data;
-        if(stocks.containsKey(symbol)){
-          weight+=stocks.get(symbol);
+        if (stocks.containsKey(symbol)) {
+          weight += stocks.get(symbol);
         }
-        stocks.put(symbol,weight);
+        stocks.put(symbol, weight);
       }
       return stocks;
     }
@@ -702,8 +818,8 @@ public class NewViewImpl extends JFrame implements NewView {
 
       HashMap stocks = getStocks();
       ValidationResult result = validator.validateWeights(stocks);
-      if(!result.result){
-        showMessage(result.errorMessage,true);
+      if (!result.result) {
+        showMessage(result.errorMessage, true);
         return;
       }
 
@@ -714,7 +830,7 @@ public class NewViewImpl extends JFrame implements NewView {
 
       }
 
-      features.investOnDate(date,amount,commissionFee,stocks);
+      features.investOnDate(date, amount, commissionFee, stocks, creating);
       setActivePortfolio();
 
     }
@@ -756,7 +872,8 @@ public class NewViewImpl extends JFrame implements NewView {
 
       screen.add(panel);
 
-      buttons.get("Get cost basis").addActionListener(e -> buttonHandler(fields, validationResults));
+      buttons.get("Get cost basis").addActionListener(e ->
+              buttonHandler(fields, validationResults));
 
 
       setScreen(ScreenNames.GET_COST_BASIS_SCREEN, screen);
@@ -769,7 +886,12 @@ public class NewViewImpl extends JFrame implements NewView {
         return;
       }
       String date = validationResults.get("date").data.toString();
-      features.getCostBasis(date);
+      float costBasis = features.getCostBasis(date);
+      if (costBasis >= 0) {
+        showMessage("Cost basis till " + date + " is " + costBasis, false);
+      }
+
+
     }
   }
 
@@ -799,7 +921,8 @@ public class NewViewImpl extends JFrame implements NewView {
 
       screen.add(panel);
 
-      buttons.get("Get total value").addActionListener(e -> buttonHandler(fields, validationResults));
+      buttons.get("Get total value").addActionListener(e ->
+              buttonHandler(fields, validationResults));
 
 
       setScreen(ScreenNames.GET_TOTAL_VALUE_SCREEN, screen);
@@ -812,9 +935,88 @@ public class NewViewImpl extends JFrame implements NewView {
         return;
       }
       String date = validationResults.get("date").data.toString();
-      features.getTotalValue(date);
+      float value = features.getTotalValue(date);
+      if (value >= 0) {
+        showMessage("Total value on " + date + " is " + value, false);
+      }
     }
   }
+
+  private final class SellStocksScreen {
+    SellStocksScreen() {
+      JPanel screen = new JPanel();
+      screen.setLayout(new BoxLayout(screen, BoxLayout.PAGE_AXIS));
+
+
+      String[] fields = new String[]{"symbol", "date", "number of shares", "commission fee"};
+      String[] types = new String[]{"symbol", "date", "int", "float"};
+      boolean[] required = new boolean[]{true, true, true, false};
+      validationResults = new HashMap<>();
+
+      initialScreensLoader(fields, types, required, screen);
+
+
+      JPanel panel = new JPanel(new FlowLayout());
+      setButtons(
+              new String[]{
+                      "Sell stock",
+
+              },
+              panel
+      );
+
+
+      screen.add(panel);
+
+      buttons.get("Sell stock").addActionListener(e -> buttonHandler(fields, validationResults));
+
+
+      setScreen(ScreenNames.SELL_STOCKS_SCREEN, screen);
+    }
+
+    private void buttonHandler(String[] fields,
+                               HashMap<String, ValidationResult> validationResults) {
+
+      if (checkErrors(fields, validationResults)) {
+        return;
+      }
+      String symbol = validationResults.get("symbol").data.toString();
+      String date = validationResults.get("date").data.toString();
+      int shares = (int) validationResults.get("number of shares").data;
+      float commissionFee = (float) validationResults.get("commission fee").data;
+      features.sellStocks(symbol, shares, date, commissionFee);
+
+    }
+  }
+
+  private final class ListOfPortfoliosScreen {
+
+    ListOfPortfoliosScreen() {
+      JPanel screen = new JPanel();
+      screen.setLayout(new BoxLayout(screen, BoxLayout.PAGE_AXIS));
+
+
+      String portfoliosList = features.getListOfPortfolios();
+      for (String portfolios : portfoliosList.split("\n")) {
+        JPanel panel = new JPanel(new FlowLayout());
+        panel.add(Box.createHorizontalStrut(200));
+        for (String labelText : portfolios.split("\\s+")) {
+          JLabel label = new JLabel(labelText);
+          label.setPreferredSize(new Dimension(150, 30));
+          panel.add(label);
+          panel.add(Box.createHorizontalStrut(100));
+        }
+        screen.add(panel);
+
+      }
+
+
+      setScreen(ScreenNames.LIST_OF_PORTFOLIOS_SCREEN, screen);
+    }
+
+
+  }
+
 
 }
 

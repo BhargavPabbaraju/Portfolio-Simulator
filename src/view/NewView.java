@@ -16,4 +16,5 @@ public interface NewView {
   void showInitialMenu();
 
 
+  void showNewUserMenu();
 }

@@ -24,23 +24,6 @@
         }
       }
 
-    },
-    {
-      "name": "college",
-      "flexible" : false,
-      "stocks": [
-        {
-          "symbol": "MSFT",
-          "shares": 30.0,
-          "date": "2022-10-28"
-        },
-        {
-          "symbol": "META",
-          "shares": 30.0,
-          "date": "2022-10-28"
-        }
-      ]
-
     }
   ]
 }
