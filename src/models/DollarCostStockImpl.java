@@ -23,6 +23,9 @@ public class DollarCostStockImpl implements DollarCostStock {
     this.transactionCost = transactionCost;
     this.stocks = stocks;
     this.amount = amount;
+    if (endDate.equals("")) {
+      endDate = null;
+    }
     this.endDate = endDate;
   }
 

@@ -10,7 +10,7 @@ public interface Validator {
 
   ValidationResult validateName(String content);
 
-  ValidationResult validateFutureDate(String content);
+  ValidationResult validateFutureDate(String content,boolean required);
 
   ValidationResult validateInt(String content);
 

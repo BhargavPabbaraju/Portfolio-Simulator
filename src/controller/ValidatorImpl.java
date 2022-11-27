@@ -4,7 +4,6 @@ package controller;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Collection;
 import java.util.HashMap;
 
 import models.NewerModel;
@@ -54,6 +53,10 @@ public class ValidatorImpl implements Validator {
 
   @Override
   public ValidationResult validateDate(String content) {
+    ValidationResult empty = emptyValidation(content);
+    if (!empty.result) {
+      return empty;
+    }
     try {
       LocalDate date = LocalDate.parse(content,
               DateTimeFormatter.ISO_LOCAL_DATE);
@@ -97,7 +100,11 @@ public class ValidatorImpl implements Validator {
   }
 
   @Override
-  public ValidationResult validateFutureDate(String content) {
+  public ValidationResult validateFutureDate(String content,boolean required) {
+    ValidationResult empty = emptyValidation(content);
+    if (!empty.result) {
+      return new ValidationResult(true, "", "");
+    }
     try {
       LocalDate date = LocalDate.parse(content,
               DateTimeFormatter.ISO_LOCAL_DATE);

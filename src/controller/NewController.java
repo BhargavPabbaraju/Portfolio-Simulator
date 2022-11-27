@@ -7,11 +7,11 @@ import models.ApiType;
 import models.NewerModel;
 import view.NewView;
 
-public class NewController implements Features{
+public class NewController implements Features {
   private NewerModel model;
   private NewView view;
 
-  public NewController(NewerModel model,NewView view){
+  public NewController(NewerModel model, NewView view) {
     this.model = model;
     this.view = view;
     this.view.setValidator(new ValidatorImpl(model));
@@ -21,24 +21,24 @@ public class NewController implements Features{
 
   @Override
   public void createPortfolio(String portfolioName) {
-    model.createPortfolio(portfolioName,true);
+    model.createPortfolio(portfolioName, true);
   }
 
   @Override
   public void buyStocks(String symbol, int numberOfShares, String date, float commissionFee,
                         boolean creating) {
 
-    try{
-      model.buyStock(symbol,date,numberOfShares,commissionFee);
+    try {
+      model.buyStock(symbol, date, numberOfShares, commissionFee);
       String message = "Successfully bought stocks";
-      if(creating){
+      if (creating) {
         message = "Successfully created portfolio";
       }
       view.showMainMenu();
-      view.showMessage(message,false);
-    }catch(Exception e){
+      view.showMessage(message, false);
+    } catch (Exception e) {
       view.showMainMenu();
-      view.showMessage(e.getMessage(),true);
+      view.showMessage(e.getMessage(), true);
     }
 
 
@@ -46,20 +46,20 @@ public class NewController implements Features{
 
   @Override
   public void sellStocks(String symbol, float numberOfShares, String date, float commissionFee) {
-    try{
-      model.sellStock(symbol,date,numberOfShares,commissionFee);
-      showMainMenu("Successfully sold stocks",false);
-    }catch(Exception e){
-      view.showMessage(e.getMessage(),true);
+    try {
+      model.sellStock(symbol, date, numberOfShares, commissionFee);
+      showMainMenu("Successfully sold stocks", false);
+    } catch (Exception e) {
+      view.showMessage(e.getMessage(), true);
     }
   }
 
   @Override
   public float getCostBasis(String date) {
-    try{
-      return model.getCostBasis(date,ApiType.ALPHA_VANTAGE);
-    }catch(Exception e){
-      showMainMenu(e.getMessage(),true);
+    try {
+      return model.getCostBasis(date, ApiType.ALPHA_VANTAGE);
+    } catch (Exception e) {
+      showMainMenu(e.getMessage(), true);
       return -1;
     }
 
@@ -67,10 +67,10 @@ public class NewController implements Features{
 
   @Override
   public float getTotalValue(String date) {
-    try{
-      return model.getTotalValue(date,ApiType.ALPHA_VANTAGE);
-    }catch(Exception e){
-      showMainMenu(e.getMessage(),true);
+    try {
+      return model.getTotalValue(date, ApiType.ALPHA_VANTAGE);
+    } catch (Exception e) {
+      showMainMenu(e.getMessage(), true);
       return -1;
     }
   }
@@ -82,32 +82,32 @@ public class NewController implements Features{
 
   @Override
   public void loadPortfolio(String portfolioName) {
-    try{
+    try {
       model.loadPortfolio(portfolioName);
-      showMainMenu("Successfully loaded portfolio",false);
-    }catch (Exception e){
-      showMainMenu(e.getMessage(),true);
+      showMainMenu("Successfully loaded portfolio", false);
+    } catch (Exception e) {
+      showMainMenu(e.getMessage(), true);
     }
 
   }
 
-  private void showMainMenu(String message,boolean isError){
+  private void showMainMenu(String message, boolean isError) {
     view.showMainMenu();
-    view.showMessage(message,isError);
+    view.showMessage(message, isError);
   }
 
   @Override
   public void investOnDate(String date, float amount, float commissionFee,
                            HashMap<String, Float> stocks, boolean creating) {
-    try{
-      model.investIntoPortfolio(date,amount,commissionFee,stocks, ApiType.ALPHA_VANTAGE);
+    try {
+      model.investIntoPortfolio(date, amount, commissionFee, stocks, ApiType.ALPHA_VANTAGE);
       String message = "Successfully invested";
-      if(creating){
+      if (creating) {
         message = "Successfully created portfolio";
       }
-      showMainMenu(message,false);
-    }catch(Exception e){
-      showMainMenu(e.getMessage(),true);
+      showMainMenu(message, false);
+    } catch (Exception e) {
+      showMainMenu(e.getMessage(), true);
     }
 
   }
@@ -116,11 +116,18 @@ public class NewController implements Features{
   @Override
   public void dollarCost(String startDate, String endDate, int interval, float amount,
                          float commissionFee, HashMap<String, Float> stocks, boolean creating) {
+    try {
+      model.createDollarCostStrategyPortfolio(startDate, endDate, interval, amount, commissionFee, stocks);
+      String message = "Successfully invested";
+      if (creating) {
+        message = "Successfully created portfolio";
+      }
+      showMainMenu(message, false);
+    } catch (Exception e) {
+      showMainMenu(e.getMessage(), true);
+    }
 
   }
-
-
-
 
 
   @Override
@@ -132,20 +139,20 @@ public class NewController implements Features{
 //      view.showInitialMenu();
 //      view.showMessage(e.getMessage(),true);
 //    }
-    model.createUser(userName,balance);
-      view.showNewUserMenu();
+    model.createUser(userName, balance);
+    view.showNewUserMenu();
 
   }
 
   @Override
   public void loadUser(String userName) {
-    try{
+    try {
       model.loadUser(userName);
-      showMainMenu("Successfully loaded "+userName,false);
-    }catch(Exception e){
+      showMainMenu("Successfully loaded " + userName, false);
+    } catch (Exception e) {
       view.showInitialMenu();
-      String message = e.getMessage()==null  ? "Load file is in invalid format" : e.getMessage();
-      view.showMessage(message,true);
+      String message = e.getMessage() == null ? "Load file is in invalid format" : e.getMessage();
+      view.showMessage(message, true);
     }
 
 
@@ -158,16 +165,16 @@ public class NewController implements Features{
 
   @Override
   public String getListOfPortfolios() {
-    try{
+    try {
       return model.getListOfPortfolios().toString();
-    }catch(Exception e){
+    } catch (Exception e) {
       return "";
     }
   }
 
   @Override
   public PlotPair getPlot(String startDate, String endDate, int maximumPlots) {
-    return model.newGetPlot(startDate,endDate,ApiType.ALPHA_VANTAGE,maximumPlots);
+    return model.newGetPlot(startDate, endDate, ApiType.ALPHA_VANTAGE, maximumPlots);
   }
 
 
