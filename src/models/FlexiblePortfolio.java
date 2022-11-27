@@ -3,6 +3,8 @@ package models;
 import java.time.LocalDate;
 import java.util.HashMap;
 
+import customDataType.PlotPair;
+
 /**
  * This interface represents the operations on a single Flexible portfolio.
  */
@@ -93,4 +95,5 @@ public interface FlexiblePortfolio {
 
   void createDollarCostStrategyPortfolio(LocalDate startDate,LocalDate endDate,int interval,float amount ,float transactionCost, HashMap<String,Float> stocks);
 
+  PlotPair newGetPlot(LocalDate startDate, LocalDate endDate, ApiType apiType, int maximumPlots);
 }

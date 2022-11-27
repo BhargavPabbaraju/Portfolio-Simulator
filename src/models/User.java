@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.HashMap;
 
+import customDataType.PlotPair;
+
 /**
  * This interface represents operations that a user can perform. A user will have a unique name and
  * can be created by the program or loaded from the file system.
@@ -226,4 +228,7 @@ public interface User {
 
 
   String getActivePortfolio();
+
+  PlotPair newGetPlot(String startDate, String endDate, ApiType apiType,
+                      int maximumPlots);
 }

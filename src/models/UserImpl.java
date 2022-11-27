@@ -8,6 +8,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 
+import customDataType.PlotPair;
+
 
 /**
  * This class represents a single user. User has a unique name and can have portfolios.
@@ -232,6 +234,13 @@ public class UserImpl implements User {
   @Override
   public String getActivePortfolio() {
     return this.activePortfolio.getName();
+  }
+
+  @Override
+  public PlotPair newGetPlot(String startDate, String endDate, ApiType apiType,
+                             int maximumPlots) {
+    return this.activePortfolio.newGetPlot(parseDate(startDate), parseDate(endDate), apiType,
+            maximumPlots);
   }
 
 

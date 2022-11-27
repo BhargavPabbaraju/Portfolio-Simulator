@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
+
+import customDataType.PlotPair;
+
 import static java.time.temporal.ChronoUnit.DAYS;
 
 /**
@@ -22,6 +25,16 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements Flexible
 
   ArrayList<DollarCostStock> dollarCostStockList;
   User user;
+
+  private class DatePair{
+    private final ArrayList<LocalDate> dates;
+    private final String pattern;
+
+    DatePair(ArrayList<LocalDate> dates,String pattern){
+      this.dates = dates;
+      this.pattern = pattern;
+    }
+  }
 
   /**
    * This constructor creates a portfolio for this user.
@@ -136,8 +149,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements Flexible
 
   }
 
-  private StringBuilder getPlotHelper(ArrayList<LocalDate> dates, String pattern,
-                                      LocalDate startDate, LocalDate endDate, ApiType apiType) {
+  private ArrayList<Float> getValues(ArrayList<LocalDate> dates,ApiType apiType){
     ArrayList<Float> values = new ArrayList<>();
     Iterator<LocalDate> itr = dates.iterator();
     while (itr.hasNext()) {
@@ -150,18 +162,21 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements Flexible
 
       }
     }
+    return values;
+  }
+
+  private StringBuilder getPlotHelper(ArrayList<LocalDate> dates, String pattern,
+                                      LocalDate startDate, LocalDate endDate, ApiType apiType) {
 
 
+    ArrayList<Float> values = getValues(dates,apiType);
     float min = findMinimum(values);
     float scale = fixScale(min);
-
-
     return drawStars(dates, values, scale, pattern, startDate, endDate);
 
   }
 
-  @Override
-  public StringBuilder getPlot(LocalDate startDate, LocalDate endDate, ApiType apiType) {
+  private DatePair getDates(LocalDate startDate, LocalDate endDate, int maximumPlots){
     ArrayList<LocalDate> dates;
     if (startDate.compareTo(endDate) > 0) {
       LocalDate temp = endDate;
@@ -170,37 +185,40 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements Flexible
     }
 
     long daysBetween = DAYS.between(startDate, endDate);
-    int maximumPlots = 30;
     StringBuilder plot = new StringBuilder();
 
     try {
       if (daysBetween <= maximumPlots) { //Day wise
         dates = dayWiseList(startDate, endDate, 1);
-        return getPlotHelper(dates, "MMM dd", startDate, endDate, apiType);
-
-
+        return new DatePair(dates,"MMM dd");
       } else if (notFiveMonthsApart(daysBetween)) {
-        int numberOfDaysToAdd = (int) daysBetween / 5;
+        int toDivide = maximumPlots == 10 ? 8 : 5;
+        int numberOfDaysToAdd = (int) daysBetween / toDivide;
         dates = dayWiseList(startDate, endDate, numberOfDaysToAdd);
-        return getPlotHelper(dates, "MMM dd", startDate, endDate, apiType);
+        return new DatePair(dates,"MMM dd");
       } else if (withinTheSameYear(daysBetween)) {
         dates = monthWiseList(startDate, endDate, 1);
-        return getPlotHelper(dates, "MMM yyyy", startDate, endDate, apiType);
-
+        return new DatePair(dates,"MMM");
       } else if (notFiveYearsApart(daysBetween)) {
         dates = monthWiseList(startDate, endDate, 3);
-        return getPlotHelper(dates, "MMM yyyy", startDate, endDate, apiType);
+        return new DatePair(dates,"MMM yyyy");
       } else {
         int yearsToAdd = 1;
         if (daysBetween / 365 > 10) {
           yearsToAdd = (int) daysBetween / 365 / 10;
         }
         dates = yearWiseList(startDate, endDate, yearsToAdd);
-        return getPlotHelper(dates, "yyyy", startDate, endDate, apiType);
+        return new DatePair(dates,"yyyy");
       }
     } catch (Exception e) {
       throw new IllegalArgumentException("This stock wasn't yet established on " + startDate);
     }
+  }
+
+  @Override
+  public StringBuilder getPlot(LocalDate startDate, LocalDate endDate, ApiType apiType) {
+    DatePair datePair = getDates(startDate,endDate,30);
+    return getPlotHelper(datePair.dates, datePair.pattern, startDate, endDate, apiType);
 
   }
 
@@ -357,7 +375,8 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements Flexible
   }
 
   @Override
-  public void investIntoPortfolio(LocalDate date, float amount, float transactionCost, HashMap<String, Float> stocks, ApiType apiType) {
+  public void investIntoPortfolio(LocalDate date, float amount, float transactionCost,
+                                  HashMap<String, Float> stocks, ApiType apiType) {
     float individualTranscationCost = transactionCost / stocks.size();
     for (String key : stocks.keySet()) {
       float value = ApiCallImpl.getData(key, date, apiType);
@@ -368,11 +387,29 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements Flexible
   }
 
   @Override
-  public void createDollarCostStrategyPortfolio(LocalDate startDate, LocalDate endDate, int interval, float amount, float transactionCost, HashMap<String, Float> stocks) {
+  public void createDollarCostStrategyPortfolio(LocalDate startDate, LocalDate endDate,
+                                                int interval, float amount, float transactionCost,
+                                                HashMap<String, Float> stocks) {
     for (String key : stocks.keySet()) {
       stocks.put(key, (stocks.get(key) / 100) * amount);
     }
-    this.dollarCostStockList.add(new DollarCostStockImpl(startDate, interval, amount, transactionCost, stocks, endDate));
+    this.dollarCostStockList.add(new DollarCostStockImpl(startDate, interval, amount,
+            transactionCost, stocks, endDate));
+  }
+
+  @Override
+  public PlotPair newGetPlot(LocalDate startDate, LocalDate endDate, ApiType apiType,
+                             int maximumPlots) {
+    DatePair datePair = getDates(startDate,endDate,maximumPlots);
+    ArrayList<Float> values = getValues(datePair.dates,apiType);
+    ArrayList<String> dates = new ArrayList<>();
+    int size = datePair.dates.size();
+    for(int i=0;i<size;i++){
+      String date = formatDate(datePair.dates.get(i), datePair.pattern);
+      dates.add(date);
+
+    }
+    return new PlotPair(dates,values);
   }
 
   private float costbasisDollarStrategy(LocalDate date) {

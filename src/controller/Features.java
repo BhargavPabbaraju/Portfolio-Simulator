@@ -2,6 +2,8 @@ package controller;
 
 import java.util.HashMap;
 
+import customDataType.PlotPair;
+
 public interface Features {
   void createPortfolio(String portfolioName);
   void buyStocks(String symbol, int numberOfShares , String date , float commissionFee,
@@ -29,4 +31,5 @@ public interface Features {
   String getListOfPortfolios();
 
 
+  PlotPair getPlot(String startDate, String endDate, int maximumPlots);
 }

@@ -46,6 +46,9 @@ public class NewViewImpl extends JFrame implements NewView {
 
   private int scrollMaxValue;
 
+  private final int WIDTH=1000;
+  private final int HEIGHT=500;
+
 
   @Override
   public void setValidator(Validator validator) {
@@ -97,7 +100,8 @@ public class NewViewImpl extends JFrame implements NewView {
     centerPanel = new JPanel();
 
 
-    centerPanel.setSize(new Dimension(900 - 320, 500));
+
+    centerPanel.setSize(new Dimension(WIDTH - 320, HEIGHT));
     initializeDisplayMessage(centerPanel);
 
 
@@ -106,8 +110,8 @@ public class NewViewImpl extends JFrame implements NewView {
     screen.add(menuPanel, BorderLayout.LINE_START);
     screen.add(centerPanel, BorderLayout.CENTER);
     screen.add(footerPanel, BorderLayout.PAGE_END);
-    setMinimumSize(new Dimension(900, 500));
-    screen.setPreferredSize(new Dimension(900, 500));
+    setMinimumSize(new Dimension(WIDTH, HEIGHT));
+    screen.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 
     return screen;
 
@@ -135,6 +139,7 @@ public class NewViewImpl extends JFrame implements NewView {
     );
     buttons.get("Create user").addActionListener(e -> new CreateUserScreen());
     buttons.get("Load user").addActionListener(e -> new LoadUserScreen());
+    buttons.get("Exit").addActionListener(e->System.exit(0));
     initializeDisplayMessage(screen);
     setScreen(ScreenNames.INITIAL_SCREEN, screen);
   }
@@ -149,7 +154,7 @@ public class NewViewImpl extends JFrame implements NewView {
   public NewViewImpl() {
     super();
     setTitle("Portfolio Application");
-    setMinimumSize(new Dimension(400, 400));
+    setMinimumSize(new Dimension(HEIGHT-100, HEIGHT-100));
     setLocation(200, 200);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     screens = new HashMap<>();
@@ -222,6 +227,10 @@ public class NewViewImpl extends JFrame implements NewView {
     setCurrentScene(screenName);
     if (isCenterScreen()) {
       centerPanel.removeAll();
+      centerPanel.setLayout(new FlowLayout());
+      if(screenName.equals(ScreenNames.GET_PLOT_SCREEN)){
+        centerPanel.setLayout(new BorderLayout());
+      }
       centerPanel.add(screen);
       centerPanel.revalidate();
 
@@ -261,20 +270,26 @@ public class NewViewImpl extends JFrame implements NewView {
     panel.setBackground(Color.LIGHT_GRAY);
     menuPanel.setBackground(Color.LIGHT_GRAY);
 
+    footerPanel = new JPanel(new GridLayout());
+    footerPanel.setBackground(Color.LIGHT_GRAY);
+
     if(creating){
       setButtons(
               new String[]{
                       "Create portfolio",
               },
               panel
+
+
       );
+
     }else{
       setButtons(
               new String[]{
                       "Create portfolio",
                       "Load portfolio",
-                      "Buy stocks",
-                      "Sell stocks",
+                      "Buy stock",
+                      "Sell stock",
                       "Get Cost basis",
                       "Get Value",
                       "Invest on a date",
@@ -287,25 +302,26 @@ public class NewViewImpl extends JFrame implements NewView {
               panel
       );
       buttons.get("Get Cost basis").addActionListener(e -> new GetCostBasisScreen());
-      buttons.get("Buy stocks").addActionListener(e -> new BuyStocksScreen(false));
+      buttons.get("Buy stock").addActionListener(e -> new BuyStocksScreen(false));
       buttons.get("Invest on a date").addActionListener(e -> new InvestOnDateScreen(false));
-      buttons.get("Sell stocks").addActionListener(e -> new SellStocksScreen());
-
+      buttons.get("Sell stock").addActionListener(e -> new SellStocksScreen());
       buttons.get("Load portfolio").addActionListener(e -> new LoadPortfolioScreen());
       buttons.get("Get Value").addActionListener(e -> new GetTotalValue());
       buttons.get("View List of portfolios").addActionListener(e -> new ListOfPortfoliosScreen());
+      buttons.get("View Performance Plot").addActionListener(e -> new GetPlotInputsScreen());
+      saveButton = new JButton("Save");
+      footerPanel.add(saveButton);
     }
     buttons.get("Create portfolio").addActionListener(e -> new CreatePortfolioScreen());
 
     menuPanel.add(panel);
 
 
-    footerPanel = new JPanel(new GridLayout());
-    footerPanel.setBackground(Color.LIGHT_GRAY);
 
-    saveButton = new JButton("Save");
-    footerPanel.add(saveButton);
+
+
     exitButton = new JButton("Exit");
+    exitButton.addActionListener(e->System.exit(0));
     footerPanel.add(exitButton);
 
 
@@ -421,7 +437,7 @@ public class NewViewImpl extends JFrame implements NewView {
     addStocksPanel.setLayout(new BoxLayout(addStocksPanel, BoxLayout.PAGE_AXIS));
     scrollPane = new JScrollPane(addStocksPanel);
     addStocksPanel.setAutoscrolls(true);
-    scrollPane.setPreferredSize(new Dimension(500, 100));
+    scrollPane.setPreferredSize(new Dimension(HEIGHT, 100));
     screen.add(scrollPane);
     symbols = new ArrayList<JTextField>();
     weights = new ArrayList<>();
@@ -542,6 +558,7 @@ public class NewViewImpl extends JFrame implements NewView {
 
   private final class CreatePortfolioScreen {
     CreatePortfolioScreen() {
+      setCurrentScene(ScreenNames.CREATE_PORTFOLIO_SCREEN);
       JPanel screen = new JPanel();
       screen.setLayout(new BoxLayout(screen, BoxLayout.PAGE_AXIS));
 
@@ -553,9 +570,9 @@ public class NewViewImpl extends JFrame implements NewView {
 
       initialScreensLoader(fields, types, required, screen);
 
-      screen.add(new Box.Filler(new Dimension(500, 50),
-              new Dimension(500, 50),
-              new Dimension(500, 50)));
+      screen.add(new Box.Filler(new Dimension(HEIGHT, 50),
+              new Dimension(HEIGHT, 50),
+              new Dimension(HEIGHT, 50)));
 
       centerAlignLabel("How do you want to add stocks to this portfolio?", screen);
 
@@ -606,7 +623,9 @@ public class NewViewImpl extends JFrame implements NewView {
 
 
   private final class LoadPortfolioScreen {
+
     LoadPortfolioScreen() {
+      setCurrentScene(ScreenNames.LOAD_PORTFOLIO_SCREEN);
       JPanel screen = new JPanel();
       screen.setLayout(new BoxLayout(screen, BoxLayout.PAGE_AXIS));
 
@@ -653,6 +672,7 @@ public class NewViewImpl extends JFrame implements NewView {
     private final boolean creating;
 
     BuyStocksScreen(boolean creating) {
+      setCurrentScene(ScreenNames.BUY_STOCKS_SCREEN);
       this.creating = creating;
       JPanel screen = new JPanel();
       screen.setLayout(new BoxLayout(screen, BoxLayout.PAGE_AXIS));
@@ -848,6 +868,7 @@ public class NewViewImpl extends JFrame implements NewView {
 
   private final class GetCostBasisScreen {
     GetCostBasisScreen() {
+      setCurrentScene(ScreenNames.GET_COST_BASIS_SCREEN);
       JPanel screen = new JPanel();
       screen.setLayout(new BoxLayout(screen, BoxLayout.PAGE_AXIS));
 
@@ -897,6 +918,7 @@ public class NewViewImpl extends JFrame implements NewView {
 
   private final class GetTotalValue {
     GetTotalValue() {
+      setCurrentScene(ScreenNames.GET_TOTAL_VALUE_SCREEN);
       JPanel screen = new JPanel();
       screen.setLayout(new BoxLayout(screen, BoxLayout.PAGE_AXIS));
 
@@ -944,6 +966,7 @@ public class NewViewImpl extends JFrame implements NewView {
 
   private final class SellStocksScreen {
     SellStocksScreen() {
+      setCurrentScene(ScreenNames.SELL_STOCKS_SCREEN);
       JPanel screen = new JPanel();
       screen.setLayout(new BoxLayout(screen, BoxLayout.PAGE_AXIS));
 
@@ -992,6 +1015,7 @@ public class NewViewImpl extends JFrame implements NewView {
   private final class ListOfPortfoliosScreen {
 
     ListOfPortfoliosScreen() {
+      setCurrentScene(ScreenNames.LIST_OF_PORTFOLIOS_SCREEN);
       JPanel screen = new JPanel();
       screen.setLayout(new BoxLayout(screen, BoxLayout.PAGE_AXIS));
 
@@ -1015,6 +1039,55 @@ public class NewViewImpl extends JFrame implements NewView {
     }
 
 
+  }
+
+  private final class GetPlotInputsScreen {
+    GetPlotInputsScreen() {
+      setCurrentScene(ScreenNames.GET_PLOT_INPUT_SCREEN);
+      JPanel screen = new JPanel();
+      screen.setLayout(new BoxLayout(screen, BoxLayout.PAGE_AXIS));
+
+
+      String[] fields = new String[]{"start date","end date"};
+      String[] types = new String[]{"date","date"};
+      boolean[] required = new boolean[]{true,true};
+      validationResults = new HashMap<>();
+
+      initialScreensLoader(fields, types, required, screen);
+
+
+      JPanel panel = new JPanel(new FlowLayout());
+      setButtons(
+              new String[]{
+                      "View Performance Plot",
+
+              },
+              panel
+      );
+
+
+      screen.add(panel);
+
+      buttons.get("View Performance Plot").addActionListener(e ->
+              buttonHandler(fields, validationResults));
+
+
+      setScreen(ScreenNames.GET_PLOT_INPUT_SCREEN, screen);
+    }
+
+    private void buttonHandler(String[] fields,
+                               HashMap<String, ValidationResult> validationResults) {
+
+      if (checkErrors(fields, validationResults)) {
+        return;
+      }
+      String startDate = validationResults.get("start date").data.toString();
+      String endDate = validationResults.get("end date").data.toString();
+      setScreen(ScreenNames.GET_PLOT_SCREEN,
+              new GetPlotScreen(features,startDate,endDate).getScreen());
+
+
+    }
   }
 
 

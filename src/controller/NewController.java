@@ -2,6 +2,7 @@ package controller;
 
 import java.util.HashMap;
 
+import customDataType.PlotPair;
 import models.ApiType;
 import models.NewerModel;
 import view.NewView;
@@ -162,6 +163,11 @@ public class NewController implements Features{
     }catch(Exception e){
       return "";
     }
+  }
+
+  @Override
+  public PlotPair getPlot(String startDate, String endDate, int maximumPlots) {
+    return model.newGetPlot(startDate,endDate,ApiType.ALPHA_VANTAGE,maximumPlots);
   }
 
 

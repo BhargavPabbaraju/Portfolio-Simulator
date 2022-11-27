@@ -3,6 +3,8 @@ package models;
 import java.time.LocalDate;
 import java.util.HashMap;
 
+import customDataType.PlotPair;
+
 /**
  * This class represents a general portfolio. An abstract portfolio can be either an Inflexible
  * portfolio or a flexible portfolio.
@@ -97,6 +99,13 @@ public abstract class AbstractPortfolio implements Portfolio, FlexiblePortfolio{
 
   @Override
   public String getName(){
+    return null;
+  }
+
+  @Override
+  public PlotPair newGetPlot(LocalDate startDate, LocalDate endDate, ApiType apiType,
+                             int maximumPlots){
+
     return null;
   }
 }

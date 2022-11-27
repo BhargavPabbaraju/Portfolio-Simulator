@@ -1,11 +1,18 @@
 {
     "Meta Data": {
         "2. Symbol": "META",
-        "3. Last Refreshed": "2022-11-23",
+        "3. Last Refreshed": "2022-11-25",
         "4. Output Size": "Full size",
         "5. Time Zone": "US/Eastern"
     },
     "Time Series (Daily)": {
+        "2022-11-25": {
+            "1. open": "111.3000",
+            "2. high": "112.7300",
+            "3. low": "111.0200",
+            "4. close": "111.4100",
+            "5. volume": "12007566"
+        },
         "2022-11-23": {
             "1. open": "111.7200",
             "2. high": "112.6700",
