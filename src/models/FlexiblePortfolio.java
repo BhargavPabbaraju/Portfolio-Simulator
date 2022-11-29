@@ -91,41 +91,9 @@ public interface FlexiblePortfolio {
    */
   public boolean stockExists(String symbol);
 
-  /**
-   * This method is used to invest a specific amount in an existing flexible portfolio on a
-   * specific date by specifying the weights of how that money should be invested in each stock
-   * inside that portfolio.
-   *
-   * @param date            LocalDate date on which he wants to purchase.
-   * @param amount          float amount which the user wants to invest.
-   * @param transactionCost float which is transaction associated for this transaction.
-   * @param stocks          Hashmap of stocks which contains the Symbol as key and weight as value.
-   * @param apiType         ApiType used determine which third party api is to be called.
-   */
-  void investIntoPortfolio(LocalDate date, float amount, float transactionCost, HashMap<String, Float> stocks, ApiType apiType);
+  void investIntoPortfolio( LocalDate date,float amount ,float transactionCost, HashMap<String,Float> stocks,ApiType apiType);
 
-  /**
-   * This method is used to create a portfolio using dollar-cost averaging as specified above,
-   * and query cost basis and value of such a portfolio at a specific date.
-   *
-   * @param startDate       LocalDate date on which he wants to start the purchase.
-   * @param endDate         LocalDate date on which he wants to end the purchase.
-   * @param interval        float interval in which the user wants to invest.
-   * @param amount          float amount which the user wants to invest.
-   * @param transactionCost float which is transaction associated for this transaction.
-   * @param stocks          Hashmap of stocks which contains the Symbol as key and weight as value.
-   */
-  void createDollarCostStrategyPortfolio(LocalDate startDate, LocalDate endDate, int interval, float amount, float transactionCost, HashMap<String, Float> stocks);
+  void createDollarCostStrategyPortfolio(LocalDate startDate,LocalDate endDate,int interval,float amount ,float transactionCost, HashMap<String,Float> stocks);
 
-  /**
-   * This method is used to generate plotting values such as dates and values which are
-   * used for plotting.
-   *
-   * @param startDate    LocalDate start date of the range.
-   * @param endDate      LocalDate end date of the range.
-   * @param apiType      ApiType used determine which third party api is to be called.
-   * @param maximumPlots int which is the maximum number of points on x-axis of the plot.
-   * @return return a PlotPair which is a custom datatype created by us to return dates and values
-   */
   PlotPair newGetPlot(LocalDate startDate, LocalDate endDate, ApiType apiType, int maximumPlots);
 }
