@@ -9,6 +9,8 @@ import java.nio.file.Path;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 
@@ -35,7 +37,6 @@ class Loader {
     float balance = Float.parseFloat(json.get("balance").toString());
     user.addToBalance(balance);
     loadPortfolioList(json, user);
-
     return user;
 
 
@@ -55,11 +56,42 @@ class Loader {
 
       if (flexible) {
         loadFlexibleStocksList(portfolio.get("stocks"), user);
+        loadDollarCost(portfolio.get("dollarCost"),user);
       } else {
         loadStocksList(portfolio.get("stocks"), user);
       }
 
 
+    }
+
+
+  }
+
+  private static void loadDollarCost(JsonObject json,User user){
+    for(String key:json.getKeys()){
+      JsonObject dollarCost = json.get(key);
+      String startDate = dollarCost.get("start").toString();
+      String  endDate = dollarCost.get("end").toString();
+
+      if(endDate == "null"){
+        endDate = "";
+      }
+      int interval = Integer.parseInt(dollarCost.get("interval").toString());
+      float transactionCost = Float.parseFloat(dollarCost.get("transactionCost").toString());
+      float amount = Float.parseFloat(dollarCost.get("amount").toString());
+
+      HashMap<String,Float> stocksList = new HashMap<>();
+      JsonObject stocks = dollarCost.get("stocks");
+
+      for(String index:stocks.getKeys()){
+        JsonObject stock = stocks.get(index);
+        for(String symbol:stock.getKeys()){
+
+          stocksList.put(symbol, Float.valueOf(stock.get(symbol).toString()));
+        }
+      }
+      user.createDollarCostStrategyPortfolio(startDate,endDate,interval,amount,transactionCost,
+              stocksList);
     }
 
   }
@@ -81,6 +113,9 @@ class Loader {
         }
       }
     }
+
+
+
 
   }
 
@@ -106,9 +141,15 @@ class Loader {
   }
 
   private static boolean dontPutQuotes(String key, String value) {
-    return key.equals("shares") || key.equals("balance") || key.equals("flexible")
-            || value.equals("[") || value.equals("{")
-            || key.equals("transactionCost");
+    ArrayList<String> quoted = new ArrayList<>(Arrays.asList("start","date","name","end"));
+    String escapeChars = "{}[]";
+    if(escapeChars.contains(key)){
+      return false;
+    }
+    return !quoted.contains(key);
+
+
+
   }
 
   private static int writeKeyValue(String key, String value, int tabs, BufferedWriter writer,
@@ -186,8 +227,89 @@ class Loader {
       }
     }
 
-    tabs = writeKeyValue("}", "", tabs, writer, false, -2);
+
+    ArrayList<DollarCostStock> dollarCostList = portfolio.getDollarCostStocks();
+    if(!dollarCostList.isEmpty()){
+      tabs = writeKeyValue("}", "", tabs, writer, true, 0);
+      tabs = writeDollarCost(dollarCostList,writer,tabs);
+    }else{
+      tabs = writeKeyValue("}", "", tabs, writer, false, -2);
+    }
+
     return tabs;
+  }
+
+  private static int writeDollarCost(ArrayList<DollarCostStock> stocksList, BufferedWriter writer,
+                                     int tabs)
+          throws IOException {
+    int i=1;
+    int size = stocksList.size();
+    if(!stocksList.isEmpty()){
+      tabs=writeKeyValue("dollarCost","[",tabs,writer,false,2);
+      for(DollarCostStock stock:stocksList){
+        tabs=writeKeyValue("{","",tabs,writer,false,2);
+        tabs = writeDollarCostStock(stock,writer,tabs);
+        if(i==size){
+          tabs=writeKeyValue("}","",tabs,writer,false,-2);
+        }else{
+          tabs=writeKeyValue("}","",tabs,writer,true,0);
+        }
+        i++;
+      }
+      tabs=writeKeyValue("]","",tabs,writer,false,-2);
+    }
+    return tabs;
+  }
+
+  private static int writeDollarCostStock(DollarCostStock stock, BufferedWriter writer, int tabs)
+          throws IOException {
+    tabs=writeKeyValue("start",stock.getStartDate().toString(),tabs,writer,true,
+            0);
+
+    String endDate;
+    if( stock.getEndDate()==null){
+      endDate="null";
+    }else{
+      endDate = stock.getEndDate().toString();
+    }
+
+
+    tabs=writeKeyValue("end",endDate,tabs,writer,true,
+            0);
+
+
+    tabs=writeKeyValue("transactionCost", String.valueOf(stock.getTransactionCost()),tabs,
+            writer,true, 0);
+
+    tabs=writeKeyValue("amount", String.valueOf(stock.getAmount()),tabs,
+            writer,true, 0);
+
+    tabs=writeKeyValue("interval", String.valueOf(stock.getInterval()),tabs,
+            writer,true, 0);
+
+    tabs=writeKeyValue("stocks", "[",tabs,
+            writer,false, 2);
+
+    HashMap<String, Float> stocks = stock.getStocks();
+    int size = stocks.size();
+    int i=1;
+    for(String symbol:stocks.keySet()){
+      tabs=writeKeyValue("{","",tabs,writer,false,2);
+      tabs=writeKeyValue(symbol, String.format("%.2f",stocks.get(symbol)),
+              tabs,writer,false,-2);
+
+      if(i==size){
+        tabs=writeKeyValue("}","",tabs,writer,false,-2);
+      }else{
+        tabs=writeKeyValue("}","",tabs,writer,true,0);
+      }
+
+      i++;
+    }
+    tabs=writeKeyValue("]","",tabs,writer,false,-2);
+
+    return tabs;
+
   }
 
   private static int writeFlexibleStocks(FlexibleStocksList flexibleStocksList,

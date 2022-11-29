@@ -8,18 +8,11 @@ import java.util.HashMap;
 
 import models.NewerModel;
 
-/**
- * This class represents validators which are used to validate user input.
- */
 public class ValidatorImpl implements Validator {
 
   private String errorMessage;
   private final NewerModel model;
 
-  /**
-   * Constructs ValidatorImpl which is used to validate the user inputs..
-   * @param model takes in the NewerModel object
-   */
   ValidatorImpl(NewerModel model) {
     this.model = model;
   }
@@ -33,12 +26,12 @@ public class ValidatorImpl implements Validator {
   }
 
   @Override
-  public ValidationResult validateFloat(String content, boolean required) {
+  public ValidationResult validateFloat(String content,boolean required) {
     ValidationResult empty = emptyValidation(content);
     if (!empty.result) {
-      if (!required) {
+      if(!required){
         return new ValidationResult(true, "", 0f);
-      } else {
+      }else{
         return new ValidationResult(false, "cannot be empty", 0f);
       }
 
@@ -107,7 +100,7 @@ public class ValidatorImpl implements Validator {
   }
 
   @Override
-  public ValidationResult validateFutureDate(String content, boolean required) {
+  public ValidationResult validateFutureDate(String content,boolean required) {
     ValidationResult empty = emptyValidation(content);
     if (!empty.result) {
       return new ValidationResult(true, "", "");
@@ -192,10 +185,10 @@ public class ValidatorImpl implements Validator {
     ValidationResult empty = emptyValidation(content);
     if (!empty.result) {
       return empty;
-    } else {
-      if (model.isValidSymbol(content)) {
+    }else{
+      if(model.isValidSymbol(content)){
         return new ValidationResult(true, "", content);
-      } else {
+      }else{
         return new ValidationResult(false, "Invalid symbol", content);
       }
     }
@@ -203,15 +196,15 @@ public class ValidatorImpl implements Validator {
   }
 
   @Override
-  public ValidationResult validateWeights(HashMap<String, Float> stocks) {
+  public ValidationResult validateWeights(HashMap<String,Float> stocks) {
     float sum = 0;
-    for (String symbol : stocks.keySet()) {
-      sum += stocks.get(symbol);
+    for(String symbol:stocks.keySet()){
+      sum+=stocks.get(symbol);
     }
-    if (sum == 100f) {
-      return new ValidationResult(true, "", "");
+    if(sum==100f){
+      return new ValidationResult(true,"","");
     }
-    return new ValidationResult(false, "Weights do not add to 100", "");
+    return new ValidationResult(false,"Weights do not add to 100","");
 
   }
 
