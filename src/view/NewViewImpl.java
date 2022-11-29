@@ -338,7 +338,7 @@ public class NewViewImpl extends JFrame implements NewView {
           return true;
         }
       } catch (Exception e) {
-        System.out.println(validationResults + " " + field);
+        System.out.println(e.getMessage());
       }
 
     }
@@ -400,7 +400,7 @@ public class NewViewImpl extends JFrame implements NewView {
       if (fields[i].equals("symbol") && symbols != null) {
         symbols.add(textField);
       }
-      if (fields[i].equals("weight") && weights != null) {
+      if (fields[i].equals("weight %") && weights != null) {
         weights.add(textField);
       }
 
@@ -454,7 +454,7 @@ public class NewViewImpl extends JFrame implements NewView {
   private void addStocks() {
     JPanel panel = new JPanel();
     panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
-    String[] fields = new String[]{"symbol", "weight"};
+    String[] fields = new String[]{"symbol", "weight %"};
     String[] types = new String[]{"symbol", "float"};
     boolean[] required = new boolean[]{true, true};
     initialScreensLoader(fields, types, required, panel);
@@ -836,7 +836,7 @@ public class NewViewImpl extends JFrame implements NewView {
 
       screen.add(panel);
 
-      String[] appendedFields = new String[]{"amount", "date", "commission fee", "symbol", "weight"};
+      String[] appendedFields = new String[]{"amount", "date", "commission fee", "symbol", "weight %"};
       buttons.get("Invest").addActionListener(e ->
               buttonHandler(appendedFields, validationResults));
       buttons.get("Add a stock").addActionListener(e ->
@@ -888,7 +888,7 @@ public class NewViewImpl extends JFrame implements NewView {
       screen.setLayout(new BoxLayout(screen, BoxLayout.PAGE_AXIS));
 
 
-      String[] fields = new String[]{"amount", "start date", "end date", "interval", "commission fee"};
+      String[] fields = new String[]{"amount", "start date", "end date", "interval (in days)", "commission fee"};
       String[] types = new String[]{"float", "date", "futureDate", "int", "float"};
       boolean[] required = new boolean[]{true, true, false, true, true};
       validationResults = new HashMap<>();
@@ -923,7 +923,7 @@ public class NewViewImpl extends JFrame implements NewView {
 
       screen.add(panel);
 
-      String[] appendedFields = new String[]{"amount", "start date", "end date", "interval", "commission fee", "symbol", "weight"};
+      String[] appendedFields = new String[]{"amount", "start date", "end date", "interval (in days)", "commission fee", "symbol", "weight %"};
       buttons.get("Invest").addActionListener(e ->
               buttonHandler(appendedFields, validationResults));
       buttons.get("Add a stock").addActionListener(e ->
@@ -943,7 +943,7 @@ public class NewViewImpl extends JFrame implements NewView {
       float amount = (float) validationResults.get("amount").data;
       String startDate = validationResults.get("start date").data.toString();
       String endDate = validationResults.get("end date").data.toString();
-      int interval = (int) validationResults.get("interval").data;
+      int interval = (int) validationResults.get("interval (in days)").data;
       float commissionFee = (float) validationResults.get("commission fee").data;
 
 
