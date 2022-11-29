@@ -390,9 +390,9 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements Flexible
   public void createDollarCostStrategyPortfolio(LocalDate startDate, LocalDate endDate,
                                                 int interval, float amount, float transactionCost,
                                                 HashMap<String, Float> stocks) {
-//    for (String key : stocks.keySet()) {
-//      stocks.put(key, (stocks.get(key) / 100) * amount);
-//    }
+    for (String key : stocks.keySet()) {
+      stocks.put(key, (stocks.get(key) / 100) * amount);
+    }
     this.dollarCostStockList.add(new DollarCostStockImpl(startDate, interval, amount,
             transactionCost, stocks, endDate));
   }
@@ -436,14 +436,5 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements Flexible
     return this.portfolioName;
   }
 
-  @Override
-  public ArrayList<DollarCostStock> getDollarCostStocks() {
-    return this.dollarCostStockList;
-  }
-
-  @Override
-  public String toString(){
-    return "Stocks:"+stockList.toString()+"\n"+"Dollar Cost:"+dollarCostStockList.toString();
-  }
 
 }

@@ -7,6 +7,7 @@ import models.ApiType;
 import models.NewerModel;
 import view.NewView;
 
+
 public class NewController implements Features {
   private NewerModel model;
   private NewView view;
@@ -34,9 +35,11 @@ public class NewController implements Features {
       if (creating) {
         message = "Successfully created portfolio";
       }
-      showMainMenu(message, false);
+      view.showMainMenu();
+      view.showMessage(message, false);
     } catch (Exception e) {
-      showMainMenu(e.getMessage(), true);
+      view.showMainMenu();
+      view.showMessage(e.getMessage(), true);
     }
 
 
@@ -75,13 +78,7 @@ public class NewController implements Features {
 
   @Override
   public void save() {
-    try {
-      model.save();
-      view.showMessage("",false);
-      showMainMenu("Successfully saved", false);
-    } catch (Exception e) {
-      showMainMenu(e.getMessage(), true);
-    }
+
   }
 
   @Override
@@ -136,14 +133,15 @@ public class NewController implements Features {
 
   @Override
   public void createUser(String userName, float balance) {
-    try {
-      model.createUser(userName, balance);
-      view.showNewUserMenu();
-    } catch (Exception e) {
-      view.showInitialMenu();
-      view.showMessage(e.getMessage(), true);
-    }
-
+//    try{
+//      model.createUser(userName,balance);
+//      view.showNewUserMenu();
+//    }catch(Exception e){
+//      view.showInitialMenu();
+//      view.showMessage(e.getMessage(),true);
+//    }
+    model.createUser(userName, balance);
+    view.showNewUserMenu();
 
   }
 

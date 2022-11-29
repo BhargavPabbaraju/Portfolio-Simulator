@@ -117,11 +117,9 @@ public class NewViewImpl extends JFrame implements NewView {
 
   @Override
   public void showMessage(String message, boolean error) {
-
     displayMessage.setText(message);
     Color color = error ? Color.RED : Color.BLACK;
     displayMessage.setForeground(color);
-
   }
 
   @Override
@@ -311,7 +309,6 @@ public class NewViewImpl extends JFrame implements NewView {
       buttons.get("View Performance Plot").addActionListener(e -> new GetPlotInputsScreen());
       buttons.get("Dollar Cost-Averaging").addActionListener(e -> new DollarCostAverage(false));
       saveButton = new JButton("Save");
-      saveButton.addActionListener(e -> features.save());
       footerPanel.add(saveButton);
     }
     buttons.get("Create portfolio").addActionListener(e -> new CreatePortfolioScreen());
@@ -548,22 +545,9 @@ public class NewViewImpl extends JFrame implements NewView {
         return;
       }
       String userName = validationResults.get("username").data.toString();
-      showMessage("Loading user. This might take a few seconds...",false);
-      class Worker extends SwingWorker<Float,Float>{
-        float value;
-        @Override
-        protected Float doInBackground() throws Exception {
-          features.loadUser(userName);
-          return value;
-        }
-
-        @Override
-        public void done(){
-          portfolioName = features.getActivePortfolio();
-          setActivePortfolio();
-        }
-      }
-      new Worker().execute();
+      features.loadUser(userName);
+      portfolioName = features.getActivePortfolio();
+      setActivePortfolio();
 
     }
   }
@@ -1051,6 +1035,7 @@ public class NewViewImpl extends JFrame implements NewView {
               panel
       );
 
+
       screen.add(panel);
 
       buttons.get("Get total value").addActionListener(e ->
@@ -1066,31 +1051,13 @@ public class NewViewImpl extends JFrame implements NewView {
       if (checkErrors(fields, validationResults)) {
         return;
       }
-
       String date = validationResults.get("date").data.toString();
-      showMessage("Getting the value. This might take a few seconds...",false);
-      class Worker extends SwingWorker<Float,Float>{
-        float value;
-        @Override
-        protected Float doInBackground() throws Exception {
-          value=features.getTotalValue(date);
-          return value;
-        }
-
-        @Override
-        public void done(){
-          if (value >= 0) {
-            showMessage("Total value on " + date + " is " + value, false);
-          }
-        }
+      float value = features.getTotalValue(date);
+      if (value >= 0) {
+        showMessage("Total value on " + date + " is " + value, false);
       }
-     new Worker().execute();
-
     }
-
   }
-
-
 
   private final class SellStocksScreen {
     SellStocksScreen() {
@@ -1211,24 +1178,8 @@ public class NewViewImpl extends JFrame implements NewView {
       }
       String startDate = validationResults.get("start date").data.toString();
       String endDate = validationResults.get("end date").data.toString();
-
-      showMessage("Plotting. This might take a couple of minutes...",false);
-      class Worker extends SwingWorker<Float,Float>{
-        float value;
-        @Override
-        protected Float doInBackground() throws Exception {
-          setScreen(ScreenNames.GET_PLOT_SCREEN,
-                  new GetPlotScreen(features, startDate, endDate).getScreen());
-          return value;
-        }
-
-        @Override
-        public void done(){
-
-        }
-      }
-      new Worker().execute();
-
+      setScreen(ScreenNames.GET_PLOT_SCREEN,
+              new GetPlotScreen(features, startDate, endDate).getScreen());
 
 
     }

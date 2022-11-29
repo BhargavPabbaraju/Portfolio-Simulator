@@ -96,7 +96,7 @@ public class CacheImpl implements Cache {
   private void loadingIntoCache(String path, String s) throws FileNotFoundException {
 
     JsonObject json = JsonParser.parse(path);
-    cacheList.put(s, json);
+    cacheList.put(s, json.get("TimeSeries(Daily)"));
   }
 
   private void loadCSVDate() {

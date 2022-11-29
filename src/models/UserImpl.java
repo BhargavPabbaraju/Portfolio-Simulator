@@ -228,7 +228,7 @@ public class UserImpl implements User {
 
   @Override
   public void createDollarCostStrategyPortfolio(String startDate, String endDate, int interval, float amount, float transactionCost, HashMap<String, Float> stocks) {
-    this.activePortfolio.createDollarCostStrategyPortfolio(parseDate(startDate), endDate=="" ? null:parseDate(endDate)  , interval, amount, transactionCost, stocks);
+    this.activePortfolio.createDollarCostStrategyPortfolio(parseDate(startDate), endDate==null ? null:parseDate(endDate)  , interval, amount, transactionCost, stocks);
   }
 
   @Override

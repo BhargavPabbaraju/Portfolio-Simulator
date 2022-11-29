@@ -132,8 +132,6 @@ public class JsonParser {
     String[] formattedFile = formatInput(file);
     inputStack = new LinkedList<>();
     resultStack = new LinkedList<>();
-
-
     for (String input : formattedFile) {
       input = cleanInput(input);
 
@@ -159,11 +157,7 @@ public class JsonParser {
       } else {
         processStrings(input);
       }
-      //System.out.println(input);
-      //System.out.println(inputStack);
-      //System.out.println(resultStack+"\n");
     }
-
     return resultStack.pop();
   }
 

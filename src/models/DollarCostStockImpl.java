@@ -1,30 +1,48 @@
 package models;
 
 import java.time.DayOfWeek;
-import java.time.Duration;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
+/**
+ * This class represents stocks created using dollar costing average strategy. In this strategy,
+ * the user creates a portfolio of stocks and determines their relative proportion. Then the user
+ * invests a fixed amount of money in this portfolio at regular frequency over a long period of
+ * time.
+ */
 public class DollarCostStockImpl implements DollarCostStock {
 
   LocalDate startDate;
-  LocalDate endDate = null;
+  LocalDate endDate;
   int interval;
-  final HashMap<String, Float> stocks; // Symbol: Amount , AAPL:200/50%;
+  HashMap<String, Float> stocks; // Symbol: Amount , AAPL:200/50%;
   float transactionCost;
   float amount;
 
-  public DollarCostStockImpl(LocalDate startDate, int interval, float amount, float transactionCost, HashMap<String, Float> stocks, LocalDate endDate) {
+  /**
+   * This constructor creates a Dollar cost average strategy for particular stocks.
+   *
+   * @param startDate       LocalDate date on which he wants to start the purchase.
+   * @param endDate         LocalDate date on which he wants to end the purchase.
+   * @param interval        float interval in which the user wants to invest.
+   * @param amount          float amount which the user wants to invest.
+   * @param transactionCost float which is transaction associated for this transaction.
+   * @param stocks          Hashmap of stocks which contains the Symbol as key and weight as value.
+   */
+  public DollarCostStockImpl(LocalDate startDate, int interval, float amount, float transactionCost,
+                             HashMap<String, Float> stocks, LocalDate endDate) {
     this.startDate = startDate;
     this.interval = interval;
     this.transactionCost = transactionCost;
     this.stocks = stocks;
     this.amount = amount;
+    if (endDate.equals("")) {
+      endDate = null;
+    }
     this.endDate = endDate;
-
   }
 
   @Override
@@ -72,36 +90,6 @@ public class DollarCostStockImpl implements DollarCostStock {
     }
   }
 
-  @Override
-  public LocalDate getStartDate() {
-    return startDate;
-  }
-
-  @Override
-  public LocalDate getEndDate() {
-    return endDate;
-  }
-
-  @Override
-  public float getAmount() {
-    return amount;
-  }
-
-  @Override
-  public int getInterval() {
-    return interval;
-  }
-
-  @Override
-  public HashMap<String, Float> getStocks() {
-    return this.stocks;
-  }
-
-  @Override
-  public float getTransactionCost() {
-    return transactionCost;
-  }
-
   private float getValue(HashMap<String, Float> totalShares, LocalDate date, ApiType apiType) {
     float totalValue = 0;
     for (String key : totalShares.keySet()) {
@@ -117,10 +105,10 @@ public class DollarCostStockImpl implements DollarCostStock {
       for (LocalDate date : datesArray) {
         try {
           float value = ApiCallImpl.getData(key, date, apiType);
-          shares += ((this.amount*this.stocks.get(key))/100) / value;
+          shares += this.stocks.get(key) / value;
         } catch (IllegalArgumentException e) {
           float value = ApiCallImpl.getData(key, weekendValidation(this.startDate.plusDays(1)), apiType);
-          shares +=  ((this.amount*this.stocks.get(key))/100) / value;
+          shares += this.stocks.get(key) / value;
 
         }
       }
@@ -144,9 +132,5 @@ public class DollarCostStockImpl implements DollarCostStock {
     return day == DayOfWeek.SUNDAY || day == DayOfWeek.SATURDAY;
   }
 
-  @Override
-  public String toString(){
-    return this.stocks.toString();
-  }
 
 }
