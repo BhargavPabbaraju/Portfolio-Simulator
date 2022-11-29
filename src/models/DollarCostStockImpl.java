@@ -16,9 +16,9 @@ import static java.time.temporal.ChronoUnit.DAYS;
 public class DollarCostStockImpl implements DollarCostStock {
 
   LocalDate startDate;
-  LocalDate endDate;
+  LocalDate endDate = null;
   int interval;
-  HashMap<String, Float> stocks; // Symbol: Amount , AAPL:200/50%;
+  final HashMap<String, Float> stocks; // Symbol: Amount , AAPL:200/50%;
   float transactionCost;
   float amount;
 
@@ -32,17 +32,14 @@ public class DollarCostStockImpl implements DollarCostStock {
    * @param transactionCost float which is transaction associated for this transaction.
    * @param stocks          Hashmap of stocks which contains the Symbol as key and weight as value.
    */
-  public DollarCostStockImpl(LocalDate startDate, int interval, float amount, float transactionCost,
-                             HashMap<String, Float> stocks, LocalDate endDate) {
+  public DollarCostStockImpl(LocalDate startDate, int interval, float amount, float transactionCost, HashMap<String, Float> stocks, LocalDate endDate) {
     this.startDate = startDate;
     this.interval = interval;
     this.transactionCost = transactionCost;
     this.stocks = stocks;
     this.amount = amount;
-    if (endDate.equals("")) {
-      endDate = null;
-    }
     this.endDate = endDate;
+
   }
 
   @Override
@@ -90,6 +87,36 @@ public class DollarCostStockImpl implements DollarCostStock {
     }
   }
 
+  @Override
+  public LocalDate getStartDate() {
+    return startDate;
+  }
+
+  @Override
+  public LocalDate getEndDate() {
+    return endDate;
+  }
+
+  @Override
+  public float getAmount() {
+    return amount;
+  }
+
+  @Override
+  public int getInterval() {
+    return interval;
+  }
+
+  @Override
+  public HashMap<String, Float> getStocks() {
+    return this.stocks;
+  }
+
+  @Override
+  public float getTransactionCost() {
+    return transactionCost;
+  }
+
   private float getValue(HashMap<String, Float> totalShares, LocalDate date, ApiType apiType) {
     float totalValue = 0;
     for (String key : totalShares.keySet()) {
@@ -105,10 +132,10 @@ public class DollarCostStockImpl implements DollarCostStock {
       for (LocalDate date : datesArray) {
         try {
           float value = ApiCallImpl.getData(key, date, apiType);
-          shares += this.stocks.get(key) / value;
+          shares += ((this.amount * this.stocks.get(key)) / 100) / value;
         } catch (IllegalArgumentException e) {
           float value = ApiCallImpl.getData(key, weekendValidation(this.startDate.plusDays(1)), apiType);
-          shares += this.stocks.get(key) / value;
+          shares += ((this.amount * this.stocks.get(key)) / 100) / value;
 
         }
       }
@@ -132,5 +159,9 @@ public class DollarCostStockImpl implements DollarCostStock {
     return day == DayOfWeek.SUNDAY || day == DayOfWeek.SATURDAY;
   }
 
+  @Override
+  public String toString() {
+    return this.stocks.toString();
+  }
 
 }

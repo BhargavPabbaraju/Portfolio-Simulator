@@ -18,6 +18,7 @@ public class ValidatorImpl implements Validator {
 
   /**
    * Constructs ValidatorImpl which is used to validate the user inputs..
+   *
    * @param model takes in the NewerModel object
    */
   ValidatorImpl(NewerModel model) {

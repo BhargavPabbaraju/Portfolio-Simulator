@@ -1,6 +1,7 @@
 package models;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 
 /**
  * This interface represents the operations on stocks created by dollar costing average strategy.
@@ -26,5 +27,17 @@ public interface DollarCostStock {
    * @return total value of the portfolio on a certain date.
    */
   float getTotalValue(LocalDate date, ApiType apiType);
+
+  LocalDate getStartDate();
+
+  LocalDate getEndDate();
+
+  float getAmount();
+
+  int getInterval();
+
+  HashMap<String, Float> getStocks();
+
+  float getTransactionCost();
 
 }

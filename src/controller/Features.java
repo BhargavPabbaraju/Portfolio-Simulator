@@ -144,6 +144,7 @@ public interface Features {
    */
   String getListOfPortfolios();
 
+
   /**
    * This method is used to generate plotting values such as dates and values which are
    * used for plotting.

@@ -151,4 +151,9 @@ public class FlexibleStocksListImpl implements FlexibleStocksList {
     return c != 0;
 
   }
+
+  @Override
+  public String toString(){
+    return this.stocksList.toString();
+  }
 }
