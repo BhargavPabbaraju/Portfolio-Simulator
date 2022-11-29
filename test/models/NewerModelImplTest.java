@@ -85,4 +85,31 @@ public class NewerModelImplTest {
     System.out.println(m.getTotalValue("2022-11-21", ApiType.ALPHA_VANTAGE));
   }
 
+  @Test
+  public void testSave() throws IOException {
+    NewerModel m = new NewerModelImpl();
+    m.createUser("user",1900);
+    m.createPortfolio("flex", true);
+    HashMap<String, Float> stocks = new HashMap<>();
+    stocks.put("META", 40F);
+    stocks.put("AAPL", 40F);
+    stocks.put("MSFT", 20F);
+
+    m.createDollarCostStrategyPortfolio("2022-09-20", "2023-11-21", 30, 67457, 10, stocks);
+    m.buyStock("AAPL","2022-11-01",10,10);
+    m.buyStock("GOOG","2022-11-01",10,10);
+    m.createDollarCostStrategyPortfolio("2022-09-20", "", 10, 2000, 10, stocks);
+    m.createPortfolio("bus",true);
+    m.createDollarCostStrategyPortfolio("2022-09-20", "", 10, 2000, 10, stocks);
+    m.buyStock("AAPL","2022-11-01",10,10);
+    m.save();
+  }
+
+  @Test
+  public void testLoad() throws IOException, ParseException {
+    NewerModel m = new NewerModelImpl();
+    m.loadUser("user9");
+    System.out.println(m.getTotalValue("2022-11-21", ApiType.ALPHA_VANTAGE));
+  }
+
 }

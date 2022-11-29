@@ -39,6 +39,9 @@
         {
           "start": "2022-01-01",
           "end": "",
+          "transactionCost": 10,
+          "amount": 2000,
+          "interval": 10,
           "stocks": [
 
             {

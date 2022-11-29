@@ -1,0 +1,94 @@
+{
+  "name": "user",
+  "balance": 1900.0,
+  "portfolios": [
+    {
+      "name": "bus",
+      "flexible": true,
+      "stocks": {
+        "AAPL": {
+          "2022-11-01": {
+            "shares": 10.0,
+            "transactionCost": 10.0
+          }
+        }
+      },
+      "dollarCost": [
+        {
+          "start": "2022-09-20",
+          "end": null,
+          "transactionCost": 10.0,
+          "amount": 2000.0,
+          "interval": 10,
+          "stocks": [
+            {
+              "MSFT": 20.00
+            },
+            {
+              "META": 40.00
+            },
+            {
+              "AAPL": 40.00
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "flex",
+      "flexible": true,
+      "stocks": {
+        "GOOG": {
+          "2022-11-01": {
+            "shares": 10.0,
+            "transactionCost": 10.0
+          }
+        },
+        "AAPL": {
+          "2022-11-01": {
+            "shares": 10.0,
+            "transactionCost": 10.0
+          }
+        }
+      },
+      "dollarCost": [
+        {
+          "start": "2022-09-20",
+          "end": 2023-11-21,
+          "transactionCost": 10.0,
+          "amount": 67457.0,
+          "interval": 30,
+          "stocks": [
+            {
+              "MSFT": 20.00
+            },
+            {
+              "META": 40.00
+            },
+            {
+              "AAPL": 40.00
+            }
+          ]
+        },
+        {
+          "start": "2022-09-20",
+          "end": null,
+          "transactionCost": 10.0,
+          "amount": 2000.0,
+          "interval": 10,
+          "stocks": [
+            {
+              "MSFT": 20.00
+            },
+            {
+              "META": 40.00
+            },
+            {
+              "AAPL": 40.00
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

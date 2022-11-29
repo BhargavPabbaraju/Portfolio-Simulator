@@ -22,7 +22,8 @@
             "transactionCost": 10.0
           }
         }
-      }
+      },
+      "dollarCost": []
 
     }
   ]

@@ -1,6 +1,7 @@
 package models;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import customDataType.PlotPair;
@@ -106,6 +107,10 @@ public abstract class AbstractPortfolio implements Portfolio, FlexiblePortfolio{
   public PlotPair newGetPlot(LocalDate startDate, LocalDate endDate, ApiType apiType,
                              int maximumPlots){
 
+    return null;
+  }
+
+  public ArrayList<DollarCostStock> getDollarCostStocks() {
     return null;
   }
 }

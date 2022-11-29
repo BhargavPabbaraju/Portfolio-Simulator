@@ -1,0 +1,44 @@
+{
+  "name": "user9",
+  "balance": 72000.0,
+  "portfolios": [
+    {
+      "name": "some",
+      "flexible": true,
+      "stocks": {
+        "MSFT": {
+          "2022-11-03": {
+            "shares": 0.9334889,
+            "transactionCost": 5.0
+          }
+        },
+        "AAPL": {
+          "2022-11-03": {
+            "shares": 12.960829,
+            "transactionCost": 5.0
+          }
+        }
+      },
+      "dollarCost": [
+        {
+          "start": "2015-10-23",
+          "end": "2022-10-25",
+          "transactionCost": 30.0,
+          "amount": 2000.0,
+          "interval": 30,
+          "stocks": [
+            {
+              "GOOG": 10.00
+            },
+            {
+              "META": 40.00
+            },
+            {
+              "AAPL": 50.00
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

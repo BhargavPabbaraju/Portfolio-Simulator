@@ -1,11 +1,18 @@
 {
     "Meta Data": {
         "2. Symbol": "AAPL",
-        "3. Last Refreshed": "2022-11-25",
+        "3. Last Refreshed": "2022-11-28",
         "4. Output Size": "Full size",
         "5. Time Zone": "US/Eastern"
     },
     "Time Series (Daily)": {
+        "2022-11-28": {
+            "1. open": "145.1400",
+            "2. high": "146.6400",
+            "3. low": "143.3800",
+            "4. close": "144.2200",
+            "5. volume": "68887670"
+        },
         "2022-11-25": {
             "1. open": "148.3050",
             "2. high": "148.8800",
