@@ -33,10 +33,12 @@ public class DollarCostStockImpl implements DollarCostStrategy {
    * @param stocks          Hashmap of stocks which contains the Symbol as key and weight as value.
    */
   public DollarCostStockImpl(LocalDate startDate, int interval, float amount, float transactionCost, HashMap<String, Float> stocks, LocalDate endDate) {
-    if (startDate.compareTo(endDate) > 0) {
-      LocalDate temp = endDate;
-      endDate = startDate;
-      startDate = temp;
+    if(endDate!=null) {
+      if (startDate.compareTo(endDate) > 0) {
+        LocalDate temp = endDate;
+        endDate = startDate;
+        startDate = temp;
+      }
     }
     this.startDate = startDate;
     this.interval = interval;
