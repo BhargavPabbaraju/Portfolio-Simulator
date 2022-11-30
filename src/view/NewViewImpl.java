@@ -14,6 +14,9 @@ import controller.ValidationResult;
 import controller.Validator;
 
 
+/**
+ * This class provides a GUI implementation of the view.
+ */
 public class NewViewImpl extends JFrame implements NewView {
 
   private JPanel footerPanel;
@@ -1213,18 +1216,19 @@ public class NewViewImpl extends JFrame implements NewView {
       String endDate = validationResults.get("end date").data.toString();
 
       showMessage("Plotting. This might take a couple of minutes...",false);
-      class Worker extends SwingWorker<Float,Float>{
+      class Worker extends SwingWorker<GetPlotScreen,Float>{
         float value;
+        GetPlotScreen screen;
         @Override
-        protected Float doInBackground() throws Exception {
-          setScreen(ScreenNames.GET_PLOT_SCREEN,
-                  new GetPlotScreen(features, startDate, endDate).getScreen());
-          return value;
+        protected GetPlotScreen doInBackground() throws Exception {
+          screen = new GetPlotScreen(features, startDate, endDate);
+          return screen;
         }
 
         @Override
         public void done(){
-
+          setScreen(ScreenNames.GET_PLOT_SCREEN,
+                  screen.getScreen());
         }
       }
       new Worker().execute();

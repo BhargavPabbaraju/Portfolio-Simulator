@@ -1,6 +1,9 @@
 package view;
 
-public enum ScreenNames {
+/**
+ * An Enum of different Screens used by NewViewImpl class.
+ */
+enum ScreenNames {
   INITIAL_SCREEN,
   MAIN_SCREEN,
   LOAD_USER_SCREEN,

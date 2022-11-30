@@ -11,6 +11,9 @@ import javax.swing.*;
 import controller.Features;
 import customDataType.PlotPair;
 
+/**
+ * This class handles plotting the graph.
+ */
 final class GetPlotScreen {
   private final Float maxValue;
   private final Float minValue;
@@ -40,7 +43,7 @@ final class GetPlotScreen {
   private String title;
 
 
-  public GetPlotScreen(Features features,String startDate,String endDate) {
+  GetPlotScreen(Features features,String startDate,String endDate) {
     this.features = features;
     datesValues = features.getPlot(startDate,endDate,maximumPlots);
     setTitle(startDate,endDate);
