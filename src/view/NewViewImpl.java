@@ -826,7 +826,7 @@ public class NewViewImpl extends JFrame implements NewView {
       initializeDisplayMessage(screen);
       screen.add(Box.createVerticalStrut(30));
 
-      JPanel panel = new JPanel(new FlowLayout());
+      JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER,50,10));
       if (creating) {
         setButtons(
                 new String[]{
@@ -916,7 +916,7 @@ public class NewViewImpl extends JFrame implements NewView {
       screen.add(Box.createVerticalStrut(30));
       initializeDisplayMessage(screen);
       screen.add(Box.createVerticalStrut(30));
-      JPanel panel = new JPanel(new FlowLayout());
+      JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER,50,10));
       if (creating) {
         setButtons(
                 new String[]{
@@ -1041,7 +1041,7 @@ public class NewViewImpl extends JFrame implements NewView {
       String date = validationResults.get("date").data.toString();
       float costBasis = features.getCostBasis(date);
       if (costBasis >= 0) {
-        showMessage("Cost basis till " + date + " is " + costBasis, false);
+        showMessage("Cost basis till " + date + " is $" + String.format("%.2f",costBasis), false);
       }
 
 
@@ -1102,7 +1102,7 @@ public class NewViewImpl extends JFrame implements NewView {
         @Override
         public void done() {
           if (value >= 0) {
-            showMessage("Total value on " + date + " is " + value, false);
+            showMessage("Total value on " + date + " is $" + String.format("%.2f",value), false);
           }
         }
       }
@@ -1240,14 +1240,27 @@ public class NewViewImpl extends JFrame implements NewView {
 
         @Override
         protected GetPlotScreen doInBackground() throws Exception {
-          screen = new GetPlotScreen(features, startDate, endDate);
-          return screen;
+          try{
+            screen = new GetPlotScreen(features, startDate, endDate);
+            return screen;
+          }catch(Exception e){
+            if(e.getMessage().contains("Key")){
+              showMessage("This stock wasn't established yet.",true);
+            }else{
+              showMessage(e.getMessage(),true);
+            }
+            return null;
+          }
+
         }
 
         @Override
         public void done() {
-          setScreen(ScreenNames.GET_PLOT_SCREEN,
-                  screen.getScreen());
+          if(screen!=null){
+            setScreen(ScreenNames.GET_PLOT_SCREEN,
+                    screen.getScreen());
+          }
+
         }
       }
       new Worker().execute();
