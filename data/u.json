@@ -1,6 +1,6 @@
 {
   "name": "u",
-  "balance": 10.0,
+  "balance": 0.0,
   "portfolios": [
     {
       "name": "asome",
@@ -22,7 +22,7 @@
       "dollarCost": [
         {
           "start": "2022-11-01",
-          "end": "2022-11-23",
+          "end": "null ",
           "transactionCost": 10.0,
           "amount": 1000.0,
           "interval": 10,

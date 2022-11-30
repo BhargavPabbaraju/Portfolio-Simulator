@@ -72,8 +72,7 @@ class Loader {
       JsonObject dollarCost = json.get(key);
       String startDate = dollarCost.get("start").toString();
       String  endDate = dollarCost.get("end").toString();
-
-      if(endDate == "null"){
+      if(endDate.equals("null")){
         endDate = "";
       }
       int interval = Integer.parseInt(dollarCost.get("interval").toString());

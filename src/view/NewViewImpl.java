@@ -567,7 +567,7 @@ public class NewViewImpl extends JFrame implements NewView {
             portfolioName = features.getActivePortfolio();
             setActivePortfolio();
           }catch(Exception e){
-            showMessage(e.getMessage(),true);
+            showMessage("Load file is of invalid format",true);
           }
 
         }
@@ -982,7 +982,8 @@ public class NewViewImpl extends JFrame implements NewView {
 
   private void setActivePortfolio() {
     if (portfolioName != null) {
-      setTitle("Portfolio Application\t\t" + "Current Portfolio: " + portfolioName);
+      setTitle(String.format("Portfolio Application %20s Current Portfolio: %s","",portfolioName));
+
     }
   }
 

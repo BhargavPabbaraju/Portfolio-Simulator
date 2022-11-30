@@ -133,6 +133,7 @@ final class GetPlotScreen {
   }
 
   private void drawLabels(Graphics2D g2d, JPanel jPanel) {
+    g2d.setRenderingHint (RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
     drawXLabels(g2d,jPanel);
 
