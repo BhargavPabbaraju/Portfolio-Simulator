@@ -5,7 +5,8 @@ import java.util.HashMap;
 import customDataType.PlotPair;
 
 /**
- * This class represents an implementation of NewerModel. It extends NewModelImpl created previously.
+ * This class represents an implementation of NewerModel. It extends NewModelImpl created
+ * previously.
  */
 public class NewerModelImpl extends NewModelImpl implements NewerModel {
   @Override
@@ -14,7 +15,8 @@ public class NewerModelImpl extends NewModelImpl implements NewerModel {
   }
 
   @Override
-  public void investIntoPortfolio(String date, float amount, float transactionCost, HashMap<String, Float> stocks, ApiType apiType) {
+  public void investIntoPortfolio(String date, float amount, float transactionCost,
+                                  HashMap<String, Float> stocks, ApiType apiType) {
     if (amount <= 0) {
       throw new IllegalArgumentException("amount should be greater than 0");
     }
@@ -29,7 +31,9 @@ public class NewerModelImpl extends NewModelImpl implements NewerModel {
   }
 
   @Override
-  public void createDollarCostStrategyPortfolio(String startDate, String endDate, int interval, float amount, float transactionCost, HashMap<String, Float> stocks) {
+  public void createDollarCostStrategyPortfolio(String startDate, String endDate, int interval,
+                                                float amount, float transactionCost,
+                                                HashMap<String, Float> stocks) {
     if (amount <= 0) {
       throw new IllegalArgumentException("amount should be greater than 0");
     }
@@ -42,7 +46,8 @@ public class NewerModelImpl extends NewModelImpl implements NewerModel {
     if (!validateStocks(stocks)) {
       throw new IllegalArgumentException("stock symbol or weight is not valid");
     }
-    this.user.createDollarCostStrategyPortfolio(startDate, endDate, interval, amount, transactionCost, stocks);
+    this.user.createDollarCostStrategyPortfolio(startDate, endDate, interval, amount,
+            transactionCost, stocks);
   }
 
   @Override

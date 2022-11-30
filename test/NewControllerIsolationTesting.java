@@ -4,10 +4,8 @@ import java.util.HashMap;
 
 import controller.Features;
 import controller.NewController;
-import models.ApiType;
 import models.NewerModel;
 import view.NewView;
-import view.NewViewImpl;
 
 
 import static org.junit.Assert.assertEquals;
@@ -32,7 +30,8 @@ public class NewControllerIsolationTesting {
     NewerModel model = new MockNewModel(log, olog);
     NewView view = new MockNewView();
     Features controller = new NewController(model, view);
-    controller.buyStocks("AAPL", 10, "2022-11-14", 5, true);
+    controller.buyStocks("AAPL", 10, "2022-11-14", 5,
+            true);
     assertEquals("AAPL 2022-11-14 10.0 5.0 ", log.toString());
     assertEquals("buyStock ", olog.toString());
   }
@@ -109,7 +108,8 @@ public class NewControllerIsolationTesting {
     stocks.put("AAPL", 40F);
     stocks.put("MSFT", 20F);
     controller.investOnDate("2022-11-21", 2000, 10, stocks, true);
-    assertEquals("2022-11-21 2000.0 10.0 {MSFT=20.0, META=40.0, AAPL=40.0} ALPHA_VANTAGE", log.toString());
+    assertEquals("2022-11-21 2000.0 10.0 {MSFT=20.0, META=40.0, AAPL=40.0} ALPHA_VANTAGE",
+            log.toString());
     assertEquals("investIntoPortfolio ", olog.toString());
   }
 
@@ -124,8 +124,10 @@ public class NewControllerIsolationTesting {
     stocks.put("META", 40F);
     stocks.put("AAPL", 40F);
     stocks.put("MSFT", 20F);
-    controller.dollarCost("2022-06-21", "2022-11-14", 30, 2000, 10, stocks, true);
-    assertEquals("2022-06-21 2022-11-14 2000.0 10.0 {MSFT=20.0, META=40.0, AAPL=40.0} 30", log.toString());
+    controller.dollarCost("2022-06-21", "2022-11-14", 30, 2000,
+            10, stocks, true);
+    assertEquals("2022-06-21 2022-11-14 2000.0 10.0 {MSFT=20.0, META=40.0, AAPL=40.0} 30",
+            log.toString());
     assertEquals("createDollarCostStrategyPortfolio ", olog.toString());
   }
 

@@ -7,8 +7,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoField;
 
 /**
- * This class represents a stock. Each stock contains the symbol(company) , number of shares held in
- * that company and the date on which this stock was bought.
+ * This class represents a stock. Each stock contains the symbol(company) ,
+ * number of shares held in that company and the date on which this stock was bought.
  */
 class StockImpl implements Stock {
   float numberOfShares;

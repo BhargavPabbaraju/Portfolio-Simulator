@@ -168,7 +168,8 @@ public class NewViewImpl extends JFrame implements NewView {
   }
 
 
-  private ValidationResult validate(String content, String type, JLabel errorLabel, boolean required) {
+  private ValidationResult validate(String content, String type, JLabel errorLabel,
+                                    boolean required) {
     ValidationResult validationResult;
     switch (type) {
 
@@ -197,7 +198,7 @@ public class NewViewImpl extends JFrame implements NewView {
         break;
 
       case "futureDate":
-        validationResult = validator.validateFutureDate(content,required);
+        validationResult = validator.validateFutureDate(content, required);
         break;
 
       case "symbol":
@@ -312,7 +313,8 @@ public class NewViewImpl extends JFrame implements NewView {
       buttons.get("Get Value").addActionListener(e -> new GetTotalValue());
       buttons.get("View List of portfolios").addActionListener(e -> new ListOfPortfoliosScreen());
       buttons.get("View Performance Plot").addActionListener(e -> new GetPlotInputsScreen());
-      buttons.get("Dollar Cost-Averaging").addActionListener(e -> new DollarCostAverage(false));
+      buttons.get("Dollar Cost-Averaging").addActionListener(e -> new DollarCostAverage(
+              false));
       saveButton = new JButton("Save");
       saveButton.addActionListener(e -> features.save());
       footerPanel.add(saveButton);
@@ -384,7 +386,8 @@ public class NewViewImpl extends JFrame implements NewView {
         @Override
         public void focusLost(FocusEvent e) {
           if (!e.isTemporary() && textField.isEnabled()) {
-            validationHelper(textField, fields[finalI], types[finalI], errorLabel, required[finalI]);
+            validationHelper(textField, fields[finalI], types[finalI], errorLabel,
+                    required[finalI]);
             showMessage("", false);
 
           }
@@ -408,7 +411,8 @@ public class NewViewImpl extends JFrame implements NewView {
       }
 
     }
-    if (currentScreen != ScreenNames.INVEST_ON_DATE && currentScreen != ScreenNames.DOLLAR_COST_AVERAGE) {
+    if (currentScreen != ScreenNames.INVEST_ON_DATE && currentScreen !=
+            ScreenNames.DOLLAR_COST_AVERAGE) {
       screen.add(Box.createVerticalStrut(100));
       initializeDisplayMessage(screen);
     }
@@ -551,9 +555,10 @@ public class NewViewImpl extends JFrame implements NewView {
         return;
       }
       String userName = validationResults.get("username").data.toString();
-      showMessage("Loading user. This might take a few seconds...",false);
-      class Worker extends SwingWorker<Float,Float>{
+      showMessage("Loading user. This might take a few seconds...", false);
+      class Worker extends SwingWorker<Float, Float> {
         float value;
+
         @Override
         protected Float doInBackground() throws Exception {
 
@@ -562,12 +567,12 @@ public class NewViewImpl extends JFrame implements NewView {
         }
 
         @Override
-        public void done(){
-          try{
+        public void done() {
+          try {
             portfolioName = features.getActivePortfolio();
             setActivePortfolio();
-          }catch(Exception e){
-            showMessage("Load file is of invalid format",true);
+          } catch (Exception e) {
+            showMessage("Load file is of invalid format", true);
           }
 
         }
@@ -620,7 +625,8 @@ public class NewViewImpl extends JFrame implements NewView {
       setScreen(ScreenNames.CREATE_PORTFOLIO_SCREEN, screen);
     }
 
-    private void dollarCostHandler(String[] fields, HashMap<String, ValidationResult> validationResults) {
+    private void dollarCostHandler(String[] fields, HashMap<String, ValidationResult>
+            validationResults) {
 
       if (checkErrors(fields, validationResults)) {
         return;
@@ -770,7 +776,8 @@ public class NewViewImpl extends JFrame implements NewView {
     }
   }
 
-  private void addStockHandler(String[] fields, HashMap<String, ValidationResult> validationResults) {
+  private void addStockHandler(String[] fields, HashMap<String, ValidationResult>
+          validationResults) {
     if (checkErrors(fields, validationResults)) {
       return;
     }
@@ -845,7 +852,8 @@ public class NewViewImpl extends JFrame implements NewView {
 
       screen.add(panel);
 
-      String[] appendedFields = new String[]{"amount", "date", "commission fee", "symbol", "weight %"};
+      String[] appendedFields = new String[]{"amount", "date", "commission fee",
+              "symbol", "weight %"};
       buttons.get("Invest").addActionListener(e ->
               buttonHandler(appendedFields, validationResults));
       buttons.get("Add a stock").addActionListener(e ->
@@ -897,7 +905,8 @@ public class NewViewImpl extends JFrame implements NewView {
       screen.setLayout(new BoxLayout(screen, BoxLayout.PAGE_AXIS));
 
 
-      String[] fields = new String[]{"amount", "start date", "end date", "interval (in days)", "commission fee"};
+      String[] fields = new String[]{"amount", "start date", "end date", "interval (in days)",
+              "commission fee"};
       String[] types = new String[]{"float", "date", "futureDate", "int", "float"};
       boolean[] required = new boolean[]{true, true, false, true, true};
       validationResults = new HashMap<>();
@@ -932,7 +941,8 @@ public class NewViewImpl extends JFrame implements NewView {
 
       screen.add(panel);
 
-      String[] appendedFields = new String[]{"amount", "start date", "end date", "interval (in days)", "commission fee", "symbol", "weight %"};
+      String[] appendedFields = new String[]{"amount", "start date", "end date",
+              "interval (in days)", "commission fee", "symbol", "weight %"};
       buttons.get("Invest").addActionListener(e ->
               buttonHandler(appendedFields, validationResults));
       buttons.get("Add a stock").addActionListener(e ->
@@ -982,7 +992,8 @@ public class NewViewImpl extends JFrame implements NewView {
 
   private void setActivePortfolio() {
     if (portfolioName != null) {
-      setTitle(String.format("Portfolio Application %20s Current Portfolio: %s","",portfolioName));
+      setTitle(String.format("Portfolio Application %20s Current Portfolio: %s", "",
+              portfolioName));
 
     }
   }
@@ -1078,28 +1089,28 @@ public class NewViewImpl extends JFrame implements NewView {
       }
 
       String date = validationResults.get("date").data.toString();
-      showMessage("Getting the value. This might take a few seconds...",false);
-      class Worker extends SwingWorker<Float,Float>{
+      showMessage("Getting the value. This might take a few seconds...", false);
+      class Worker extends SwingWorker<Float, Float> {
         float value;
+
         @Override
         protected Float doInBackground() throws Exception {
-          value=features.getTotalValue(date);
+          value = features.getTotalValue(date);
           return value;
         }
 
         @Override
-        public void done(){
+        public void done() {
           if (value >= 0) {
             showMessage("Total value on " + date + " is " + value, false);
           }
         }
       }
-     new Worker().execute();
+      new Worker().execute();
 
     }
 
   }
-
 
 
   private final class SellStocksScreen {
@@ -1222,10 +1233,11 @@ public class NewViewImpl extends JFrame implements NewView {
       String startDate = validationResults.get("start date").data.toString();
       String endDate = validationResults.get("end date").data.toString();
 
-      showMessage("Plotting. This might take a couple of minutes...",false);
-      class Worker extends SwingWorker<GetPlotScreen,Float>{
+      showMessage("Plotting. This might take a couple of minutes...", false);
+      class Worker extends SwingWorker<GetPlotScreen, Float> {
         float value;
         GetPlotScreen screen;
+
         @Override
         protected GetPlotScreen doInBackground() throws Exception {
           screen = new GetPlotScreen(features, startDate, endDate);
@@ -1233,13 +1245,12 @@ public class NewViewImpl extends JFrame implements NewView {
         }
 
         @Override
-        public void done(){
+        public void done() {
           setScreen(ScreenNames.GET_PLOT_SCREEN,
                   screen.getScreen());
         }
       }
       new Worker().execute();
-
 
 
     }

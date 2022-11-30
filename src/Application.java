@@ -25,17 +25,17 @@ public class Application {
    * @throws IOException    throws an IO Exception
    * @throws ParseException throws an ParseException if parser fails
    */
-    public static void main(String[] args) throws IOException, ParseException {
-      if(args.length>0){
-        NewModel model = new NewModelImpl();
-        View view = new ViewImpl(System.out);
-        ControllerImpl controller = new ControllerImpl(model, view, System.in);
-        controller.goController();
-      }else{
-        NewerModel model =  new NewerModelImpl();
-        NewView view = new NewViewImpl();
+  public static void main(String[] args) throws IOException, ParseException {
+    if (args.length > 0) {
+      NewModel model = new NewModelImpl();
+      View view = new ViewImpl(System.out);
+      ControllerImpl controller = new ControllerImpl(model, view, System.in);
+      controller.goController();
+    } else {
+      NewerModel model = new NewerModelImpl();
+      NewView view = new NewViewImpl();
 
-        Features controller = new NewController(model,view);
-      }
+      Features controller = new NewController(model, view);
+    }
   }
 }

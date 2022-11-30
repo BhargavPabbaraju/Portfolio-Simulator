@@ -148,7 +148,8 @@ public class ValidatorImpl implements Validator {
     }
   }
 
-  private ValidationResult validateNewUserName(boolean condition, String content, String errorMessage) {
+  private ValidationResult validateNewUserName(boolean condition, String content,
+                                               String errorMessage) {
     if (condition) {
       return new ValidationResult(false, errorMessage, content);
     } else {

@@ -56,7 +56,7 @@ class Loader {
 
       if (flexible) {
         loadFlexibleStocksList(portfolio.get("stocks"), user);
-        loadDollarCost(portfolio.get("dollarCost"),user);
+        loadDollarCost(portfolio.get("dollarCost"), user);
       } else {
         loadStocksList(portfolio.get("stocks"), user);
       }
@@ -67,29 +67,29 @@ class Loader {
 
   }
 
-  private static void loadDollarCost(JsonObject json,User user){
-    for(String key:json.getKeys()){
+  private static void loadDollarCost(JsonObject json, User user) {
+    for (String key : json.getKeys()) {
       JsonObject dollarCost = json.get(key);
       String startDate = dollarCost.get("start").toString();
-      String  endDate = dollarCost.get("end").toString();
-      if(endDate.equals("null")){
+      String endDate = dollarCost.get("end").toString();
+      if (endDate.equals("null")) {
         endDate = "";
       }
       int interval = Integer.parseInt(dollarCost.get("interval").toString());
       float transactionCost = Float.parseFloat(dollarCost.get("transactionCost").toString());
       float amount = Float.parseFloat(dollarCost.get("amount").toString());
 
-      HashMap<String,Float> stocksList = new HashMap<>();
+      HashMap<String, Float> stocksList = new HashMap<>();
       JsonObject stocks = dollarCost.get("stocks");
 
-      for(String index:stocks.getKeys()){
+      for (String index : stocks.getKeys()) {
         JsonObject stock = stocks.get(index);
-        for(String symbol:stock.getKeys()){
+        for (String symbol : stock.getKeys()) {
 
           stocksList.put(symbol, Float.valueOf(stock.get(symbol).toString()));
         }
       }
-      user.createDollarCostStrategyPortfolio(startDate,endDate,interval,amount,transactionCost,
+      user.createDollarCostStrategyPortfolio(startDate, endDate, interval, amount, transactionCost,
               stocksList);
     }
 
@@ -112,8 +112,6 @@ class Loader {
         }
       }
     }
-
-
 
 
   }
@@ -140,13 +138,12 @@ class Loader {
   }
 
   private static boolean dontPutQuotes(String key, String value) {
-    ArrayList<String> quoted = new ArrayList<>(Arrays.asList("start","date","name","end"));
+    ArrayList<String> quoted = new ArrayList<>(Arrays.asList("start", "date", "name", "end"));
     String escapeChars = "{}[]";
-    if(escapeChars.contains(key)){
+    if (escapeChars.contains(key)) {
       return false;
     }
     return !quoted.contains(key);
-
 
 
   }
@@ -228,86 +225,87 @@ class Loader {
 
 
     ArrayList<HigherLevelStrategy> dollarCostList = portfolio.getDollarCostStocks();
-    if(!dollarCostList.isEmpty()){
+    if (!dollarCostList.isEmpty()) {
       tabs = writeKeyValue("}", "", tabs, writer, true, 0);
-      tabs = writeDollarCost(dollarCostList,writer,tabs);
-    }else{
+      tabs = writeDollarCost(dollarCostList, writer, tabs);
+    } else {
       tabs = writeKeyValue("}", "", tabs, writer, false, -2);
     }
 
     return tabs;
   }
 
-  private static int writeDollarCost(ArrayList<HigherLevelStrategy> stocksList, BufferedWriter writer,
-                                     int tabs)
+  private static int writeDollarCost(ArrayList<HigherLevelStrategy> stocksList,
+                                     BufferedWriter writer, int tabs)
           throws IOException {
-    int i=1;
+    int i = 1;
     int size = stocksList.size();
-    if(!stocksList.isEmpty()){
-      tabs=writeKeyValue("dollarCost","[",tabs,writer,false,2);
-      for(HigherLevelStrategy stock:stocksList){
-        tabs=writeKeyValue("{","",tabs,writer,false,2);
-        tabs = writeDollarCostStock(stock,writer,tabs);
-        if(i==size){
-          tabs=writeKeyValue("}","",tabs,writer,false,-2);
-        }else{
-          tabs=writeKeyValue("}","",tabs,writer,true,0);
+    if (!stocksList.isEmpty()) {
+      tabs = writeKeyValue("dollarCost", "[", tabs, writer, false, 2);
+      for (HigherLevelStrategy stock : stocksList) {
+        tabs = writeKeyValue("{", "", tabs, writer, false, 2);
+        tabs = writeDollarCostStock(stock, writer, tabs);
+        if (i == size) {
+          tabs = writeKeyValue("}", "", tabs, writer, false, -2);
+        } else {
+          tabs = writeKeyValue("}", "", tabs, writer, true, 0);
         }
         i++;
       }
-      tabs=writeKeyValue("]","",tabs,writer,false,-2);
+      tabs = writeKeyValue("]", "", tabs, writer, false, -2);
     }
     return tabs;
   }
 
-  private static int writeDollarCostStock(HigherLevelStrategy higherStock, BufferedWriter writer, int tabs)
+  private static int writeDollarCostStock(HigherLevelStrategy higherStock, BufferedWriter writer,
+                                          int tabs)
           throws IOException {
 
     DollarCostStrategy stock = (DollarCostStrategy) higherStock;
-    tabs=writeKeyValue("start",stock.getStartDate().toString(),tabs,writer,true,
+    tabs = writeKeyValue("start", stock.getStartDate().toString(), tabs, writer, true,
             0);
 
     String endDate;
-    if( stock.getEndDate()==null){
-      endDate="null";
-    }else{
+    if (stock.getEndDate() == null) {
+      endDate = "null";
+    } else {
       endDate = stock.getEndDate().toString();
     }
 
 
-    tabs=writeKeyValue("end",endDate,tabs,writer,true,
+    tabs = writeKeyValue("end", endDate, tabs, writer, true,
             0);
 
 
-    tabs=writeKeyValue("transactionCost", String.valueOf(stock.getTransactionCost()),tabs,
-            writer,true, 0);
+    tabs = writeKeyValue("transactionCost", String.valueOf(stock.getTransactionCost()), tabs,
+            writer, true, 0);
 
-    tabs=writeKeyValue("amount", String.valueOf(stock.getAmount()),tabs,
-            writer,true, 0);
+    tabs = writeKeyValue("amount", String.valueOf(stock.getAmount()), tabs,
+            writer, true, 0);
 
-    tabs=writeKeyValue("interval", String.valueOf(stock.getInterval()),tabs,
-            writer,true, 0);
+    tabs = writeKeyValue("interval", String.valueOf(stock.getInterval()), tabs,
+            writer, true, 0);
 
-    tabs=writeKeyValue("stocks", "[",tabs,
-            writer,false, 2);
+    tabs = writeKeyValue("stocks", "[", tabs,
+            writer, false, 2);
 
     HashMap<String, Float> stocks = stock.getStocks();
     int size = stocks.size();
-    int i=1;
-    for(String symbol:stocks.keySet()){
-      tabs=writeKeyValue("{","",tabs,writer,false,2);
-      tabs=writeKeyValue(symbol, String.format("%.2f",stocks.get(symbol)),
-              tabs,writer,false,-2);
+    int i = 1;
+    for (String symbol : stocks.keySet()) {
+      tabs = writeKeyValue("{", "", tabs, writer, false, 2);
+      tabs = writeKeyValue(symbol, String.format("%.2f", stocks.get(symbol)),
+              tabs, writer, false, -2);
 
-      if(i==size){
-        tabs=writeKeyValue("}","",tabs,writer,false,-2);
-      }else{
-        tabs=writeKeyValue("}","",tabs,writer,true,0);
+      if (i == size) {
+        tabs = writeKeyValue("}", "", tabs, writer, false, -2);
+      } else {
+        tabs = writeKeyValue("}", "", tabs, writer, true, 0);
       }
 
       i++;
     }
-    tabs=writeKeyValue("]","",tabs,writer,false,-2);
+    tabs = writeKeyValue("]", "", tabs, writer, false, -2);
 
     return tabs;
 

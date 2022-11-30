@@ -12,12 +12,14 @@ public interface NewView {
 
   /**
    * This method is used to set a validator object which will validate user inputs.
+   *
    * @param validator The validator object.
    */
   void setValidator(Validator validator);
 
   /**
    * This method is used to integrate the controller with the view by sending a features object.
+   *
    * @param features the features object.
    */
 
@@ -30,11 +32,12 @@ public interface NewView {
 
   /**
    * This method is used to display a general message on the view.
+   *
    * @param message the message to be displayed.
-   * @param error whether this message is an error.
+   * @param error   whether this message is an error.
    */
 
-  void showMessage(String message,boolean error);
+  void showMessage(String message, boolean error);
 
   /**
    * This method is used to show the initial menu. Users can be created or loaded from this menu.

@@ -32,8 +32,9 @@ public class DollarCostStockImpl implements DollarCostStrategy {
    * @param transactionCost float which is transaction associated for this transaction.
    * @param stocks          Hashmap of stocks which contains the Symbol as key and weight as value.
    */
-  public DollarCostStockImpl(LocalDate startDate, int interval, float amount, float transactionCost, HashMap<String, Float> stocks, LocalDate endDate) {
-    if(endDate!=null) {
+  public DollarCostStockImpl(LocalDate startDate, int interval, float amount, float transactionCost,
+                             HashMap<String, Float> stocks, LocalDate endDate) {
+    if (endDate != null) {
       if (startDate.compareTo(endDate) > 0) {
         LocalDate temp = endDate;
         endDate = startDate;
@@ -141,7 +142,8 @@ public class DollarCostStockImpl implements DollarCostStrategy {
           float value = ApiCallImpl.getData(key, date, apiType);
           shares += ((this.amount * this.stocks.get(key)) / 100) / value;
         } catch (IllegalArgumentException e) {
-          float value = ApiCallImpl.getData(key, weekendValidation(this.startDate.plusDays(1)), apiType);
+          float value = ApiCallImpl.getData(key, weekendValidation(
+                  this.startDate.plusDays(1)), apiType);
           shares += ((this.amount * this.stocks.get(key)) / 100) / value;
 
         }

@@ -92,7 +92,8 @@ public interface Features {
    * @param stocks        Hashmap of stocks which contains the Symbol as key and weight as value.
    * @param creating      boolean to check if it is called while creating.
    */
-  void investOnDate(String date, float amount, float commissionFee, HashMap<String, Float> stocks, boolean creating);
+  void investOnDate(String date, float amount, float commissionFee, HashMap<String, Float> stocks,
+                    boolean creating);
 
   /**
    * This method is used to create a portfolio using dollar-cost averaging as specified above,

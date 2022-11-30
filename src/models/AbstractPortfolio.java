@@ -10,7 +10,7 @@ import customDataType.PlotPair;
  * This class represents a general portfolio. An abstract portfolio can be either an Inflexible
  * portfolio or a flexible portfolio.
  */
-public abstract class AbstractPortfolio implements Portfolio, FlexiblePortfolio{
+public abstract class AbstractPortfolio implements Portfolio, FlexiblePortfolio {
 
   protected boolean flexible = false;
 
@@ -88,24 +88,28 @@ public abstract class AbstractPortfolio implements Portfolio, FlexiblePortfolio{
     //Throw exception for inflexible
     return false;
   }
+
   @Override
-  public void investIntoPortfolio(LocalDate date, float amount, float transactionCost, HashMap<String, Float> stocks,ApiType apiType) {
+  public void investIntoPortfolio(LocalDate date, float amount, float transactionCost,
+                                  HashMap<String, Float> stocks, ApiType apiType) {
 
   }
 
   @Override
-  public void createDollarCostStrategyPortfolio(LocalDate startDate, LocalDate endDate, int interval, float amount, float transactionCost, HashMap<String, Float> stocks) {
+  public void createDollarCostStrategyPortfolio(LocalDate startDate, LocalDate endDate,
+                                                int interval, float amount, float transactionCost,
+                                                HashMap<String, Float> stocks) {
 
   }
 
   @Override
-  public String getName(){
+  public String getName() {
     return null;
   }
 
   @Override
   public PlotPair newGetPlot(LocalDate startDate, LocalDate endDate, ApiType apiType,
-                             int maximumPlots){
+                             int maximumPlots) {
 
     return null;
   }

@@ -77,7 +77,7 @@ public class NewController implements Features {
   public void save() {
     try {
       model.save();
-      view.showMessage("",false);
+      view.showMessage("", false);
       showMainMenu("Successfully saved", false);
     } catch (Exception e) {
       showMainMenu(e.getMessage(), true);
@@ -121,7 +121,8 @@ public class NewController implements Features {
   public void dollarCost(String startDate, String endDate, int interval, float amount,
                          float commissionFee, HashMap<String, Float> stocks, boolean creating) {
     try {
-      model.createDollarCostStrategyPortfolio(startDate, endDate, interval, amount, commissionFee, stocks);
+      model.createDollarCostStrategyPortfolio(startDate, endDate, interval, amount,
+              commissionFee, stocks);
       String message = "Successfully invested";
       if (creating) {
         message = "Successfully created portfolio";

@@ -222,13 +222,18 @@ public class UserImpl implements User {
   }
 
   @Override
-  public void investIntoPortfolio(String date, float amount, float transactionCost, HashMap<String, Float> stocks, ApiType apiType) {
-    this.activePortfolio.investIntoPortfolio(parseDate(date), amount, transactionCost, stocks, apiType);
+  public void investIntoPortfolio(String date, float amount, float transactionCost, HashMap<String,
+          Float> stocks, ApiType apiType) {
+    this.activePortfolio.investIntoPortfolio(parseDate(date), amount, transactionCost,
+            stocks, apiType);
   }
 
   @Override
-  public void createDollarCostStrategyPortfolio(String startDate, String endDate, int interval, float amount, float transactionCost, HashMap<String, Float> stocks) {
-    this.activePortfolio.createDollarCostStrategyPortfolio(parseDate(startDate), endDate=="" ? null:parseDate(endDate)  , interval, amount, transactionCost, stocks);
+  public void createDollarCostStrategyPortfolio(String startDate, String endDate, int interval,
+                                                float amount, float transactionCost,
+                                                HashMap<String, Float> stocks) {
+    this.activePortfolio.createDollarCostStrategyPortfolio(parseDate(startDate),
+            endDate == "" ? null : parseDate(endDate), interval, amount, transactionCost, stocks);
   }
 
   @Override

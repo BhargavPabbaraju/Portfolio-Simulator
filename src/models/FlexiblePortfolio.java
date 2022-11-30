@@ -102,7 +102,8 @@ public interface FlexiblePortfolio {
    * @param stocks          Hashmap of stocks which contains the Symbol as key and weight as value.
    * @param apiType         ApiType used determine which third party api is to be called.
    */
-  void investIntoPortfolio(LocalDate date, float amount, float transactionCost, HashMap<String, Float> stocks, ApiType apiType);
+  void investIntoPortfolio(LocalDate date, float amount, float transactionCost,
+                           HashMap<String, Float> stocks, ApiType apiType);
 
   /**
    * This method is used to create a portfolio using dollar-cost averaging as specified above,
@@ -115,7 +116,9 @@ public interface FlexiblePortfolio {
    * @param transactionCost float which is transaction associated for this transaction.
    * @param stocks          Hashmap of stocks which contains the Symbol as key and weight as value.
    */
-  void createDollarCostStrategyPortfolio(LocalDate startDate, LocalDate endDate, int interval, float amount, float transactionCost, HashMap<String, Float> stocks);
+  void createDollarCostStrategyPortfolio(LocalDate startDate, LocalDate endDate, int interval,
+                                         float amount, float transactionCost,
+                                         HashMap<String, Float> stocks);
 
   /**
    * This method is used to generate plotting values such as dates and values which are
