@@ -556,14 +556,20 @@ public class NewViewImpl extends JFrame implements NewView {
         float value;
         @Override
         protected Float doInBackground() throws Exception {
+
           features.loadUser(userName);
           return value;
         }
 
         @Override
         public void done(){
-          portfolioName = features.getActivePortfolio();
-          setActivePortfolio();
+          try{
+            portfolioName = features.getActivePortfolio();
+            setActivePortfolio();
+          }catch(Exception e){
+            showMessage(e.getMessage(),true);
+          }
+
         }
       }
       new Worker().execute();
