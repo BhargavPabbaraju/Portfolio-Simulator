@@ -346,5 +346,237 @@ public class NewerModelImplTest {
     m.createDollarCostStrategyPortfolio("2022-11-21", "2023-04-2wer3", 30, 2000, 10, stocks);
   }
 
+  @Test(expected = IllegalArgumentException.class)
+  public void testDollarCostWeekendStartDate() throws IOException, ParseException {
+    NewerModel m = new NewerModelImpl();
+    m.loadUser("user3");
+    m.createPortfolio("flex", true);
+    HashMap<String, Float> stocks = new HashMap<>();
+    stocks.put("META", 40F);
+    stocks.put("AAPL", 40F);
+    stocks.put("MSFT", 20F);
+    m.createDollarCostStrategyPortfolio("2022-11-19", "2023-04-23", 30, 2000, 10, stocks);
+  }
+
+  @Test
+  public void testDollarCostEndDateNull() throws IOException, ParseException {
+    NewerModel m = new NewerModelImpl();
+    m.loadUser("user3");
+    m.createPortfolio("flex", true);
+    HashMap<String, Float> stocks = new HashMap<>();
+    stocks.put("META", 40F);
+    stocks.put("AAPL", 40F);
+    stocks.put("MSFT", 20F);
+    m.createDollarCostStrategyPortfolio("2022-11-19", "", 30, 2000, 10, stocks);
+    assertEquals(26120.0, m.getCostBasis("2023-11-23", ApiType.ALPHA_VANTAGE), 0.1);
+  }
+
+  @Test
+  public void testDollarCostEndDateFuture() throws IOException, ParseException {
+    NewerModel m = new NewerModelImpl();
+    m.loadUser("user3");
+    m.createPortfolio("flex", true);
+    HashMap<String, Float> stocks = new HashMap<>();
+    stocks.put("META", 40F);
+    stocks.put("AAPL", 40F);
+    stocks.put("MSFT", 20F);
+    m.createDollarCostStrategyPortfolio("2022-11-19", "2023-11-14", 30, 2000, 10, stocks);
+    assertEquals(26120.0, m.getCostBasis("2023-11-23", ApiType.ALPHA_VANTAGE), 0.1);
+  }
+
+  @Test//need to add in view
+  public void testDollarCostStartGreaterThanEndDate() throws IOException, ParseException {
+    NewerModel m = new NewerModelImpl();
+    m.loadUser("user3");
+    m.createPortfolio("flex", true);
+    HashMap<String, Float> stocks = new HashMap<>();
+    stocks.put("META", 40F);
+    stocks.put("AAPL", 40F);
+    stocks.put("MSFT", 20F);
+    m.createDollarCostStrategyPortfolio("2022-11-23", "2022-11-14", 30, 2000, 10, stocks);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testDollarCostGetValueFutureDate() throws IOException, ParseException {
+    NewerModel m = new NewerModelImpl();
+    m.loadUser("user3");
+    m.createPortfolio("flex", true);
+    HashMap<String, Float> stocks = new HashMap<>();
+    stocks.put("META", 40F);
+    stocks.put("AAPL", 40F);
+    stocks.put("MSFT", 20F);
+    m.createDollarCostStrategyPortfolio("2022-06-10", "2022-11-14", 30, 2000, 10, stocks);
+    assertEquals(26120.0, m.getTotalValue("2023-11-23", ApiType.ALPHA_VANTAGE), 0.1);
+  }
+
+  @Test
+  public void testDollarCostGetValueBeforeStartDate() throws IOException, ParseException {
+    NewerModel m = new NewerModelImpl();
+    m.loadUser("user3");
+    m.createPortfolio("flex", true);
+    HashMap<String, Float> stocks = new HashMap<>();
+    stocks.put("META", 40F);
+    stocks.put("AAPL", 40F);
+    stocks.put("MSFT", 20F);
+    m.createDollarCostStrategyPortfolio("2022-06-10", "2022-11-14", 30, 2000, 10, stocks);
+    assertEquals(0.0, m.getTotalValue("2022-06-09", ApiType.ALPHA_VANTAGE), 0.0);
+  }
+
+  @Test
+  public void testDollarCostGetValueLessThanInterval() throws IOException, ParseException {
+    NewerModel m = new NewerModelImpl();
+    m.loadUser("user3");
+    m.createPortfolio("flex", true);
+    HashMap<String, Float> stocks = new HashMap<>();
+    stocks.put("META", 40F);
+    stocks.put("AAPL", 40F);
+    stocks.put("MSFT", 20F);
+    m.createDollarCostStrategyPortfolio("2022-06-10", "2022-11-14", 30, 2000, 10, stocks);
+    assertEquals(1900.871826171875, m.getTotalValue("2022-06-13", ApiType.ALPHA_VANTAGE), 0.0);
+  }
+
+  @Test
+  public void testDollarCostGetValueNormal() throws IOException, ParseException {
+    NewerModel m = new NewerModelImpl();
+    m.loadUser("user3");
+    m.createPortfolio("flex", true);
+    HashMap<String, Float> stocks = new HashMap<>();
+    stocks.put("META", 40F);
+    stocks.put("AAPL", 40F);
+    stocks.put("MSFT", 20F);
+    m.createDollarCostStrategyPortfolio("2022-06-10", "2022-11-14", 30, 2000, 10, stocks);
+    assertEquals(8974.609375, m.getTotalValue("2022-10-13", ApiType.ALPHA_VANTAGE), 0.0);
+  }
+
+  @Test
+  public void testDollarCostGetValueEqualEndDate() throws IOException, ParseException {
+    NewerModel m = new NewerModelImpl();
+    m.loadUser("user3");
+    m.createPortfolio("flex", true);
+    HashMap<String, Float> stocks = new HashMap<>();
+    stocks.put("META", 40F);
+    stocks.put("AAPL", 40F);
+    stocks.put("MSFT", 20F);
+    m.createDollarCostStrategyPortfolio("2022-06-10", "2022-11-14", 30, 2000, 10, stocks);
+    assertEquals(10993.7216796875, m.getTotalValue("2022-11-14", ApiType.ALPHA_VANTAGE), 0.0);
+  }
+
+  @Test
+  public void testDollarCostGetValueAfterEndDate() throws IOException, ParseException {
+    NewerModel m = new NewerModelImpl();
+    m.loadUser("user3");
+    m.createPortfolio("flex", true);
+    HashMap<String, Float> stocks = new HashMap<>();
+    stocks.put("META", 40F);
+    stocks.put("AAPL", 40F);
+    stocks.put("MSFT", 20F);
+    m.createDollarCostStrategyPortfolio("2022-06-10", "2022-11-14", 30, 2000, 10, stocks);
+    assertEquals(11076.84765625, m.getTotalValue("2022-11-23", ApiType.ALPHA_VANTAGE), 0.0);
+  }
+
+  @Test
+  public void testDollarCostGetValueEndDateNull() throws IOException, ParseException {
+    NewerModel m = new NewerModelImpl();
+    m.loadUser("user3");
+    m.createPortfolio("flex", true);
+    HashMap<String, Float> stocks = new HashMap<>();
+    stocks.put("META", 40F);
+    stocks.put("AAPL", 40F);
+    stocks.put("MSFT", 20F);
+    m.createDollarCostStrategyPortfolio("2022-06-10", "", 30, 2000, 10, stocks);
+    assertEquals(11076.84765625, m.getTotalValue("2022-11-23", ApiType.ALPHA_VANTAGE), 0.0);
+  }
+
+  @Test
+  public void testDollarCostGetCostBasisFutureDate() throws IOException, ParseException {
+    NewerModel m = new NewerModelImpl();
+    m.loadUser("user3");
+    m.createPortfolio("flex", true);
+    HashMap<String, Float> stocks = new HashMap<>();
+    stocks.put("META", 40F);
+    stocks.put("AAPL", 40F);
+    stocks.put("MSFT", 20F);
+    m.createDollarCostStrategyPortfolio("2022-06-10", "2022-11-14", 30, 2000, 10, stocks);
+    assertEquals(12050.0, m.getCostBasis("2023-11-23", ApiType.ALPHA_VANTAGE), 0.1);
+  }
+
+  @Test
+  public void testDollarCostGetCostBasisBeforeStartDate() throws IOException, ParseException {
+    NewerModel m = new NewerModelImpl();
+    m.loadUser("user3");
+    m.createPortfolio("flex", true);
+    HashMap<String, Float> stocks = new HashMap<>();
+    stocks.put("META", 40F);
+    stocks.put("AAPL", 40F);
+    stocks.put("MSFT", 20F);
+    m.createDollarCostStrategyPortfolio("2022-06-10", "2022-11-14", 30, 2000, 10, stocks);
+    assertEquals(0.0, m.getCostBasis("2022-06-09", ApiType.ALPHA_VANTAGE), 0.0);
+  }
+
+  @Test
+  public void testDollarCostGetCostBasisLessThanInterval() throws IOException, ParseException {
+    NewerModel m = new NewerModelImpl();
+    m.loadUser("user3");
+    m.createPortfolio("flex", true);
+    HashMap<String, Float> stocks = new HashMap<>();
+    stocks.put("META", 40F);
+    stocks.put("AAPL", 40F);
+    stocks.put("MSFT", 20F);
+    m.createDollarCostStrategyPortfolio("2022-06-10", "2022-11-14", 30, 2000, 10, stocks);
+    assertEquals(2010.0, m.getCostBasis("2022-06-13", ApiType.ALPHA_VANTAGE), 0.0);
+  }
+
+  @Test
+  public void testDollarCostGetCostBasisNormal() throws IOException, ParseException {
+    NewerModel m = new NewerModelImpl();
+    m.loadUser("user3");
+    m.createPortfolio("flex", true);
+    HashMap<String, Float> stocks = new HashMap<>();
+    stocks.put("META", 40F);
+    stocks.put("AAPL", 40F);
+    stocks.put("MSFT", 20F);
+    m.createDollarCostStrategyPortfolio("2022-06-10", "2022-11-14", 30, 2000, 10, stocks);
+    assertEquals(10040.0, m.getCostBasis("2022-10-13", ApiType.ALPHA_VANTAGE), 0.0);
+  }
+
+  @Test
+  public void testDollarCostGetCostBasisEqualEndDate() throws IOException, ParseException {
+    NewerModel m = new NewerModelImpl();
+    m.loadUser("user3");
+    m.createPortfolio("flex", true);
+    HashMap<String, Float> stocks = new HashMap<>();
+    stocks.put("META", 40F);
+    stocks.put("AAPL", 40F);
+    stocks.put("MSFT", 20F);
+    m.createDollarCostStrategyPortfolio("2022-06-10", "2022-11-14", 30, 2000, 10, stocks);
+    assertEquals(12050.0, m.getCostBasis("2022-11-14", ApiType.ALPHA_VANTAGE), 0.0);
+  }
+
+  @Test
+  public void testDollarCostGetCostBasisAfterEndDate() throws IOException, ParseException {
+    NewerModel m = new NewerModelImpl();
+    m.loadUser("user3");
+    m.createPortfolio("flex", true);
+    HashMap<String, Float> stocks = new HashMap<>();
+    stocks.put("META", 40F);
+    stocks.put("AAPL", 40F);
+    stocks.put("MSFT", 20F);
+    m.createDollarCostStrategyPortfolio("2022-06-10", "2022-11-14", 30, 2000, 10, stocks);
+    assertEquals(12050.0, m.getCostBasis("2022-11-23", ApiType.ALPHA_VANTAGE), 0.0);
+  }
+
+  @Test
+  public void testDollarCostGetCostBasisEndDateNull() throws IOException, ParseException {
+    NewerModel m = new NewerModelImpl();
+    m.loadUser("user3");
+    m.createPortfolio("flex", true);
+    HashMap<String, Float> stocks = new HashMap<>();
+    stocks.put("META", 40F);
+    stocks.put("AAPL", 40F);
+    stocks.put("MSFT", 20F);
+    m.createDollarCostStrategyPortfolio("2022-06-10", "", 30, 2000, 10, stocks);
+    assertEquals(12050.0, m.getCostBasis("2022-11-23", ApiType.ALPHA_VANTAGE), 0.0);
+  }
+
 
 }

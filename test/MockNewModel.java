@@ -1,13 +1,16 @@
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.HashMap;
 
+import customDataType.PlotPair;
 import models.ApiType;
 import models.NewModel;
+import models.NewerModel;
 
 /**
  * This class is used to test the controller in isolation.
  */
-public class MockNewModel implements NewModel {
+public class MockNewModel implements NewerModel {
   private StringBuilder inputLog;
   private StringBuilder outputLog;
 
@@ -161,5 +164,32 @@ public class MockNewModel implements NewModel {
     inputLog.append("");
     outputLog.append("isValidDate ");
     return true;
+  }
+
+  @Override
+  public boolean isValidSymbol(String symbol) {
+    return true;
+  }
+
+  @Override
+  public void investIntoPortfolio(String date, float amount, float transactionCost, HashMap<String, Float> stocks, ApiType apiType) {
+    inputLog.append(date + " " + amount + " " + transactionCost + " " + stocks + " " + apiType);
+    outputLog.append("investIntoPortfolio ");
+  }
+
+  @Override
+  public void createDollarCostStrategyPortfolio(String startDate, String endDate, int interval, float amount, float transactionCost, HashMap<String, Float> stocks) {
+    inputLog.append(startDate + " " + endDate + " " + amount + " " + transactionCost + " " + stocks + " " + interval);
+    outputLog.append("createDollarCostStrategyPortfolio ");
+  }
+
+  @Override
+  public String getActivePortfolio() {
+    return "Sample";
+  }
+
+  @Override
+  public PlotPair newGetPlot(String startDate, String endDate, ApiType apiType, int maximumPlots) {
+    return null;
   }
 }
