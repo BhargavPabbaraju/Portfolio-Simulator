@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 
 /**
- * This interface represents the operations on stocks created by dollar costing average strategy.
+ * This interface represents the operations on Higher Level strategy.
  */
 public interface HigherLevelStrategy {
 

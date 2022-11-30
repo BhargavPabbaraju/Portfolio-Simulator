@@ -69,8 +69,6 @@ public interface Features {
   /**
    * This method is used to save this user in a file. Save option is given to the user in the menu.
    * It stores all the data into local file system.
-   *
-   * @throws IOException throws an IO exception if save is failed which is handled by controller
    */
   void save();
 
@@ -125,8 +123,6 @@ public interface Features {
    * It loads all the data from that file into the program.
    *
    * @param userName String username which is unique for a user
-   * @throws IOException    throws an IO exception  which is handled by controller
-   * @throws ParseException throws an ParseException which is handled by controller
    */
   void loadUser(String userName);
 
