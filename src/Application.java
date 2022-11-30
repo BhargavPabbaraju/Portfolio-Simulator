@@ -5,6 +5,7 @@ import controller.ControllerImpl;
 import controller.Features;
 import controller.NewController;
 import models.NewModel;
+import models.NewModelImpl;
 import models.NewerModelImpl;
 import models.NewerModel;
 import view.NewView;
@@ -24,18 +25,17 @@ public class Application {
    * @throws IOException    throws an IO Exception
    * @throws ParseException throws an ParseException if parser fails
    */
-//  public static void main(String[] args) throws IOException, ParseException {
-//    NewModel model = new NewModelImpl();
-//    View view = new ViewImpl(System.out);
-//
-//    ControllerImpl controller = new ControllerImpl(model, view, System.in);
-//    controller.goController();
-//  }
-
     public static void main(String[] args) throws IOException, ParseException {
-    NewerModel model =  new NewerModelImpl();
-    NewView view = new NewViewImpl();
+      if(args.length>0){
+        NewModel model = new NewModelImpl();
+        View view = new ViewImpl(System.out);
+        ControllerImpl controller = new ControllerImpl(model, view, System.in);
+        controller.goController();
+      }else{
+        NewerModel model =  new NewerModelImpl();
+        NewView view = new NewViewImpl();
 
-    Features controller = new NewController(model,view);
+        Features controller = new NewController(model,view);
+      }
   }
 }
