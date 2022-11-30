@@ -23,7 +23,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements Flexible
   String portfolioName;
   HashMap<String, FlexibleStocksList> stockList;// {AAPl:{Stocks},IBM:{Stocks}}
 
-  ArrayList<DollarCostStock> dollarCostStockList;
+  ArrayList<HigherLevelStrategy> dollarCostStockList;
   User user;
 
   private class DatePair{
@@ -414,7 +414,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements Flexible
 
   private float costbasisDollarStrategy(LocalDate date) {
     float cost = 0;
-    for (DollarCostStock dollarCostStock : this.dollarCostStockList) {
+    for (HigherLevelStrategy dollarCostStock : this.dollarCostStockList) {
       cost += dollarCostStock.getCostBasis(date);
     }
     return cost;
@@ -423,7 +423,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements Flexible
 
   private float getTotalValueDollarStrategy(LocalDate date, ApiType apiType) {
     float value = 0;
-    for (DollarCostStock dollarCostStock : this.dollarCostStockList) {
+    for (HigherLevelStrategy dollarCostStock : this.dollarCostStockList) {
       value += dollarCostStock.getTotalValue(date, apiType);
     }
     return value;
@@ -437,7 +437,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements Flexible
   }
 
   @Override
-  public ArrayList<DollarCostStock> getDollarCostStocks() {
+  public ArrayList<HigherLevelStrategy> getDollarCostStocks() {
     return this.dollarCostStockList;
   }
 

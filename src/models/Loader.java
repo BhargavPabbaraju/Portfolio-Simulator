@@ -228,7 +228,7 @@ class Loader {
     }
 
 
-    ArrayList<DollarCostStock> dollarCostList = portfolio.getDollarCostStocks();
+    ArrayList<HigherLevelStrategy> dollarCostList = portfolio.getDollarCostStocks();
     if(!dollarCostList.isEmpty()){
       tabs = writeKeyValue("}", "", tabs, writer, true, 0);
       tabs = writeDollarCost(dollarCostList,writer,tabs);
@@ -239,14 +239,14 @@ class Loader {
     return tabs;
   }
 
-  private static int writeDollarCost(ArrayList<DollarCostStock> stocksList, BufferedWriter writer,
+  private static int writeDollarCost(ArrayList<HigherLevelStrategy> stocksList, BufferedWriter writer,
                                      int tabs)
           throws IOException {
     int i=1;
     int size = stocksList.size();
     if(!stocksList.isEmpty()){
       tabs=writeKeyValue("dollarCost","[",tabs,writer,false,2);
-      for(DollarCostStock stock:stocksList){
+      for(HigherLevelStrategy stock:stocksList){
         tabs=writeKeyValue("{","",tabs,writer,false,2);
         tabs = writeDollarCostStock(stock,writer,tabs);
         if(i==size){
@@ -261,8 +261,10 @@ class Loader {
     return tabs;
   }
 
-  private static int writeDollarCostStock(DollarCostStock stock, BufferedWriter writer, int tabs)
+  private static int writeDollarCostStock(HigherLevelStrategy higherStock, BufferedWriter writer, int tabs)
           throws IOException {
+
+    DollarCostStrategy stock = (DollarCostStrategy) higherStock;
     tabs=writeKeyValue("start",stock.getStartDate().toString(),tabs,writer,true,
             0);
 

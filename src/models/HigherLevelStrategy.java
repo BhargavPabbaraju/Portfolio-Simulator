@@ -1,12 +1,12 @@
 package models;
 
 import java.time.LocalDate;
-import java.util.HashMap;
+
 
 /**
  * This interface represents the operations on stocks created by dollar costing average strategy.
  */
-public interface DollarCostStock {
+public interface HigherLevelStrategy {
 
   /**
    * This method is used to get the cost basis of this user's dollar costing average stocks.
@@ -28,16 +28,6 @@ public interface DollarCostStock {
    */
   float getTotalValue(LocalDate date, ApiType apiType);
 
-  LocalDate getStartDate();
 
-  LocalDate getEndDate();
-
-  float getAmount();
-
-  int getInterval();
-
-  HashMap<String, Float> getStocks();
-
-  float getTransactionCost();
 
 }

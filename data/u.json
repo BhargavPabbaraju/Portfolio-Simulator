@@ -1,0 +1,41 @@
+{
+  "name": "u",
+  "balance": 10.0,
+  "portfolios": [
+    {
+      "name": "asome",
+      "flexible": true,
+      "stocks": {
+        "MSFT": {
+          "2022-11-02": {
+            "shares": 1.8173558,
+            "transactionCost": 5.0
+          }
+        },
+        "AAPL": {
+          "2022-11-02": {
+            "shares": 4.137075,
+            "transactionCost": 5.0
+          }
+        }
+      },
+      "dollarCost": [
+        {
+          "start": "2022-11-01",
+          "end": "2022-11-23",
+          "transactionCost": 10.0,
+          "amount": 1000.0,
+          "interval": 10,
+          "stocks": [
+            {
+              "GOOG": 10.00
+            },
+            {
+              "AAPL": 90.00
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,17 +1,17 @@
 {
   "name": "user3",
-  "balance": 1990.787,
+  "balance": 11990.787,
   "portfolios": [
     {
       "name": "retirement",
-      "flexible" : true,
+      "flexible": true,
       "stocks": {
         "GOOG": {
-          "2022-11-01": {
+          "2022-08-01": {
             "shares": 10.0,
             "transactionCost": 10.0
           },
-          "2022-08-01": {
+          "2022-11-01": {
             "shares": 10.0,
             "transactionCost": 10.0
           }
@@ -22,9 +22,7 @@
             "transactionCost": 10.0
           }
         }
-      },
-      "dollarCost": []
-
+      }
     }
   ]
 }

@@ -1,7 +1,6 @@
 package models;
 
 import java.time.DayOfWeek;
-import java.time.Duration;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,7 +13,7 @@ import static java.time.temporal.ChronoUnit.DAYS;
  * invests a fixed amount of money in this portfolio at regular frequency over a long period of
  * time.
  */
-public class DollarCostStockImpl implements DollarCostStock {
+public class DollarCostStockImpl implements DollarCostStrategy {
 
   LocalDate startDate;
   LocalDate endDate = null;

@@ -110,7 +110,7 @@ public abstract class AbstractPortfolio implements Portfolio, FlexiblePortfolio{
     return null;
   }
 
-  public ArrayList<DollarCostStock> getDollarCostStocks() {
+  public ArrayList<HigherLevelStrategy> getDollarCostStocks() {
     return null;
   }
 }
